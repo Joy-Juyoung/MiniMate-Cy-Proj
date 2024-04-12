@@ -46,7 +46,7 @@ const Header = () => {
       <div style={wrapper}>
         <div style={SideWrap}>
           <img style={logoImg} src={Logo} alt='logo' />
-          <h1 style={logoTitle}>MINI-MATE</h1>
+          <h1 style={logoTitle}>MINIMATE</h1>
         </div>
         <div style={SideWrap}>
           <h1 style={logoTitle}>Search</h1>
