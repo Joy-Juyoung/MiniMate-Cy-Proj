@@ -1,6 +1,7 @@
 import React from 'react';
 import { Buttons, Header } from '../components';
 import { AiOutlineHome } from 'react-icons/ai';
+import BgImg from '../assets/pattern.png';
 
 const Home = () => {
   const openPopup = () => {

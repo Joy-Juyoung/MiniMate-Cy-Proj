@@ -4,6 +4,9 @@ import { Buttons, Loading, TextInput } from '../components';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
+// import BgImg from '../assets/bg1.jpg';
+// import BgImg from '../assets/bg2.png';
+import BgImg from '../assets/pattern.png';
 
 const Login = () => {
   const {
@@ -22,8 +25,22 @@ const Login = () => {
   const dispatch = useDispatch();
 
   return (
-    <div className='bg-bgColor w-full h-[100vh] flex items-center justify-center sm:p-6 p-0'>
-      <div className='w-full h-[100vh] sm:w-1/2 xl:w-1/3 2xl:w-1/4 sm:h-fit p-6 lg:p-8 flex flex-col justify-center bg-primary rounded-xl overflow-hidden shadow-xl'>
+    <div
+      className='w-full h-[100vh] flex items-center justify-center sm:p-6 p-0 '
+      style={{ backgroundImage: `url('${BgImg}')` }}
+    >
+      <div className='fixed inset-0 transition-opacity'>
+        <div className='absolute inset-0 bg-[#fff] opacity-60 '></div>
+      </div>
+      <span className='hidden sm:inline-block sm:align-middle sm:h-screen'></span>
+      &#8203;
+      <div
+        className='inline-block align-bottom bg-primary rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full p-6 opacity-90'
+        role='dialog'
+        aria-modal='true'
+        aria-labelledby='modal-headline'
+      >
+        {/* <div className='w-full h-[100vh] sm:w-1/2 xl:w-1/3 2xl:w-1/4 sm:h-fit p-6 lg:p-8 flex flex-col justify-center bg-primary rounded-xl overflow-hidden shadow-xl'> */}
         <div
           onClick={() => navigate('/')}
           className='w-full flex gap-2 items-center mb-6 cursor-pointer'
@@ -101,6 +118,7 @@ const Login = () => {
             Create Account
           </Link>
         </p>
+        {/* </div> */}
       </div>
     </div>
   );
