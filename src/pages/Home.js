@@ -7,7 +7,7 @@ const Home = () => {
   const openPopup = () => {
     // Define the URL and window features for the popup
     const popupUrl = 'http://localhost:3000/minihome';
-    const popupFeatures = 'width=600,height=400';
+    const popupFeatures = 'width=1100,height=600, left=960';
 
     // Open the popup window
     window.open(popupUrl, '_blank', popupFeatures);
