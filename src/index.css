@@ -8,6 +8,10 @@
   scrollbar-width: none;
 }
 
+/* body {
+  min-width: 600px;
+} */
+
 .header {
   position: sticky;
   top: 0px;
