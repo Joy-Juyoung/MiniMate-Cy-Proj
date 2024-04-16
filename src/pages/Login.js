@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import LogoDark from '../assets/logo-dark.png';
 import { Buttons, Loading, TextInput } from '../components';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 
@@ -13,6 +13,7 @@ const Login = () => {
   } = useForm({
     mode: 'onChange',
   });
+  const navigate = useNavigate();
 
   const onSubmit = async (data) => {};
 
@@ -23,7 +24,10 @@ const Login = () => {
   return (
     <div className='bg-bgColor w-full h-[100vh] flex items-center justify-center p-6'>
       <div className='w-2/3 h-fit p-6 lg:p-8 flex flex-col justify-center bg-primary rounded-xl overflow-hidden shadow-xl'>
-        <div className='w-full flex gap-2 items-center mb-6'>
+        <div
+          onClick={() => navigate('/')}
+          className='w-full flex gap-2 items-center mb-6 cursor-pointer'
+        >
           <div className='text-white w-16 h-16 flex items-center'>
             <img src={LogoDark} alt='logo' />
           </div>
