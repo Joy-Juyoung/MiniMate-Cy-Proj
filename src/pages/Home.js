@@ -15,16 +15,18 @@ const Home = () => {
   return (
     <div className='w-full bg-bgColor h-screen overflow-hidden'>
       <Header />
-      <div className='text-ascent-1 '>Click to Open window popup</div>
-      <button
-        onClick={openPopup}
-        className='flex items-center gap-2 text-sm text-white font-semibold px-4 md:px-6 py-1 md:py-2 bg-[#F37125] rounded-lg hover:bg-[#f4823f] shadow-lg'
-      >
-        <div className='text-xl'>
-          <AiOutlineHome />
-        </div>
-        Go to Minihome
-      </button>
+      <div className='w-full px-6 py-6'>
+        <div className='text-ascent-1 '>Click to Open window popup</div>
+        <button
+          onClick={openPopup}
+          className='flex items-center gap-2 text-sm text-white font-semibold px-4 md:px-6 py-1 md:py-2 bg-[#F37125] rounded-lg hover:bg-[#f4823f] shadow-lg'
+        >
+          <div className='text-xl'>
+            <AiOutlineHome />
+          </div>
+          Go to Minihome
+        </button>
+      </div>
     </div>
   );
 };

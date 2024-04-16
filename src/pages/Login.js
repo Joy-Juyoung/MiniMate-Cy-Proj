@@ -22,8 +22,8 @@ const Login = () => {
   const dispatch = useDispatch();
 
   return (
-    <div className='bg-bgColor w-full h-[100vh] flex items-center justify-center p-6'>
-      <div className='w-2/3 h-fit p-6 lg:p-8 flex flex-col justify-center bg-primary rounded-xl overflow-hidden shadow-xl'>
+    <div className='bg-bgColor w-full h-[100vh] flex items-center justify-center sm:p-6 p-0'>
+      <div className='w-full h-[100vh] sm:w-1/2 xl:w-1/3 2xl:w-1/4 sm:h-fit p-6 lg:p-8 flex flex-col justify-center bg-primary rounded-xl overflow-hidden shadow-xl'>
         <div
           onClick={() => navigate('/')}
           className='w-full flex gap-2 items-center mb-6 cursor-pointer'
