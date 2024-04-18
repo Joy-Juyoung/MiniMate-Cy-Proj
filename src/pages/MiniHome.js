@@ -28,29 +28,30 @@ const MiniHome = () => {
         backgroundRepeat: 'repeat',
       }}
     >
-      <div className='w-full h-[90%] flex relative'>
+      <div className='w-full h-[90%] flex'>
         <div
-          className='w-[80%] h-full ml-6 rounded-lg'
+          className='w-[845px] h-full ml-6 rounded-lg relative'
           style={{
             backgroundImage: `url('${OuterBox}')`,
             backgroundRepeat: 'no-repeat',
             objectFit: 'cover',
           }}
-        ></div>
-        <div className='w-[20%] mr-6 -ml-28 mt-24 flex flex-col'>
-          {navItems.map((item, index) => (
-            <div
-              key={index}
-              className={`cursor-pointer pl-5 pr-3 py-2 mb-1 w-[4.5rem] text-[0.8rem] rounded-md rounded-l-none border border-[#000] border-l-[0] ${
-                activeLink === index
-                  ? 'bg-[#fff] text-[#000]'
-                  : 'bg-[#1A9DC0] text-[#fff]'
-              }`}
-              onClick={() => handleClick(index)}
-            >
-              {item.name}
-            </div>
-          ))}
+        >
+          <div className='absolute right-0 top-20'>
+            {navItems.map((item, index) => (
+              <div
+                key={index}
+                className={`cursor-pointer pl-5 pr-3 py-2 mb-1 w-[4.5rem] text-[0.8rem] rounded-md rounded-l-none border border-[#000] border-l-[0] ${
+                  activeLink === index
+                    ? 'bg-[#fff] text-[#000]'
+                    : 'bg-[#1A9DC0] text-[#fff]'
+                }`}
+                onClick={() => handleClick(index)}
+              >
+                {item.name}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
