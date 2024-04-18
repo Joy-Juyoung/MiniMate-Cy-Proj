@@ -17,7 +17,10 @@ function Layout() {
   // console.log(user);
 
   return user?.token ? (
-    <Outlet />
+    <>
+      <Header />
+      <Outlet />
+    </>
   ) : (
     <Navigate to='/login' state={{ from: location }} replace />
   );
@@ -28,7 +31,7 @@ function App() {
 
   return (
     <div data-theme={theme} className='w-full min-h-[100vh]'>
-      <Header />
+      {/* <Header /> */}
       <Routes>
         <Route element={<Layout />}>
           <Route path='/' element={<Home />} />
