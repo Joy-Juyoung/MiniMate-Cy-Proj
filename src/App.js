@@ -7,7 +7,9 @@ import {
   Profile,
   Register,
   ResetPassword,
+  Shop,
 } from './pages';
+import { Header } from './components';
 
 function Layout() {
   const { user } = useSelector((state) => state.user);
@@ -26,9 +28,11 @@ function App() {
 
   return (
     <div data-theme={theme} className='w-full min-h-[100vh]'>
+      <Header />
       <Routes>
         <Route element={<Layout />}>
           <Route path='/' element={<Home />} />
+          <Route path='/shop' element={<Shop />} />
         </Route>
 
         <Route path='/register' element={<Register />} />

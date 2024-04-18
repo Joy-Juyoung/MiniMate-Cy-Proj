@@ -30,7 +30,7 @@ const Login = () => {
       style={{
         backgroundImage: `url('${BgImg}')`,
         backgroundSize: '15%',
-        backgroundRepeat: 'repeat',
+        // backgroundRepeat: 'repeat',
       }}
     >
       <div className='fixed inset-0 transition-opacity'>
