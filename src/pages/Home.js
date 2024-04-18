@@ -34,7 +34,7 @@ const Home = () => {
         <div class='wave'></div>
       </div>
       <div
-        className='w-full h-[55%] bg-primary px-24 py-6 z-10 mt-[10rem] mb-[5rem]
+        className='w-full h-[55%] bg-[#fff] px-24 py-6 z-10 mt-[10rem] mb-[5rem]
         flex gap-16'
       >
         <div className='flex-1 h-full border-2 border-[#dadada] rounded-lg py-5 shadow-lg'>
@@ -114,7 +114,7 @@ const Home = () => {
       </div>
 
       {/* Footer */}
-      <div className='w-full h-[55%] bg-primary px-24 my-24'>Footer</div>
+      <div className='w-full h-[55%] bg-[#fff] px-24 my-24'>Footer</div>
     </>
   );
 };
