@@ -29,6 +29,7 @@ const Home = () => {
 
   return (
     <>
+      {/* Banner */}
       <div class='waveSection'>
         <div class='wave'></div>
       </div>
@@ -59,6 +60,8 @@ const Home = () => {
               </div>
             </div>
           </div>
+
+          {/* Info */}
           <div className='w-full flex items-center justify-center -mt-2 mb-2'>
             <button
               onClick={openPopup}
@@ -74,6 +77,7 @@ const Home = () => {
         <div className='flex-[2] h-full py-5'>Info</div>
       </div>
 
+      {/* AD */}
       <div className='relative w-full flex items-center justify-center h-[45em]'>
         <div
           className='absolute w-full h-full px-24 py-6 z-10 top-0 '
@@ -109,6 +113,7 @@ const Home = () => {
         </div>
       </div>
 
+      {/* Footer */}
       <div className='w-full h-[55%] bg-primary px-24 my-24'>Footer</div>
     </>
   );
