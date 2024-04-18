@@ -3,5 +3,6 @@ import Header from './Header';
 import Footer from './Footer';
 import TextInput from './TextInput';
 import Buttons from './Buttons';
+import Navbar from './Navbar';
 
-export { Loading, Header, Footer, TextInput, Buttons };
+export { Loading, Header, Footer, TextInput, Buttons, Navbar };

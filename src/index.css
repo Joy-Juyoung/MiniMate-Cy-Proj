@@ -18,6 +18,79 @@
   z-index: 49;
 }
 
+.waveSection {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 550px;
+  padding-top: 100px;
+  background: rgb(255, 243, 211);
+}
+
+.wave {
+  position: absolute;
+  height: 200px;
+  width: 100%;
+  bottom: 0;
+  text-align: center;
+  /* display: block;
+  position: relative;
+  height: 40px;
+  width: 100%;
+  background: rgb(255, 243, 211);
+  transform: scale(1, 1); */
+}
+
+.wave:before {
+  content: '';
+  display: block;
+  position: absolute;
+  border-radius: 100% 50%;
+  width: 55%;
+  height: 100%;
+  transform: translate(85%, 60%);
+  background-color: #fff;
+  /* z-index: 0; */
+}
+
+.wave:after {
+  content: '';
+  display: block;
+  position: absolute;
+  border-radius: 100% 50%;
+  width: 55%;
+  height: 100%;
+  background-color: rgb(255, 243, 211);
+  transform: translate(-4%, 40%);
+  z-index: -1;
+}
+
+/* .wave:before {
+  content: '';
+  display: block;
+  position: absolute;
+  border-radius: 100%;
+  width: 100%;
+  height: 300px;
+  background-color: white;
+  right: -25%;
+  top: 20px;
+}
+
+.wave:after {
+  content: '';
+  display: block;
+  position: absolute;
+  border-radius: 100%;
+  width: 100%;
+  height: 300px;
+  background-color: rgb(255, 243, 211);
+  left: -25%;
+  top: -240px;
+  clip-path: ellipse(100% 15% at -15% 100%);
+} */
+
 .dots-container {
   display: flex;
   align-items: center;
@@ -76,7 +149,8 @@
   :root {
     --color-bg: 227 227 227;
     --color-primary: 255 255 255;
-    --color-secondary: 255 255 255;
+    /* --color-secondary: 255 255 255; */
+    --color-secondary: 255 243 211;
     --color-ascent1: 0 0 0;
     --color-ascent2: 89 91 100;
     --color-blue: 6 90 216;
