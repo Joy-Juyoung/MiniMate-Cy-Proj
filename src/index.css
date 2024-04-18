@@ -51,6 +51,7 @@
   height: 100%;
   transform: translate(85%, 60%);
   background-color: #fff;
+  /* z-index: 0; */
 }
 
 .wave:after {
