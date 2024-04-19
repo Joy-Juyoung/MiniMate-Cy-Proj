@@ -33,11 +33,8 @@ const Home = () => {
       <div class='waveSection'>
         <div class='wave'></div>
       </div>
-      <div
-        className='w-full h-[55%] bg-[#fff] px-24 py-6 z-10 mt-[10rem] mb-[5rem]
-        flex gap-16'
-      >
-        <div className='flex-1 h-full border-2 border-[#dadada] rounded-lg py-5 shadow-lg'>
+      <div className='w-full h-[55%] bg-[#fff] px-24 py-6 z-10 mt-[10rem] mb-[5rem] flex gap-16'>
+        <div className='flex-1 w-[400px] h-[400px] border-2 border-[#dadada] rounded-lg py-5 shadow-lg'>
           <div className='flex justify-center text-xl font-semibold border-b-4 border-[#F37125] pb-4 mx-16'>
             JOY's Miniworld
           </div>
