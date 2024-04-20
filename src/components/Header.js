@@ -76,9 +76,9 @@ const Header = () => {
           <TbShoppingCart />
         </div>
 
-        <button onClick={() => handleTheme()}>
+        {/* <button onClick={() => handleTheme()}>
           {theme === 'light' ? <BsSunFill /> : <BsMoon />}
-        </button>
+        </button> */}
 
         <div>
           {!user ? (

@@ -28,13 +28,13 @@ const Home = () => {
   ];
 
   return (
-    <>
+    <div className=''>
       {/* Banner */}
-      <div class='waveSection'>
-        <div class='wave'></div>
+      <div className='waveSection '>
+        <div className='wave'></div>
       </div>
       <div className='w-full h-[55%] bg-[#fff] px-24 py-6 z-10 mt-[10rem] mb-[5rem] flex gap-16'>
-        <div className='flex-1 w-[400px] h-[400px] border-2 border-[#dadada] rounded-lg py-5 shadow-lg'>
+        <div className='flex-1 w-[400px] h-[400px] bg-[#fff] border-2 border-[#dadada] rounded-lg py-5 shadow-lg'>
           <div className='flex justify-center text-xl font-semibold border-b-4 border-[#F37125] pb-4 mx-16'>
             JOY's Miniworld
           </div>
@@ -86,21 +86,21 @@ const Home = () => {
           }}
         ></div>
         <div className='flex '>
-          <div className='w-[500px] h-[500px] p-10 border-none bg-primary rounded-[50%]'>
+          <div className='w-[500px] h-[500px] p-10 border-none bg-[#fff] rounded-[50%]'>
             <img
               className='flex items-center justify-center drop-shadow-xl w-full h-full'
               src={Together1}
               alt='Minnime'
             />
           </div>
-          <div className='w-[500px] h-[500px] p-10 border-none bg-primary rounded-[50%]'>
+          <div className='w-[500px] h-[500px] p-10 border-none bg-[#fff] rounded-[50%]'>
             <img
               className='flex items-center justify-center drop-shadow-xl w-full h-full'
               src={Together2}
               alt='Minnime'
             />
           </div>
-          <div className='w-[500px] h-[500px] p-10 border-none bg-primary rounded-[50%]'>
+          <div className='w-[500px] h-[500px] p-10 border-none bg-[#fff] rounded-[50%]'>
             <img
               className='flex items-center justify-center drop-shadow-xl w-full h-full'
               src={Together3}
@@ -112,7 +112,8 @@ const Home = () => {
 
       {/* Footer */}
       <div className='w-full h-[55%] bg-[#fff] px-24 my-24'>Footer</div>
-    </>
+    </div>
+    // </div>
   );
 };
 
