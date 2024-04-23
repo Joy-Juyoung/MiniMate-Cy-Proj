@@ -3,6 +3,7 @@ import { AiOutlineHome } from 'react-icons/ai';
 import Minnime from '../assets/minimi2.png';
 import Minime from '../assets/minime3.gif';
 import BgPattern from '../assets/pattern3.png';
+import BgImg from '../assets/pattern.png';
 
 const MainInfo = () => {
   const openPopup = () => {
@@ -19,10 +20,14 @@ const MainInfo = () => {
   ];
 
   return (
-    <div className='absolute w-full my-2' style={{ zIndex: '1' }}>
-      <div className='flex flex-col items-center'>
+    <div
+      className='absolute w-full flex flex-col items-center justify-center gap-10'
+      style={{ zIndex: '1' }}
+    >
+      {/* <div className='flex flex-col items-center bg-[#f7d24f] rounded-[50%] p-3'> */}
+      <div className='flex flex-col items-center mt-10'>
         <div className='font-bold text-5xl mb-2 font-acme text-[#f7f7f7] drop-shadow-3xl'>
-          Costomize
+          Costomize your own home
         </div>
         <div className='font-bold text-5xl mb-2 font-acme text-[#f7f7f7] drop-shadow-3xl'>
           your own home
@@ -33,7 +38,7 @@ const MainInfo = () => {
         <div className='w-full flex items-center justify-center'>
           <button
             onClick={openPopup}
-            className='flex items-center gap-2 text-md text-white font-semibold px-4 py-2 mt-6 bg-[#F37125] rounded-lg hover:bg-[#f4823f] shadow-lg'
+            className='flex items-center gap-2 text-md text-white font-semibold p-4 mt-6 bg-[#000] rounded-2xl hover:bg-[#F37125] shadow-lg'
           >
             <div className='text-xl'>
               <AiOutlineHome />
@@ -43,47 +48,38 @@ const MainInfo = () => {
         </div>
       </div>
 
-      <div className='flex items-center justify-center mt-6 mb-2'>
-        <div>
-          <div className='flex items-center justify-center mt-6 mb-2'>
+      <div className='relative'>
+        <div
+          className='absolute w-full h-full border-none rounded-[50%]'
+          style={{
+            backgroundImage: `url('${BgImg}')`,
+            backgroundSize: '30%',
+            zIndex: '-1',
+          }}
+        ></div>
+        <div className='flex items-center gap-6 py-8 px-16'>
+          <div className='w-full flex items-center justify-center mt-2 mb-2'>
             <img
               src={Minnime}
               alt='Minime'
               className='w-[120px] drop-shadow-xl'
             />
           </div>
-        </div>
-
-        {/* <div
-        className='absolute w-full h-full top-10'
-        style={{
-          backgroundImage: `url('${BgPattern}')`,
-          backgroundSize: '25%',
-          opacity: '30%',
-          zIndex: '-2',
-        }}
-      ></div> */}
-        {/* <div className='flex flex-col items-center justify-center'>
-          <div className='flex flex-col items-center justify-center w-[320px] h-[320px] border-none bg-[#fff] rounded-[50%] drop-shadow-xl'>
-            <div className='text-sm flex flex-col'>
-              {miniInfo?.map((info, index) => {
-                return (
-                  <div
-                    key={index}
-                    className='w-full flex justify-between mr-20 my-1'
-                  >
-                    <div>{info.name}</div>
-                    <div>{info.qty}</div>
-                  </div>
-                );
-              })}
-              <div className='w-full flex justify-between mr-20 mt-6'>
-                <div>My cheese</div>
-                <div>🧀180</div>
-              </div>
+          <div className='w-full flex flex-col justify-between text-sm mr-4'>
+            {miniInfo?.map((info, index) => {
+              return (
+                <div key={index} className='flex justify-between my-1'>
+                  <div>{info.name}</div>
+                  <div>{info.qty}</div>
+                </div>
+              );
+            })}
+            <div className='w-full flex justify-between mt-6'>
+              <div>My cheese</div>
+              <div>🧀180</div>
             </div>
           </div>
-        </div> */}
+        </div>
       </div>
     </div>
   );
