@@ -7,7 +7,7 @@ import BgImg from '../assets/pattern.png';
 
 const MainInfo = () => {
   const openPopup = () => {
-    const popupUrl = 'http://localhost:3000/minihome';
+    const popupUrl = 'https://minimate-cy.netlify.app/minihome';
     const popupFeatures = 'width=1100,height=600';
 
     window.open(popupUrl, '_blank', popupFeatures);
