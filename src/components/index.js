@@ -5,5 +5,19 @@ import TextInput from './TextInput';
 import Buttons from './Buttons';
 import Navbar from './Navbar';
 import MainInfo from './MainInfo';
+import Dropdown from './Dropdown';
+import MiniLeft from './MiniLeft';
+import MiniRight from './MiniRight';
 
-export { Loading, Header, Footer, TextInput, Buttons, Navbar, MainInfo };
+export {
+  Loading,
+  Header,
+  Footer,
+  TextInput,
+  Buttons,
+  Navbar,
+  MainInfo,
+  Dropdown,
+  MiniLeft,
+  MiniRight,
+};

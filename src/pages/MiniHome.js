@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import BgImg from '../assets/pattern.png';
 import OuterBox from '../assets/outerbox.png';
 import { useEffect } from 'react';
+import { MiniLeft, MiniRight } from '../components';
 
 const MiniHome = () => {
   const [activeLink, setActiveLink] = useState(null);
@@ -10,7 +11,7 @@ const MiniHome = () => {
     setActiveLink(index === activeLink ? null : index);
   };
 
-  console.log('index', activeLink);
+  // console.log('index', activeLink);
 
   const navItems = [
     { name: 'Home' },
@@ -21,7 +22,7 @@ const MiniHome = () => {
 
   return (
     <div
-      className='w-full h-screen flex items-center justify-center repeat bg-[#5f5f5f] opacity-45'
+      className='w-full h-screen flex items-center justify-center repeat bg-[#5f5f5f86]'
       style={{
         backgroundImage: `url('${BgImg}')`,
         backgroundSize: '7%',
@@ -44,13 +45,17 @@ const MiniHome = () => {
                 className={`cursor-pointer pl-5 pr-3 py-2 mb-1 w-[4.5rem] text-[0.8rem] rounded-md rounded-l-none border border-[#000] border-l-[0] ${
                   activeLink === index
                     ? 'bg-[#fff] text-[#000]'
-                    : 'bg-[#1A9DC0] text-[#fff]'
+                    : 'bg-[#38b6d8] text-[#fff]'
                 }`}
                 onClick={() => handleClick(index)}
               >
                 {item.name}
               </div>
             ))}
+          </div>
+          <div className='absolute left-10 top-10 flex items-center gap-1'>
+            <MiniLeft />
+            <MiniRight />
           </div>
         </div>
       </div>

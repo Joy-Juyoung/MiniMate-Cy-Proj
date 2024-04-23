@@ -18,14 +18,14 @@ const Home = () => {
 
   return (
     <div className='font-work min-w-[1100px]'>
-      <div className='waveSection bg-[#f7d24f] min-h-[150px] pt-6 min-w-[1100px]'>
-        <div className='wave after:bg-[#f7d24f] before:bg-[#fff]'></div>
+      <div className='waveSection bg-[#f1ecc0] min-h-[150px] pt-6 min-w-[1100px]'>
+        <div className='wave after:bg-[#f1ecc0] before:bg-[#fff]'></div>
         <MainInfo />
       </div>
       <div className='bg-[#fff] h-[600px]'></div>
 
       <div className='waveSection bg-[#fff] min-w-[1100px]'>
-        <div className='wave after:bg-[#fff] before:bg-[#DC94D4]'></div>
+        <div className='wave after:bg-[#fff] before:bg-[#ffcea0]'></div>
 
         <div className='absolute min-w-[1100px] flex flex-col items-center justify-center gap-10 pt-[100px]'>
           <div className='mt-6'>
@@ -40,7 +40,7 @@ const Home = () => {
                   key={index}
                   className='w-full flex items-center justify-between'
                 >
-                  <div className='w-full flex flex-col items-center justify-center py-4 bg-[#E7B4E1] rounded-3xl'>
+                  <div className='w-full flex flex-col items-center justify-center py-4 bg-[#fff7f246] rounded-3xl'>
                     <img
                       src={item.image}
                       alt=''
@@ -60,17 +60,16 @@ const Home = () => {
           </button>
         </div>
       </div>
-      <div className='bg-[#DC94D4] h-[750px] '></div>
+      <div className='bg-[#ffcea0] h-[750px] '></div>
 
-      <div className='waveSection bg-[#DC94D4]'>
-        <div className='wave after:bg-[#DC94D4] before:bg-[#fff]'></div>
+      <div className='waveSection bg-[#ffcea0]'>
+        <div className='wave after:bg-[#ffcea0] before:bg-[#fff]'></div>
       </div>
       <div className='bg-[#fff] h-[100px] '></div>
 
       {/* Footer */}
       <Footer />
     </div>
-    // </div>
   );
 };
 

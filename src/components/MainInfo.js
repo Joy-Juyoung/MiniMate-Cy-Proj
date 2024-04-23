@@ -38,7 +38,8 @@ const MainInfo = () => {
         <div className='w-full flex items-center justify-center'>
           <button
             onClick={openPopup}
-            className='flex items-center gap-2 text-md text-white font-semibold p-4 mt-6 bg-[#000] rounded-2xl hover:bg-[#F37125] shadow-lg'
+            // className='flex items-center gap-2 text-md text-white font-semibold p-4 mt-6 bg-[#000] rounded-2xl hover:bg-[#F37125] shadow-lg'
+            className='flex items-center gap-2 text-md text-[#F37125] font-semibold p-4 mt-6 bg-[#fff] border border-[#F37125] rounded-2xl hover:bg-[#F37125] hover:text-white drop-shadow-lg'
           >
             <div className='text-xl'>
               <AiOutlineHome />
