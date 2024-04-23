@@ -8,6 +8,7 @@ import MainInfo from './MainInfo';
 import Dropdown from './Dropdown';
 import MiniLeft from './MiniLeft';
 import MiniRight from './MiniRight';
+import MiniPhoto from './MiniPhoto';
 
 export {
   Loading,
@@ -20,4 +21,5 @@ export {
   Dropdown,
   MiniLeft,
   MiniRight,
+  MiniPhoto,
 };

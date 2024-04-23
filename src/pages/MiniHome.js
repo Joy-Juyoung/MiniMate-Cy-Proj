@@ -3,6 +3,7 @@ import BgImg from '../assets/pattern.png';
 import OuterBox from '../assets/outerbox.png';
 import { useEffect } from 'react';
 import { MiniLeft, MiniRight } from '../components';
+import { Link } from 'react-router-dom';
 
 const MiniHome = () => {
   const [activeLink, setActiveLink] = useState(0);
@@ -11,7 +12,7 @@ const MiniHome = () => {
     setActiveLink(index === activeLink ? null : index);
   };
 
-  // console.log('index', activeLink);
+  console.log('index', activeLink);
 
   const navItems = [
     { name: 'Home' },
@@ -22,7 +23,7 @@ const MiniHome = () => {
 
   return (
     <div
-      className='w-full h-screen flex items-center justify-center repeat bg-[#5f5f5f86]'
+      className='w-full h-screen flex items-center justify-center repeat bg-[#5f5f5f80]'
       style={{
         backgroundImage: `url('${BgImg}')`,
         backgroundSize: '7%',
@@ -42,7 +43,7 @@ const MiniHome = () => {
             {navItems.map((item, index) => (
               <div
                 key={index}
-                className={`cursor-pointer pl-5 pr-3 py-2 mb-1 w-[4.5rem] text-[0.8rem] rounded-md rounded-l-none border border-[#000] border-l-[0] ${
+                className={`flex flex-col cursor-pointer pl-5 pr-3 py-2 mb-1 w-[4.5rem] text-[0.8rem] rounded-md rounded-l-none border border-[#000] border-l-[0] ${
                   activeLink === index
                     ? 'bg-[#fff] text-[#000]'
                     : 'bg-[#38b6d8] text-[#fff]'

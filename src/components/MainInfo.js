@@ -24,21 +24,17 @@ const MainInfo = () => {
       className='absolute w-full flex flex-col items-center justify-center gap-10'
       style={{ zIndex: '1' }}
     >
-      {/* <div className='flex flex-col items-center bg-[#f7d24f] rounded-[50%] p-3'> */}
       <div className='flex flex-col items-center mt-10'>
         <div className='font-bold text-5xl mb-2 font-acme text-[#ffc130] drop-shadow-3xl'>
           Make your Mini Home
         </div>
-        {/* <div className='font-bold text-5xl mb-2 font-acme text-[#f7f7f7] drop-shadow-3xl'>
-          Mini Home
-        </div> */}
+
         <div className='text-lg font-acme mt-4'>
           Find your mate, connect with unique name
         </div>
         <div className='w-full flex items-center justify-center'>
           <button
             onClick={openPopup}
-            // className='flex items-center gap-2 text-md text-white font-semibold p-4 mt-6 bg-[#000] rounded-2xl hover:bg-[#F37125] shadow-lg'
             className='flex items-center gap-2 text-md text-[#F37125] font-semibold p-4 mt-6 bg-[#fff] border border-[#F37125] rounded-2xl hover:bg-[#F37125] hover:text-white drop-shadow-lg'
           >
             <div className='text-xl'>

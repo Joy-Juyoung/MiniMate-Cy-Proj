@@ -16,7 +16,7 @@ const Header = () => {
   const location = useLocation();
   const [dropdownOpen, toggleDropdown] = useState(false);
 
-  console.log(dropdownOpen);
+  // console.log(dropdownOpen);
 
   return (
     <div className='header font-work w-full flex items-center justify-center py-4 bg-[#f1ecc0] '>

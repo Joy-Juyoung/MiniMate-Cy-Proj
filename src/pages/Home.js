@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Together2 from '../assets/together2.svg';
 import Footer from '../components/Footer';
 import MainInfo from '../components/MainInfo';
@@ -10,11 +10,25 @@ import { Buttons } from '../components';
 import { Link } from 'react-router-dom';
 
 const Home = () => {
+  const [activeCategory, setActiveCategory] = useState(0);
+
+  const handleClick = (index) => {
+    setActiveCategory(index === activeCategory ? null : index);
+  };
+
   const shopItem = [
     { image: Shop1, name: 'minime one', cheese: '30' },
     { image: Shop2, name: 'minime one', cheese: '30' },
     { image: Shop3, name: 'minime one', cheese: '30' },
     { image: Shop4, name: 'minime one', cheese: '30' },
+  ];
+
+  const shopCategory = [
+    { name: 'Minime' },
+    { name: 'Miniroom' },
+    { name: 'Skin' },
+    { name: 'Music' },
+    { name: 'Font' },
   ];
 
   return (
@@ -34,7 +48,24 @@ const Home = () => {
             <div className='text-sm text-center'>Most popular on this week</div>
           </div>
 
-          <div className='w-full flex items-center justify-between mt-4 gap-8'>
+          <div className='w-full grid grid-cols-5 gap-4'>
+            {shopCategory.map((category, index) => {
+              return (
+                <div
+                  key={index}
+                  className={`cursor-pointer drop-shadow-md text-center border border-1 rounded-lg px-6 py-2 ${
+                    activeCategory === index
+                      ? 'border-none bg-[#000] text-white'
+                      : 'text-[#000]'
+                  }`}
+                  onClick={() => handleClick(index)}
+                >
+                  {category.name}
+                </div>
+              );
+            })}
+          </div>
+          <div className='w-full flex items-center justify-between mt-2 gap-8'>
             {shopItem.map((item, index) => {
               return (
                 <div
@@ -56,12 +87,12 @@ const Home = () => {
               );
             })}
           </div>
-          <Link className='font-semibold p-4 mt-6 bg-[#000] text-white rounded-3xl hover:bg-[#fff] hover:border hover:border-1 hover:text-[#000]'>
+          <Link className='font-semibold p-4 mt-6 bg-[#000] text-white rounded-2xl hover:bg-[#Fff] hover:border hover:border-1 hover:text-[#000]'>
             SHOP NOW
           </Link>
         </div>
       </div>
-      <div className='bg-[#ffcea0] h-[800px] '></div>
+      <div className='bg-[#ffcea0] h-[900px] '></div>
 
       <div className='waveSection bg-[#ffcea0]'>
         <div className='wave after:bg-[#ffcea0] before:bg-[#fff]'></div>
