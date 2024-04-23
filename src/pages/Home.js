@@ -1,102 +1,107 @@
-import React from 'react';
-import { Buttons, Header } from '../components';
-import { AiOutlineHome } from 'react-icons/ai';
-import BgImg from '../assets/pattern.png';
-import BgPattern from '../assets/pattern3.png';
-import Minnime from '../assets/minimi2.png';
-import MiniWith from '../assets/profile1.png';
-import Together1 from '../assets/together1.svg';
+import React, { useState } from 'react';
 import Together2 from '../assets/together2.svg';
-import Together3 from '../assets/together3.svg';
+import Footer from '../components/Footer';
+import MainInfo from '../components/MainInfo';
+import Shop1 from '../assets/shop1.gif';
+import Shop2 from '../assets/shop2.gif';
+import Shop3 from '../assets/shop5.gif';
+import Shop4 from '../assets/shop6.gif';
+import { Buttons } from '../components';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
-  const openPopup = () => {
-    const popupUrl = 'http://localhost:3000/minihome';
-    const popupFeatures = 'width=1100,height=600';
+  const [activeCategory, setActiveCategory] = useState(0);
 
-    window.open(popupUrl, '_blank', popupFeatures);
+  const handleClick = (index) => {
+    setActiveCategory(index === activeCategory ? null : index);
   };
 
-  const miniInfo = [
-    { name: 'Today visitors', qty: '7' },
-    { name: 'New posts', qty: '2' },
-    { name: 'New Requests', qty: '0' },
-    { name: 'Gift box', qty: '0' },
+  const shopItem = [
+    { image: Shop1, name: 'minime one', cheese: '30' },
+    { image: Shop2, name: 'minime one', cheese: '30' },
+    { image: Shop3, name: 'minime one', cheese: '30' },
+    { image: Shop4, name: 'minime one', cheese: '30' },
+  ];
+
+  const shopCategory = [
+    { name: 'Minime' },
+    { name: 'Miniroom' },
+    { name: 'Skin' },
+    { name: 'Music' },
+    { name: 'Font' },
   ];
 
   return (
-    <div className=''>
-      {/* Banner */}
-      <div className='waveSection '>
-        <div className='wave'></div>
+    <div className='font-work min-w-[1100px]'>
+      <div className='waveSection bg-[#f1ecc0] min-h-[150px] pt-6 min-w-[1100px]'>
+        <div className='wave after:bg-[#f1ecc0] before:bg-[#fff]'></div>
+        <MainInfo />
       </div>
-      <div className='w-full h-[55%] bg-[#fff] px-24 py-6 z-10 mt-[10rem] mb-[5rem] flex gap-16'>
-        <div className='flex-1 w-[400px] h-[400px] bg-[#fff] border-2 border-[#dadada] rounded-lg py-5 shadow-lg'>
-          <div className='flex justify-center text-xl font-semibold border-b-4 border-[#F37125] pb-4 mx-16'>
-            JOY's Miniworld
+      <div className='bg-[#fff] h-[600px]'></div>
+
+      <div className='waveSection bg-[#fff] min-w-[1100px]'>
+        <div className='wave after:bg-[#fff] before:bg-[#ffcea0]'></div>
+
+        <div className='absolute min-w-[1100px] flex flex-col items-center justify-center gap-10 pt-[100px]'>
+          <div className='mt-6'>
+            <div className='font-semibold text-2xl text-center'>BEST ITEMS</div>
+            <div className='text-sm text-center'>Most popular on this week</div>
           </div>
-          <div className='flex items-center '>
-            <div className='flex flex-1 items-center justify-center drop-shadow-xl my-8'>
-              <img src={Minnime} alt='Minnime' className='w-24' />
-            </div>
-            <div className=' flex-1 text-sm'>
-              {miniInfo?.map((info, index) => {
-                return (
-                  <div key={index} className='flex justify-between mr-20 my-1'>
-                    <div>{info.name}</div>
-                    <div>{info.qty}</div>
+
+          <div className='w-full grid grid-cols-5 gap-4'>
+            {shopCategory.map((category, index) => {
+              return (
+                <div
+                  key={index}
+                  className={`cursor-pointer drop-shadow-md text-center border border-1 rounded-lg px-6 py-2 ${
+                    activeCategory === index
+                      ? 'border-none bg-[#000] text-white'
+                      : 'text-[#000]'
+                  }`}
+                  onClick={() => handleClick(index)}
+                >
+                  {category.name}
+                </div>
+              );
+            })}
+          </div>
+          <div className='w-full flex items-center justify-between mt-2 gap-8'>
+            {shopItem.map((item, index) => {
+              return (
+                <div
+                  key={index}
+                  className='w-full flex items-center justify-between'
+                >
+                  <div className='w-full flex flex-col items-center justify-center py-4 bg-[#fff7f246] rounded-3xl'>
+                    <img
+                      src={item.image}
+                      alt=''
+                      className='h-[200px] object-cover'
+                    />
+                    <div className='flex gap-4 mt-4'>
+                      <div className='text-sm text-center'>{item.name}</div>
+                      <div className='text-sm text-center'>🧀{item.cheese}</div>
+                    </div>
                   </div>
-                );
-              })}
-              <div className='flex justify-between mr-20 mt-6'>
-                <div>My cheese</div>
-                <div>🧀180</div>
-              </div>
-            </div>
+                </div>
+              );
+            })}
           </div>
-
-          {/* Info */}
-          <div className='w-full flex items-center justify-center -mt-2 mb-2'>
-            <button
-              onClick={openPopup}
-              className='flex items-center gap-2 text-sm text-white font-semibold px-4 md:px-6 py-1 md:py-2 bg-[#F37125] rounded-lg hover:bg-[#f4823f] shadow-lg'
-            >
-              <div className='text-xl'>
-                <AiOutlineHome />
-              </div>
-              Go to Minihome
-            </button>
-          </div>
-        </div>
-        <div className='flex-[2] h-full py-5'>Info</div>
-      </div>
-
-      {/* AD */}
-      <div className='relative w-full flex items-center justify-center h-[45em]'>
-        <div
-          className='absolute w-full h-full px-24 py-6 z-10 top-0 '
-          style={{
-            backgroundImage: `url('${BgPattern}')`,
-            backgroundSize: '40%',
-            opacity: '40%',
-            zIndex: '-1',
-          }}
-        ></div>
-        <div className='flex '>
-          <div className='w-[500px] h-[500px] p-10 border-none bg-[#fff] rounded-[50%]'>
-            <img
-              className='flex items-center justify-center drop-shadow-xl w-full h-full'
-              src={Together2}
-              alt='Minnime'
-            />
-          </div>
+          <Link className='font-semibold p-4 mt-6 bg-[#000] text-white rounded-2xl hover:bg-[#Fff] hover:border hover:border-1 hover:text-[#000]'>
+            SHOP NOW
+          </Link>
         </div>
       </div>
+      <div className='bg-[#ffcea0] h-[900px] '></div>
+
+      <div className='waveSection bg-[#ffcea0]'>
+        <div className='wave after:bg-[#ffcea0] before:bg-[#fff]'></div>
+      </div>
+      <div className='bg-[#fff] h-[100px] '></div>
 
       {/* Footer */}
-      <div className='w-full h-[55%] bg-[#fff] px-24 my-24'>Footer</div>
+      <Footer />
     </div>
-    // </div>
   );
 };
 
