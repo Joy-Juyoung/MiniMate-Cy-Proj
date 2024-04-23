@@ -12,28 +12,11 @@ import { TbShoppingCart } from 'react-icons/tb';
 import Buttons from './Buttons';
 
 const Header = () => {
-  const { theme } = useSelector((state) => state.theme);
   const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
   const navigate = useNavigate();
   const location = useLocation();
 
-  console.log(location.pathname);
-
-  const handleTheme = () => {
-    const themeValue = theme === 'light' ? 'dark' : 'light';
-
-    dispatch(SetTheme(themeValue));
-  };
-
-  // console.log('theme', theme);
-
-  // const handleSearch = async (data) => {};
   return (
     <div className='header w-full flex items-center justify-between py-3 md:py-6 px-24 bg-secondary '>
       {/* Left */}
@@ -71,14 +54,12 @@ const Header = () => {
 
       {/* Right */}
       <div className='flex gap-4 items-center text-ascent-1 text-xl md:text-2xl '>
-        <div>{theme === 'light' ? <FaRegCircleUser /> : <FaCircleUser />}</div>
+        <div>
+          <FaRegCircleUser />
+        </div>
         <div>
           <TbShoppingCart />
         </div>
-
-        {/* <button onClick={() => handleTheme()}>
-          {theme === 'light' ? <BsSunFill /> : <BsMoon />}
-        </button> */}
 
         <div>
           {!user ? (
