@@ -2,7 +2,7 @@ import React from 'react';
 import { Buttons, Header } from '../components';
 import { AiOutlineHome } from 'react-icons/ai';
 import BgImg from '../assets/pattern.png';
-import BgPattern from '../assets/pattern8.png';
+import BgPattern from '../assets/pattern3.png';
 import Minnime from '../assets/minimi2.png';
 import MiniWith from '../assets/profile1.png';
 import Together1 from '../assets/together1.svg';
@@ -11,11 +11,9 @@ import Together3 from '../assets/together3.svg';
 
 const Home = () => {
   const openPopup = () => {
-    // Define the URL and window features for the popup
     const popupUrl = 'http://localhost:3000/minihome';
     const popupFeatures = 'width=1100,height=600';
 
-    // Open the popup window
     window.open(popupUrl, '_blank', popupFeatures);
   };
 
@@ -24,7 +22,6 @@ const Home = () => {
     { name: 'New posts', qty: '2' },
     { name: 'New Requests', qty: '0' },
     { name: 'Gift box', qty: '0' },
-    // { name: 'My maple', qty: '180' },
   ];
 
   return (
@@ -80,7 +77,7 @@ const Home = () => {
           className='absolute w-full h-full px-24 py-6 z-10 top-0 '
           style={{
             backgroundImage: `url('${BgPattern}')`,
-            backgroundSize: '15%',
+            backgroundSize: '40%',
             opacity: '40%',
             zIndex: '-1',
           }}
@@ -89,21 +86,7 @@ const Home = () => {
           <div className='w-[500px] h-[500px] p-10 border-none bg-[#fff] rounded-[50%]'>
             <img
               className='flex items-center justify-center drop-shadow-xl w-full h-full'
-              src={Together1}
-              alt='Minnime'
-            />
-          </div>
-          <div className='w-[500px] h-[500px] p-10 border-none bg-[#fff] rounded-[50%]'>
-            <img
-              className='flex items-center justify-center drop-shadow-xl w-full h-full'
               src={Together2}
-              alt='Minnime'
-            />
-          </div>
-          <div className='w-[500px] h-[500px] p-10 border-none bg-[#fff] rounded-[50%]'>
-            <img
-              className='flex items-center justify-center drop-shadow-xl w-full h-full'
-              src={Together3}
               alt='Minnime'
             />
           </div>
