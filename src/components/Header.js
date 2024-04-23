@@ -1,13 +1,9 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import LogoLight from '../assets/logo-light.png';
 import LogoDark from '../assets/logo-dark.png';
-import { SetTheme } from '../redux/theme';
 import { Logout } from '../redux/userSlice';
-import { BsMoon, BsSunFill } from 'react-icons/bs';
-import { FaRegCircleUser, FaCircleUser } from 'react-icons/fa6';
+import { FaRegCircleUser, FaRegBell } from 'react-icons/fa6';
 import { TbShoppingCart } from 'react-icons/tb';
 import Buttons from './Buttons';
 
@@ -18,7 +14,7 @@ const Header = () => {
   const location = useLocation();
 
   return (
-    <div className='header w-full flex items-center justify-between py-3 md:py-6 px-24 bg-secondary '>
+    <div className='header font-work w-full flex items-center justify-between py-6 px-24 bg-[#F1CE44] '>
       {/* Left */}
       <Link to='/' className='flex gap-3 items-center'>
         <div className='w-16 h-16  flex items-center'>
@@ -55,10 +51,13 @@ const Header = () => {
       {/* Right */}
       <div className='flex gap-4 items-center text-ascent-1 text-xl md:text-2xl '>
         <div>
-          <FaRegCircleUser />
+          <FaRegBell />
         </div>
         <div>
           <TbShoppingCart />
+        </div>
+        <div>
+          <FaRegCircleUser />
         </div>
 
         <div>
