@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { MiniLeft, MiniRight } from '../components';
 
 const MiniHome = () => {
-  const [activeLink, setActiveLink] = useState(null);
+  const [activeLink, setActiveLink] = useState(0);
 
   const handleClick = (index) => {
     setActiveLink(index === activeLink ? null : index);

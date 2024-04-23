@@ -21,7 +21,7 @@ const MiniLeft = () => {
           <div className='h-[40%] flex justify-start'>History is Nothing.</div>
           <button className='flex justify-start my-2'>Eidt</button>
         </div>
-        <hr className=' -mx-2' />
+        <hr className='border-[#ccc] -mx-2' />
         <div className='w-full h-[30%] '>
           <div className='mt-8 text-sm flex items-center'>
             <div className=''>Joy Lee</div>

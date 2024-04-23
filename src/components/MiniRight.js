@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Miniroom from '../assets/shop3.gif';
+import Minime from '../assets/shop1.gif';
 
 const MiniRight = () => {
   return (
@@ -55,8 +56,13 @@ const MiniRight = () => {
           Miniroom
         </div>
         <hr className='border-[#ccc]' />
-        <div>
-          <img src={Miniroom} alt='' className='w-full object-cover my-2' />
+        <div className='relative'>
+          <img src={Miniroom} alt='' className='w-full object-cover my-2 ' />
+          <img
+            src={Minime}
+            alt=''
+            className='object-cover my-2 absolute top-20 left-3 w-[70px]'
+          />
         </div>
         <div className='text-[#38b6d8] text-[11px] font-semibold '>
           What is mates say

@@ -7,6 +7,7 @@ import Shop2 from '../assets/shop2.gif';
 import Shop3 from '../assets/shop5.gif';
 import Shop4 from '../assets/shop6.gif';
 import { Buttons } from '../components';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
   const shopItem = [
@@ -55,12 +56,12 @@ const Home = () => {
               );
             })}
           </div>
-          <button className='font-semibold text-underline p-4 mt-6 underline underline-offset-8 cursor-pointer'>
+          <Link className='font-semibold p-4 mt-6 bg-[#000] text-white rounded-3xl hover:bg-[#fff] hover:border hover:border-1 hover:text-[#000]'>
             SHOP NOW
-          </button>
+          </Link>
         </div>
       </div>
-      <div className='bg-[#ffcea0] h-[750px] '></div>
+      <div className='bg-[#ffcea0] h-[800px] '></div>
 
       <div className='waveSection bg-[#ffcea0]'>
         <div className='wave after:bg-[#ffcea0] before:bg-[#fff]'></div>

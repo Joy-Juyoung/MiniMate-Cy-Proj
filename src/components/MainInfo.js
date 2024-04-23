@@ -26,14 +26,14 @@ const MainInfo = () => {
     >
       {/* <div className='flex flex-col items-center bg-[#f7d24f] rounded-[50%] p-3'> */}
       <div className='flex flex-col items-center mt-10'>
-        <div className='font-bold text-5xl mb-2 font-acme text-[#f7f7f7] drop-shadow-3xl'>
-          Costomize your own home
+        <div className='font-bold text-5xl mb-2 font-acme text-[#ffc130] drop-shadow-3xl'>
+          Make your Mini Home
         </div>
-        <div className='font-bold text-5xl mb-2 font-acme text-[#f7f7f7] drop-shadow-3xl'>
-          your own home
-        </div>
-        <div className='text-sm font-acme mt-4'>
-          Find your mate, connect with unique nickname
+        {/* <div className='font-bold text-5xl mb-2 font-acme text-[#f7f7f7] drop-shadow-3xl'>
+          Mini Home
+        </div> */}
+        <div className='text-lg font-acme mt-4'>
+          Find your mate, connect with unique name
         </div>
         <div className='w-full flex items-center justify-center'>
           <button
@@ -66,7 +66,7 @@ const MainInfo = () => {
               className='w-[120px] drop-shadow-xl'
             />
           </div>
-          <div className='w-full flex flex-col justify-between text-sm mr-4'>
+          <div className='w-full flex flex-col justify-between text-sm mr-4 font-semibold'>
             {miniInfo?.map((info, index) => {
               return (
                 <div key={index} className='flex justify-between my-1'>
