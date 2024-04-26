@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import Buttons from './Buttons';
 import { IoIosArrowForward } from 'react-icons/io';
 
-const HeroShop = () => {
+const HeroAd = () => {
   const [activeCategory, setActiveCategory] = useState(0);
 
   const handleClick = (index) => {
@@ -30,7 +30,7 @@ const HeroShop = () => {
   ];
 
   return (
-    <div className='w-full flex flex-col items-center justify-center py-16 bg-[#fffefc]'>
+    <div className='w-full flex flex-col items-center justify-center py-16 bg-bgColor'>
       <div className='w-full px-0 lg:px-10 2xl:px-40'>
         {/* title */}
         <div className='w-fit mb-14 flex items-center '>
@@ -47,7 +47,7 @@ const HeroShop = () => {
                 key={index}
                 className={`cursor-pointer text-sm text-center border border-1  rounded-lg px-5 py-2 ${
                   activeCategory === index
-                    ? ' bg-hightColor shadow-md text-white border-hightColor'
+                    ? ' bg-black shadow-md text-white'
                     : 'text-black'
                 }`}
                 onClick={() => handleClick(index)}
@@ -79,17 +79,8 @@ const HeroShop = () => {
             );
           })}
         </div>
-        <div className='w-full flex items-center justify-center mt-14 '>
-          <Buttons
-            title='SHOP NOW'
-            iconRight={<IoIosArrowForward />}
-            iconStyles='text-xl font-semibold '
-            containerStyles='flex items-center gap-2 p-2 md:p-3 mt-6 md:mt-6 text-sm border border-2 font-semibold  rounded-xl text-hightColor hover:bg-hightColor hover:border-hightColor hover:text-white shadow-md'
-          />
-        </div>
       </div>
     </div>
   );
 };
-
-export default HeroShop;
+export default HeroAd;

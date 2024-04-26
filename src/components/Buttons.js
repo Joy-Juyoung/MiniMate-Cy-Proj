@@ -19,7 +19,7 @@ const Buttons = ({
 
       {title}
 
-      {iconRight && <div className={`mr-2 ${iconStyles}`}>{iconRight}</div>}
+      {iconRight && <div className={`${iconStyles}`}>{iconRight}</div>}
     </button>
   );
 };
