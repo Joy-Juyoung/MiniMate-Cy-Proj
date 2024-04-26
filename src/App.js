@@ -10,7 +10,7 @@ import {
   Shop,
 } from './pages';
 import { Header } from './components';
-import BgImg from './assets/pattern.png';
+import BgImg from './assets/patternBg2.png';
 
 function Layout() {
   const { user } = useSelector((state) => state.user);
@@ -33,10 +33,11 @@ function App() {
   return (
     <div
       data-theme={theme}
-      className='w-full min-h-[100vh] h-[100vh] '
+      className='w-full h-full font-poppins bg-white'
       style={{
         backgroundImage: `url('${BgImg}')`,
         backgroundSize: '15%',
+        backgroundRepeat: 'repeat',
       }}
     >
       <Routes>

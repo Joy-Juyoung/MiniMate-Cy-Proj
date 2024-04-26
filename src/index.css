@@ -17,6 +17,12 @@
   z-index: 49;
 }
 
+/* .footer {
+  position: fixed;
+  bottom: 0px;
+  z-index: 49;
+} */
+
 .waveSection {
   position: relative;
   display: flex;

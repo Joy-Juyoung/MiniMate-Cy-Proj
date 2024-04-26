@@ -11,6 +11,7 @@ import MiniRight from './MiniRight';
 import MiniPhoto from './MiniPhoto';
 import Hero from './Hero';
 import HeroShop from './HeroShop';
+import HeroAd from './HeroAd';
 
 export {
   Loading,
@@ -26,4 +27,5 @@ export {
   MiniPhoto,
   Hero,
   HeroShop,
+  HeroAd,
 };

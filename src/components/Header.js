@@ -66,9 +66,9 @@ const Header = () => {
           onClick={() => navigate('/')}
           title='HOME'
           containerStyles={`text-xl font-bold px-2 py-1
-            hover:text-[#F37125] ${
+            hover:text-hightColor ${
               location.pathname === '/'
-                ? 'text-[#F37125] underline underline-offset-8'
+                ? 'text-hightColor underline underline-offset-8'
                 : 'transparent'
             }`}
         />
@@ -76,9 +76,9 @@ const Header = () => {
           onClick={() => navigate('/shop')}
           title='SHOP'
           containerStyles={`text-xl font-bold px-4 py-1
-            hover:text-[#F37125] ${
+            hover:text-hightColor ${
               location.pathname === '/shop'
-                ? 'text-[#F37125] underline underline-offset-8'
+                ? 'text-hightColor underline underline-offset-8'
                 : 'transparent'
             }`}
         />

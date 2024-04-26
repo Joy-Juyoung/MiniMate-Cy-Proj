@@ -62,7 +62,7 @@ const MainInfo = () => {
               className='w-[120px] drop-shadow-xl'
             />
           </div>
-          <div className='w-full flex flex-col justify-between text-sm mr-4 font-semibold'>
+          <div className='w-full text-sm mr-4 font-semibold'>
             {miniInfo?.map((info, index) => {
               return (
                 <div key={index} className='flex justify-between my-1'>
