@@ -4,16 +4,13 @@ import { MdHelpOutline } from 'react-icons/md';
 
 const Footer = () => {
   return (
-    <div className=' min-w-[1100px] flex items-center justify-center'>
-      <div className='flex items-center justify-between min-w-[1100px]  h-full py-4 bg-[#fff]'>
-        <div className=' flex items-center justify-center'>
-          <MdHelpOutline className='mr-2 cursor-pointer' size={40} />
-          {/* <div className=''>Help Center</div> */}
-        </div>
-        <div>TEAM BLINK © 2024</div>
-        <div>
-          <img src={Logo} alt='logo' className='w-10 h-10' />
-        </div>
+    <div className='w-full flex items-center justify-between py-4 px-0 lg:px-10 2xl:px-40'>
+      <button className=' '>
+        <MdHelpOutline className='' size={40} />
+      </button>
+      <div className=''>TEAM BLINK © 2024</div>
+      <div className=' '>
+        <img src={Logo} alt='logo' className='w-10 h-10' />
       </div>
     </div>
   );
