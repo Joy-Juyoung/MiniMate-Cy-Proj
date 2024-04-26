@@ -39,7 +39,8 @@ const Hero = () => {
             title='Go to Minihome'
             iconLeft={<AiOutlineHome />}
             iconStyles='text-xl font-semibold '
-            containerStyles='flex items-center gap-2 p-3 md:p-4 mt-6 md:mt-6 text-md  border border-2 font-semibold  rounded-xl text-hightColor hover:bg-hightColor hover:border-hightColor hover:text-white shadow-md'
+            containerStyles='flex items-center gap-2 p-3 md:p-4 mt-6 md:mt-6 text-md  border border-2 font-semibold  
+            rounded-xl bg-hightColor border-hightColor text-white shadow-md'
           />
         </div>
       </div>

@@ -34,12 +34,12 @@ const Login = () => {
       }}
     >
       <div className='fixed inset-0 transition-opacity'>
-        <div className='absolute inset-0 bg-[#fff] opacity-60 '></div>
+        <div className='absolute inset-0 bg-white opacity-60 '></div>
       </div>
       <span className='hidden sm:inline-block sm:align-middle sm:h-screen'></span>
       &#8203;
       <div
-        className='inline-block align-bottom bg-primary rounded-lg text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full p-6 opacity-90'
+        className='inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full p-6 opacity-90'
         role='dialog'
         aria-modal='true'
         aria-labelledby='modal-headline'
