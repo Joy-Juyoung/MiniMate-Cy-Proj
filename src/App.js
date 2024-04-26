@@ -10,6 +10,7 @@ import {
   Shop,
 } from './pages';
 import { Header } from './components';
+import BgImg from './assets/pattern.png';
 
 function Layout() {
   const { user } = useSelector((state) => state.user);
@@ -30,8 +31,14 @@ function App() {
   const { theme } = useSelector((state) => state.theme);
 
   return (
-    <div data-theme={theme} className='w-full min-h-[100vh]'>
-      {/* <Header /> */}
+    <div
+      data-theme={theme}
+      className='w-full min-h-[100vh] h-[100vh] '
+      style={{
+        backgroundImage: `url('${BgImg}')`,
+        backgroundSize: '15%',
+      }}
+    >
       <Routes>
         <Route element={<Layout />}>
           <Route path='/' element={<Home />} />

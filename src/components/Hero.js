@@ -4,8 +4,9 @@ import Minnime from '../assets/minimi2.png';
 import Minime from '../assets/minime3.gif';
 import BgPattern from '../assets/pattern3.png';
 import BgImg from '../assets/pattern.png';
+import Buttons from './Buttons';
 
-const MainInfo = () => {
+const Hero = () => {
   const openPopup = () => {
     const popupUrl = 'https://minimate-cy.netlify.app/minihome';
     const popupFeatures = 'width=1100,height=600';
@@ -20,49 +21,38 @@ const MainInfo = () => {
   ];
 
   return (
-    <div
-      className='absolute w-full flex flex-col items-center justify-center gap-10'
-      style={{ zIndex: '1' }}
-    >
-      <div className='flex flex-col items-center mt-10'>
-        <div className='font-bold text-5xl mb-2 font-acme text-hightColor drop-shadow-3xl'>
+    <div className='w-full h-[80vh] flex flex-col items-center justify-center gap-10 pt-10 pb-40 px-0 lg:px-10 2xl:px-40'>
+      <div className='w-full flex flex-col items-center '>
+        <div className='font-acme font-bold text-3xl md:text-5xl sm:text-4xl md:mb-2 text-hightColor drop-shadow-3xl'>
           Make your Mini Home
         </div>
 
-        <div className='text-lg font-acme mt-4'>
+        <div className='text-md md:text-lg font-acme mt-2 md:mt-4'>
           Find your mate, connect with unique name
         </div>
         <div className='w-full flex items-center justify-center'>
-          <button
+          <Buttons
             onClick={openPopup}
-            className='flex items-center gap-2 text-md text-[#F37125] font-semibold p-4 mt-6 bg-[#fff] border border-[#F37125] rounded-2xl hover:bg-[#F37125] hover:text-white drop-shadow-lg'
-          >
-            <div className='text-xl'>
-              <AiOutlineHome />
-            </div>
-            Go to Minihome
-          </button>
+            title='Go to Minihome'
+            iconLeft={<AiOutlineHome />}
+            iconStyles='text-xl font-semibold'
+            containerStyles='flex items-center gap-2 text-md text-white font-semibold p-3 md:p-4 mt-6 md:mt-6 bg-black border rounded-2xl hover:bg-hightColor hover:text-white drop-shadow-lg'
+          />
         </div>
       </div>
 
-      <div className='relative'>
-        <div
-          className='absolute w-full h-full border-none rounded-[50%]'
-          style={{
-            backgroundImage: `url('${BgImg}')`,
-            backgroundSize: '30%',
-            zIndex: '-1',
-          }}
-        ></div>
-        <div className='flex items-center gap-6 py-8 px-16'>
-          <div className='w-full flex items-center justify-center mt-2 mb-2'>
+      <div className='relative w-full flex items-center justify-center md:mt-8 '>
+        <div className='flex ml-24 w-[20rem] h-[15rem] border-none rounded-[40%] rounded-l-none bg-secondary drop-shadow-3xl'></div>
+
+        <div className='absolute w-full m-auto left-0 right-0 flex gap-2 items-center justify-center'>
+          <div className='flex items-center justify-center mt-2 mb-2'>
             <img
               src={Minnime}
               alt='Minime'
-              className='w-[120px] drop-shadow-xl'
+              className='w-[80%] sm:w-[7rem] md:w-[9rem] drop-shadow-xl'
             />
           </div>
-          <div className='w-full flex flex-col justify-between text-sm mr-4 font-semibold'>
+          <div className='flex w-1/6 flex-col justify-between text-sm mr-4 font-semibold'>
             {miniInfo?.map((info, index) => {
               return (
                 <div key={index} className='flex justify-between my-1'>
@@ -71,7 +61,7 @@ const MainInfo = () => {
                 </div>
               );
             })}
-            <div className='w-full flex justify-between mt-6'>
+            <div className='flex justify-between mt-6'>
               <div>My cheese</div>
               <div>🧀180</div>
             </div>
@@ -82,4 +72,4 @@ const MainInfo = () => {
   );
 };
 
-export default MainInfo;
+export default Hero;
