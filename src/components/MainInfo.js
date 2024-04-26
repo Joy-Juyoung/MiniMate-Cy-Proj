@@ -4,6 +4,7 @@ import Minnime from '../assets/minimi2.png';
 import Minime from '../assets/minime3.gif';
 import BgPattern from '../assets/pattern3.png';
 import BgImg from '../assets/pattern.png';
+import Buttons from './Buttons';
 
 const MainInfo = () => {
   const openPopup = () => {
@@ -33,15 +34,17 @@ const MainInfo = () => {
           Find your mate, connect with unique name
         </div>
         <div className='w-full flex items-center justify-center'>
-          <button
+          <Buttons
             onClick={openPopup}
-            className='flex items-center gap-2 text-md text-[#F37125] font-semibold p-4 mt-6 bg-[#fff] border border-[#F37125] rounded-2xl hover:bg-[#F37125] hover:text-white drop-shadow-lg'
+            title='Go to Minihome'
+            // className='flex items-center gap-2 text-md text-[#F37125] font-semibold p-4 mt-6 bg-[#fff] border border-[#F37125] rounded-2xl hover:bg-[#F37125] hover:text-white drop-shadow-lg'
+            className='flex items-center gap-2 text-md text-[#F37125] font-semibold p-4 mt-6 bg-[#fff] border hover:border-hightColor rounded-2xl bg-hightColor text-white drop-shadow-lg'
           >
             <div className='text-xl'>
               <AiOutlineHome />
             </div>
             Go to Minihome
-          </button>
+          </Buttons>
         </div>
       </div>
 
