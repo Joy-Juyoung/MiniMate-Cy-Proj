@@ -1,33 +1,17 @@
-// HeroShop 컴포넌트
 import React, { useState } from 'react';
-import Shop1 from '../../assets/shop1.gif';
-import Shop2 from '../../assets/shop2.gif';
-import Shop3 from '../../assets/shop5.gif';
-import Shop4 from '../../assets/shop6.gif';
+import { animateScroll as scroll } from 'react-scroll';
 import Buttons from '../Buttons';
 import { IoIosArrowForward } from 'react-icons/io';
+import { shopCategory, shopItem } from '../../redux/tempData';
+import { useNavigate } from 'react-router-dom';
 
 const HeroShop = () => {
+  const navigate = useNavigate();
   const [activeCategory, setActiveCategory] = useState(0);
 
   const handleClick = (index) => {
     setActiveCategory(index === activeCategory ? null : index);
   };
-
-  const shopItem = [
-    { image: Shop1, name: 'Minime one', cheese: '30', category: 'Minime' },
-    { image: Shop2, name: 'Minime one', cheese: '30', category: 'Minime' },
-    { image: Shop3, name: 'Minime one', cheese: '30', category: 'Minime' },
-    { image: Shop4, name: 'Minime one', cheese: '30', category: 'Minime' },
-  ];
-
-  const shopCategory = [
-    { name: 'Minime' },
-    { name: 'Miniroom' },
-    { name: 'Skin' },
-    { name: 'Music' },
-    { name: 'Font' },
-  ];
 
   return (
     <div className='w-full relative' style={{ zIndex: 1 }}>
@@ -42,7 +26,7 @@ const HeroShop = () => {
             </div>
           </div>
 
-          <div className='w-full grid grid-cols-5 gap-4'>
+          <div className='w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4'>
             {shopCategory.map((category, index) => {
               return (
                 <div
@@ -59,7 +43,7 @@ const HeroShop = () => {
               );
             })}
           </div>
-          <div className='w-full grid grid-cols-2 lg:grid-cols-4 gap-8 my-14'>
+          <div className='w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 my-14'>
             {shopItem.map((item, index) => {
               return (
                 <div
@@ -73,7 +57,7 @@ const HeroShop = () => {
                       className='w-full h-[10rem] object-contain '
                     />
                     <div
-                      className='w-[80%] text-xs flex flex-col py-3 px-3 mt-4 -mb-4 bg-white shadow-md
+                      className='w-full text-xs flex flex-col py-3 px-3 mt-4 bg-[#f5f5f5] shadow-md
                       rounded-lg'
                     >
                       <div className='flex items-center justify-between'>
@@ -89,6 +73,10 @@ const HeroShop = () => {
           </div>
           <div className='w-full flex items-center justify-center'>
             <Buttons
+              onClick={() => {
+                navigate('/shop');
+                scroll.scrollToTop();
+              }}
               title='SHOP NOW'
               iconRight={<IoIosArrowForward />}
               iconStyles='text-xl font-semibold '

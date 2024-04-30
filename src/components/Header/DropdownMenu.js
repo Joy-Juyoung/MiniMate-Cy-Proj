@@ -12,7 +12,7 @@ const DropdownMenu = ({ isOpen, toggleDropdown, navigate, dispatch }) => {
             className={listItemStyle}
             onClick={() => {
               toggleDropdown(false);
-              navigate('/shop');
+              navigate('/account');
             }}
           >
             Account

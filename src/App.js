@@ -1,6 +1,8 @@
 import { Outlet, Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import {
+  Account,
+  Cart,
   Home,
   Login,
   MiniHome,
@@ -11,6 +13,7 @@ import {
 } from './pages';
 import { Header } from './components/Header';
 import BgImg from './assets/patternBg2.png';
+import { Footer } from './components';
 
 // function Layout() {
 // const { user } = useSelector((state) => state.user);
@@ -30,6 +33,7 @@ const HeaderWrapper = () => (
   <>
     <Header />
     <Outlet />
+    <Footer />
   </>
 );
 
@@ -40,6 +44,7 @@ function App() {
       style={{
         backgroundImage: `url('${BgImg}')`,
         backgroundSize: '15%',
+        backgroundRepeat: 'repeat',
       }}
     >
       <Routes>
@@ -47,6 +52,8 @@ function App() {
         <Route path='/' element={<HeaderWrapper />}>
           <Route path='/' element={<Home />} />
           <Route path='/shop' element={<Shop />} />
+          <Route path='/cart' element={<Cart />} />
+          <Route path='/account' element={<Account />} />
         </Route>
 
         <Route path='/register' element={<Register />} />

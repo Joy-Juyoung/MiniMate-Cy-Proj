@@ -7,10 +7,7 @@ const Home = () => {
     <div className='w-full h-full'>
       <Hero />
       <HeroSlide />
-
       <HeroShop />
-
-      <Footer />
     </div>
   );
 };

@@ -7,10 +7,14 @@ import Img4 from '../../assets/miniroom2.gif';
 import Buttons from '../Buttons';
 import { IoIosArrowForward } from 'react-icons/io';
 import ImageSlider from './ImageSlider';
+import { useNavigate } from 'react-router-dom';
+import { animateScroll as scroll } from 'react-scroll';
 
 const images = [Img1, Img2, Img3, Img4];
 
 const HeroSlide = () => {
+  const navigate = useNavigate();
+
   return (
     <div className='relative'>
       <div
@@ -31,6 +35,10 @@ const HeroSlide = () => {
         <ImageSlider images={images} />
         <div className='w-full flex items-center justify-center mb-24'>
           <Buttons
+            onClick={() => {
+              navigate('/shop');
+              scroll.scrollToTop();
+            }}
             title='SHOP NOW'
             iconRight={<IoIosArrowForward />}
             iconStyles='text-xl font-semibold '
