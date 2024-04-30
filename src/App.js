@@ -9,7 +9,7 @@ import {
   ResetPassword,
   Shop,
 } from './pages';
-import { Header } from './components';
+import { Header } from './components/Header';
 import BgImg from './assets/patternBg2.png';
 
 // function Layout() {
@@ -34,11 +34,8 @@ const HeaderWrapper = () => (
 );
 
 function App() {
-  // const { theme } = useSelector((state) => state.theme);
-
   return (
     <div
-      // data-theme={theme}
       className='w-full h-full font-poppins bg-white'
       style={{
         backgroundImage: `url('${BgImg}')`,

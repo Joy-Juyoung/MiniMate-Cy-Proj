@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Miniroom from '../assets/shop3.gif';
-import Minime from '../assets/shop1.gif';
+import Miniroom from '../../assets/shop3.gif';
+import Minime from '../../assets/shop1.gif';
 
 const MiniRight = () => {
   return (

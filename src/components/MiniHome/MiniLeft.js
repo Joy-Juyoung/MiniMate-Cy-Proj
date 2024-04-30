@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import MiniBanner from '../assets/together5.svg';
-import Nothing from '../assets/nothing.png';
+// import MiniBanner from '../../assets/together5.svg';
+import Nothing from '../../assets/nothing.png';
 import { Link } from 'react-router-dom';
 import { RiArrowDownSFill } from 'react-icons/ri';
 

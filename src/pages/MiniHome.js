@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import BgImg from '../assets/pattern.png';
 import OuterBox from '../assets/outerbox.png';
-import { useEffect } from 'react';
-import { MiniLeft, MiniRight } from '../components';
-import { Link } from 'react-router-dom';
+import MiniLeft from '../components/MiniHome/MiniLeft';
+import MiniRight from '../components/MiniHome/MiniRight';
 
 const MiniHome = () => {
   const [activeLink, setActiveLink] = useState(0);
