@@ -87,8 +87,11 @@ const Header = () => {
             : 'transparent',
         }}
       >
-        <div onClick={() => navigate('/')} className='flex gap-2 items-center'>
-          <div className='w-12 h-12 md:w-14 md:h-14 flex items-center md:p-2'>
+        <div
+          onClick={() => navigate('/')}
+          className='flex gap-2 items-center cursor-pointer'
+        >
+          <div className='w-12 h-12 md:w-14 md:h-14 flex items-center'>
             <img src={Logo} alt='logo' />
           </div>
           <span className='text-xl md:text-2xl text-black font-semibold'>
@@ -102,7 +105,11 @@ const Header = () => {
           <button onClick={handleBellClick}>
             <FaRegBell />
           </button>
-          <button>
+          <button
+            onClick={() => {
+              navigate('/cart');
+            }}
+          >
             <TbShoppingCart />
           </button>
 

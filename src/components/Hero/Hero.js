@@ -6,6 +6,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Minnime from '../../assets/minimi2.png';
 import Buttons from '../Buttons';
 import { FaArrowRight } from 'react-icons/fa6';
+import { miniInfo } from '../../redux/tempData';
 
 const Hero = () => {
   const navagate = useNavigate();
@@ -17,12 +18,6 @@ const Hero = () => {
 
     window.open(popupUrl, '_blank', popupFeatures);
   };
-
-  const miniInfo = [
-    { name: 'Today visitors', qty: '7' },
-    { name: 'New posts', qty: '2' },
-    { name: 'New Requests', qty: '0' },
-  ];
 
   return (
     <div className='relative'>
