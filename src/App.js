@@ -6,6 +6,7 @@ import {
   Home,
   Login,
   MiniHome,
+  MiniPhoto,
   Profile,
   Register,
   ResetPassword,
@@ -38,6 +39,8 @@ const HeaderWrapper = () => (
 );
 
 function App() {
+  const { user } = useSelector((state) => state.user);
+
   return (
     <div
       className='w-full h-full font-poppins bg-white'
@@ -59,7 +62,12 @@ function App() {
         <Route path='/register' element={<Register />} />
         <Route path='/login' element={<Login />} />
 
-        <Route path='/minihome' element={<MiniHome />} />
+        <Route path='/minihome/:domain/home' element={<MiniHome />} />
+        <Route path='/minihome/:domain/photo' element={<MiniPhoto />} />
+        <Route path='/minihome/:domain/video' element={<MiniHome />} />
+        <Route path='/minihome/:domain/diary' element={<MiniHome />} />
+        <Route path='/minihome/:domain/visitor' element={<MiniHome />} />
+        <Route path='/minihome/:domain/setting' element={<MiniHome />} />
       </Routes>
     </div>
   );

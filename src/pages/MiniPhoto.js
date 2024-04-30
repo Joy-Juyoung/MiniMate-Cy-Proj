@@ -5,7 +5,7 @@ import MiniLeft from '../components/MiniHome/MiniLeft';
 import MiniRight from '../components/MiniHome/MiniRight';
 import { useParams } from 'react-router-dom';
 
-const MiniHome = () => {
+const MiniPhoto = () => {
   const { domain } = useParams(); // 이메일 파라미터 가져오기
   const [activeLink, setActiveLink] = useState(0);
 
@@ -66,4 +66,4 @@ const MiniHome = () => {
   );
 };
 
-export default MiniHome;
+export default MiniPhoto;

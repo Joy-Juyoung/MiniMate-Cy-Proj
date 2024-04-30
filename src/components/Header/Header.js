@@ -9,6 +9,7 @@ import HeaderDropdown from './HeaderDropdown';
 import { FaRegBell } from 'react-icons/fa6';
 import { TbShoppingCart } from 'react-icons/tb';
 import { MdMenu } from 'react-icons/md';
+import Sidebar from './Sidebar';
 
 const Header = () => {
   const { user } = useSelector((state) => state.user);
@@ -19,6 +20,10 @@ const Header = () => {
   const dropdownRef = useRef(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [scrollNav, setScrollNav] = useState(false);
+  const [isSideOpen, setIsSideOpen] = useState(false);
+  const toggle = () => {
+    setIsSideOpen(!isSideOpen);
+  };
 
   const changeNav = () => {
     if (window.scrollY >= 80) {
@@ -124,11 +129,13 @@ const Header = () => {
         </div>
 
         <div className='flex md:hidden text-2xl'>
-          <button>
-            <MdMenu />
+          <button onClick={toggle} className=''>
+            <MdMenu className='' />
           </button>
         </div>
       </div>
+
+      {/* {isSideOpen && <Sidebar isSideOpen={isSideOpen} toggle={toggle} />} */}
     </>
   );
 };
