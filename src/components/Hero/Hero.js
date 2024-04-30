@@ -34,7 +34,7 @@ const Hero = () => {
         style={{ height: !user ? '70vh' : '80vh', zIndex: 1 }}
       >
         <div className='w-full flex flex-col items-center '>
-          <div className='font-acme font-bold text-3xl md:text-5xl sm:text-4xl md:mb-2 '>
+          <div className='font-acme font-bold text-center text-2xl md:text-5xl sm:text-4xl md:mb-2 '>
             Create your own Mini Home
           </div>
 
@@ -45,25 +45,25 @@ const Hero = () => {
         </div>
 
         {!user ? (
-          <div className='w-full flex items-center justify-center my-8'>
+          <div className='w-full flex items-center justify-center my-3 sm:my-8'>
             <Buttons
               onClick={() => navagate('/register')}
               title='GET START'
               iconRight={<FaArrowRight />}
               iconStyles='text-xl font-semibold '
-              containerStyles='flex items-center gap-2 p-3 md:p-4 text-md  border border-2 font-semibold  
+              containerStyles='flex items-center gap-2 p-3 md:p-4 text-sm sm:text-md border border-2 font-semibold  
             rounded-xl bg-hightColor border-hightColor text-white shadow-md hover:bg-white hover:text-hightColor'
             />
           </div>
         ) : (
           <>
-            <div className='w-full flex items-center justify-center my-8'>
+            <div className='w-full flex items-center justify-center my-3 sm:my-8'>
               <Buttons
                 onClick={openPopup}
                 title='Go to Minihome'
                 iconLeft={<AiOutlineHome />}
                 iconStyles='text-xl font-semibold '
-                containerStyles='flex items-center gap-2 p-3 md:p-4 text-md  border border-2 font-semibold  
+                containerStyles='flex items-center gap-2 p-3 md:p-4 text-sm sm:text-md  border border-2 font-semibold  
               rounded-xl bg-hightColor border-hightColor text-white shadow-md hover:bg-white hover:text-hightColor'
               />
             </div>
@@ -76,7 +76,7 @@ const Hero = () => {
                   className='w-[80%] sm:w-[7rem] md:w-[9rem] drop-shadow-xl'
                 />
               </div>
-              <div className='flex w-1/2 sm:w-1/3 md:w-1/4 flex-col justify-between text-sm mt-10 md:mt-0 mb-10 md:mb-0 bg-white py-6 px-4 rounded-2xl'>
+              <div className='flex w-[70%] sm:w-1/3 md:w-1/4 flex-col justify-between text-sm mt-10 md:mt-0 mb-10 md:mb-0 bg-white py-6 px-4 rounded-2xl'>
                 {miniInfo?.map((info, index) => {
                   return (
                     <div key={index} className='flex justify-between my-1'>

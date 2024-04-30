@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { shopItem, shopCategory } from '../redux/tempData';
+import { GoPlus } from 'react-icons/go';
 
 const Shop = () => {
   const [selectedCategory, setSelectedCategory] = useState('Minime');
@@ -49,7 +50,7 @@ const Shop = () => {
                     return (
                       <div
                         key={index}
-                        className=' text-sm w-full flex flex-col items-center justify-center shadow-md bg-white border border-[#ccc] rounded-lg'
+                        className='cursor-pointer text-sm w-full flex flex-col items-center justify-center shadow-md bg-white border border-[#ccc] rounded-lg hover:border-hightColor hover:text-hightColor hover:scale-[1.05] ease-in-out duration-300'
                       >
                         <img
                           src={item.image}
@@ -62,10 +63,10 @@ const Shop = () => {
                             <div className='item-price'>🧀 {item.cheese}</div>
                           </div>
                           <button
-                            className='w-full bg-[#ddd] rounded-lg py-1 mt-2 '
+                            className='w-full text-[0.8rem] flex items-center justify-center bg-[#f5f5f5] rounded-lg py-2 mt-2 text-black hover:bg-hightColor hover:text-white'
                             onClick={handleAddToCart}
                           >
-                            Add to cart
+                            <GoPlus className='mr-1' size={15} /> Add to cart
                           </button>
                         </div>
                       </div>
