@@ -34,11 +34,8 @@ const HeaderWrapper = () => (
 );
 
 function App() {
-  // const { theme } = useSelector((state) => state.theme);
-
   return (
     <div
-      // data-theme={theme}
       className='w-full h-full font-poppins bg-white'
       style={{
         backgroundImage: `url('${BgImg}')`,

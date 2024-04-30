@@ -88,7 +88,7 @@ const Header = () => {
         }}
       >
         <div onClick={() => navigate('/')} className='flex gap-2 items-center'>
-          <div className='w-12 h-12 md:w-14 md:h-14 flex items-center p-1 md:p-2'>
+          <div className='w-12 h-12 md:w-14 md:h-14 flex items-center md:p-2'>
             <img src={Logo} alt='logo' />
           </div>
           <span className='text-xl md:text-2xl text-black font-semibold'>
