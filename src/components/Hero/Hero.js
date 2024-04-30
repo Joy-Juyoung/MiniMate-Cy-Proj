@@ -1,22 +1,23 @@
-// Hero 컴포넌트
 import React from 'react';
 import { AiOutlineHome } from 'react-icons/ai';
 import { useSelector } from 'react-redux';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import Minnime from '../../assets/minimi2.png';
 import Buttons from '../Buttons';
 import { FaArrowRight } from 'react-icons/fa6';
 import { miniInfo } from '../../redux/tempData';
 
 const Hero = () => {
-  const navagate = useNavigate();
+  const navigate = useNavigate(); // navigate 변수명 수정
   const { user } = useSelector((state) => state.user);
 
   const openPopup = () => {
-    const popupUrl = 'https://minimate-cy.netlify.app/minihome';
-    const popupFeatures = 'width=1100,height=600';
-
-    window.open(popupUrl, '_blank', popupFeatures);
+    if (user) {
+      const userEmail = user.email;
+      const popupUrl = `https://minimate-cy.netlify.app//minihome/${userEmail}1234/home`;
+      const popupFeatures = 'width=1100,height=600';
+      window.open(popupUrl, '_blank', popupFeatures);
+    }
   };
 
   return (
@@ -26,7 +27,6 @@ const Hero = () => {
         style={{
           background: 'linear-gradient(to left bottom, #f5f5f5, #f5f5f5)',
           clipPath: 'polygon(0% 100%, 0% 100%, 100% 85%, 100% 100%)',
-          // clipPath: 'polygon(0% 100%, 0% 100%, 50% 85%, 100% 100%)',
         }}
       ></div>
       <div
@@ -47,7 +47,7 @@ const Hero = () => {
         {!user ? (
           <div className='w-full flex items-center justify-center my-3 sm:my-8'>
             <Buttons
-              onClick={() => navagate('/register')}
+              onClick={() => navigate('/register')}
               title='GET START'
               iconRight={<FaArrowRight />}
               iconStyles='text-xl font-semibold '

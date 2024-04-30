@@ -9,7 +9,7 @@ const MiniRight = () => {
       <div className='flex items-center text-sm font-semibold mb-1 ml-4'>
         Joy's Minihome
       </div>
-      <div className=' overflow-y-auto w-[530px] h-[440px] border border-1 border-[#ccc] rounded-md flex flex-col px-4 py-2'>
+      <div className='overflow-y-auto w-[526px] h-[440px] border border-1 border-[#ccc] rounded-md flex flex-col px-4 py-2'>
         <div className='grid grid-cols-2 gap-4'>
           <div>
             <div className='text-[#38b6d8] text-[11px] font-semibold'>
