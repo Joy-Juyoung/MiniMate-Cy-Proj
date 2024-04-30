@@ -14,7 +14,7 @@ const Hero = () => {
   const openPopup = () => {
     if (user) {
       const userEmail = user.email;
-      const popupUrl = `http://localhost:3000/minihome/${userEmail}1234/home`;
+      const popupUrl = `https://minimate-cy.netlify.app//minihome/${userEmail}1234/home`;
       const popupFeatures = 'width=1100,height=600';
       window.open(popupUrl, '_blank', popupFeatures);
     }
