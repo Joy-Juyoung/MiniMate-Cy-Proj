@@ -4,9 +4,14 @@ import { Buttons, Loading, TextInput } from '../components';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
-// import BgImg from '../assets/bg1.jpg';
-// import BgImg from '../assets/bg2.png';
 import BgImg from '../assets/pattern.png';
+import { UserLogin } from '../redux/userSlice';
+
+const userData = {
+  email: 'joy@test.com',
+  password: 'Test123',
+  token: 'hZWFmZmU3NmMiLCJpYXQiOjE2OTIwMzY5',
+};
 
 const Login = () => {
   const {
@@ -17,12 +22,24 @@ const Login = () => {
     mode: 'onChange',
   });
   const navigate = useNavigate();
-
-  const onSubmit = async (data) => {};
-
+  const dispatch = useDispatch();
   const [errMsg, setErrMsg] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const dispatch = useDispatch();
+
+  const onSubmit = async (data) => {
+    // setIsSubmitting(true);
+
+    // // 여기서 로그인 처리를 진행
+    if (data.email === userData.email && data.password === userData.password) {
+      dispatch(UserLogin(userData));
+      navigate('/'); // 로그인 후 홈페이지로 이동
+    } else {
+      setErrMsg({ status: 'failed', message: 'Invalid email or password' });
+    }
+
+    // setIsSubmitting(false);
+    navigate('/');
+  };
 
   return (
     <div
@@ -30,7 +47,6 @@ const Login = () => {
       style={{
         backgroundImage: `url('${BgImg}')`,
         backgroundSize: '15%',
-        // backgroundRepeat: 'repeat',
       }}
     >
       <div className='fixed inset-0 transition-opacity'>
@@ -44,7 +60,6 @@ const Login = () => {
         aria-modal='true'
         aria-labelledby='modal-headline'
       >
-        {/* <div className='w-full h-[100vh] sm:w-1/2 xl:w-1/3 2xl:w-1/4 sm:h-fit p-6 lg:p-8 flex flex-col justify-center bg-primary rounded-xl overflow-hidden shadow-xl'> */}
         <div
           onClick={() => navigate('/')}
           className='w-full flex gap-2 items-center mb-6 cursor-pointer'

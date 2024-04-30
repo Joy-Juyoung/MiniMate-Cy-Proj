@@ -5,7 +5,7 @@ import TextInput from './TextInput';
 import Buttons from './Buttons';
 import Navbar from './Navbar';
 import MainInfo from './MainInfo';
-import Dropdown from './Dropdown';
+import DropdownMenu from './DropdownMenu';
 import MiniLeft from './MiniLeft';
 import MiniRight from './MiniRight';
 import MiniPhoto from './MiniPhoto';
@@ -21,7 +21,7 @@ export {
   Buttons,
   Navbar,
   MainInfo,
-  Dropdown,
+  DropdownMenu,
   MiniLeft,
   MiniRight,
   MiniPhoto,

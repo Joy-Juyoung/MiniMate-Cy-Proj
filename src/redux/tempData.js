@@ -2,7 +2,7 @@ export const user = {
   _id: '64df3c064180b81adfe41d4b',
   firstName: 'Bob',
   lastName: 'Kim',
-  email: 'bob@gmail.com',
+  email: 'joy@test.com',
   friends: [
     {
       _id: '64df3aec4180b81adfe41d32',

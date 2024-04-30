@@ -16,7 +16,6 @@ const Home = () => {
       <div className='w-full h-[15rem] bg-[#f5f5f5]'></div>
       <HeroAd />
 
-      {/* Footer */}
       <Footer />
     </div>
   );

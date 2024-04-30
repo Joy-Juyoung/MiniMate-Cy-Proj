@@ -31,7 +31,7 @@ const HeroShop = () => {
 
   return (
     <div className='w-full flex flex-col items-center justify-center py-16 bg-[#fffefc]'>
-      <div className='w-full px-0 lg:px-10 2xl:px-40'>
+      <div className='w-full px-10 2xl:px-40'>
         {/* title */}
         <div className='w-fit mb-14 flex items-center '>
           <div className='font-semibold text-lg text-center mr-4 text-hightColor border-b-2 pb-1'>
@@ -57,7 +57,7 @@ const HeroShop = () => {
             );
           })}
         </div>
-        <div className='w-full flex items-center justify-between mt-2 gap-8'>
+        <div className='w-full grid grid-cols-2 lg:grid-cols-4 mt-2 gap-8'>
           {shopItem.map((item, index) => {
             return (
               <div

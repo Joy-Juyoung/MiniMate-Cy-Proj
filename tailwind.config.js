@@ -24,6 +24,12 @@ module.exports = {
       xl: '1280px',
       '2xl': '1536px',
     },
+    container: {
+      // padding: {
+      //   md: '10rem',
+      //   '2xl':'px-40'
+      // },
+    },
     extend: {
       dropShadow: {
         '3xl': '3px 3px 0px rgba(0, 0, 0, 1)',
