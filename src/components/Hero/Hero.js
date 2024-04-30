@@ -35,7 +35,7 @@ const Hero = () => {
         }}
       ></div>
       <div
-        className='relative w-full flex flex-col items-center justify-center gap-10 pt-10 pb-40 px-10 2xl:px-40'
+        className='relative w-full flex flex-col items-center justify-center pt-10 pb-40 px-10 2xl:px-40'
         style={{ height: !user ? '70vh' : '80vh', zIndex: 1 }}
       >
         <div className='w-full flex flex-col items-center '>
@@ -43,14 +43,14 @@ const Hero = () => {
             Create your own Mini Home
           </div>
 
-          <div className='w-1/2 text-center text-sm md:text-md mt-2 md:mt-3'>
+          <div className='w-1/2 text-center text-sm md:text-md mt-2 md:mt-3 hidden sm:flex'>
             Discover your perfect match, and personalize your own mini room
             haven with a unique name and a brand-new skin!
           </div>
         </div>
 
         {!user ? (
-          <div className='w-full flex items-center justify-center'>
+          <div className='w-full flex items-center justify-center my-8'>
             <Buttons
               onClick={() => navagate('/register')}
               title='GET START'
@@ -62,7 +62,7 @@ const Hero = () => {
           </div>
         ) : (
           <>
-            <div className='w-full flex items-center justify-center'>
+            <div className='w-full flex items-center justify-center my-8'>
               <Buttons
                 onClick={openPopup}
                 title='Go to Minihome'
@@ -73,30 +73,26 @@ const Hero = () => {
               />
             </div>
 
-            <div className='relative w-full flex items-center justify-center md:mt-8 '>
-              <div className='flex ml-24 w-[20rem] h-[15rem] border-none rounded-[20%] rounded-l-none bg-bgColor shadow-lg'></div>
-
-              <div className='absolute w-full m-auto left-0 right-0 flex gap-2 items-center justify-center'>
-                <div className='flex items-center justify-center mt-2 mb-2'>
-                  <img
-                    src={Minnime}
-                    alt='Minime'
-                    className='w-[80%] sm:w-[7rem] md:w-[9rem] drop-shadow-xl'
-                  />
-                </div>
-                <div className='flex w-1/6 flex-col justify-between text-sm mr-4 '>
-                  {miniInfo?.map((info, index) => {
-                    return (
-                      <div key={index} className='flex justify-between my-1'>
-                        <div className=''>{info.name}</div>
-                        <div className='font-semibold'>{info.qty}</div>
-                      </div>
-                    );
-                  })}
-                  <div className='flex justify-between mt-6'>
-                    <div>My cheese</div>
-                    <div className='font-semibold'>🧀180</div>
-                  </div>
+            <div className='w-full flex flex-col md:flex-row items-center justify-center '>
+              <div className='flex items-center justify-center '>
+                <img
+                  src={Minnime}
+                  alt='Minime'
+                  className='w-[80%] sm:w-[7rem] md:w-[9rem] drop-shadow-xl'
+                />
+              </div>
+              <div className='flex w-1/2 sm:w-1/3 md:w-1/4 flex-col justify-between text-sm mt-10 md:mt-0 mb-10 md:mb-0 bg-white py-6 px-4 rounded-2xl'>
+                {miniInfo?.map((info, index) => {
+                  return (
+                    <div key={index} className='flex justify-between my-1'>
+                      <div className=''>{info.name}</div>
+                      <div className='font-semibold'>{info.qty}</div>
+                    </div>
+                  );
+                })}
+                <div className='flex justify-between mt-6'>
+                  <div>My cheese</div>
+                  <div className='font-semibold'>🧀180</div>
                 </div>
               </div>
             </div>
