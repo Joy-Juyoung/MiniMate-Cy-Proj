@@ -13,36 +13,34 @@ const Hero = () => {
 
     window.open(popupUrl, '_blank', popupFeatures);
   };
+
   const miniInfo = [
     { name: 'Today visitors', qty: '7' },
     { name: 'New posts', qty: '2' },
     { name: 'New Requests', qty: '0' },
-    { name: 'Gift box', qty: '0' },
   ];
 
   return (
     <div className='w-full h-[80vh] flex flex-col items-center justify-center gap-10 pt-10 pb-40 px-10 2xl:px-40'>
       <div className='w-full flex flex-col items-center '>
         <div className='font-acme font-bold text-3xl md:text-5xl sm:text-4xl md:mb-2 '>
-          {/* font-acme drop-shadow-3xl  */}
-          Make your Mini Home
+          Create your own Mini Home
         </div>
 
-        <div className='font-poppins text-sm md:text-sm mt-2 md:mt-3'>
-          Find your mate, connect with unique name.
-          <br />
-          Customize your miniroom with new skin.
+        <div className='w-1/2 text-center text-sm md:text-md mt-2 md:mt-3'>
+          Discover your perfect match, and personalize your own mini room haven
+          with a unique name and a brand-new skin!
         </div>
-        <div className='w-full flex items-center justify-center'>
-          <Buttons
-            onClick={openPopup}
-            title='Go to Minihome'
-            iconLeft={<AiOutlineHome />}
-            iconStyles='text-xl font-semibold '
-            containerStyles='flex items-center gap-2 p-3 md:p-4 mt-6 md:mt-6 text-md  border border-2 font-semibold  
+      </div>
+      <div className='w-full flex items-center justify-center'>
+        <Buttons
+          onClick={openPopup}
+          title='Go to Minihome'
+          iconLeft={<AiOutlineHome />}
+          iconStyles='text-xl font-semibold '
+          containerStyles='flex items-center gap-2 p-3 md:p-4 mt-6 md:mt-6 text-md  border border-2 font-semibold  
             rounded-xl bg-hightColor border-hightColor text-white shadow-md'
-          />
-        </div>
+        />
       </div>
 
       <div className='relative w-full flex items-center justify-center md:mt-8 '>

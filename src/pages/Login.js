@@ -27,18 +27,15 @@ const Login = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const onSubmit = async (data) => {
-    // setIsSubmitting(true);
-
-    // // 여기서 로그인 처리를 진행
     if (data.email === userData.email && data.password === userData.password) {
       dispatch(UserLogin(userData));
-      navigate('/'); // 로그인 후 홈페이지로 이동
+      navigate('/');
     } else {
-      setErrMsg({ status: 'failed', message: 'Invalid email or password' });
+      setErrMsg({
+        status: 'failed',
+        message: 'Invalid email or password. Please try again!',
+      });
     }
-
-    // setIsSubmitting(false);
-    navigate('/');
   };
 
   return (
@@ -67,7 +64,7 @@ const Login = () => {
           <div className='text-white w-16 h-16 flex items-center'>
             <img src={LogoDark} alt='logo' />
           </div>
-          <span className='text-2xl font-semibold text-[#F37125]'>
+          <span className='text-2xl font-semibold text-hightColor'>
             MiniMate
           </span>
         </div>
@@ -75,10 +72,22 @@ const Login = () => {
         <p className='text-ascent-1 text-base font-semibold'>
           Log in to your account
         </p>
+
         <form
           className='py-4 flex flex-col gap-5='
           onSubmit={handleSubmit(onSubmit)}
         >
+          {errMsg?.message && (
+            <span
+              className={`text-sm ${
+                errMsg?.status == 'failed'
+                  ? 'text-[#f64949fe]'
+                  : 'text-[#2ba150fe]'
+              } mt-0.5`}
+            >
+              {errMsg?.message}
+            </span>
+          )}
           <TextInput
             name='email'
             placeholder='email@example.com'
@@ -106,18 +115,6 @@ const Login = () => {
             error={errors.password ? errors.password?.message : ''}
           />
 
-          {errMsg?.message && (
-            <span
-              className={`text-sm ${
-                errMsg?.status == 'failed'
-                  ? 'text-[#f64949fe]'
-                  : 'text-[#2ba150fe]'
-              } mt-0.5`}
-            >
-              {errMsg?.message}
-            </span>
-          )}
-
           {isSubmitting ? (
             <Loading />
           ) : (
@@ -137,7 +134,6 @@ const Login = () => {
             Create Account
           </Link>
         </p>
-        {/* </div> */}
       </div>
     </div>
   );

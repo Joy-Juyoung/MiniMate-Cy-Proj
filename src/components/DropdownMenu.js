@@ -10,7 +10,9 @@ const DropdownMenu = ({ isOpen, toggleDropdown, navigate, dispatch }) => {
       <div className='absolute top-8 right-0 bg-white shadow-md rounded-md text-sm py-2'>
         <ul className='w-[150px]'>
           <li className={listItemStyle}>
-            <Link to='/shop'>Account</Link>
+            <Link to='/shop' onClick={() => toggleDropdown(false)}>
+              Account
+            </Link>
           </li>
           <li className={listItemStyle}>
             <button>My Cheese</button>
@@ -20,6 +22,7 @@ const DropdownMenu = ({ isOpen, toggleDropdown, navigate, dispatch }) => {
               onClick={() => {
                 dispatch(Logout());
                 navigate('/');
+                toggleDropdown(false);
               }}
             >
               Log Out

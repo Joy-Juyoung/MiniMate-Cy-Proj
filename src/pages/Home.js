@@ -13,8 +13,8 @@ const Home = () => {
 
       <HeroShop />
 
-      <div className='w-full h-[15rem] bg-[#f5f5f5]'></div>
-      <HeroAd />
+      {/* <div className='w-full h-[15rem] bg-[#f5f5f5]'></div>
+      <HeroAd /> */}
 
       <Footer />
     </div>
