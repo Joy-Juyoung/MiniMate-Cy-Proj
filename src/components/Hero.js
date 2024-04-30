@@ -21,7 +21,7 @@ const Hero = () => {
   ];
 
   return (
-    <div className='w-full h-[80vh] flex flex-col items-center justify-center gap-10 pt-10 pb-40 px-0 lg:px-10 2xl:px-40'>
+    <div className='w-full h-[80vh] flex flex-col items-center justify-center gap-10 pt-10 pb-40 px-10 2xl:px-40'>
       <div className='w-full flex flex-col items-center '>
         <div className='font-acme font-bold text-3xl md:text-5xl sm:text-4xl md:mb-2 '>
           {/* font-acme drop-shadow-3xl  */}
