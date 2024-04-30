@@ -1,10 +1,6 @@
 import React, { useState } from 'react';
-import Together2 from '../assets/together2.svg';
 import Footer from '../components/Footer';
-import MainInfo from '../components/MainInfo';
-import Hero from '../components/Hero';
-import { HeroAd, HeroShop } from '../components';
-import BgImg from '../assets/pattern.png';
+import { Hero, HeroShop } from '../components/Hero';
 
 const Home = () => {
   return (

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import Shop1 from '../assets/shop1.gif';
-import Shop2 from '../assets/shop2.gif';
-import Shop3 from '../assets/shop5.gif';
-import Shop4 from '../assets/shop6.gif';
-import { Link } from 'react-router-dom';
-import Buttons from './Buttons';
+import Shop1 from '../../assets/shop1.gif';
+import Shop2 from '../../assets/shop2.gif';
+import Shop3 from '../../assets/shop5.gif';
+import Shop4 from '../../assets/shop6.gif';
+// import { Link } from 'react-router-dom';
+import Buttons from '../Buttons';
 import { IoIosArrowForward } from 'react-icons/io';
 
 const HeroShop = () => {

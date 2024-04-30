@@ -1,10 +1,10 @@
 import React from 'react';
 import { AiOutlineHome } from 'react-icons/ai';
-import Minnime from '../assets/minimi2.png';
-import Minime from '../assets/minime3.gif';
-import BgPattern from '../assets/pattern3.png';
-import BgImg from '../assets/pattern.png';
-import Buttons from './Buttons';
+import Minnime from '../../assets/minimi2.png';
+// import Minime from '../assets/minime3.gif';
+// import BgPattern from '../assets/pattern3.png';
+import BgImg from '../../assets/pattern.png';
+import Buttons from '../Buttons';
 
 const MainInfo = () => {
   const openPopup = () => {
