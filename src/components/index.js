@@ -1,11 +1,10 @@
 import Loading from './Loading';
-import Header from './Header';
+import Header from './Header/Header';
 import Footer from './Footer';
 import TextInput from './TextInput';
 import Buttons from './Buttons';
 import Navbar from './Navbar';
 import MainInfo from './MainInfo';
-import DropdownMenu from './DropdownMenu';
 import MiniLeft from './MiniLeft';
 import MiniRight from './MiniRight';
 import MiniPhoto from './MiniPhoto';
@@ -21,7 +20,6 @@ export {
   Buttons,
   Navbar,
   MainInfo,
-  DropdownMenu,
   MiniLeft,
   MiniRight,
   MiniPhoto,
