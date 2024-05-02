@@ -36,3 +36,19 @@ export const shopCategory = [
   { name: 'Music' },
   { name: 'Font' },
 ];
+
+export const myHome = {
+  id: 1,
+  domain: 'izoi_213',
+  today: 12,
+  total: 12345,
+  title: 'Welcome to Joy Home',
+};
+
+export const navItems = [
+  { id: 1, name: 'Home' },
+  { id: 2, name: 'Photo' },
+  { id: 3, name: 'Diary' },
+  { id: 4, name: 'Visitor' },
+  { id: 5, name: 'Setting' },
+];

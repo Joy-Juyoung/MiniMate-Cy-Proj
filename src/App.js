@@ -31,11 +31,11 @@ import { Footer } from './components';
 // );
 // }
 const HeaderWrapper = () => (
-  <>
+  <div className='2xl:px-[12rem]'>
     <Header />
     <Outlet />
     <Footer />
-  </>
+  </div>
 );
 
 function App() {
@@ -64,10 +64,10 @@ function App() {
 
         <Route path='/minihome/:domain/home' element={<MiniHome />} />
         <Route path='/minihome/:domain/photo' element={<MiniPhoto />} />
-        <Route path='/minihome/:domain/video' element={<MiniHome />} />
-        <Route path='/minihome/:domain/diary' element={<MiniHome />} />
+        {/* <Route path='/minihome/:domain/video' element={<MiniDiary />} />
+        <Route path='/minihome/:domain/diary' element={<MiniVideo />} />
         <Route path='/minihome/:domain/visitor' element={<MiniHome />} />
-        <Route path='/minihome/:domain/setting' element={<MiniHome />} />
+        <Route path='/minihome/:domain/setting' element={<MiniHome />} /> */}
       </Routes>
     </div>
   );
