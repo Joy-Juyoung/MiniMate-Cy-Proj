@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import BgImg from '../../assets/pattern.png';
 import OuterBox from '../../assets/outerbox.png';
-
 import { useParams } from 'react-router-dom';
 import { myHome, navItems } from '../../redux/tempData';
 
-const MiniHomeFrame = ({ LeftContent, RightContent }) => {
+const MiniHomeFrame = ({ LeftContent, RightContent, user }) => {
   const { domain } = useParams(); // 이메일 파라미터 가져오기
-  const { user } = useSelector((state) => state.user);
+
   const [activeLink, setActiveLink] = useState(1);
 
   const handleClick = (id) => {
@@ -64,8 +63,11 @@ const MiniHomeFrame = ({ LeftContent, RightContent }) => {
                   <p className='ml-2 text-[0.8rem]'>{myHome.total}</p>
                 </div>
               </div>
-              <div className='w-full h-[440px] border border-1 border-[#ccc] rounded-md flex flex-col px-4 py-2'></div>
-              {LeftContent}
+              <div className='relative w-full h-[440px] border border-1 border-[#ccc] rounded-md'>
+                <div className='absolute w-full h-[440px] top-0 left-0 px-4 py-2'>
+                  {LeftContent}
+                </div>
+              </div>
             </div>
 
             {/* Right */}
@@ -77,8 +79,11 @@ const MiniHomeFrame = ({ LeftContent, RightContent }) => {
                   {!myHome.domain ? user.username : myHome.domain}/home
                 </div>
               </div>
-              <div className='overflow-y-auto w-full h-[440px] border border-1 border-[#ccc] rounded-md flex flex-col px-4 py-2'></div>
-              <div>{RightContent}</div>
+              <div className='relative overflow-y-auto w-full h-[440px] border border-1 border-[#ccc] rounded-md flex flex-col px-4 py-2'>
+                <div className='absolute w-full top-0 left-0 px-4 py-2'>
+                  {RightContent}
+                </div>
+              </div>
             </div>
           </div>
         </div>

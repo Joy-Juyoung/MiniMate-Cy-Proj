@@ -4,7 +4,7 @@ import { Hero, HeroShop, HeroSlide } from '../components/Hero';
 
 const Home = () => {
   return (
-    <div className='w-full h-full'>
+    <div className='w-full h-full px-10 sm:px-20 md:px-40'>
       <Hero />
       <HeroSlide />
       <HeroShop />

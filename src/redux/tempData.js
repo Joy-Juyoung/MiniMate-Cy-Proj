@@ -52,3 +52,22 @@ export const navItems = [
   { id: 4, name: 'Visitor' },
   { id: 5, name: 'Setting' },
 ];
+
+export const mateList = [
+  {
+    name: 'Jenny Park',
+    nickname: 'best',
+  },
+  {
+    name: 'Jenny Park',
+    nickname: 'best',
+  },
+  {
+    name: 'Jenny Park',
+    nickname: 'best',
+  },
+  {
+    name: 'Jenny Park',
+    nickname: 'best',
+  },
+];
