@@ -10,6 +10,7 @@ import { UserLogin } from '../redux/userSlice';
 const userData = {
   email: 'joy@test.com',
   password: 'Test123',
+  username: 'Joy',
   token: 'hZWFmZmU3NmMiLCJpYXQiOjE2OTIwMzY5',
 };
 
