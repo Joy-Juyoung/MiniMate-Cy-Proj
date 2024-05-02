@@ -2,7 +2,8 @@ import React from 'react';
 import { AiOutlineHome } from 'react-icons/ai';
 import { useSelector } from 'react-redux';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import Minnime from '../../assets/minimi2.png';
+// import Minnime from '../../assets/minimi2.png';
+import Minnime from '../../assets/minime(23).gif';
 import Buttons from '../Buttons';
 import { FaArrowRight } from 'react-icons/fa6';
 import { miniInfo, myHome } from '../../redux/tempData';
@@ -24,7 +25,7 @@ const Hero = () => {
   };
 
   return (
-    <div className='relative'>
+    <div className='relative h-full'>
       <div
         className='absolute inset-0 w-full h-full'
         style={{
@@ -33,15 +34,15 @@ const Hero = () => {
         }}
       ></div>
       <div
-        className='relative w-full flex flex-col items-center justify-center pt-10 pb-40 px-10 2xl:px-40'
+        className='w-full flex flex-col items-center justify-center pt-10 pb-10 md:pb-40'
         style={{ height: !user ? '70vh' : '80vh', zIndex: 1 }}
       >
         <div className='w-full flex flex-col items-center '>
-          <div className='font-acme font-bold text-center text-2xl md:text-5xl sm:text-4xl md:mb-2 '>
+          <div className='w-full font-acme font-bold text-center text-3xl md:text-5xl sm:text-4xl md:mb-2 '>
             Create your own Mini Home
           </div>
 
-          <div className='w-1/2 text-center text-sm md:text-md mt-2 md:mt-3 hidden sm:flex'>
+          <div className='w-full lg:w-1/2 text-center text-sm md:text-md mt-2 md:mt-3 hidden sm:flex'>
             Discover your perfect match, and personalize your own mini room
             haven with a unique name and a brand-new skin!
           </div>
@@ -71,26 +72,31 @@ const Hero = () => {
               />
             </div>
 
-            <div className='w-full flex flex-col md:flex-row items-center justify-center '>
-              <div className='flex items-center justify-center '>
+            <div className='w-full flex gap-4 flex-col lg:flex-row items-center justify-center '>
+              <div className='basis-1/2 flex items-center justify-center lg:justify-end'>
                 <img
                   src={Minnime}
                   alt='Minime'
-                  className='w-[80%] sm:w-[7rem] md:w-[9rem] drop-shadow-xl'
+                  className='w-[20rem] drop-shadow-xl'
                 />
               </div>
-              <div className='flex w-[70%] sm:w-1/3 md:w-1/4 flex-col justify-between text-sm mt-10 md:mt-0 mb-10 md:mb-0 bg-white py-6 px-4 rounded-2xl'>
-                {miniInfo?.map((info, index) => {
-                  return (
-                    <div key={index} className='flex justify-between my-1'>
-                      <div className=''>{info.name}</div>
-                      <div className='font-semibold'>{info.qty}</div>
-                    </div>
-                  );
-                })}
-                <div className='flex justify-between mt-6'>
-                  <div>My cheese</div>
-                  <div className='font-semibold'>🧀180</div>
+              <div
+                className='basis-1/2 hidden lg:flex items-center justify-start
+              text-sm rounded-2xl'
+              >
+                <div className='w-[15rem] bg-white py-6 px-4 rounded-2xl flex flex-col justify-between '>
+                  {miniInfo?.map((info, index) => {
+                    return (
+                      <div key={index} className='flex justify-between my-1'>
+                        <div className=''>{info.name}</div>
+                        <div className='font-semibold'>{info.qty}</div>
+                      </div>
+                    );
+                  })}
+                  <div className='flex justify-between mt-6'>
+                    <div>My cheese</div>
+                    <div className='font-semibold'>🧀180</div>
+                  </div>
                 </div>
               </div>
             </div>
