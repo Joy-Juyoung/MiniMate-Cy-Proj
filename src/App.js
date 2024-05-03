@@ -5,8 +5,12 @@ import {
   Cart,
   Home,
   Login,
+  MiniDiary,
   MiniHome,
   MiniPhoto,
+  MiniSetting,
+  MiniVideo,
+  MiniVisitor,
   Profile,
   Register,
   ResetPassword,
@@ -62,12 +66,12 @@ function App() {
         <Route path='/register' element={<Register />} />
         <Route path='/login' element={<Login />} />
 
-        <Route path='/minihome/:domain/home' element={<MiniHome />} />
-        <Route path='/minihome/:domain/photo' element={<MiniPhoto />} />
-        {/* <Route path='/minihome/:domain/video' element={<MiniDiary />} />
-        <Route path='/minihome/:domain/diary' element={<MiniVideo />} />
-        <Route path='/minihome/:domain/visitor' element={<MiniHome />} />
-        <Route path='/minihome/:domain/setting' element={<MiniHome />} /> */}
+        <Route path='/:domain/home' element={<MiniHome />} />
+        <Route path='/:domain/photo' element={<MiniPhoto />} />
+        <Route path='/:domain/video' element={<MiniVideo />} />
+        <Route path='/:domain/diary' element={<MiniDiary />} />
+        <Route path='/:domain/visitor' element={<MiniVisitor />} />
+        <Route path='/:domain/setting' element={<MiniSetting />} />
       </Routes>
     </div>
   );

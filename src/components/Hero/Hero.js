@@ -9,14 +9,14 @@ import { FaArrowRight } from 'react-icons/fa6';
 import { miniInfo, myHome } from '../../redux/tempData';
 
 const Hero = () => {
-  const navigate = useNavigate(); // navigate 변수명 수정
+  const navigate = useNavigate();
   const { user } = useSelector((state) => state.user);
-
+  console.log(user);
   const openPopup = () => {
     if (user) {
       const userDomain = myHome.domain;
       const userEmail = user.email;
-      const popupUrl = `http://localhost:3000/minihome/${
+      const popupUrl = `http://localhost:3000/${
         !userDomain ? userEmail : userDomain
       }/home`;
       const popupFeatures = 'width=1100,height=600';

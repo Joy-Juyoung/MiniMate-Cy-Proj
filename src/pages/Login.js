@@ -6,13 +6,7 @@ import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import BgImg from '../assets/pattern.png';
 import { UserLogin } from '../redux/userSlice';
-
-const userData = {
-  email: 'joy@test.com',
-  password: 'Test123',
-  username: 'Joy',
-  token: 'hZWFmZmU3NmMiLCJpYXQiOjE2OTIwMzY5',
-};
+import { userData } from '../redux/tempData';
 
 const Login = () => {
   const {
