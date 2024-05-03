@@ -2,17 +2,22 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import BgImg from '../../assets/pattern.png';
 import OuterBox from '../../assets/outerbox.png';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { myHome, navItems } from '../../redux/tempData';
+import Buttons from '../Buttons';
+import { IoMdArrowDropright } from 'react-icons/io';
 
 const MiniHomeFrame = ({ LeftContent, RightContent, user }) => {
-  const { domain } = useParams(); // 이메일 파라미터 가져오기
+  const { domain } = useParams();
+  const navigate = useNavigate();
 
   const [activeLink, setActiveLink] = useState(1);
 
   const handleClick = (id) => {
     setActiveLink(id === activeLink ? null : id);
   };
+
+  // console.log(domain);
 
   return (
     <div
@@ -33,19 +38,25 @@ const MiniHomeFrame = ({ LeftContent, RightContent, user }) => {
           }}
         >
           <div className='absolute right-0 top-20'>
-            {navItems.map((item) => (
-              <div
-                key={item.id}
-                className={`flex flex-col items-center justify-center cursor-pointer w-[4.3rem] mb-1 py-2 text-[0.8rem] rounded-md rounded-l-none border border-[#000] border-l-[0] ${
-                  activeLink === item.id
-                    ? 'bg-[#eeeeee] text-[#000]'
-                    : 'bg-[#38b6d8] text-[#fff]'
-                }`}
-                onClick={() => handleClick(item.id)}
-              >
-                {item.name}
-              </div>
-            ))}
+            {navItems.map((item) => {
+              // console.log(activeLink === item.id && item.link);
+              return (
+                <div
+                  key={item.id}
+                  className={`flex flex-col items-center justify-center cursor-pointer w-[4.3rem] mb-1 py-2 text-[0.8rem] rounded-md rounded-l-none border border-[#000] border-l-[0] ${
+                    activeLink === item.id
+                      ? 'bg-[#eeeeee] text-[#000]'
+                      : 'bg-[#38b6d8] text-[#fff]'
+                  }`}
+                  onClick={() => {
+                    handleClick(item.id);
+                    navigate(`/${domain}/${item.name.toLowerCase()}`);
+                  }}
+                >
+                  {item.name}
+                </div>
+              );
+            })}
           </div>
           <div className='w-[728px] flex flex-row gap-3 mx-9 my-10'>
             {/* Left */}
@@ -73,9 +84,18 @@ const MiniHomeFrame = ({ LeftContent, RightContent, user }) => {
             {/* Right */}
             <div className='basis-3/4 h-6'>
               <div className='flex items-center justify-between px-4'>
-                <div className='h-full flex items-center '>{myHome.title}</div>
+                <div className='h-full flex items-center '>
+                  <div className='mr-2 text-sm'>{myHome.title}</div>
+                  <Buttons
+                    title='Edit'
+                    containerStyles='h-fit -ml-1 text-[0.6rem] text-[#666]'
+                    iconLeft={<IoMdArrowDropright size={15} />}
+                    iconStyles='text-hightColor -mr-1'
+                  />
+                </div>
+
                 <div className='text-[0.6rem]'>
-                  http://localhost:3000/minihome/
+                  http://localhost:3000/
                   {!myHome.domain ? user.username : myHome.domain}/home
                 </div>
               </div>
