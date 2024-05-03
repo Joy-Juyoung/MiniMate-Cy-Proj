@@ -5,8 +5,9 @@ const MiniDiary = () => {
   return (
     <>
       <MiniHomeFrame
-      // LeftContent={<HomeLeft user={user} />}
-      // RightContent={<HomeRight user={user} />}
+        nav='Diary'
+        // LeftContent={<HomeLeft user={user} />}
+        // RightContent={<HomeRight user={user} />}
       />
     </>
   );

@@ -45,7 +45,7 @@ export const myHome = {
 };
 
 export const navItems = [
-  { id: 1, name: 'Home', link: '/' },
+  { id: 1, name: 'Home', link: '/home' },
   { id: 2, name: 'Photo', link: '/photo' },
   { id: 3, name: 'Video', link: '/video' },
   { id: 4, name: 'Diary', link: '/diary' },

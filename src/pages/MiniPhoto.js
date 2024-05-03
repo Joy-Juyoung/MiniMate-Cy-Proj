@@ -7,6 +7,7 @@ const MiniPhoto = () => {
   return (
     <>
       <MiniHomeFrame
+        nav='Photo'
         LeftContent={<PostFrame />}
         // RightContent={<HomeRight user={user} />}
       />

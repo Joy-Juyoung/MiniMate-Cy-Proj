@@ -5,8 +5,9 @@ const MiniSetting = () => {
   return (
     <>
       <MiniHomeFrame
-      // LeftContent={<HomeLeft user={user} />}
-      // RightContent={<HomeRight user={user} />}
+        nav='Setting'
+        // LeftContent={<HomeLeft user={user} />}
+        // RightContent={<HomeRight user={user} />}
       />
     </>
   );

@@ -5,8 +5,9 @@ const MiniVideo = () => {
   return (
     <>
       <MiniHomeFrame
-      // LeftContent={<HomeLeft user={user} />}
-      // RightContent={<HomeRight user={user} />}
+        nav='Video'
+        // LeftContent={<HomeLeft user={user} />}
+        // RightContent={<HomeRight user={user} />}
       />
     </>
   );
