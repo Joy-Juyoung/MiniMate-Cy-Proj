@@ -51,7 +51,7 @@ const Hero = () => {
         {!user ? (
           <div className='w-full flex items-center justify-center my-3 sm:my-8'>
             <Buttons
-              onClick={() => navigate('/register')}
+              onClick={() => navigate('/login')}
               title='GET START'
               iconRight={<FaArrowRight />}
               iconStyles='text-xl font-semibold '

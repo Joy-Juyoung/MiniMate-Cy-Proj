@@ -3,6 +3,15 @@ import MiniRight from './MiniRight';
 import MiniHomeFrame from './MiniHomeFrame';
 import HomeLeft from './HomeLeft';
 import HomeRight from './HomeRight';
-import PostFrame from './PostFrame';
+import PostLeftFrame from './PostLeftFrame';
+import PostRightFrame from './PostRightFrame';
 
-export { MiniLeft, MiniRight, MiniHomeFrame, HomeLeft, HomeRight, PostFrame };
+export {
+  MiniLeft,
+  MiniRight,
+  MiniHomeFrame,
+  HomeLeft,
+  HomeRight,
+  PostLeftFrame,
+  PostRightFrame,
+};
