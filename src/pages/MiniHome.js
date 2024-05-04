@@ -11,6 +11,7 @@ const MiniHome = () => {
   return (
     <>
       <MiniHomeFrame
+        nav='Home'
         LeftContent={<HomeLeft user={user} />}
         RightContent={<HomeRight user={user} />}
       />

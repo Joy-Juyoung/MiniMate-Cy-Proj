@@ -2,22 +2,15 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import BgImg from '../../assets/pattern.png';
 import OuterBox from '../../assets/outerbox.png';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { myHome, navItems } from '../../redux/tempData';
 import Buttons from '../Buttons';
 import { IoMdArrowDropright } from 'react-icons/io';
+import { useEffect } from 'react';
 
-const MiniHomeFrame = ({ LeftContent, RightContent, user }) => {
+const MiniHomeFrame = ({ LeftContent, RightContent, user, nav }) => {
   const { domain } = useParams();
   const navigate = useNavigate();
-
-  const [activeLink, setActiveLink] = useState(1);
-
-  const handleClick = (id) => {
-    setActiveLink(id === activeLink ? null : id);
-  };
-
-  // console.log(domain);
 
   return (
     <div
@@ -39,19 +32,17 @@ const MiniHomeFrame = ({ LeftContent, RightContent, user }) => {
         >
           <div className='absolute right-0 top-20'>
             {navItems.map((item) => {
-              // console.log(activeLink === item.id && item.link);
               return (
                 <div
                   key={item.id}
+                  onClick={() =>
+                    navigate(`/${domain}/${item.name.toLowerCase()}`)
+                  }
                   className={`flex flex-col items-center justify-center cursor-pointer w-[4.3rem] mb-1 py-2 text-[0.8rem] rounded-md rounded-l-none border border-[#000] border-l-[0] ${
-                    activeLink === item.id
+                    nav === item.name
                       ? 'bg-[#eeeeee] text-[#000]'
                       : 'bg-[#38b6d8] text-[#fff]'
                   }`}
-                  onClick={() => {
-                    handleClick(item.id);
-                    navigate(`/${domain}/${item.name.toLowerCase()}`);
-                  }}
                 >
                   {item.name}
                 </div>

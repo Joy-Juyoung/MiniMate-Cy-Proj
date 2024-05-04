@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import BgImg from '../assets/pattern.png';
 import MiniHomeFrame from '../components/MiniHome/MiniHomeFrame';
-import PostFrame from '../components/MiniHome/PostFrame';
+import PostLeftFrame from '../components/MiniHome/PostLeftFrame';
+import PostRightFrame from '../components/MiniHome/PostRightFrame';
 
 const MiniPhoto = () => {
   return (
     <>
       <MiniHomeFrame
-        LeftContent={<PostFrame />}
-        // RightContent={<HomeRight user={user} />}
+        nav='Photo'
+        LeftContent={<PostLeftFrame />}
+        RightContent={<PostRightFrame />}
       />
     </>
   );

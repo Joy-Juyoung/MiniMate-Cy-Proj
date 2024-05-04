@@ -5,8 +5,9 @@ const MiniVisitor = () => {
   return (
     <>
       <MiniHomeFrame
-      // LeftContent={<HomeLeft user={user} />}
-      // RightContent={<HomeRight user={user} />}
+        nav='Visitor'
+        // LeftContent={<HomeLeft user={user} />}
+        // RightContent={<HomeRight user={user} />}
       />
     </>
   );
