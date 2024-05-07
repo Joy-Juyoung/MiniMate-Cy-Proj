@@ -23,7 +23,8 @@ const HeaderDropdown = ({
         <>
           <div className='relative'>
             <FaRegCircleUser
-              className='cursor-pointer'
+              // className='text-hightColor'
+              className={`cursor-pointer ${isOpen ? 'text-hightColor' : ''}`}
               onClick={() => toggleDropdown(!isOpen)}
             />
             <DropdownMenu
