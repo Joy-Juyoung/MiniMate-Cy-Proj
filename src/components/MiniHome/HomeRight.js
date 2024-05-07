@@ -46,7 +46,7 @@ const comments = [
 const HomeRight = ({ user }) => {
   return (
     <div>
-      <div className='grid grid-cols-2 gap-4'>
+      <div className='grid grid-cols-2 gap-4 items-center'>
         <div>
           <div className='text-[#38b6d8] text-[0.7rem] font-semibold'>
             Update news
@@ -62,12 +62,12 @@ const HomeRight = ({ user }) => {
             })}
           </div>
         </div>
-        <div className='grid grid-cols-2 gap-[0.1rem] text-[12px] mt-4 items-center'>
+        <div className='grid grid-cols-2 gap-[0.1rem] mt-4 items-center'>
           {managePosts.map((post, index) => {
             return (
               <div
                 key={index}
-                className='text-[0.8rem] bg-[#e0e0e0] h-full flex justify-between items-center px-2 py-1'
+                className='text-[0.7rem] bg-[#e0e0e0] h-full flex justify-between items-center px-2 py-1 rounded-sm'
               >
                 <div>{post.name}</div>
                 <div className='text-[#2c509a]'>
