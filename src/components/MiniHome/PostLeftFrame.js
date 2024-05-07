@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { FaFolder } from 'react-icons/fa6';
 import { useParams } from 'react-router-dom';
 import { IoMdSettings } from 'react-icons/io';
 import { GoPlus } from 'react-icons/go';
+import { IoMdSave } from 'react-icons/io';
 
 const folderList = [
   {
@@ -25,9 +26,10 @@ const folderList = [
 const PostLeftFrame = ({ title, listStyles, onClick }) => {
   // const [isPrivat, setIsPrivate] = useState(false);
   const [isAddFolder, setIsAddFolder] = useState(false);
+  const addRef = useRef();
 
   const handleAddFolder = () => {
-    setIsAddFolder(true);
+    setIsAddFolder(!isAddFolder);
   };
 
   return (
@@ -47,26 +49,47 @@ const PostLeftFrame = ({ title, listStyles, onClick }) => {
                       : 'text-[#bbb]'
                   }`}
                 />
-                <div className=''>{folder.name}</div>
+                <div className=' w-full'>{folder.name}</div>
               </div>
             );
           })}
 
-          {/* <input type='text' placeholder={folder.name} /> */}
+          {isAddFolder && (
+            <>
+              <div className='flex w-full items-center text-[0.8rem] my-1'>
+                <FaFolder className={`${listStyles} mr-2 text-[#ead33c]`} />
+                <input
+                  type='text'
+                  className='border border-[#bbb] rounded-sm  w-full px-1 py-[0.1rem]'
+                  ref={addRef}
+                />
+              </div>
+              {/* <div>
+                <div>Access</div>
+              </div> */}
+            </>
+          )}
         </div>
 
         <div className='flex items-center justify-center text-[0.7rem] text-[#999]'>
           <div
-            className='flex items-center cursor-pointer'
+            className='flex items-center cursor-pointer hover:underline underline-offset-2'
             onClick={() => handleAddFolder()}
           >
-            <GoPlus className='mr-1 font-bold text-[0.8rem]' />
-            <div className='hover:underline underline-offset-2'>Add</div>
+            {isAddFolder ? (
+              <>
+                <IoMdSave className='mr-1 font-bold text-[0.8rem]' /> Save
+              </>
+            ) : (
+              <>
+                <GoPlus className='mr-1 font-bold text-[0.8rem]' /> Add
+              </>
+            )}
           </div>
           <div className='mx-2'>|</div>
           <div className='flex items-center cursor-pointer'>
             <IoMdSettings className='mr-1 text-[0.8rem]' />
-            <div className='hover:underline underline-offset-2'>Manage</div>
+            <div className='hover:underline underline-offset-2'>Setting</div>
           </div>
         </div>
       </div>

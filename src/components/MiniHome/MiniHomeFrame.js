@@ -53,7 +53,7 @@ const MiniHomeFrame = ({ LeftContent, RightContent, user, nav }) => {
             {/* Left */}
             <div className='basis-1/4 h-6'>
               <div className='h-full flex items-center justify-center text-[0.6rem] px-4'>
-                <div className='flex items-center justify-between'>
+                <div className='h-full flex items-center justify-between'>
                   <p>today</p>
                   <p className='text-[#ff3737] ml-2 text-[0.8rem]'>
                     {myHome.today}
@@ -74,7 +74,7 @@ const MiniHomeFrame = ({ LeftContent, RightContent, user, nav }) => {
 
             {/* Right */}
             <div className='basis-3/4 h-6'>
-              <div className='flex items-center justify-between px-4'>
+              <div className='h-full flex items-center justify-between px-4'>
                 <div className='h-full flex items-center '>
                   <div className='mr-2 text-sm'>{myHome.title}</div>
                   <Buttons
@@ -87,7 +87,7 @@ const MiniHomeFrame = ({ LeftContent, RightContent, user, nav }) => {
 
                 <div className='text-[0.6rem]'>
                   http://localhost:3000/
-                  {!myHome.domain ? user.username : myHome.domain}/home
+                  {!myHome.domain ? user.username : myHome.domain}
                 </div>
               </div>
               <div className='relative overflow-y-auto w-full h-[440px] border border-1 border-[#ccc] rounded-md flex flex-col px-4 py-2'>

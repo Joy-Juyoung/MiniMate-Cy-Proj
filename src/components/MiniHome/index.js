@@ -5,6 +5,7 @@ import HomeLeft from './HomeLeft';
 import HomeRight from './HomeRight';
 import PostLeftFrame from './PostLeftFrame';
 import PostRightFrame from './PostRightFrame';
+import PostUpload from './PostUpload';
 
 export {
   MiniLeft,
@@ -14,4 +15,5 @@ export {
   HomeRight,
   PostLeftFrame,
   PostRightFrame,
+  PostUpload,
 };
