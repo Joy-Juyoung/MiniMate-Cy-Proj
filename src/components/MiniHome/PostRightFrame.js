@@ -104,11 +104,11 @@ const PostRightFrame = () => {
               </div>
               <hr className='text-[#bbb] my-2' />
               <div className='w-full flex items-center'>
-                <div className='flex text-[0.7rem]'>Comment</div>
+                <div className='flex text-[0.7rem] text-[#959595]'>Comment</div>
                 <input className='rounded-sm flex ml-2 w-full' type='text' />
               </div>
               <div className='flex justify-end mt-2 text-[0.7rem]'>
-                <button className='mx-1 hover:bg-[#eee] px-2 py-1 rounded-2xl'>
+                <button className='mx-1 text-[#959595] hover:bg-[#eee] px-2 py-1 rounded-2xl'>
                   Cancel
                 </button>
                 <button className='mx-1 bg-[#bbb] hover:bg-[#eee] px-2 py-1 rounded-2xl'>
@@ -120,6 +120,12 @@ const PostRightFrame = () => {
           <hr className='text-[#bbb]  my-2' />
         </div>
       )}
+
+      <div>
+        <div className='flex justify-center items-center text-[#e83e3e] text-[0.8rem] font-semibold'>
+          1
+        </div>
+      </div>
     </div>
   );
 };

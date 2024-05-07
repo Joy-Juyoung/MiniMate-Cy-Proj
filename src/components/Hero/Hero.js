@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { AiOutlineHome } from 'react-icons/ai';
 import { useSelector } from 'react-redux';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
@@ -11,16 +11,22 @@ import { miniInfo, myHome } from '../../redux/tempData';
 const Hero = () => {
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.user);
-  console.log(user);
+  const popupRef = useRef(null);
+
   const openPopup = () => {
-    if (user) {
-      const userDomain = myHome.domain;
-      const userEmail = user.email;
-      const popupUrl = `http://localhost:3000/${
-        !userDomain ? userEmail : userDomain
-      }/home`;
-      const popupFeatures = 'width=1100,height=600';
-      window.open(popupUrl, '_blank', popupFeatures);
+    if (!popupRef.current || popupRef.current.closed) {
+      if (user) {
+        const userDomain = myHome.domain;
+        const userEmail = user.email;
+        const popupUrl = `http://localhost:3000/${
+          !userDomain ? userEmail : userDomain
+        }/home`;
+        const popupFeatures = 'width=1100,height=600';
+        popupRef.current = window.open(popupUrl, '_blank', popupFeatures);
+      }
+    } else {
+      // If the popup is already open, focus on it
+      popupRef.current.focus();
     }
   };
 
