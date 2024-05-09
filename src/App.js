@@ -19,10 +19,10 @@ import {
 import { Header } from './components/Header';
 import BgImg from './assets/patternBg2.png';
 import { Footer } from './components';
-import { userData } from './redux/tempData';
+// import { userData } from './redux/tempData';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { setUser } from './redux/authSlice';
+import { fetchAllUsers } from './redux/authSlice';
 import { useEffect } from 'react';
 
 // function Layout() {
@@ -42,7 +42,7 @@ import { useEffect } from 'react';
 
 const HeaderWrapper = () => (
   <div className='2xl:px-[12rem]'>
-    <Header user={userData} />
+    <Header />
     <ToastContainer />
     <Outlet className='' />
     <Footer />
@@ -50,12 +50,14 @@ const HeaderWrapper = () => (
 );
 
 function App() {
-  const dispatch = useDispatch();
-  // const user = JSON.parse(localStorage.getItem('profile'));
+  // const dispatch = useDispatch();
+  // const token = useSelector((state) => state.auth.token);
+
   // useEffect(() => {
-  //   dispatch(setUser(user));
-  // }, []);
-  // const { user } = useSelector((state) => state.user);
+  //   if (token) {
+  //     dispatch(fetchAllUsers());
+  //   }
+  // }, [dispatch, token]);
 
   return (
     <div
@@ -65,7 +67,6 @@ function App() {
         backgroundSize: '8%',
         backgroundRepeat: 'repeat',
         minHeight: '100vh',
-        // opacity: '100%',
       }}
     >
       <Routes>
@@ -74,11 +75,12 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/shop' element={<Shop />} />
           <Route path='/cart' element={<Cart />} />
-          <Route path='/account' element={<Account user={'userData'} />} />
+          <Route path='/account' element={<Account />} />
         </Route>
 
         <Route path='/register' element={<Register />} />
         <Route path='/login' element={<Login />} />
+        {/* <Navigate to='/login' /> */}
 
         <Route path='/:domain/home' element={<MiniHome />} />
         <Route path='/:domain/photo' element={<MiniPhoto />} />
