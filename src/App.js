@@ -1,5 +1,5 @@
 import { Outlet, Navigate, Route, Routes, useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Account,
   Cart,
@@ -19,6 +19,11 @@ import {
 import { Header } from './components/Header';
 import BgImg from './assets/patternBg2.png';
 import { Footer } from './components';
+// import { userData } from './redux/tempData';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { fetchAllUsers } from './redux/authSlice';
+import { useEffect } from 'react';
 
 // function Layout() {
 // const { user } = useSelector((state) => state.user);
@@ -34,24 +39,34 @@ import { Footer } from './components';
 //   <Navigate to='/login' state={{ from: location }} replace />
 // );
 // }
+
 const HeaderWrapper = () => (
   <div className='2xl:px-[12rem]'>
     <Header />
-    <Outlet />
+    <ToastContainer />
+    <Outlet className='' />
     <Footer />
   </div>
 );
 
 function App() {
-  const { user } = useSelector((state) => state.user);
+  // const dispatch = useDispatch();
+  // const token = useSelector((state) => state.auth.token);
+
+  // useEffect(() => {
+  //   if (token) {
+  //     dispatch(fetchAllUsers());
+  //   }
+  // }, [dispatch, token]);
 
   return (
     <div
-      className='w-full h-full font-poppins bg-white'
+      className='w-full h-full font-poppins bg-[#ffffff]'
       style={{
         backgroundImage: `url('${BgImg}')`,
-        backgroundSize: '15%',
+        backgroundSize: '8%',
         backgroundRepeat: 'repeat',
+        minHeight: '100vh',
       }}
     >
       <Routes>
@@ -65,6 +80,7 @@ function App() {
 
         <Route path='/register' element={<Register />} />
         <Route path='/login' element={<Login />} />
+        {/* <Navigate to='/login' /> */}
 
         <Route path='/:domain/home' element={<MiniHome />} />
         <Route path='/:domain/photo' element={<MiniPhoto />} />

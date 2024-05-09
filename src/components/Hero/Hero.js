@@ -1,16 +1,13 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { AiOutlineHome } from 'react-icons/ai';
-import { useSelector } from 'react-redux';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+
 // import Minnime from '../../assets/minimi2.png';
 import Minnime from '../../assets/minime(23).gif';
 import Buttons from '../Buttons';
 import { FaArrowRight } from 'react-icons/fa6';
 import { miniInfo, myHome } from '../../redux/tempData';
 
-const Hero = () => {
-  const navigate = useNavigate();
-  const { user } = useSelector((state) => state.user);
+const Hero = ({ navigate, user }) => {
   const popupRef = useRef(null);
 
   const openPopup = () => {

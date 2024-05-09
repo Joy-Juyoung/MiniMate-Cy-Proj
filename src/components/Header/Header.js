@@ -11,8 +11,8 @@ import { TbShoppingCart } from 'react-icons/tb';
 import { MdMenu } from 'react-icons/md';
 import Sidebar from './Sidebar';
 
-const Header = () => {
-  const { user } = useSelector((state) => state.user);
+const Header = ({ user }) => {
+  // const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const [modalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
@@ -49,7 +49,8 @@ const Header = () => {
     };
 
     if (dropdownOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = 'auto';
+      // document.body.style.overflow = 'hidden';
       document.addEventListener('click', handleOutsideClick);
     } else {
       document.body.style.overflow = 'unset';
