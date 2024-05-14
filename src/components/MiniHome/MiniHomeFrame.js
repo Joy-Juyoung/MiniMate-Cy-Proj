@@ -8,7 +8,7 @@ import Buttons from '../Buttons';
 import { IoMdArrowDropright } from 'react-icons/io';
 import { useEffect } from 'react';
 
-const MiniHomeFrame = ({ LeftContent, RightContent, user, nav }) => {
+const MiniHomeFrame = ({ LeftContent, RightContent, me, nav }) => {
   const { domain } = useParams();
   const navigate = useNavigate();
 
@@ -87,7 +87,7 @@ const MiniHomeFrame = ({ LeftContent, RightContent, user, nav }) => {
 
                 <div className='text-[0.6rem]'>
                   http://localhost:3000/
-                  {!myHome.domain ? user.username : myHome.domain}
+                  {!myHome.domain ? me.username : myHome.domain}
                 </div>
               </div>
               <div className='relative overflow-y-auto w-full h-[440px] border border-1 border-[#ccc] rounded-md flex flex-col px-4 py-2'>

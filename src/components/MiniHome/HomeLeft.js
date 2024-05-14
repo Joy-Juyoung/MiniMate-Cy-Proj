@@ -7,8 +7,9 @@ import { RiArrowDownSFill } from 'react-icons/ri';
 import Buttons from '../Buttons';
 import { IoMdArrowDropright } from 'react-icons/io';
 
-const HomeLeft = ({ user }) => {
+const HomeLeft = ({ me }) => {
   const [mateListOpen, toggleMateList] = useState(false);
+  console.log('me', me);
 
   return (
     <div className='w-full h-full flex flex-col'>
@@ -44,7 +45,7 @@ const HomeLeft = ({ user }) => {
       <div className='h-[25%] '>
         <div className='w-full h-[100%] flex flex-col text-sm justify-end py-2'>
           <div className='w-full flex items-center'>
-            <div className='font-semibold'>{user.username}</div>
+            <div className='font-semibold'>{me.username}</div>
             <div className='mx-1'>·</div>
             <div className='text-[0.6rem]'>F</div>
             <div className='mx-1'>·</div>
