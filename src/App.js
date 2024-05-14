@@ -19,11 +19,9 @@ import {
 import { Header } from './components/Header';
 import BgImg from './assets/patternBg2.png';
 import { Footer } from './components';
-// import { userData } from './redux/tempData';
-import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { fetchAllUsers, fetchUser } from './redux/authSlice';
 import { useEffect } from 'react';
+import { fetchMe } from './redux/userSlice';
 
 // function Layout() {
 // const { user } = useSelector((state) => state.user);
@@ -50,17 +48,13 @@ const HeaderWrapper = ({ me }) => (
 
 function App() {
   const dispatch = useDispatch();
-  const {
-    token,
-    loading,
-    user: me,
-    error,
-  } = useSelector((state) => state.auth);
+  const { me } = useSelector((state) => state.user);
+  const tokenFromStorage = localStorage.getItem('token');
 
   useEffect(() => {
-    const tokenFromStorage = localStorage.getItem('token');
+    // const tokenFromStorage = localStorage.getItem('token');
     if (tokenFromStorage) {
-      dispatch(fetchUser());
+      dispatch(fetchMe());
     }
   }, [dispatch]);
 
@@ -82,11 +76,17 @@ function App() {
           <Route path='/' element={<Home me={me} />} />
           <Route path='/shop' element={<Shop />} />
           <Route path='/cart' element={<Cart />} />
-          <Route path='/account' element={<Account me={me} />} />
+          <Route
+            path='/account'
+            element={<Account me={me} tokenFromStorage={tokenFromStorage} />}
+          />
         </Route>
 
         <Route path='/register' element={<Register />} />
-        <Route path='/login' element={<Login />} />
+        <Route
+          path='/login'
+          element={<Login tokenFromStorage={tokenFromStorage} />}
+        />
         {/* <Navigate to='/login' /> */}
 
         <Route path='/:domain/home' element={<MiniHome me={me} />} />

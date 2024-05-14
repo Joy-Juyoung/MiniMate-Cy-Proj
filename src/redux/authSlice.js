@@ -20,8 +20,6 @@ export const loginUser = createAsyncThunk(
       const response = await API.post('/users/login', userData);
       const { token } = response.data.data;
       localStorage.setItem('token', token);
-      // console.log('response', response);
-      // console.log('token', token);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -29,32 +27,11 @@ export const loginUser = createAsyncThunk(
   }
 );
 
-export const logoutUser = () => {
-  localStorage.removeItem('token');
-  return { type: 'auth/logout' };
-};
-
-export const fetchAllUsers = createAsyncThunk(
-  'auth/fetchAllUsers',
+export const logoutUser = createAsyncThunk(
+  'auth/logoutUser',
   async (_, thunkAPI) => {
-    try {
-      const response = await API.get('/users');
-      return response.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data);
-    }
-  }
-);
-
-export const fetchUser = createAsyncThunk(
-  'auth/fetchUser',
-  async (_, thunkAPI) => {
-    try {
-      const response = await API.get('/users/me');
-      return response.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data);
-    }
+    localStorage.removeItem('token');
+    return null;
   }
 );
 
@@ -67,15 +44,7 @@ const authSlice = createSlice({
     user: null,
     token: null,
   },
-  reducers: {
-    logout: (state) => {
-      state.loading = false;
-      state.error = null;
-      state.success = false;
-      state.user = null;
-      state.token = null;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(signupUser.pending, (state) => {
@@ -100,28 +69,6 @@ const authSlice = createSlice({
         state.token = action.payload.data.token;
       })
       .addCase(loginUser.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload.message;
-      })
-      .addCase(fetchAllUsers.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(fetchAllUsers.fulfilled, (state, action) => {
-        state.loading = false;
-        state.user = action.payload.data;
-      })
-      .addCase(fetchAllUsers.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload.message;
-      })
-      .addCase(fetchUser.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(fetchUser.fulfilled, (state, action) => {
-        state.loading = false;
-        state.user = action.payload.data;
-      })
-      .addCase(fetchUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload.message;
       });

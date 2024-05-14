@@ -9,7 +9,7 @@ import { IoMdArrowDropright } from 'react-icons/io';
 
 const HomeLeft = ({ me }) => {
   const [mateListOpen, toggleMateList] = useState(false);
-  console.log('me', me);
+  // console.log('me', me);
 
   return (
     <div className='w-full h-full flex flex-col'>

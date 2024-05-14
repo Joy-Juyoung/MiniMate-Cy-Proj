@@ -1,8 +1,16 @@
 import React from 'react';
-import { Logout } from '../../redux/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { logoutUser } from '../../redux/authSlice';
 
-const DropdownMenu = ({ isOpen, toggleDropdown, navigate, dispatch }) => {
+const DropdownMenu = ({ isOpen, toggleDropdown, navigate }) => {
+  const dispatch = useDispatch();
+  const isLoggedIn = useSelector((state) => state.auth.token !== null);
   const listItemStyle = 'hover:bg-[#f5f5f5]  py-2 px-6 cursor-pointer';
+
+  const handleLogout = () => {
+    dispatch(logoutUser());
+    window.location.reload();
+  };
 
   return (
     isOpen && (
@@ -21,15 +29,7 @@ const DropdownMenu = ({ isOpen, toggleDropdown, navigate, dispatch }) => {
             <button>My Cheese</button>
           </li>
           <li className={listItemStyle}>
-            <button
-              onClick={() => {
-                dispatch(Logout());
-                navigate('/');
-                toggleDropdown(false);
-              }}
-            >
-              Log Out
-            </button>
+            <button onClick={handleLogout}>Log Out</button>
           </li>
         </ul>
       </div>

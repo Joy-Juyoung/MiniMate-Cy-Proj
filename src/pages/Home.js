@@ -5,7 +5,7 @@ import { fetchAllUsers, fetchUser } from '../redux/authSlice';
 import Footer from '../components/Footer';
 import { Hero, HeroShop, HeroSlide } from '../components/Hero';
 
-function Home({ me }) {
+const Home = ({ me }) => {
   console.log('me', me);
 
   return (
@@ -15,6 +15,6 @@ function Home({ me }) {
       <HeroShop />
     </div>
   );
-}
+};
 
 export default Home;

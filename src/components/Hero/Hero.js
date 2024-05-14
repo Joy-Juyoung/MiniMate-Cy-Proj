@@ -6,19 +6,21 @@ import Minnime from '../../assets/minime(23).gif';
 import Buttons from '../Buttons';
 import { FaArrowRight } from 'react-icons/fa6';
 import { miniInfo, myHome } from '../../redux/tempData';
+import { useNavigate } from 'react-router-dom';
 
-const Hero = ({ navigate, me }) => {
+const Hero = ({ me }) => {
   const popupRef = useRef(null);
+  const navigate = useNavigate();
+
+  // console.log('me', me);
 
   const openPopup = () => {
     if (!popupRef.current || popupRef.current.closed) {
       if (me) {
         const userDomain = me.domain;
-        const userTempDomain = me.email.substring(0, me.email.indexOf('@'));
+        // const userTempDomain = me.email.substring(0, me.email.indexOf('@'));
         // const userEmail = me.email;
-        const popupUrl = `http://localhost:3000/${
-          !userDomain ? userTempDomain : userDomain
-        }/home`;
+        const popupUrl = `http://localhost:3000/${userDomain}/home`;
         const popupFeatures = 'width=1100,height=600';
         popupRef.current = window.open(popupUrl, '_blank', popupFeatures);
       }
@@ -78,7 +80,6 @@ const Hero = ({ navigate, me }) => {
 
             <div className='w-full flex gap-4 flex-col lg:flex-row items-center justify-center '>
               <div className='basis-1/2 flex items-center justify-center lg:justify-end'>
-                meuser{' '}
                 <img
                   src={Minnime}
                   alt='Minime'
