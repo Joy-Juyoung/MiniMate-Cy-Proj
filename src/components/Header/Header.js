@@ -109,13 +109,14 @@ const Header = ({ me }) => {
         <HeaderNav location={location} navigate={navigate} />
 
         <div className='hidden md:flex gap-4 items-center text-xl md:text-2xl'>
-          <button onClick={handleBellClick}>
+          <button onClick={handleBellClick} className='active:text-hightColor'>
             <FaRegBell />
           </button>
           <button
             onClick={() => {
               navigate('/cart');
             }}
+            className='active:text-hightColor'
           >
             <TbShoppingCart />
           </button>

@@ -75,7 +75,7 @@ function App() {
         <Route path='/' element={<HeaderWrapper me={me} />}>
           <Route path='/' element={<Home me={me} />} />
           <Route path='/shop' element={<Shop />} />
-          <Route path='/cart' element={<Cart />} />
+          <Route path='/cart' element={<Cart me={me} />} />
           <Route
             path='/account'
             element={<Account me={me} tokenFromStorage={tokenFromStorage} />}

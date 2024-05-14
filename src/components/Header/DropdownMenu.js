@@ -13,6 +13,7 @@ const DropdownMenu = ({ isOpen, toggleDropdown, navigate, me }) => {
   const handleLogout = () => {
     dispatch(logoutUser());
     window.location.reload();
+    navigate('/');
   };
 
   const openModal = () => {
