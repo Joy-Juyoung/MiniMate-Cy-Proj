@@ -1,15 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutUser } from '../../redux/authSlice';
+import AddedPoint from '../Modal/AddedPoint';
+import NoticeModal from '../Modal/NoticeModal';
 
-const DropdownMenu = ({ isOpen, toggleDropdown, navigate }) => {
+const DropdownMenu = ({ isOpen, toggleDropdown, navigate, me }) => {
   const dispatch = useDispatch();
-  const isLoggedIn = useSelector((state) => state.auth.token !== null);
+  const [modalOpen, setModalOpen] = useState(false);
+
   const listItemStyle = 'hover:bg-[#f5f5f5]  py-2 px-6 cursor-pointer';
 
   const handleLogout = () => {
     dispatch(logoutUser());
     window.location.reload();
+  };
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
   };
 
   return (
@@ -26,11 +37,17 @@ const DropdownMenu = ({ isOpen, toggleDropdown, navigate }) => {
             Account
           </li>
           <li className={listItemStyle}>
-            <button>My Cheese</button>
+            <button onClick={openModal}>My Point</button>
           </li>
           <li className={listItemStyle}>
             <button onClick={handleLogout}>Log Out</button>
           </li>
+
+          {modalOpen && (
+            <NoticeModal closeModal={closeModal}>
+              <AddedPoint closeModal={closeModal} navigate={navigate} me={me} />
+            </NoticeModal>
+          )}
         </ul>
       </div>
     )

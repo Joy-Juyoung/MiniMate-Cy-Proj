@@ -31,6 +31,7 @@ const HeaderDropdown = ({
               isOpen={isOpen}
               toggleDropdown={toggleDropdown}
               navigate={navigate}
+              me={me}
             />
           </div>
         </>

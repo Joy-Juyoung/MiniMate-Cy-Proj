@@ -1,5 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { API } from './api';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const fetchMe = createAsyncThunk('user/fetchMe', async (_, thunkAPI) => {
   try {
@@ -15,6 +17,7 @@ export const updateMe = createAsyncThunk(
   async ({ userData, thunkAPI }) => {
     try {
       const response = await API.patch(`/users/myProfile`, userData);
+      toast.success('Update successful!');
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -102,6 +105,7 @@ const userSlice = createSlice({
       .addCase(updateMe.fulfilled, (state, action) => {
         state.loading = false;
         state.me = action.payload.data;
+        // toast.success('Update successful!');
       })
       .addCase(updateMe.rejected, (state, action) => {
         state.loading = false;
