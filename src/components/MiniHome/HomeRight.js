@@ -43,7 +43,7 @@ const comments = [
 
 // console.log(user.minime);
 
-const HomeRight = ({ user }) => {
+const HomeRight = ({ me }) => {
   return (
     <div>
       <div className='grid grid-cols-2 gap-4 items-center'>
@@ -85,7 +85,7 @@ const HomeRight = ({ user }) => {
       <div className='relative'>
         <img src={Miniroom} alt='' className='w-full object-cover my-2 ' />
         <img
-          src={user.minime}
+          src={me.minime}
           alt=''
           className='object-cover my-2 absolute top-1/2 left-1/2 w-[70px]'
         />

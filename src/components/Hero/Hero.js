@@ -7,16 +7,17 @@ import Buttons from '../Buttons';
 import { FaArrowRight } from 'react-icons/fa6';
 import { miniInfo, myHome } from '../../redux/tempData';
 
-const Hero = ({ navigate, user }) => {
+const Hero = ({ navigate, me }) => {
   const popupRef = useRef(null);
 
   const openPopup = () => {
     if (!popupRef.current || popupRef.current.closed) {
-      if (user) {
-        const userDomain = myHome.domain;
-        const userEmail = user.email;
+      if (me) {
+        const userDomain = me.domain;
+        const userTempDomain = me.email.substring(0, me.email.indexOf('@'));
+        // const userEmail = me.email;
         const popupUrl = `http://localhost:3000/${
-          !userDomain ? userEmail : userDomain
+          !userDomain ? userTempDomain : userDomain
         }/home`;
         const popupFeatures = 'width=1100,height=600';
         popupRef.current = window.open(popupUrl, '_blank', popupFeatures);
@@ -38,7 +39,7 @@ const Hero = ({ navigate, user }) => {
       ></div>
       <div
         className='w-full flex flex-col items-center justify-center pt-10 pb-10 md:pb-40'
-        style={{ height: !user ? '70vh' : '80vh', zIndex: 1 }}
+        style={{ height: !me ? '70vh' : '80vh', zIndex: 1 }}
       >
         <div className='w-full flex flex-col items-center '>
           <div className='w-full font-acme font-bold text-center text-3xl md:text-5xl sm:text-4xl md:mb-2 '>
@@ -51,7 +52,7 @@ const Hero = ({ navigate, user }) => {
           </div>
         </div>
 
-        {!user ? (
+        {!me ? (
           <div className='w-full flex items-center justify-center my-3 sm:my-8'>
             <Buttons
               onClick={() => navigate('/login')}
@@ -77,6 +78,7 @@ const Hero = ({ navigate, user }) => {
 
             <div className='w-full flex gap-4 flex-col lg:flex-row items-center justify-center '>
               <div className='basis-1/2 flex items-center justify-center lg:justify-end'>
+                meuser{' '}
                 <img
                   src={Minnime}
                   alt='Minime'

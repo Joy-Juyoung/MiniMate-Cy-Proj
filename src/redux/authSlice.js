@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
 import { API } from './api';
 
 export const signupUser = createAsyncThunk(
@@ -18,14 +17,11 @@ export const loginUser = createAsyncThunk(
   'auth/loginUser',
   async (userData, thunkAPI) => {
     try {
-      const response = await axios.post(
-        'https://minimate-5d1818d6ac3c.herokuapp.com/api/v1/users/login',
-        userData
-      );
+      const response = await API.post('/users/login', userData);
       const { token } = response.data.data;
       localStorage.setItem('token', token);
-      console.log('response', response);
-      console.log('token', token);
+      // console.log('response', response);
+      // console.log('token', token);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
