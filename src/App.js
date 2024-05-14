@@ -2,6 +2,7 @@ import { Outlet, Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Account,
+  Admin,
   Cart,
   Home,
   Login,
@@ -76,6 +77,7 @@ function App() {
           <Route path='/' element={<Home me={me} />} />
           <Route path='/shop' element={<Shop />} />
           <Route path='/cart' element={<Cart me={me} />} />
+          <Route path='/admin' element={<Admin />} />
           <Route
             path='/account'
             element={<Account me={me} tokenFromStorage={tokenFromStorage} />}
