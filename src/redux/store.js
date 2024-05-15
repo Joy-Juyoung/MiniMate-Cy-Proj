@@ -9,7 +9,7 @@ export const store = configureStore({
   reducer: {
     auth: authReducer,
     user: userSlice,
-    category: categorySlice,
+    categories: categorySlice,
     item: itemSlice,
     cart: cartSlice,
   },

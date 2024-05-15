@@ -47,7 +47,7 @@ const UserManagement = () => {
         <ul>
           {filteredUsers.map((user) => (
             <li
-              key={user.id}
+              key={user._id}
               className='border-b border-gray-200 py-2 cursor-pointer'
               onClick={() => setSelectedUser(user)}
             >

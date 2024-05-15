@@ -6,7 +6,7 @@ export const fetchCategories = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const response = await API.get('/categories');
-      return response.data.data;
+      return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
@@ -18,7 +18,7 @@ export const fetchCategoryById = createAsyncThunk(
   async ({ categoryId, thunkAPI }) => {
     try {
       const response = await API.get(`/categories/${categoryId}`);
-      return response.data.data;
+      return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
@@ -27,28 +27,9 @@ export const fetchCategoryById = createAsyncThunk(
 
 export const deleteCategory = createAsyncThunk(
   'categories/deleteCategory',
-  async ({ categoryId, thunkAPI }) => {
-    try {
-      await API.delete(`/categories/${categoryId}`);
-      return categoryId;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data);
-    }
-  }
-);
-
-export const updateCategory = createAsyncThunk(
-  'categories/updateCategory',
-  async ({ categoryId, name, kind, thunkAPI }) => {
-    try {
-      const response = await API.patch(`/categories/${categoryId}`, {
-        name,
-        kind,
-      });
-      return response.data.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data);
-    }
+  async (categoryId) => {
+    await API.delete(`/categories/${categoryId}`);
+    return categoryId;
   }
 );
 
@@ -64,10 +45,25 @@ export const createCategory = createAsyncThunk(
   }
 );
 
+export const updateCategory = createAsyncThunk(
+  'categories/updateCategory',
+  async ({ categoryId, categoryData, thunkAPI }) => {
+    try {
+      const response = await API.patch(
+        `/categories/${categoryId}`,
+        categoryData
+      );
+      return response.data.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
 const categorySlice = createSlice({
   name: 'categories',
   initialState: {
-    list: [],
+    categories: [],
     selectedCategory: null,
     loading: false,
     error: null,
@@ -81,7 +77,7 @@ const categorySlice = createSlice({
       })
       .addCase(fetchCategories.fulfilled, (state, action) => {
         state.loading = false;
-        state.list = action.payload;
+        state.categories = action.payload.data;
       })
       .addCase(fetchCategories.rejected, (state, action) => {
         state.loading = false;
@@ -100,12 +96,12 @@ const categorySlice = createSlice({
         state.error = action.error.message;
       })
       .addCase(deleteCategory.fulfilled, (state, action) => {
-        state.list = state.list.filter(
+        state.categories = state.categories.filter(
           (category) => category._id !== action.payload
         );
       })
       .addCase(updateCategory.fulfilled, (state, action) => {
-        state.list = state.list.map((category) =>
+        state.categories = state.categories.map((category) =>
           category._id === action.payload._id
             ? {
                 ...category,
@@ -116,7 +112,7 @@ const categorySlice = createSlice({
         );
       })
       .addCase(createCategory.fulfilled, (state, action) => {
-        state.list.push(action.payload);
+        state.categories.push(action.payload);
       });
   },
 });
