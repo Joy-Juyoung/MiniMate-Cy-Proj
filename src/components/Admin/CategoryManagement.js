@@ -1,83 +1,208 @@
-// components/CategoryManagement.js
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  createCategory,
+  deleteCategory,
+  fetchCategories,
+  updateCategory,
+} from '../../redux/categorySlice';
+import Buttons from '../Buttons';
 
-import React, { useState } from 'react';
+const CategoryManagement = ({ me }) => {
+  const dispatch = useDispatch();
+  const { categories, loading, error } = useSelector(
+    (state) => state.categories
+  );
 
-const CategoryManagement = () => {
-  const [categories, setCategories] = useState([
-    { id: 1, name: 'Category A' },
-    { id: 2, name: 'Category B' },
-    { id: 3, name: 'Category C' },
-  ]);
   const [newCategoryName, setNewCategoryName] = useState('');
-  const [error, setError] = useState('');
+  const [newCategoryKind, setNewCategoryKind] = useState('');
+  const [newKind, setNewKind] = useState('');
+  const [newName, setNewName] = useState('');
+  const [selectedCategoryId, setSelectedCategoryId] = useState(null);
+  const [duplicateError, setDuplicateError] = useState(false);
+  const [showAddFields, setShowAddFields] = useState(false); // State to manage the visibility of add fields
+  const [searchKind, setSearchKind] = useState(''); // State for search by Kind
 
-  const handleAddCategory = () => {
-    if (newCategoryName.trim() === '') {
-      setError('카테고리 이름을 입력해주세요.');
+  useEffect(() => {
+    dispatch(fetchCategories());
+  }, [dispatch]);
+
+  const handleDelete = (categoryId) => {
+    dispatch(deleteCategory(categoryId));
+  };
+
+  const handleUpdate = (categoryId, newName, newKind) => {
+    if (!newName || newName.trim() === '' || !newKind || newKind.trim() === '')
+      return;
+    dispatch(
+      updateCategory({
+        categoryId,
+        categoryData: { name: newName, kind: newKind },
+      })
+    );
+    setNewName('');
+    setSelectedCategoryId(null);
+  };
+
+  const handleCreate = () => {
+    if (newCategoryName.trim() === '' || newCategoryKind.trim() === '') return;
+    if (isDuplicateCategory(newCategoryName)) {
+      setDuplicateError(true);
       return;
     }
-    if (
-      categories.some((category) => category.name === newCategoryName.trim())
-    ) {
-      setError('이미 존재하는 카테고리입니다.');
-      return;
-    }
-
-    const newCategory = {
-      id: categories.length + 1,
-      name: newCategoryName.trim(),
-    };
-    setCategories([...categories, newCategory]);
+    dispatch(
+      createCategory({
+        categoryData: { name: newCategoryName, kind: newCategoryKind },
+      })
+    );
     setNewCategoryName('');
-    setError('');
+    setNewCategoryKind('');
+    setDuplicateError(false);
+    setShowAddFields(false); // Hide add fields after successful creation
   };
 
-  const handleDeleteCategory = (id) => {
-    setCategories(categories.filter((category) => category.id !== id));
+  const handleInputChange = (e) => {
+    setNewCategoryName(e.target.value);
   };
+
+  const handleKindChange = (e) => {
+    setNewCategoryKind(e.target.value);
+  };
+
+  const handleEditClick = (categoryId, categoryName, categoryKind) => {
+    setSelectedCategoryId(categoryId);
+    setNewName(categoryName);
+    setNewKind(categoryKind);
+  };
+
+  const isDuplicateCategory = (name) => {
+    return categories.some((category) => category.name === name);
+  };
+
+  // Filter categories by Kind
+  const filteredCategories = categories.filter((category) =>
+    category.kind.toLowerCase().includes(searchKind.toLowerCase())
+  );
 
   return (
     <div>
       <h2 className='text-xl font-semibold mb-2'>Category Management</h2>
-      {/* Category List */}
-      <div className='border border-gray-200 p-4 rounded shadow mb-4'>
-        <h3 className='text-lg font-semibold mb-2'>Category List</h3>
-        <ul>
-          {categories.map((category) => (
-            <li
-              key={category.id}
-              className='flex items-center justify-between border-b border-gray-200 py-2'
-            >
-              <span>{category.name}</span>
-              <button
-                onClick={() => handleDeleteCategory(category.id)}
-                className='text-red-500 hover:text-red-700'
-              >
-                Delete
-              </button>
-            </li>
-          ))}
-        </ul>
+      {/* Search by Kind */}
+      <div className='mb-4'>
+        <input
+          type='text'
+          placeholder='Search by Kind'
+          value={searchKind}
+          onChange={(e) => setSearchKind(e.target.value)}
+          className='border border-gray-300 px-2 py-1 rounded mr-2 w-64'
+        />
       </div>
       {/* Add Category */}
       <div className='mb-4'>
         <h3 className='text-lg font-semibold mb-2'>Add Category</h3>
-        <div className='flex'>
-          <input
-            type='text'
-            value={newCategoryName}
-            onChange={(e) => setNewCategoryName(e.target.value)}
-            placeholder='Enter category name'
-            className='border border-gray-300 px-2 py-1 rounded mr-2 w-64'
-          />
+        {showAddFields && (
+          <div className='flex'>
+            <input
+              type='text'
+              placeholder='Enter new category kind'
+              value={newCategoryKind}
+              onChange={handleKindChange}
+              className='border border-gray-300 px-2 py-1 rounded mr-2 w-64'
+            />
+            <input
+              type='text'
+              placeholder='Enter new category name'
+              value={newCategoryName}
+              onChange={handleInputChange}
+              className='border border-gray-300 px-2 py-1 rounded mr-2 w-64'
+            />
+            <button
+              onClick={handleCreate}
+              className='bg-black text-white px-4 py-1 rounded hover:bg-blue-600'
+            >
+              Add
+            </button>
+
+            <button
+              onClick={() => setShowAddFields(false)}
+              className='bg-[#ddd] px-4 py-1 rounded hover:bg-blue-600 ml-2'
+            >
+              Exit
+            </button>
+          </div>
+        )}
+        {!showAddFields && (
           <button
-            onClick={handleAddCategory}
-            className='bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600'
+            onClick={() => setShowAddFields(true)} // Show add fields when button is clicked
+            className='bg-black text-white px-4 py-1 rounded hover:bg-blue-600'
           >
-            Add
+            Add Category
           </button>
-        </div>
+        )}
+        {duplicateError && (
+          <p className='text-red-500 mt-2'>Category already exists!</p>
+        )}
         {error && <p className='text-red-500 mt-2'>{error}</p>}
+      </div>
+      {/* Category List */}
+      <div className='border border-gray-200 p-4 rounded shadow mb-4'>
+        <h3 className='text-lg font-semibold mb-2'>Category List</h3>
+        <ul>
+          {filteredCategories &&
+            filteredCategories.map((category) => (
+              <li
+                key={category?._id}
+                className='flex items-center justify-between border-b border-gray-200 py-2'
+              >
+                {selectedCategoryId === category._id ? (
+                  <div>
+                    <input
+                      type='text'
+                      value={newKind}
+                      onChange={(e) => setNewKind(e.target.value)}
+                    />
+                    <input
+                      type='text'
+                      value={newName}
+                      onChange={(e) => setNewName(e.target.value)}
+                    />
+                    <button
+                      onClick={() =>
+                        handleUpdate(category._id, newName, newKind)
+                      }
+                    >
+                      Confirm
+                    </button>
+                  </div>
+                ) : (
+                  <div className='w-full flex justify-between items-center'>
+                    <div>
+                      <p>Kind: {category.kind}</p>
+                      <p>Name: {category.name}</p>
+                    </div>
+                    <div className='flex gap-4'>
+                      <Buttons
+                        onClick={() => handleDelete(category?._id)}
+                        title='Delete'
+                        containerStyles='text-[0.8rem] px-4 py-2 rounded hover:bg-[#bbb] bg-[#ddd]'
+                      />
+                      <Buttons
+                        onClick={() =>
+                          handleEditClick(
+                            category._id,
+                            category.name,
+                            category.kind
+                          )
+                        }
+                        title='Edit'
+                        containerStyles='text-[0.8rem] px-4 py-2 rounded hover:bg-[#bbb] bg-[#ddd]'
+                      />
+                    </div>
+                  </div>
+                )}
+              </li>
+            ))}
+        </ul>
       </div>
     </div>
   );

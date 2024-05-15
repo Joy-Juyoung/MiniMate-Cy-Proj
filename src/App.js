@@ -77,7 +77,7 @@ function App() {
           <Route path='/' element={<Home me={me} />} />
           <Route path='/shop' element={<Shop />} />
           <Route path='/cart' element={<Cart me={me} />} />
-          <Route path='/admin' element={<Admin />} />
+          <Route path='/admin' element={<Admin me={me} />} />
           <Route
             path='/account'
             element={<Account me={me} tokenFromStorage={tokenFromStorage} />}
