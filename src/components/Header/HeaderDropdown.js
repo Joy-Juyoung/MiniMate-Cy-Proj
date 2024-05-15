@@ -9,11 +9,11 @@ const HeaderDropdown = ({
   navigate,
   dispatch,
   dropdownRef,
-  user,
+  me,
 }) => {
   return (
     <div ref={dropdownRef}>
-      {!user ? (
+      {!me ? (
         <Buttons
           onClick={() => navigate('/login')}
           title='Log In'
@@ -31,7 +31,7 @@ const HeaderDropdown = ({
               isOpen={isOpen}
               toggleDropdown={toggleDropdown}
               navigate={navigate}
-              dispatch={dispatch}
+              me={me}
             />
           </div>
         </>

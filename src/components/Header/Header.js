@@ -11,7 +11,7 @@ import { TbShoppingCart } from 'react-icons/tb';
 import { MdMenu } from 'react-icons/md';
 import Sidebar from './Sidebar';
 
-const Header = ({ user }) => {
+const Header = ({ me }) => {
   // const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const [modalOpen, setModalOpen] = useState(false);
@@ -71,7 +71,7 @@ const Header = ({ user }) => {
   };
 
   const handleBellClick = () => {
-    if (!user) {
+    if (!me) {
       openModal();
     } else {
       navigate('/shop'); // Go to alert page or open modal
@@ -109,13 +109,14 @@ const Header = ({ user }) => {
         <HeaderNav location={location} navigate={navigate} />
 
         <div className='hidden md:flex gap-4 items-center text-xl md:text-2xl'>
-          <button onClick={handleBellClick}>
+          <button onClick={handleBellClick} className='active:text-hightColor'>
             <FaRegBell />
           </button>
           <button
             onClick={() => {
               navigate('/cart');
             }}
+            className='active:text-hightColor'
           >
             <TbShoppingCart />
           </button>
@@ -126,7 +127,7 @@ const Header = ({ user }) => {
             toggleDropdown={setDropdownOpen}
             navigate={navigate}
             dispatch={dispatch}
-            user={user}
+            me={me}
           />
         </div>
 

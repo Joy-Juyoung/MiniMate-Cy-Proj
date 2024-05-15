@@ -10,6 +10,7 @@ import MiniVideo from './MiniVideo';
 import MiniDiary from './MiniDiary';
 import MiniVisitor from './MiniVisitor';
 import MiniSetting from './MiniSetting';
+import Admin from './Admin';
 
 export {
   Login,
@@ -24,4 +25,5 @@ export {
   MiniDiary,
   MiniVisitor,
   MiniSetting,
+  Admin,
 };

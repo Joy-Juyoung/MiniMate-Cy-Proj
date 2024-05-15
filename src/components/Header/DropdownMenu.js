@@ -1,8 +1,28 @@
-import React from 'react';
-import { Logout } from '../../redux/userSlice';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { logoutUser } from '../../redux/authSlice';
+import AddedPoint from '../Modal/AddedPoint';
+import NoticeModal from '../Modal/NoticeModal';
 
-const DropdownMenu = ({ isOpen, toggleDropdown, navigate, dispatch }) => {
+const DropdownMenu = ({ isOpen, toggleDropdown, navigate, me }) => {
+  const dispatch = useDispatch();
+  const [modalOpen, setModalOpen] = useState(false);
+
   const listItemStyle = 'hover:bg-[#f5f5f5]  py-2 px-6 cursor-pointer';
+
+  const handleLogout = () => {
+    dispatch(logoutUser());
+    window.location.reload();
+    navigate('/');
+  };
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
 
   return (
     isOpen && (
@@ -18,19 +38,17 @@ const DropdownMenu = ({ isOpen, toggleDropdown, navigate, dispatch }) => {
             Account
           </li>
           <li className={listItemStyle}>
-            <button>My Cheese</button>
+            <button onClick={openModal}>My Point</button>
           </li>
           <li className={listItemStyle}>
-            <button
-              onClick={() => {
-                dispatch(Logout());
-                navigate('/');
-                toggleDropdown(false);
-              }}
-            >
-              Log Out
-            </button>
+            <button onClick={handleLogout}>Log Out</button>
           </li>
+
+          {modalOpen && (
+            <NoticeModal closeModal={closeModal}>
+              <AddedPoint closeModal={closeModal} navigate={navigate} me={me} />
+            </NoticeModal>
+          )}
         </ul>
       </div>
     )

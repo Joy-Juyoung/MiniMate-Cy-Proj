@@ -6,7 +6,7 @@ import { Buttons, Loading, TextInput } from '../components';
 import BgImg from '../assets/pattern.png';
 import Logo from '../assets/logo-dark.png';
 
-const LoginPage = () => {
+const LoginPage = ({ tokenFromStorage }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [errMsg, setErrMsg] = useState('');
@@ -15,8 +15,6 @@ const LoginPage = () => {
     password: '',
   });
 
-  // const { token, loading, user, error } = useSelector((state) => state.auth);
-
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -24,10 +22,10 @@ const LoginPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log('formData', formData);
+    // console.log('formData', formData);
     dispatch(loginUser(formData))
       .then(() => {
-        const tokenFromStorage = localStorage.getItem('token');
+        // const tokenFromStorage = localStorage.getItem('token');
         if (tokenFromStorage) {
           navigate('/');
         } else {
@@ -77,7 +75,7 @@ const LoginPage = () => {
           Log in to your account
         </p>
 
-        <form className='py-4 flex flex-col gap-5=' onSubmit={handleSubmit}>
+        <form className=' py-4 flex flex-col gap-5=' onSubmit={handleSubmit}>
           {errMsg?.message && (
             <span
               className={`text-sm ${
@@ -97,6 +95,7 @@ const LoginPage = () => {
             value={formData.email}
             onChange={handleChange}
             required
+            styles='w-full'
           />
           <TextInput
             type='password'
@@ -106,6 +105,7 @@ const LoginPage = () => {
             value={formData.password}
             onChange={handleChange}
             required
+            styles='w-full'
           />
           <Buttons
             type='submit'
