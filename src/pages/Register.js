@@ -38,77 +38,107 @@ const Register = () => {
   };
 
   return (
-    <div>
-      <h2>Register</h2>
-      {loading && <p>Loading...</p>}
-      {error && <p>Error: {error}</p>}
-      {success && <p>Registration successful!</p>}
-      <form onSubmit={handleSubmit}>
-        <input
-          type='text'
-          name='username'
-          placeholder='Username'
-          label='Username'
-          value={formData.username}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type='email'
-          name='email'
-          placeholder='Email'
-          label='Email'
-          value={formData.email}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type='date'
-          name='birth'
-          placeholder='Date of Birth'
-          label='Date of Birth'
-          value={formData.birth}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type='text'
-          name='gender'
-          placeholder='Gender'
-          label='Gender'
-          value={formData.gender}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type='tel'
-          name='phone_number'
-          placeholder='Phone Number'
-          label='Phone Number'
-          value={formData.phone_number}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type='password'
-          name='password'
-          placeholder='Password'
-          label='Password'
-          value={formData.password}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type='password'
-          name='passwordConfirm'
-          placeholder='Confirm Password'
-          label='Confirm Password'
-          value={formData.passwordConfirm}
-          onChange={handleChange}
-          required
-        />
-        <button type='submit'>Register</button>
-      </form>
+    <div
+      className='w-full h-[100vh] flex items-center justify-center sm:p-6 p-0 '
+      style={{
+        backgroundImage: `url('${BgImg}')`,
+        backgroundSize: '15%',
+        backgroundRepeat: 'repeat',
+      }}
+    >
+      <div className='fixed inset-0 transition-opacity'>
+        <div className='absolute inset-0 bg-[#fff] opacity-60 '></div>
+      </div>
+      <span className='hidden sm:inline-block sm:align-middle sm:h-screen'></span>
+      &#8203;
+      <div
+        className='inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full p-6 opacity-90'
+        role='dialog'
+        aria-modal='true'
+        aria-labelledby='modal-headline'
+      >
+        <div
+          onClick={() => navigate('/')}
+          className='w-full flex gap-2 items-center mb-6 cursor-pointer'
+        >
+          <div className='text-white w-16 h-16 flex items-center'>
+            <img src={LogoDark} alt='logo' />
+          </div>
+          <span className='text-2xl font-semibold text-[#F37125]'>
+            MiniMate
+          </span>
+        </div>
+
+        <p className='text-ascent-1 text-base font-semibold'>
+          Create your account
+        </p>
+        <form onSubmit={handleSubmit}>
+          <input
+            type='text'
+            name='username'
+            placeholder='Username'
+            label='Username'
+            value={formData.username}
+            onChange={handleChange}
+            required
+          />
+          <input
+            type='email'
+            name='email'
+            placeholder='Email'
+            label='Email'
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+          <input
+            type='date'
+            name='birth'
+            placeholder='Date of Birth'
+            label='Date of Birth'
+            value={formData.birth}
+            onChange={handleChange}
+            required
+          />
+          <input
+            type='text'
+            name='gender'
+            placeholder='Gender'
+            label='Gender'
+            value={formData.gender}
+            onChange={handleChange}
+            required
+          />
+          <input
+            type='tel'
+            name='phone_number'
+            placeholder='Phone Number'
+            label='Phone Number'
+            value={formData.phone_number}
+            onChange={handleChange}
+            required
+          />
+          <input
+            type='password'
+            name='password'
+            placeholder='Password'
+            label='Password'
+            value={formData.password}
+            onChange={handleChange}
+            required
+          />
+          <input
+            type='password'
+            name='passwordConfirm'
+            placeholder='Confirm Password'
+            label='Confirm Password'
+            value={formData.passwordConfirm}
+            onChange={handleChange}
+            required
+          />
+          <button type='submit'>Register</button>
+        </form>
+      </div>
     </div>
   );
 };
