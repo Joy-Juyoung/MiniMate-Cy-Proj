@@ -1,5 +1,7 @@
 import React from 'react';
 
+// 다른 컴포넌트에서 ref를 통해 TextInput의 <input> 요소에 접근해야 하는 경우
+// React.forwardRef가 필요
 const TextInput = React.forwardRef(
   (
     {

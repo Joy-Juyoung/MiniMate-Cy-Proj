@@ -2,8 +2,8 @@ import axios from 'axios';
 
 // const config = require('../config');
 // const baseURL = config.API_BASE_URL + '/api/v1';
-
-const baseURL = process.env.API_BASE_URL + '/api/v1';
+// const baseURL = process.env.API_BASE_URL + '/api/v1';
+const baseURL = 'https://minimate-5d1818d6ac3c.herokuapp.com/api/v1';
 
 const API = axios.create({
   baseURL: baseURL,
