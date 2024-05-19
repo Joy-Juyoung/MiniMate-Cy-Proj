@@ -70,7 +70,7 @@ const Header = ({ me }) => {
     setModalOpen(false);
   };
 
-  const handleBellClick = () => {
+  const handleIconClick = () => {
     if (!me) {
       openModal();
     } else {
@@ -109,12 +109,17 @@ const Header = ({ me }) => {
         <HeaderNav location={location} navigate={navigate} />
 
         <div className='hidden md:flex gap-4 items-center text-xl md:text-2xl'>
-          <button onClick={handleBellClick} className='active:text-hightColor'>
+          <button
+            onClick={() => {
+              !me ? openModal() : navigate('/shop');
+            }}
+            className='active:text-hightColor'
+          >
             <FaRegBell />
           </button>
           <button
             onClick={() => {
-              navigate('/cart');
+              !me ? openModal() : navigate('/cart');
             }}
             className='active:text-hightColor'
           >
