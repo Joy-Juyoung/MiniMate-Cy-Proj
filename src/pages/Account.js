@@ -1,16 +1,18 @@
-import React, { useState } from 'react';
-import { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateMe } from '../redux/userSlice';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
+import ConfirmNotice from '../components/Modal/ConfirmNotice';
+import NoticeModal from '../components/Modal/NoticeModal';
+import { updateMe, fetchMe } from '../redux/userSlice';
 
 const Account = ({ tokenFromStorage }) => {
   const dispatch = useDispatch();
-  const { me } = useSelector((state) => state.user);
+  const { me, success } = useSelector((state) => state.user);
   const userTempDomain = me?.email.substring(0, me?.email.indexOf('@'));
-
-  // console.log('me', me);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const [userInfo, setUserInfo] = useState({
     name: me?.username,
@@ -21,8 +23,6 @@ const Account = ({ tokenFromStorage }) => {
     gender: me?.gender,
     phone_number: me?.phone_number,
   });
-
-  // console.log('tokenFromStorage', tokenFromStorage);
 
   const [passwordData, setPasswordData] = useState({
     currentPassword: '',
@@ -41,11 +41,15 @@ const Account = ({ tokenFromStorage }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(updateMe({ userData: userInfo }));
+    setIsEditing(false);
   };
 
-  // useEffect(() => {
-  //   toast.success('Update successful!');
-  // }, [dispatch, me]);
+  useEffect(() => {
+    if (success) {
+      dispatch(fetchMe());
+      navigate('/account');
+    }
+  }, [success, location.pathname, dispatch]);
 
   const handlePasswordChange = (e) => {
     const { name, value } = e.target;
@@ -55,16 +59,26 @@ const Account = ({ tokenFromStorage }) => {
     });
   };
 
-  const handleAccountDelete = () => {};
+  const handleAccountDelete = () => {
+    setModalOpen(!modalOpen);
+  };
 
   const handleSubmitPasswordChange = (e) => {
     e.preventDefault();
   };
 
+  const openModal = () => {
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
   return (
     <div className='w-full h-full px-10 2xl:px-40 min-h-[80vh]'>
-      <div className='w-full h-full flex flex-col items-center rounded-[10%] py-16 '>
-        <form onSubmit={handleSubmit}>
+      <div className='w-full h-full flex flex-col items-center rounded-[10%] py-12 '>
+        <form onSubmit={handleSubmit} className='rounded-lg p-8 shadow-xl'>
           <h1 className='text-3xl text-center font-semibold mb-6'>
             My Account
           </h1>
@@ -75,7 +89,6 @@ const Account = ({ tokenFromStorage }) => {
               id='username'
               name='username'
               value={me?.username}
-              // onChange={handleUserInfoChange}
               className='w-full mt-1 rounded-md px-3 py-2 text-[1rem]'
               readOnly
               disabled
@@ -88,7 +101,6 @@ const Account = ({ tokenFromStorage }) => {
               id='email'
               name='email'
               value={me?.email}
-              // onChange={handleUserInfoChange}
               className='w-full mt-1 rounded-md px-3 py-2 text-[1rem]'
               readOnly
               disabled
@@ -103,6 +115,7 @@ const Account = ({ tokenFromStorage }) => {
               value={userInfo.gender || me?.gender}
               onChange={handleUserInfoChange}
               className='w-full text-[1rem] rounded-md mt-1 px-3 py-2 border border-white focus:border-[#2185ff] focus:outline-none'
+              disabled={!isEditing}
             />
           </label>
           <label htmlFor='phone_number' className='block text-[0.7rem] mb-4'>
@@ -114,6 +127,7 @@ const Account = ({ tokenFromStorage }) => {
               value={userInfo.phone_number || me?.phone_number}
               onChange={handleUserInfoChange}
               className='w-full text-[1rem] rounded-md mt-1 px-3 py-2 border border-white focus:border-[#2185ff] focus:outline-none'
+              disabled={!isEditing}
             />
           </label>
           <label htmlFor='birth' className='block text-[0.7rem] mb-4'>
@@ -127,6 +141,7 @@ const Account = ({ tokenFromStorage }) => {
               }
               onChange={handleUserInfoChange}
               className='w-full text-[1rem] rounded-md mt-1 px-3 py-2 border border-white focus:border-[#2185ff] focus:outline-none'
+              disabled={!isEditing}
             />
           </label>
           <label htmlFor='domain' className='block text-[0.7rem] mb-4'>
@@ -138,71 +153,48 @@ const Account = ({ tokenFromStorage }) => {
               value={userInfo.domain || me?.domain}
               onChange={handleUserInfoChange}
               className='w-full text-[1rem] rounded-md mt-1 px-3 py-2 border border-white focus:border-[#2185ff] focus:outline-none'
+              disabled={!isEditing}
             />
           </label>
 
           <div className='flex flex-col'>
             <button
-              type='submit'
-              className='bg-black text-white text-sm py-2 px-4 rounded-md mb-4 '
+              type='button'
+              className={`bg-black text-white text-sm py-2 px-4 rounded-md mb-4 ${
+                isEditing && 'hidden'
+              }`}
+              onClick={() => setIsEditing(!isEditing)}
             >
-              Save Changes
+              Edit Profile
             </button>
+
+            {isEditing && (
+              <button
+                type='submit'
+                className='bg-black text-white text-sm py-2 px-4 rounded-md mb-4'
+              >
+                Save Changes
+              </button>
+            )}
+
             <button
               className='bg-[#ddd] hover:bg-[#bbb] text-sm py-2 px-4 rounded-md mb-4'
               onClick={handleAccountDelete}
             >
               Delete Account
             </button>
+
+            {modalOpen && (
+              <NoticeModal closeModal={closeModal}>
+                <ConfirmNotice
+                  closeModal={closeModal}
+                  title='Delete Account'
+                  text='Are you sure you want to delete this account?'
+                />
+              </NoticeModal>
+            )}
           </div>
         </form>
-        {/* <form onSubmit={handleSubmitPasswordChange}>
-          <div className='mb-4'>
-            <label htmlFor='currentPassword' className='block'>
-              Current Password
-            </label>
-            <input
-              type='password'
-              id='currentPassword'
-              name='currentPassword'
-              value={passwordData.currentPassword}
-              onChange={handlePasswordChange}
-              className='w-full rounded-md px-3 py-2'
-            />
-          </div>
-          <div className='mb-4'>
-            <label htmlFor='newPassword' className='block'>
-              New Password
-            </label>
-            <input
-              type='password'
-              id='newPassword'
-              name='newPassword'
-              value={passwordData.newPassword}
-              onChange={handlePasswordChange}
-              className='w-full rounded-md px-3 py-2'
-            />
-          </div>
-          <div className='mb-4'>
-            <label htmlFor='confirmPassword' className='block'>
-              Confirm New Password
-            </label>
-            <input
-              type='password'
-              id='confirmPassword'
-              name='confirmPassword'
-              value={passwordData.confirmPassword}
-              onChange={handlePasswordChange}
-              className='w-full rounded-md px-3 py-2'
-            />
-          </div>
-          <button
-            type='submit'
-            className='bg-green-500 text-white py-2 px-4 rounded-md'
-          >
-            Change Password
-          </button>
-        </form> */}
       </div>
     </div>
   );

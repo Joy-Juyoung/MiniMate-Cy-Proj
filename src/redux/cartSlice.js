@@ -27,6 +27,26 @@ export const fetchAllCartsByUser = createAsyncThunk(
   }
 );
 
+export const createCart = createAsyncThunk(
+  'cart/createCart',
+  async ({ cartData, thunkAPI }) => {
+    try {
+      const response = await API.post('/carts', cartData);
+      return response.data.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const deleteCart = createAsyncThunk(
+  'cart/deleteCategory',
+  async (cartId) => {
+    await API.delete(`/carts/${cartId}`);
+    return cartId;
+  }
+);
+
 const cartSlice = createSlice({
   name: 'cart',
   initialState: {
@@ -61,6 +81,26 @@ const cartSlice = createSlice({
       .addCase(fetchAllCartsByUser.rejected, (state, action) => {
         state.loading = false;
         // state.error = action.payload.message;
+      })
+      // .addCase(createCart.fulfilled, (state, action) => {
+      //   state.item.push(action.payload);
+      // });
+      .addCase(createCart.pending, (state) => {
+        state.loading = true;
+        state.success = false;
+      })
+      .addCase(createCart.fulfilled, (state, action) => {
+        state.loading = false;
+        state.item.push(action.payload);
+        state.success = true;
+      })
+      .addCase(createCart.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload.message;
+        state.success = false;
+      })
+      .addCase(deleteCart.fulfilled, (state, action) => {
+        state.item = state.item.filter((cart) => cart._id !== action.payload);
       });
   },
 });

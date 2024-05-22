@@ -13,6 +13,18 @@ export const fetchAllItemsByCategory = createAsyncThunk(
   }
 );
 
+export const fetchAllItems = createAsyncThunk(
+  'item/fetchAllItems',
+  async (_, thunkAPI) => {
+    try {
+      const response = await API.get(`/shopItems`);
+      return response.data.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
 export const fetchItemById = createAsyncThunk(
   'item/fetchItem',
   async ({ itemId, thunkAPI }) => {
@@ -77,6 +89,7 @@ const itemSlice = createSlice({
   name: 'item',
   initialState: {
     list: [],
+    all: [],
     selectedItem: null,
     loading: false,
     error: null,
@@ -85,6 +98,18 @@ const itemSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+      .addCase(fetchAllItems.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchAllItems.fulfilled, (state, action) => {
+        state.loading = false;
+        state.all = action.payload;
+      })
+      .addCase(fetchAllItems.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
       .addCase(fetchAllItemsByCategory.pending, (state) => {
         state.loading = true;
         state.error = null;

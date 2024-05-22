@@ -1,3 +1,4 @@
+import React, { useEffect } from 'react';
 import { Outlet, Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -12,7 +13,6 @@ import {
   MiniSetting,
   MiniVideo,
   MiniVisitor,
-  Profile,
   Register,
   ResetPassword,
   Shop,
@@ -21,76 +21,79 @@ import { Header } from './components/Header';
 import BgImg from './assets/patternBg2.png';
 import { Footer } from './components';
 import 'react-toastify/dist/ReactToastify.css';
-import { useEffect } from 'react';
 import { fetchMe } from './redux/userSlice';
+import ProtectedRoute from './ProtectedRoute';
 
-// function Layout() {
-// const { user } = useSelector((state) => state.user);
-// const location = useLocation();
-// // console.log(user);
-
-// return user?.token ? (
-//   <>
-//     <Header />
-//     <Outlet />
-//   </>
-// ) : (
-//   <Navigate to='/login' state={{ from: location }} replace />
-// );
-// }
-
-const HeaderWrapper = ({ me }) => (
-  <div className='2xl:px-[12rem]'>
+const HeaderWrapper = React.memo(({ me }) => (
+  <div className=''>
     <Header me={me} />
-    <Outlet me={me} className='' />
+    <Outlet me={me} />
     <Footer />
   </div>
-);
+));
 
-function App() {
+const useFetchUser = () => {
   const dispatch = useDispatch();
   const { me } = useSelector((state) => state.user);
   const tokenFromStorage = localStorage.getItem('token');
 
   useEffect(() => {
-    // const tokenFromStorage = localStorage.getItem('token');
     if (tokenFromStorage) {
       dispatch(fetchMe());
     }
-  }, [dispatch]);
+  }, [dispatch, tokenFromStorage]);
 
-  // console.log('me', me.username);
+  return { me, tokenFromStorage };
+};
+
+function App() {
+  const { me, tokenFromStorage } = useFetchUser();
+  const location = useLocation();
 
   return (
     <div
       className='w-full h-full font-poppins bg-[#ffffff]'
       style={{
-        backgroundImage: `url('${BgImg}')`,
+        backgroundImage: location.pathname === '/' ? `url('${BgImg}')` : '',
         backgroundSize: '8%',
         backgroundRepeat: 'repeat',
         minHeight: '100vh',
       }}
     >
       <Routes>
-        {/* <Route  element={<Layout />}> */}
         <Route path='/' element={<HeaderWrapper me={me} />}>
           <Route path='/' element={<Home me={me} />} />
           <Route path='/shop' element={<Shop />} />
-          <Route path='/cart' element={<Cart me={me} />} />
-          <Route path='/admin' element={<Admin me={me} />} />
+          <Route
+            path='/cart'
+            element={
+              <ProtectedRoute
+                element={Cart}
+                me={me}
+                tokenFromStorage={tokenFromStorage}
+              />
+            }
+          />
+          <Route
+            path='/admin'
+            element={<ProtectedRoute element={Admin} me={me} />}
+          />
           <Route
             path='/account'
-            element={<Account me={me} tokenFromStorage={tokenFromStorage} />}
+            element={
+              <ProtectedRoute
+                element={Account}
+                me={me}
+                tokenFromStorage={tokenFromStorage}
+              />
+            }
           />
         </Route>
-
         <Route path='/register' element={<Register />} />
         <Route
           path='/login'
           element={<Login tokenFromStorage={tokenFromStorage} />}
         />
-        {/* <Navigate to='/login' /> */}
-
         <Route path='/:domain/home' element={<MiniHome me={me} />} />
         <Route path='/:domain/photo' element={<MiniPhoto />} />
         <Route path='/:domain/video' element={<MiniVideo />} />

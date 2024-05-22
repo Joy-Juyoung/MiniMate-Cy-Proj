@@ -12,12 +12,12 @@ const Hero = ({ me }) => {
   const popupRef = useRef(null);
   const navigate = useNavigate();
 
-  // console.log('me', me);
+  console.log('me', me);
 
   const openPopup = () => {
     if (!popupRef.current || popupRef.current.closed) {
       if (me) {
-        const userDomain = me.domain;
+        const userDomain = me?.domain;
         // const userTempDomain = me.email.substring(0, me.email.indexOf('@'));
         // const userEmail = me.email;
         const popupUrl = `http://localhost:3000/${userDomain}/home`;

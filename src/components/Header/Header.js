@@ -12,7 +12,6 @@ import { MdMenu } from 'react-icons/md';
 import Sidebar from './Sidebar';
 
 const Header = ({ me }) => {
-  // const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const [modalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
@@ -21,12 +20,12 @@ const Header = ({ me }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [scrollNav, setScrollNav] = useState(false);
   const [isSideOpen, setIsSideOpen] = useState(false);
+
   const toggle = () => {
     setIsSideOpen(!isSideOpen);
   };
 
   const changeNav = () => {
-    // console.log('window.scrollY', window.scrollY);
     if (window.scrollY >= 80) {
       setScrollNav(true);
     } else {
@@ -50,7 +49,6 @@ const Header = ({ me }) => {
 
     if (dropdownOpen) {
       document.body.style.overflow = 'auto';
-      // document.body.style.overflow = 'hidden';
       document.addEventListener('click', handleOutsideClick);
     } else {
       document.body.style.overflow = 'unset';
@@ -74,7 +72,7 @@ const Header = ({ me }) => {
     if (!me) {
       openModal();
     } else {
-      navigate('/shop'); // Go to alert page or open modal
+      navigate('/shop');
     }
   };
 
@@ -87,7 +85,8 @@ const Header = ({ me }) => {
       )}
 
       <div
-        className='header font-work w-full flex items-center justify-between py-3 md:py-6 px-10 2xl:px-40'
+        className='header font-work w-full h-full flex items-center justify-between py-3 
+        md:py-6 px-10 sm:px-20 md:px-40'
         style={{
           backgroundColor: scrollNav
             ? 'rgba(255, 255, 255, 0.9)'
@@ -143,7 +142,7 @@ const Header = ({ me }) => {
         </div>
       </div>
 
-      {/* {isSideOpen && <Sidebar isSideOpen={isSideOpen} toggle={toggle} />} */}
+      <Sidebar isSideOpen={isSideOpen} toggle={toggle} />
     </>
   );
 };

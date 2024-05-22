@@ -87,13 +87,12 @@ const userSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-
       .addCase(fetchMe.pending, (state) => {
         state.loading = true;
       })
       .addCase(fetchMe.fulfilled, (state, action) => {
         state.loading = false;
-        state.me = action.payload.data;
+        state.me = action.payload; // action.payload.data 대신 action.payload 사용
       })
       .addCase(fetchMe.rejected, (state, action) => {
         state.loading = false;
@@ -104,8 +103,7 @@ const userSlice = createSlice({
       })
       .addCase(updateMe.fulfilled, (state, action) => {
         state.loading = false;
-        state.me = action.payload.data;
-        // toast.success('Update successful!');
+        state.me = action.payload; // action.payload.data 대신 action.payload 사용
       })
       .addCase(updateMe.rejected, (state, action) => {
         state.loading = false;
@@ -116,31 +114,29 @@ const userSlice = createSlice({
       })
       .addCase(updateMinime.fulfilled, (state, action) => {
         state.loading = false;
-        state.me = action.payload.data;
+        state.me = action.payload; // action.payload.data 대신 action.payload 사용
       })
       .addCase(updateMinime.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload.message;
       })
-
       .addCase(deleteUser.pending, (state) => {
         state.loading = true;
       })
       .addCase(deleteUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.me = action.payload.data;
+        state.me = action.payload; // action.payload.data 대신 action.payload 사용
       })
       .addCase(deleteUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload.message;
       })
-
       .addCase(fetchAllUsers.pending, (state) => {
         state.loading = true;
       })
       .addCase(fetchAllUsers.fulfilled, (state, action) => {
         state.loading = false;
-        state.users = action.payload.data;
+        state.users = action.payload; // action.payload.data 대신 action.payload 사용
       })
       .addCase(fetchAllUsers.rejected, (state, action) => {
         state.loading = false;
@@ -151,7 +147,7 @@ const userSlice = createSlice({
       })
       .addCase(updateUserState.fulfilled, (state, action) => {
         state.loading = false;
-        state.me = action.payload.data;
+        state.me = action.payload; // action.payload.data 대신 action.payload 사용
       })
       .addCase(updateUserState.rejected, (state, action) => {
         state.loading = false;
@@ -159,5 +155,4 @@ const userSlice = createSlice({
       });
   },
 });
-
 export default userSlice.reducer;

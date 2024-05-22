@@ -19,11 +19,9 @@ const HeroShop = () => {
         <div className='w-full py-16 px-10 2xl:px-40'>
           <div className='w-full mb-12 flex flex-col items-center justify-center'>
             <div className='font-semibold text-lg text-center border-b-2 pb-1'>
-              BEST ITEMS
+              NEW ITEMS
             </div>
-            <div className='text-sm text-center mt-2'>
-              Most popular for this week
-            </div>
+            <div className='text-sm text-center mt-2'>Brand-new items</div>
           </div>
 
           <div className='w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4'>

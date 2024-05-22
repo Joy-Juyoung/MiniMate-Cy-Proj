@@ -11,13 +11,13 @@ const MiniHome = () => {
   // const { token, loading, user, error } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    const tokenFromStorage = localStorage.getItem('token');
-    if (tokenFromStorage) {
-      dispatch(fetchMe());
-    }
+    // const tokenFromStorage = localStorage.getItem('token');
+    // if (tokenFromStorage) {
+    dispatch(fetchMe());
+    // }
   }, [dispatch]);
 
-  console.log('me', me);
+  // console.log('me', me);
   return (
     <>
       <MiniHomeFrame

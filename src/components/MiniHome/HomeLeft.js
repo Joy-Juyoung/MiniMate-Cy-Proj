@@ -1,15 +1,27 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { mateList } from '../../redux/tempData';
-// import Banner from '../../assets/nothing.png';
 import Banner from '../../assets/main(5).jpg';
 import { Link } from 'react-router-dom';
 import { RiArrowDownSFill } from 'react-icons/ri';
 import Buttons from '../Buttons';
 import { IoMdArrowDropright } from 'react-icons/io';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchMe } from '../../redux/userSlice';
 
-const HomeLeft = ({ me }) => {
+const HomeLeft = () => {
+  const dispatch = useDispatch();
   const [mateListOpen, toggleMateList] = useState(false);
-  // console.log('me', me);
+  const { me } = useSelector((state) => state.user);
+
+  useEffect(() => {
+    dispatch(fetchMe());
+  }, [dispatch]);
+
+  console.log('me', me);
+
+  if (!me) {
+    return <div>Loading...</div>; // 혹은 적절한 로딩 표시
+  }
 
   return (
     <div className='w-full h-full flex flex-col'>
@@ -18,7 +30,7 @@ const HomeLeft = ({ me }) => {
         <img
           src={Banner}
           alt=''
-          className='h-full items-center flex justify-cente object-cover object-top'
+          className='h-full items-center flex justify-center object-cover object-top'
         />
       </div>
       <div className='w-full h-[33%] flex flex-col justify-between'>
@@ -49,7 +61,7 @@ const HomeLeft = ({ me }) => {
             <div className='mx-1'>·</div>
             <div className='text-[0.6rem]'>F</div>
             <div className='mx-1'>·</div>
-            <div className='text-[0.6rem]'>1911-1-11</div>
+            <div className='text-[0.6rem]'>{me.birth}</div>
           </div>
 
           <div className='text-sm flex flex-col items-center mt-2 '>
