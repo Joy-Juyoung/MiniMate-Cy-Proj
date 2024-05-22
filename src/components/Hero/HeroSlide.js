@@ -28,11 +28,25 @@ const HeroSlide = () => {
       <div className='banner-slider w-full py-16 px-10 2xl:px-40 bg-[#f5f5f5]'>
         <div className='w-full flex flex-col items-center justify-center'>
           <div className='font-semibold text-lg text-center border-b-2 pb-1'>
-            NEW ITEMS
+            BEST ITEMS
           </div>
-          <div className='text-sm text-center mt-2'>Brand-new skins</div>
+          <div className='text-sm text-center mt-2'>
+            Most popular for this week
+          </div>
         </div>
-        <ImageSlider images={images} />
+        {/* <ImageSlider images={images} /> */}
+
+        <div className='grid grid-cols-2 my-8'>
+          {images.map((image, index) => (
+            <img
+              key={index}
+              src={image}
+              alt={`Slide ${index}`}
+              className='w-full'
+            />
+          ))}
+        </div>
+
         <div className='w-full flex items-center justify-center mb-24'>
           <Buttons
             onClick={() => {

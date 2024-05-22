@@ -87,7 +87,7 @@ const MiniHomeFrame = ({ LeftContent, RightContent, me, nav }) => {
                 </div>
 
                 <div className='text-[0.6rem]'>
-                  http://localhost:3000/{me.domain}
+                  http://localhost:3000/{domain}
                 </div>
               </div>
               <div className='relative overflow-y-auto w-full h-[440px] border border-1 border-[#ccc] rounded-md flex flex-col px-4 py-2'>

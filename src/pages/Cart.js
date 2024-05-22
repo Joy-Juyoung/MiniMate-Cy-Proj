@@ -1,30 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import Image1 from '../assets/minime(2).gif';
-import Image2 from '../assets/miniroom1.gif';
-import Image3 from '../assets/minime(10).gif';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllCartsByUser, fetchCartItems } from '../redux/cartSlice';
 import { Buttons } from '../components';
 
-const Cart = ({ me }) => {
+const Cart = ({ me, tokenFromStorage }) => {
   const dispatch = useDispatch();
-  const { item, list } = useSelector((state) => state.cart);
+  const { item, list, loading } = useSelector((state) => state.cart);
+  const [selectedItems, setSelectedItems] = useState([]);
   const [cartItems, setCartItems] = useState(item?.shop_items || []);
+
   useEffect(() => {
-    dispatch(fetchAllCartsByUser({ userId: me?._id }));
+    if (me?._id) {
+      dispatch(fetchAllCartsByUser({ userId: me._id }));
+    }
   }, [dispatch, me]);
 
   useEffect(() => {
-    if (list && list.length > 0) {
-      dispatch(fetchCartItems({ cartId: list[0]._id }));
+    if (cartItems) {
+      dispatch(fetchCartItems({ cartId: list[0]?._id }));
     }
-  }, [dispatch, list]);
+  }, [dispatch]);
 
-  // console.log(cartItems);
-
-  const [selectedItems, setSelectedItems] = useState(
-    Array.isArray(cartItems) ? [...Array(cartItems.length).keys()] : []
-  );
+  // console.log('list', list);
+  // console.log('item', item);
 
   const handleCheckboxChange = (index) => {
     if (selectedItems.includes(index)) {
@@ -39,15 +37,15 @@ const Cart = ({ me }) => {
   };
 
   const handleSelectAll = () => {
-    if (selectedItems.length === cartItems.length) {
+    if (selectedItems?.length === cartItems?.length) {
       setSelectedItems([]);
     } else {
-      setSelectedItems([...Array(cartItems.length).keys()]);
+      setSelectedItems([...Array(cartItems?.length).keys()]);
     }
   };
 
   const handleDeleteSelected = () => {
-    const updatedCartItems = cartItems.filter(
+    const updatedCartItems = cartItems?.filter(
       (_, index) => !selectedItems.includes(index)
     );
     setCartItems(updatedCartItems);
@@ -62,7 +60,7 @@ const Cart = ({ me }) => {
   const availablePoints = me?.point || 0;
 
   return (
-    <div className='w-full h-[100vh] flex flex-col py-16 px-10 2xl:px-40'>
+    <div className='w-full h-[100vh] flex flex-col py-16 px-10 sm:px-20 md:px-40'>
       <div className='text-3xl font-bold mb-4'>Cart</div>
       <div className='flex justify-between items-center mb-4'>
         <div className='flex items-center '>
@@ -81,9 +79,9 @@ const Cart = ({ me }) => {
         />
       </div>
       <div className='flex flex-col '>
-        {cartItems.map((item, index) => (
+        {cartItems?.map((item, index) => (
           <div
-            key={item.id}
+            key={item._id}
             className='border-b border-[#aaa] py-3 flex items-center gap-8 '
           >
             <input
@@ -92,10 +90,16 @@ const Cart = ({ me }) => {
               onChange={() => handleCheckboxChange(index)}
               className='mr-2'
             />
-            <img src={Image1} alt={item.item_name} className='w-24 h-24 mb-2' />
+            <img
+              src={item.item_img || 'placeholder-image-url'} // Add a placeholder image URL if item_img is null
+              alt={item.item_name}
+              className='w-24 h-24 mb-2'
+            />
             <div className='w-full h-full flex justify-between items-center'>
               <div>
-                <p className='text-[0.7rem]'>{item.category.name}</p>
+                <p className='text-[0.7rem]'>
+                  {item.category?.name || 'No Category'}
+                </p>
                 <p className='text-lg font-semibold text-[1rem]'>
                   {item.item_name}
                 </p>
@@ -108,7 +112,7 @@ const Cart = ({ me }) => {
         ))}
       </div>
       <div className='w-full flex flex-col items-end my-8 rounded-md text-[0.9rem]'>
-        <div className='w-1/3 flex flex-col items-end bg-white p-4'>
+        <div className='w-1/2 flex flex-col items-end bg-white p-4 shadow-lg'>
           <div className='w-full text-lg font-semibold mb-4'>
             Payment Information
           </div>

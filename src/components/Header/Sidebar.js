@@ -1,33 +1,50 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FaTimes } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 const Sidebar = ({ isSideOpen, toggle }) => {
+  useEffect(() => {
+    if (isSideOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [isSideOpen]);
+
   return (
     <div
-      isSideOpen={isSideOpen}
+      className={`fixed top-0 left-0 w-full h-full bg-white text-black grid items-center transition-transform duration-300 z-50 ${
+        isSideOpen ? 'transform translate-y-0' : 'transform -translate-y-full'
+      } `}
       onClick={toggle}
-      className='flxed w-full h-full bg-[#0d0d0d] gird items-center top-0 left-0 ease-in-out-3000'
     >
       <div
         onClick={toggle}
-        className='absolute top-20 right-5 bg-transparent text-white text-lg cursor-pointer'
+        className='absolute top-[24px] right-[80px] bg-transparent text-black text-xl cursor-pointer'
       >
         <FaTimes />
       </div>
-      <div className='text-white py-20 px-10'>
-        <div className='w-full grid grid-cols-1 items-center cursor-pointer'>
+      <div className='text-black py-20 px-10 w-full grid grid-cols-1 items-center  cursor-pointer'>
+        <div className='w-full grid grid-cols-1 items-center justify-center cursor-pointer'>
           <Link
             to='/account'
             onClick={toggle}
-            className='w-full items-center justify-center'
+            className='w-full flex items-center justify-center py-4 hover:bg-[#f5f5f5] border-b-2 border-[#f5f5f5]'
           >
             My Account
           </Link>
-          <Link to='/shop' onClick={toggle}>
+          <Link
+            to='/shop'
+            onClick={toggle}
+            className='w-full flex items-center justify-center py-4 hover:bg-[#f5f5f5] border-b-2 border-[#f5f5f5]'
+          >
             Shop
           </Link>
-          <Link to='' onClick={toggle}>
+          <Link
+            to=''
+            onClick={toggle}
+            className='w-full flex items-center justify-center py-4 hover:bg-[#f5f5f5] border-b-2 border-[#f5f5f5]'
+          >
             Logout
           </Link>
         </div>

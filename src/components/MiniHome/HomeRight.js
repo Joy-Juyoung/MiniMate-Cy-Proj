@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 // import Miniroom from '../../assets/shop3.gif';
 import Miniroom from '../../assets/miniroom(2).gif';
 import Minime from '../../assets/shop1.gif';
+import Minnime from '../../assets/minime(23).gif';
 import { managePosts } from '../../redux/tempData';
 
 const update = [
@@ -84,9 +85,14 @@ const HomeRight = ({ me }) => {
       <hr className='border-[#ccc]' />
       <div className='relative'>
         <img src={Miniroom} alt='' className='w-full object-cover my-2 ' />
-        <img
+        {/* <img
           src={me.minime}
           alt=''
+          className='object-cover my-2 absolute top-1/2 left-1/2 w-[70px]'
+        /> */}
+        <img
+          src={Minnime}
+          alt='Minime'
           className='object-cover my-2 absolute top-1/2 left-1/2 w-[70px]'
         />
       </div>

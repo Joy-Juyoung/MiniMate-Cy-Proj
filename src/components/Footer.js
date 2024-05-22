@@ -9,7 +9,7 @@ const Footer = () => {
   };
 
   return (
-    <div className='w-full h-full flex items-center justify-between py-4 px-10 2xl:px-40'>
+    <div className='w-full h-full flex items-center justify-between py-4 px-10 sm:px-20 md:px-40'>
       <div className='text-sm'>TEAM BLINK © 2024</div>
       <div className='flex items-center'>
         <button className='mr-4'>
