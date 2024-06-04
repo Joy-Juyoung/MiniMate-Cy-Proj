@@ -5,20 +5,20 @@ import Buttons from '../Buttons';
 
 const AddedPoint = ({ closeModal, navigate, me }) => {
   const [changeUserBalance, setChangeUserBalance] = useState(
-    parseFloat(me?.data.point)
+    parseFloat(me?.point) || 0
   );
   const [balance, setBalance] = useState(0);
   const [isOverAmount, setIsOverAmount] = useState(false);
   const [isMinus, setIsMinus] = useState(false);
   const dispatch = useDispatch();
   const [userInfo, setUserInfo] = useState({
-    point: me?.data.point,
+    point: me?.point,
   });
 
   useEffect(() => {
-    const totlaPoint = parseFloat(me?.data.point) + parseFloat(balance);
+    const totlaPoint = parseFloat(me?.point) + parseFloat(balance);
     setUserInfo({ point: totlaPoint });
-    setChangeUserBalance(parseFloat(me?.data.point));
+    setChangeUserBalance(totlaPoint);
     // setBalance(0);
   }, [me, balance]);
 
@@ -55,7 +55,7 @@ const AddedPoint = ({ closeModal, navigate, me }) => {
         <div className='font-semibold'>Your Current Balances:</div>
         <span>
           $
-          {me?.data.point?.toLocaleString('en-US', {
+          {me?.point?.toLocaleString('en-US', {
             style: 'decimal',
             minimumFractionDigits: 2,
           })}

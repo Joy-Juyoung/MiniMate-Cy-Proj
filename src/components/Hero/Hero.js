@@ -73,7 +73,13 @@ const Hero = ({ me }) => {
             <div className='w-full flex items-center justify-center '>
               <img
                 // src={Minnime || MinniFemale}
-                src={MinniFemale}
+                src={
+                  !me?.minime_img
+                    ? me?.gender === 'male'
+                      ? MinniMale
+                      : MinniFemale
+                    : me?.minime_img
+                }
                 alt='Minime'
                 className='w-[20rem] h-[15rem] drop-shadow-xl object-contain'
               />

@@ -92,12 +92,14 @@ const Account = ({ tokenFromStorage }) => {
             <div>
               <img
                 src={
-                  me?.minime_img || me?.gender === 'male'
-                    ? MinniMale
-                    : MinniFemale
+                  !me?.minime_img
+                    ? me?.gender === 'male'
+                      ? MinniMale
+                      : MinniFemale
+                    : me?.minime_img
                 }
                 alt='Minime'
-                className='flex justify-center items-center mx-auto my-4'
+                className='w-[15rem] flex justify-center items-center mx-auto my-4'
               />
               <label htmlFor='username' className='block text-[0.7rem] mb-4'>
                 Username
