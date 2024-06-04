@@ -5,6 +5,8 @@ import { fetchCategories } from '../redux/categorySlice';
 import { createCart } from '../redux/cartSlice';
 import { GoPlus } from 'react-icons/go';
 import { useNavigate } from 'react-router-dom';
+import { Loading } from '../components';
+import AddToCartBar from '../components/AddToCartBar';
 
 const Shop = () => {
   const dispatch = useDispatch();
@@ -14,7 +16,6 @@ const Shop = () => {
     loading: itemsLoading,
     all,
   } = useSelector((state) => state.item);
-  // const { list: categories, loading: categoriesLoading } = useSelector((state) => state.category);
   const { categories, loading: categoriesLoading } = useSelector(
     (state) => state.categories
   );
@@ -29,12 +30,6 @@ const Shop = () => {
     dispatch(fetchCategories());
     dispatch(fetchAllItems());
   }, [dispatch]);
-
-  // useEffect(() => {
-  //   if (selectedCategory === null) {
-  //     dispatch(fetchAllItems());
-  //   }
-  // }, [dispatch, selectedCategory]);
 
   const handleCategoryClick = (categoryId) => {
     setSelectedCategory(categoryId);
@@ -75,56 +70,60 @@ const Shop = () => {
   };
 
   return (
-    <div className='w-full h-[100vh] bg-[#ffffffba] flex py-16 px-10 sm:px-20 md:px-40'>
-      <div className='w-full flex flex-col '>
-        <div className='font-bold text-3xl md:text-4xl md:mb-2 '>SHOP</div>
-        <div className='w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 mt-8'>
+    <div className='w-full h-full min-h-screen bg-[#fff9e7] flex pb-28 sm:pb-12 pt-12 px-10 sm:px-20 md:px-40'>
+      <div className='w-full h-full flex flex-col '>
+        <div className='font-bold text-3xl md:text-4xl mb-4 md:mb-8 '>SHOP</div>
+        <div className='w-full h-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 items-center'>
           {categoriesLoading ? (
-            <div>Loading categories...</div>
+            <Loading />
           ) : (
             <>
               <div
-                className={`cursor-pointer w-full text-sm text-center px-5 py-2 rounded-lg border ${
+                className={`cursor-pointer w-full h-full text-sm text-center px-5 py-2 rounded-lg border ${
                   selectedCategory === null
                     ? ' bg-black text-white shadow-md border-white'
                     : 'border-[#ddd] bg-white shadow-md hover:bg-[#00000052]'
-                }`}
+                } flex items-center justify-center`}
                 onClick={() => handleCategoryClick(null)}
               >
                 All
               </div>
-              {categories.map((category) => (
-                <div
-                  key={category._id}
-                  className={`cursor-pointer w-full text-sm text-center px-5 py-2 rounded-lg border ${
-                    selectedCategory === category._id
-                      ? ' bg-black text-white shadow-md border-white'
-                      : 'border-[#ddd] bg-white shadow-md hover:bg-[#00000052]'
-                  }`}
-                  onClick={() => handleCategoryClick(category._id)}
-                >
-                  {category.name}
-                </div>
-              ))}
+              {categories
+                .filter((category) =>
+                  category.name.toLowerCase().includes('private')
+                )
+                .map((category) => (
+                  <div
+                    key={category._id}
+                    className={`cursor-pointer w-full text-sm text-center px-5 py-2 rounded-lg border ${
+                      selectedCategory === category._id
+                        ? ' bg-black text-white shadow-md border-white'
+                        : 'border-[#ddd] bg-white shadow-md hover:bg-[#00000052]'
+                    }`}
+                    onClick={() => handleCategoryClick(category._id)}
+                  >
+                    {category.name}
+                  </div>
+                ))}
             </>
           )}
         </div>
-        <div className='w-full my-14'>
-          <div className='w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 items-center gap-8 md:gap-4 lg:gap-8'>
+        <div className='w-full h-full my-12'>
+          <div className='w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 items-stretch gap-8 md:gap-4 lg:gap-8'>
             {itemsLoading ? (
-              <div>Loading items...</div>
+              <span className='dots-container'></span>
             ) : (
               (selectedCategory === null ? all : items).map((item, index) => (
                 <div
                   key={index}
-                  className='cursor-pointer text-sm w-full flex flex-col items-center justify-center shadow-md bg-white border border-[#ccc] rounded-lg hover:border-hightColor hover:text-hightColor hover:scale-[1.05] ease-in-out duration-300'
+                  className='cursor-pointer text-sm w-full flex flex-col items-center justify-between shadow-md bg-white border border-[#ccc] rounded-lg hover:scale-[1.05] ease-in-out duration-300'
                 >
                   <img
                     src={item.item_img}
                     alt={item.item_name}
-                    className='w-full h-[10rem] object-contain rounded-lg py-4'
+                    className='w-full h-[10rem] object-contain rounded-lg mt-4'
                   />
-                  <div className='w-full px-4 py-3'>
+                  <div className='w-full flex flex-col justify-between flex-grow px-4 py-3'>
                     <div className='w-full flex item-center justify-between'>
                       <div className='item-name'>{item.item_name}</div>
                       <div className='item-price'>🧀 {item.item_price}</div>
@@ -141,58 +140,16 @@ const Shop = () => {
             )}
           </div>
         </div>
+
         {cartSidebarOpen && (
-          <>
-            <div className='fixed top-0 right-0 w-1/4 h-full bg-white shadow-lg z-50 transform transition-transform duration-300 ease-in-out'>
-              <div className='flex flex-col h-full p-4'>
-                <div className='flex justify-between items-center mb-4'>
-                  <h2 className='text-xl font-bold'>Cart</h2>
-                  <button
-                    onClick={() => setCartSidebarOpen(false)}
-                    className='text-xl'
-                  >
-                    &times;
-                  </button>
-                </div>
-                <div className='flex-grow overflow-y-auto'>
-                  {tempCartItems.length === 0 ? (
-                    <div className='text-center text-gray-500'>
-                      Your cart is empty
-                    </div>
-                  ) : (
-                    tempCartItems.map((item, index) => (
-                      <div
-                        key={index}
-                        className='flex items-center justify-between mb-4'
-                      >
-                        <div>{item.item_name}</div>
-                        <div>🧀 {item.item_price}</div>
-                      </div>
-                    ))
-                  )}
-                </div>
-                {error && <div className='text-red-500'>{error}</div>}
-                <div className='mt-4'>
-                  <button
-                    onClick={handleSaveCart}
-                    className='w-full bg-black text-white py-2 rounded mb-2'
-                  >
-                    Save
-                  </button>
-                  <button
-                    onClick={handleCreateCart}
-                    className='w-full bg-hightColor text-white py-2 rounded'
-                  >
-                    Add
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div
-              className='fixed inset-0 bg-black opacity-50 z-40'
-              onClick={() => setCartSidebarOpen(false)}
-            ></div>
-          </>
+          <AddToCartBar
+            me={me}
+            tempCartItems={tempCartItems}
+            error={error}
+            handleSaveCart={handleSaveCart}
+            handleCreateCart={handleCreateCart}
+            setCartSidebarOpen={setCartSidebarOpen}
+          />
         )}
       </div>
     </div>

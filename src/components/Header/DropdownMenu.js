@@ -28,6 +28,33 @@ const DropdownMenu = ({ isOpen, toggleDropdown, navigate, me }) => {
     isOpen && (
       <div className='absolute top-8 right-0 bg-white shadow-md rounded-md text-sm py-2'>
         <ul className='w-[150px]'>
+          {/* <li
+            className={listItemStyle}
+            onClick={() => {
+              toggleDropdown(false);
+              navigate('/');
+            }}
+          >
+            Home
+          </li>
+          <li
+            className={listItemStyle}
+            onClick={() => {
+              toggleDropdown(false);
+              navigate('/shop');
+            }}
+          >
+            Shop
+          </li>
+          <li
+            className={listItemStyle}
+            onClick={() => {
+              toggleDropdown(false);
+              navigate('/cart');
+            }}
+          >
+            Cart
+          </li> */}
           <li
             className={listItemStyle}
             onClick={() => {
@@ -35,7 +62,7 @@ const DropdownMenu = ({ isOpen, toggleDropdown, navigate, me }) => {
               navigate('/account');
             }}
           >
-            Account
+            My Account
           </li>
           <li className={listItemStyle}>
             <button onClick={openModal}>My Point</button>

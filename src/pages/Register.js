@@ -73,9 +73,9 @@ const Register = () => {
           </span>
         </div>
 
-        <p className='text-ascent-1 text-base font-semibold'>
+        <div className='text-ascent-1 text-base font-semibold'>
           Create your account
-        </p>
+        </div>
         <form className='py-4 flex flex-col' onSubmit={handleSubmit}>
           {error && (
             <span className='text-sm text-[#f64949fe] mt-0.5'>{error}</span>
@@ -157,7 +157,7 @@ const Register = () => {
           />
         </form>
 
-        <p className='text-ascent-2 text-sm text-center flex justify-center items-center'>
+        <div className='text-ascent-2 text-sm text-center flex justify-center items-center'>
           Already has an account?
           <div
             onClick={() => navigate('/login')}
@@ -165,7 +165,7 @@ const Register = () => {
           >
             Login
           </div>
-        </p>
+        </div>
       </div>
     </div>
   );

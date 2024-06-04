@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 export const fetchMe = createAsyncThunk('user/fetchMe', async (_, thunkAPI) => {
   try {
     const response = await API.get('/users/me');
-    return response.data;
+    return response.data.data;
   } catch (error) {
     return thunkAPI.rejectWithValue(error.response.data);
   }
@@ -55,7 +55,7 @@ export const fetchAllUsers = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const response = await API.get('/users');
-      return response.data;
+      return response.data.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }

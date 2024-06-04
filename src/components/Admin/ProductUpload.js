@@ -1,5 +1,3 @@
-// components/ProductUpload.js
-
 import React from 'react';
 import ProductUploadForm from './ProductUploadForm';
 

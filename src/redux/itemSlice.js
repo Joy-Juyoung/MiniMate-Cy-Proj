@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, createAction } from '@reduxjs/toolkit';
 import { API } from './api';
 
 export const fetchAllItemsByCategory = createAsyncThunk(
@@ -12,6 +12,9 @@ export const fetchAllItemsByCategory = createAsyncThunk(
     }
   }
 );
+
+// Define the selectItem action creator
+export const selectItem = createAction('item/selectItem');
 
 export const fetchAllItems = createAsyncThunk(
   'item/fetchAllItems',

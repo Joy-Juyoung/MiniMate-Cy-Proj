@@ -15,6 +15,8 @@ const LoginPage = ({ tokenFromStorage }) => {
     password: '',
   });
 
+  const { loading, success, error, user } = useSelector((state) => state.auth);
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -25,8 +27,9 @@ const LoginPage = ({ tokenFromStorage }) => {
     // console.log('formData', formData);
     dispatch(loginUser(formData))
       .then(() => {
+        console.log('error', error);
         // const tokenFromStorage = localStorage.getItem('token');
-        if (tokenFromStorage) {
+        if (!error) {
           navigate('/');
         } else {
           setErrMsg({
@@ -105,7 +108,7 @@ const LoginPage = ({ tokenFromStorage }) => {
             value={formData.password}
             onChange={handleChange}
             required
-            styles='w-full'
+            styles='w-full pr-10'
           />
           <Buttons
             type='submit'

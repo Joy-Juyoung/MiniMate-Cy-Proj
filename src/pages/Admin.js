@@ -1,5 +1,3 @@
-// Admin.js
-
 import React, { useState } from 'react';
 import { FaUsers, FaBox, FaListAlt } from 'react-icons/fa';
 import {
@@ -62,7 +60,7 @@ const Admin = ({ me }) => {
       </div>
       {/* Main Content */}
       <div className='flex-1 py-16 px-10 2xl:px-40'>
-        {selectedSection === 'product' && <ProductUpload />}
+        {selectedSection === 'user' && <UserManagement />}
         {renderSection()}
       </div>
     </div>

@@ -105,17 +105,19 @@ const Header = ({ me }) => {
           </span>
         </div>
 
-        <HeaderNav location={location} navigate={navigate} />
-
         <div className='hidden md:flex gap-4 items-center text-xl md:text-2xl'>
-          <button
+          <HeaderNav location={location} navigate={navigate} />
+
+          <div className='-ml-4'>|</div>
+
+          {/* <button
             onClick={() => {
               !me ? openModal() : navigate('/shop');
             }}
             className='active:text-hightColor'
           >
             <FaRegBell />
-          </button>
+          </button> */}
           <button
             onClick={() => {
               !me ? openModal() : navigate('/cart');

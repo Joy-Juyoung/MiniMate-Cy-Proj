@@ -25,7 +25,7 @@ import { fetchMe } from './redux/userSlice';
 import ProtectedRoute from './ProtectedRoute';
 
 const HeaderWrapper = React.memo(({ me }) => (
-  <div className=''>
+  <div>
     <Header me={me} />
     <Outlet me={me} />
     <Footer />
@@ -52,13 +52,13 @@ function App() {
 
   return (
     <div
-      className='w-full h-full font-poppins bg-[#ffffff]'
-      style={{
-        backgroundImage: location.pathname === '/' ? `url('${BgImg}')` : '',
-        backgroundSize: '8%',
-        backgroundRepeat: 'repeat',
-        minHeight: '100vh',
-      }}
+      className='w-full h-[100vh] font-poppins bg-[#ffffff]'
+      // style={{
+      //   backgroundImage: location.pathname === '/' ? `url('${BgImg}')` : '',
+      //   backgroundSize: '8%',
+      //   backgroundRepeat: 'repeat',
+      //   minHeight: '100vh',
+      // }}
     >
       <Routes>
         <Route path='/' element={<HeaderWrapper me={me} />}>
@@ -74,10 +74,7 @@ function App() {
               />
             }
           />
-          <Route
-            path='/admin'
-            element={<ProtectedRoute element={Admin} me={me} />}
-          />
+          <Route path='/admin' element={<Admin me={me} />} />
           <Route
             path='/account'
             element={

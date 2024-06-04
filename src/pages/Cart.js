@@ -7,11 +7,11 @@ const Cart = ({ me, tokenFromStorage }) => {
   const dispatch = useDispatch();
   const { item, list, loading } = useSelector((state) => state.cart);
   const [selectedItems, setSelectedItems] = useState([]);
-  const [cartItems, setCartItems] = useState(item?.shop_items || []);
+  const [cartItems, setCartItems] = useState(item.shop_items || []);
 
   useEffect(() => {
-    if (me?._id) {
-      dispatch(fetchAllCartsByUser({ userId: me._id }));
+    if (me) {
+      dispatch(fetchAllCartsByUser({ userId: me?._id }));
     }
   }, [dispatch, me]);
 
@@ -21,8 +21,9 @@ const Cart = ({ me, tokenFromStorage }) => {
     }
   }, [dispatch]);
 
+  // console.log('me', me);
   // console.log('list', list);
-  // console.log('item', item);
+  // console.log('item', item.shop_items);
 
   const handleCheckboxChange = (index) => {
     if (selectedItems.includes(index)) {
