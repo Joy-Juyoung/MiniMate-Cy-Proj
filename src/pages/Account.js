@@ -6,13 +6,18 @@ import NoticeModal from '../components/Modal/NoticeModal';
 import { updateMe, fetchMe } from '../redux/userSlice';
 import MinniFemale from '../assets/minimi2.png';
 import MinniMale from '../assets/minimi1.png';
+import UploadImage from '../components/Modal/UploadImage';
+import UploadProfileImage from '../components/Modal/UploadProfileImage';
 
 const Account = ({ tokenFromStorage }) => {
   const dispatch = useDispatch();
-  const { me, success, error } = useSelector((state) => state.user);
+  const { me, image, success, error } = useSelector((state) => state.user);
   // const userTempDomain = me?.email.substring(0, me?.email.indexOf('@'));
   const [modalOpen, setModalOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+
+  const [openProfileImgModal, setOpenProfileImgModal] = useState(false);
+
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -55,7 +60,7 @@ const Account = ({ tokenFromStorage }) => {
     if (success) {
       dispatch(fetchMe());
     }
-  }, [success, location.pathname, dispatch]);
+  }, [success, location.pathname, dispatch, me]);
 
   const handlePasswordChange = (e) => {
     const { name, value } = e.target;
@@ -79,6 +84,11 @@ const Account = ({ tokenFromStorage }) => {
 
   const closeModal = () => {
     setModalOpen(false);
+    setOpenProfileImgModal(false);
+  };
+
+  const handleProfileImage = () => {
+    setOpenProfileImgModal(true);
   };
 
   return (
@@ -99,10 +109,11 @@ const Account = ({ tokenFromStorage }) => {
                     : me?.minime_img
                 }
                 alt='Minime'
-                className='w-[15rem] flex justify-center items-center mx-auto my-4'
+                className='w-[15rem] h-[15rem] object-contain cursor-pointer  flex justify-center items-center mx-auto my-4'
+                onClick={() => handleProfileImage()}
               />
-              <label htmlFor='username' className='block text-[0.7rem] mb-4'>
-                Username
+              <div className='block text-[0.7rem] mb-4'>
+                <div>Username</div>
                 <input
                   type='text'
                   id='username'
@@ -112,9 +123,9 @@ const Account = ({ tokenFromStorage }) => {
                   readOnly
                   disabled
                 />
-              </label>
-              <label htmlFor='email' className='block text-[0.7rem] mb-4'>
-                Email
+              </div>
+              <div className='block text-[0.7rem] mb-4'>
+                <div>Email</div>
                 <input
                   type='email'
                   id='email'
@@ -124,11 +135,11 @@ const Account = ({ tokenFromStorage }) => {
                   readOnly
                   disabled
                 />
-              </label>
+              </div>
             </div>
             <div>
-              <label htmlFor='gender' className='block text-[0.7rem] mb-4'>
-                Gender
+              <div className='block text-[0.7rem] mb-4'>
+                <div>Gender</div>
                 <input
                   type='gender'
                   id='gender'
@@ -140,12 +151,9 @@ const Account = ({ tokenFromStorage }) => {
                   // style={{ borderColor: isEditing && '#ddd' }}
                   disabled={!isEditing}
                 />
-              </label>
-              <label
-                htmlFor='phone_number'
-                className='block text-[0.7rem] mb-4'
-              >
-                Phone number
+              </div>
+              <div className='block text-[0.7rem] mb-4'>
+                <div>Phone number</div>
                 <input
                   type='text'
                   id='phone_number'
@@ -156,9 +164,9 @@ const Account = ({ tokenFromStorage }) => {
                   // style={{ borderColor: isEditing && '#ddd' }}
                   disabled={!isEditing}
                 />
-              </label>
-              <label htmlFor='birth' className='block text-[0.7rem] mb-4'>
-                Birth
+              </div>
+              <div className='block text-[0.7rem] mb-4'>
+                <div>Birth</div>
                 <input
                   type='date'
                   id='birth'
@@ -172,9 +180,9 @@ const Account = ({ tokenFromStorage }) => {
                   // style={{ borderColor: isEditing && '#ddd' }}
                   disabled={!isEditing}
                 />
-              </label>
-              <label htmlFor='domain' className='block text-[0.7rem] mb-4'>
-                Minihome Domain
+              </div>
+              <div className='block text-[0.7rem] mb-4'>
+                <div>Minihome Domain</div>
                 <input
                   type='domain'
                   id='domain'
@@ -185,7 +193,7 @@ const Account = ({ tokenFromStorage }) => {
                   className='w-full text-[1rem] rounded-md mt-1 px-3 py-2 border border-white focus:border-[#2185ff] focus:outline-none'
                   disabled={!isEditing}
                 />
-              </label>
+              </div>
 
               <div className='flex flex-col'>
                 <button
@@ -221,20 +229,29 @@ const Account = ({ tokenFromStorage }) => {
                 >
                   Delete Account
                 </div>
-
-                {modalOpen && (
-                  <NoticeModal closeModal={closeModal}>
-                    <ConfirmNotice
-                      closeModal={closeModal}
-                      title='Delete Account'
-                      text='Are you sure you want to delete this account?'
-                    />
-                  </NoticeModal>
-                )}
               </div>
             </div>
           </div>
         </form>
+        {modalOpen && (
+          <NoticeModal closeModal={closeModal}>
+            <ConfirmNotice
+              closeModal={closeModal}
+              title='Delete Account'
+              text='Are you sure you want to delete this account?'
+            />
+          </NoticeModal>
+        )}
+
+        {openProfileImgModal && (
+          <NoticeModal closeModal={closeModal}>
+            <UploadProfileImage
+              closeModal={() => setOpenProfileImgModal(false)}
+              openProfileImgModal={UploadProfileImage}
+              me={me}
+            />
+          </NoticeModal>
+        )}
       </div>
     </div>
   );
