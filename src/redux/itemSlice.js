@@ -13,8 +13,8 @@ export const fetchAllItemsByCategory = createAsyncThunk(
   }
 );
 
-// Define the selectItem action creator
-export const selectItem = createAction('item/selectItem');
+// // Define the selectItem action creator
+// export const selectItem = createAction('item/selectItem');
 
 export const fetchAllItems = createAsyncThunk(
   'item/fetchAllItems',
@@ -96,7 +96,7 @@ const itemSlice = createSlice({
     selectedItem: null,
     loading: false,
     error: null,
-    images: [],
+    images: null,
   },
   reducers: {},
   extraReducers: (builder) => {

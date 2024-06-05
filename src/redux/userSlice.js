@@ -30,7 +30,7 @@ export const updateMinime = createAsyncThunk(
   async ({ images, thunkAPI }) => {
     try {
       const response = await API.patch(`/users/me/picture`, images);
-      return response.data;
+      return response.data.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
@@ -97,6 +97,7 @@ const userSlice = createSlice({
     users: [],
     me: null,
     user: null,
+    image: null,
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -128,7 +129,7 @@ const userSlice = createSlice({
       })
       .addCase(updateMinime.fulfilled, (state, action) => {
         state.loading = false;
-        state.me = action.payload; // action.payload.data 대신 action.payload 사용
+        state.image = action.payload; // action.payload.data 대신 action.payload 사용
       })
       .addCase(updateMinime.rejected, (state, action) => {
         state.loading = false;
