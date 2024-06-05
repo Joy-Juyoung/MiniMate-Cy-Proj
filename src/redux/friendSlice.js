@@ -94,7 +94,7 @@ const friendSlice = createSlice({
       })
       .addCase(fetchRequest.fulfilled, (state, action) => {
         state.loading = false;
-        state.request = action.payload;
+        state.friend = action.payload;
       })
       .addCase(fetchRequest.rejected, (state, action) => {
         state.loading = false;
