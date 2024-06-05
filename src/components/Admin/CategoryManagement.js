@@ -7,6 +7,7 @@ import {
   updateCategory,
 } from '../../redux/categorySlice';
 import Buttons from '../Buttons';
+import AdminSidebar from './AdminSidebar';
 
 const CategoryManagement = ({ me }) => {
   const dispatch = useDispatch();
@@ -85,124 +86,137 @@ const CategoryManagement = ({ me }) => {
   );
 
   return (
-    <div>
-      <h2 className='text-xl font-semibold mb-2'>Category Management</h2>
-      {/* Search by Kind */}
-      <div className='mb-4'>
-        <input
-          type='text'
-          placeholder='Search by Kind'
-          value={searchKind}
-          onChange={(e) => setSearchKind(e.target.value)}
-          className='border border-gray-300 px-2 py-1 rounded mr-2 w-64'
-        />
-      </div>
-      {/* Add Category */}
-      <div className='mb-4'>
-        <h3 className='text-lg font-semibold mb-2'>Add Category</h3>
-        {showAddFields && (
-          <div className='flex'>
-            <input
-              type='text'
-              placeholder='Enter new category kind'
-              value={newCategoryKind}
-              onChange={handleKindChange}
-              className='border border-gray-300 px-2 py-1 rounded mr-2 w-64'
-            />
-            <input
-              type='text'
-              placeholder='Enter new category name'
-              value={newCategoryName}
-              onChange={handleInputChange}
-              className='border border-gray-300 px-2 py-1 rounded mr-2 w-64'
-            />
-            <button
-              onClick={handleCreate}
-              className='bg-black text-white px-4 py-1 rounded hover:bg-blue-600'
-            >
-              Add
-            </button>
-
-            <button
-              onClick={() => setShowAddFields(false)}
-              className='bg-[#ddd] px-4 py-1 rounded hover:bg-blue-600 ml-2'
-            >
-              Exit
-            </button>
-          </div>
-        )}
-        {!showAddFields && (
-          <button
-            onClick={() => setShowAddFields(true)} // Show add fields when button is clicked
-            className='bg-black text-white px-4 py-1 rounded hover:bg-blue-600'
-          >
-            Add Category
-          </button>
-        )}
-        {duplicateError && (
-          <p className='text-red-500 mt-2'>Category already exists!</p>
-        )}
-        {error && <p className='text-red-500 mt-2'>{error}</p>}
-      </div>
-      {/* Category List */}
-      <div className='border border-gray-200 p-4 rounded shadow mb-4'>
-        <h3 className='text-lg font-semibold mb-2'>Category List</h3>
-        <ul>
-          {filteredCategories &&
-            filteredCategories.map((category) => (
-              <li
-                key={category?._id}
-                className='flex items-center justify-between border-b border-gray-200 py-2'
+    <div className='w-full h-full flex flex-col py-16 px-10 sm:px-20 md:px-40'>
+      <AdminSidebar />
+      <div>
+        <h2 className='text-xl font-semibold mb-2'>Category Management</h2>
+        {/* Search by Kind */}
+        <div className='mb-4'>
+          <input
+            type='text'
+            placeholder='Search by Kind'
+            value={searchKind}
+            onChange={(e) => setSearchKind(e.target.value)}
+            className='border border-gray-300 px-2 py-1 rounded'
+          />
+        </div>
+        {/* Add Category */}
+        <div className='mb-4 flex w-full justify-between items-center'>
+          <h3 className='text-lg font-semibold mb-2'>Add Category</h3>
+          {showAddFields && (
+            <div className='flex'>
+              <input
+                type='text'
+                placeholder='Enter new category kind'
+                value={newCategoryKind}
+                onChange={handleKindChange}
+                className='border border-gray-300 px-2 py-2 rounded mr-2 w-64'
+              />
+              <input
+                type='text'
+                placeholder='Enter new category name'
+                value={newCategoryName}
+                onChange={handleInputChange}
+                className='border border-gray-300 px-2 py-2 rounded mr-2 w-64'
+              />
+              <button
+                onClick={handleCreate}
+                className='bg-black text-white px-4 py-2 rounded text-[0.7rem]'
               >
-                {selectedCategoryId === category._id ? (
-                  <div>
-                    <input
-                      type='text'
-                      value={newKind}
-                      onChange={(e) => setNewKind(e.target.value)}
-                    />
-                    <input
-                      type='text'
-                      value={newName}
-                      onChange={(e) => setNewName(e.target.value)}
-                    />
-                    <button
-                      onClick={() =>
-                        handleUpdate(category._id, newName, newKind)
-                      }
-                    >
-                      Confirm
-                    </button>
-                  </div>
-                ) : (
-                  <div className='w-full flex justify-between items-center'>
-                    <div>
-                      <p>Kind: {category.kind}</p>
-                      <p>Name: {category.name}</p>
-                    </div>
-                    <div className='flex gap-4'>
-                      <Buttons
-                        onClick={() => handleDelete(category?._id)}
-                        title='Delete'
-                        containerStyles='text-[0.8rem] px-4 py-2 rounded hover:bg-[#bbb] bg-[#ddd]'
-                      />
+                Add
+              </button>
+
+              <button
+                onClick={() => setShowAddFields(false)}
+                className='bg-[#ddd] px-4 py-1 rounded text-[0.7rem] ml-2'
+              >
+                Exit
+              </button>
+            </div>
+          )}
+          {!showAddFields && (
+            <button
+              onClick={() => setShowAddFields(true)} // Show add fields when button is clicked
+              className='bg-black text-white px-4 py-2 rounded text-[0.7rem]'
+            >
+              Add Category
+            </button>
+          )}
+          {duplicateError && (
+            <p className='text-red-500 mt-2'>Category already exists!</p>
+          )}
+          {error && <p className='text-red-500 mt-2'>{error}</p>}
+        </div>
+        {/* Category List */}
+        <div className='border border-gray-200 p-4 rounded shadow mb-4'>
+          <h3 className='text-lg font-semibold mb-2'>Category List</h3>
+          <ul>
+            {filteredCategories &&
+              filteredCategories.map((category) => (
+                <li
+                  key={category?._id}
+                  className='flex items-center justify-between border-b last:border-none border-[#bbb] py-2'
+                >
+                  {selectedCategoryId === category._id ? (
+                    <div className='w-full flex items-center justify-between'>
+                      <div className='flex flex-col'>
+                        <div className='flex items-center '>
+                          <p>Kind: </p>
+                          <input
+                            type='text'
+                            value={newKind}
+                            onChange={(e) => setNewKind(e.target.value)}
+                            className='border border-[#bbb] p-1 rounded-lg ml-2'
+                          />
+                        </div>
+                        <div className='flex items-center '>
+                          <p>Name: </p>
+                          <input
+                            type='text'
+                            value={newName}
+                            onChange={(e) => setNewName(e.target.value)}
+                            className='border border-[#bbb] p-1 rounded-lg mt-2 ml-2'
+                          />
+                        </div>
+                      </div>
                       <Buttons
                         onClick={() =>
-                          handleEditClick(
-                            category._id,
-                            category.name,
-                            category.kind
-                          )
+                          handleUpdate(category._id, newName, newKind)
                         }
-                        title='Edit'
-                        containerStyles='text-[0.8rem] px-4 py-2 rounded hover:bg-[#bbb] bg-[#ddd]'
+                        title='Confirm'
+                        containerStyles='text-[0.8rem] px-4 py-2 rounded bg-hightColor text-white'
                       />
                     </div>
-                  </div>
-                )}
-              </li>
-            ))}
-        </ul>
+                  ) : (
+                    <div className='w-full flex justify-between items-center'>
+                      <div>
+                        <p>Kind: {category.kind}</p>
+                        <p>Name: {category.name}</p>
+                      </div>
+                      <div className='flex gap-4'>
+                        <Buttons
+                          onClick={() => handleDelete(category?._id)}
+                          title='Delete'
+                          containerStyles='text-[0.8rem] px-4 py-2 rounded hover:bg-[#bbb] bg-[#ddd]'
+                        />
+                        <Buttons
+                          onClick={() =>
+                            handleEditClick(
+                              category._id,
+                              category.name,
+                              category.kind
+                            )
+                          }
+                          title='Edit'
+                          containerStyles='text-[0.8rem] px-4 py-2 rounded hover:bg-[#bbb] bg-[#ddd]'
+                        />
+                      </div>
+                    </div>
+                  )}
+                </li>
+              ))}
+          </ul>
+        </div>
       </div>
     </div>
   );

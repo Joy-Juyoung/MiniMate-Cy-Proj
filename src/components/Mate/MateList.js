@@ -1,16 +1,13 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchRequest, fetchRequestsByReceiver } from '../../redux/friendSlice';
 import { fetchOneUser } from '../../redux/userSlice';
-// import { updateFriend, removeFriend } from '../redux/friendSlice';
 
-const MateList = ({ me, requests, user, users }) => {
+const MateList = ({ me }) => {
   const dispatch = useDispatch();
-  console.log('me', me);
 
-  // useEffect(() => {
-  //   dispatch(fetchRequestsByReceiver({ userId: me?._id }));
-  // }, [dispatch]);
+  useEffect(() => {
+    // console.log('me', me);
+  }, [me]);
 
   const handleRequestDetails = (mateId) => {
     dispatch(fetchOneUser({ userId: mateId }));
@@ -18,22 +15,38 @@ const MateList = ({ me, requests, user, users }) => {
 
   return (
     <div className='w-full flex flex-col'>
-      {me?.best_friends?.map((mate) => (
-        <div key={mate._id} className='w-full flex my-2'>
-          <div>Name: {mate.friend.username}</div>
-          <div>Nickname: {mate.friend_nick_name}</div>
-          <div>My Nickname{mate.my_nick_name}</div>
-          {/* <button
-            className='bg-black text-white'
-            onClick={() => handleRequestDetails(mate.friend._id)}
-          >
-            Sender Info Details
-          </button> */}
-          <button className='bg-black text-white rounded-lg py-2 px-3 text-[0.7rem]'>
-            Update
-          </button>
-        </div>
-      ))}
+      {me?.best_friends?.length > 0 ? (
+        <table className='w-full text-left border-collapse text-[0.8rem] mt-2'>
+          <thead>
+            <tr className='bg-[#eee] border-b border-[#bbb]'>
+              <th className='p-2 font-normal'>#</th>
+              <th className='p-2 font-normal'>MATE</th>
+              <th className='p-2 font-normal'>NICKNAME</th>
+              <th className='p-2 font-normal'>MY NICKNAME</th>
+              <th className='p-2 font-normal'></th>
+            </tr>
+          </thead>
+          {me.best_friends.map((mate, index) => (
+            <tbody key={index}>
+              {mate.friend && (
+                <tr className='border-t border-[#bbb]'>
+                  <td className='p-2'>{index + 1}</td>
+                  <td className='p-2'>{mate.friend.username}</td>
+                  <td className='p-2'>{mate.friend_nick_name}</td>
+                  <td className='p-2'>{mate.my_nick_name}</td>
+                  <td className='p-2'>
+                    <button className='bg-black text-white rounded-lg py-1 px-2 text-[0.7rem]'>
+                      Update
+                    </button>
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          ))}
+        </table>
+      ) : (
+        <div className='text-center text-[#bbb] mt-5'>No friends found.</div>
+      )}
     </div>
   );
 };

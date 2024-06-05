@@ -68,7 +68,7 @@ export const updateItemImages = createAsyncThunk(
   'item/updateItemImag',
   async ({ itemId, images, thunkAPI }) => {
     try {
-      const response = await API.patch(`/shopItems/${itemId}`, { images });
+      const response = await API.patch(`/shopItems/${itemId}/image`, images);
       return response.data.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);

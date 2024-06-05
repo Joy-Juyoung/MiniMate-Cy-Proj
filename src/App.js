@@ -24,6 +24,11 @@ import 'react-toastify/dist/ReactToastify.css';
 import { fetchMe } from './redux/userSlice';
 import ProtectedRoute from './ProtectedRoute';
 import Mate from './pages/Mate';
+import {
+  CategoryManagement,
+  ProductManagement,
+  UserManagement,
+} from './components/Admin';
 
 const HeaderWrapper = React.memo(({ me }) => (
   <div>
@@ -97,7 +102,15 @@ function App() {
             path='/mate'
             element={<Mate me={me} tokenFromStorage={tokenFromStorage} />}
           />
-          <Route path='/admin' element={<Admin me={me} />} />
+          <Route path='/admin/user' element={<UserManagement me={me} />} />
+          <Route
+            path='/admin/category'
+            element={<CategoryManagement me={me} />}
+          />
+          <Route
+            path='/admin/product'
+            element={<ProductManagement me={me} />}
+          />
         </Route>
         <Route path='/register' element={<Register />} />
         <Route
