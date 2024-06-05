@@ -46,96 +46,85 @@ const ProductUpload = ({ onUpload }) => {
   };
 
   return (
-    <div>
-      <h3 className='text-lg font-semibold mb-2'>Product Upload</h3>
+    <div className='mb-4'>
+      <h2 className='text-[1rem] font-semibold mb-2'>Product Upload</h2>
 
       <form onSubmit={handleSubmit}>
-        <div className='mb-4'>
-          <label htmlFor='item_name' className='block font-semibold mb-1'>
-            Name:
-          </label>
-          <input
-            type='text'
-            id='item_name'
-            name='item_name'
-            value={formData.item_name}
-            onChange={handleChange}
-            className='border border-gray-300 px-2 py-1 rounded w-full'
-            required
-          />
-        </div>
-        <div className='mb-4'>
-          <label htmlFor='category' className='block font-semibold mb-1'>
-            Category:
-          </label>
-          <div className='relative'>
-            <div
-              onClick={toggleDropdown}
-              className='cursor-pointer flex items-center justify-between border border-[#bbb] px-2 py-1 rounded w-full'
-            >
-              <span>{selectedCategory || 'Select a category'}</span>
-              <BiSolidDownArrow />
-            </div>
-            {isOpen && (
-              <div className='absolute z-10 w-full bg-white border border-[#bbb] rounded mt-1 max-h-60 overflow-auto'>
-                {categories.map((category) => (
-                  <div
-                    key={category._id}
-                    onClick={() => handleSelect(category)}
-                    className='px-2 py-1 hover:bg-gray-100 cursor-pointer'
-                  >
-                    {category.name}
-                  </div>
-                ))}
+        <div className='text-[0.8rem] grid grid-cols-2 gap-4'>
+          <div className='mb-4 '>
+            <label htmlFor='item_name' className='block font-semibold mb-1'>
+              Name:
+            </label>
+            <input
+              type='text'
+              id='item_name'
+              name='item_name'
+              value={formData.item_name}
+              onChange={handleChange}
+              className='border border-gray-300 px-2 py-1 rounded w-full'
+              required
+            />
+          </div>
+          <div className='mb-4'>
+            <label htmlFor='category' className='block font-semibold mb-1'>
+              Category:
+            </label>
+            <div className='relative'>
+              <div
+                onClick={toggleDropdown}
+                className='cursor-pointer flex items-center justify-between border border-[#bbb] px-2 py-1 rounded w-full'
+              >
+                <span>{selectedCategory || 'Select a category'}</span>
+                <BiSolidDownArrow />
               </div>
-            )}
+              {isOpen && (
+                <div className='absolute z-10 w-full bg-white border border-[#bbb] rounded mt-1 max-h-60 overflow-auto'>
+                  {categories.map((category) => (
+                    <div
+                      key={category._id}
+                      onClick={() => handleSelect(category)}
+                      className='px-2 py-1 hover:bg-gray-100 cursor-pointer'
+                    >
+                      {category.name}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+          <div className='mb-4'>
+            <label htmlFor='item_price' className='block font-semibold mb-1'>
+              Price:
+            </label>
+            <input
+              type='number'
+              id='item_price'
+              name='item_price'
+              value={formData.item_price}
+              onChange={handleChange}
+              className='border border-gray-300 px-2 py-1 rounded w-full'
+              required
+            />
+          </div>
+          <div className='mb-4'>
+            <label htmlFor='description' className='block font-semibold mb-1'>
+              Description:
+            </label>
+            <textarea
+              id='description'
+              name='description'
+              value={formData.description}
+              onChange={handleChange}
+              className='border border-gray-300 px-2 py-1 rounded w-full'
+              required
+            />
           </div>
         </div>
-        <div className='mb-4'>
-          <label htmlFor='item_price' className='block font-semibold mb-1'>
-            Price:
-          </label>
-          <input
-            type='number'
-            id='item_price'
-            name='item_price'
-            value={formData.item_price}
-            onChange={handleChange}
-            className='border border-gray-300 px-2 py-1 rounded w-full'
-            required
-          />
-        </div>
-        <div className='mb-4'>
-          <label htmlFor='description' className='block font-semibold mb-1'>
-            Description:
-          </label>
-          <textarea
-            id='description'
-            name='description'
-            value={formData.description}
-            onChange={handleChange}
-            className='border border-gray-300 px-2 py-1 rounded w-full'
-            required
-          />
-        </div>
-        {/* <div className='mb-4'>
-        <label htmlFor='image' className='block font-semibold mb-1'>
-          Image:
-        </label>
-        <input
-          type='file'
-          id='image'
-          name='image'
-          onChange={handleImageChange}
-          className='border border-gray-300 px-2 py-1 rounded w-full'
-          required
-        />
-      </div> */}
         <button
           type='submit'
-          className='bg-black text-white px-4 py-2 rounded hover:bg-blue-600'
+          className='bg-black text-white px-4 py-2 rounded w-full flex justify-center'
         >
-          Upload
+          Upload Item
         </button>
       </form>
     </div>

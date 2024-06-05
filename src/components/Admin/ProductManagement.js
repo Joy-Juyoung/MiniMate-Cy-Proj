@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  fetchAllItems,
-  deleteItem,
-  selectItem,
-  updateItemImages,
-} from '../../redux/itemSlice'; // selectItem을 추가해요
+import { fetchAllItems, deleteItem } from '../../redux/itemSlice'; // selectItem을 추가해요
 import NoticeModal from '../Modal/NoticeModal';
 import UploadImge from '../Modal/UploadImage';
 import UploadImgae from '../Modal/UploadImage';
@@ -27,9 +22,9 @@ const ProductManagement = ({ me }) => {
   // console.log('all ', all);
 
   const handleDeleteItems = () => {
-    const selectedItems = all.filter((item) => item.selected);
-    const itemIds = selectedItems.map((item) => item._id);
-    dispatch(deleteItem({ itemId: itemIds }));
+    // const selectedItems = all.filter((item) => item.selected);
+    // const itemIds = selectedItems.map((item) => item._id);
+    dispatch(deleteItem({ itemId: selectedProduct }));
   };
 
   const toggleUploadForm = () => {
@@ -37,12 +32,14 @@ const ProductManagement = ({ me }) => {
   };
 
   const toggleItemSelection = (itemId) => {
-    dispatch(
-      selectItem({
-        itemId,
-        selected: !all.find((item) => item._id === itemId).selected,
-      })
-    );
+    setSelectedProduct(itemId);
+    // console.log(itemId);
+    // dispatch(
+    //   selectItem({
+    //     itemId,
+    //     selected: !all.find((item) => item._id === itemId).selected,
+    //   })
+    // );
   };
 
   const openModalForImageUpload = (product) => {
