@@ -1,8 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 import { AiOutlineHome } from 'react-icons/ai';
-
-// import Minnime from '../../assets/minimi2.png';
-import Minnime from '../../assets/minime(23).gif';
 import MinniFemale from '../../assets/minimi2.png';
 import MinniMale from '../../assets/minimi1.png';
 import Buttons from '../Buttons';
@@ -14,14 +11,12 @@ const Hero = ({ me }) => {
   const popupRef = useRef(null);
   const navigate = useNavigate();
 
-  console.log('me', me);
+  // console.log('me', me);
 
   const openPopup = () => {
     if (!popupRef.current || popupRef.current.closed) {
       if (me) {
         const userDomain = me?.domain;
-        // const userTempDomain = me.email.substring(0, me.email.indexOf('@'));
-        // const userEmail = me.email;
         const popupUrl = `http://localhost:3000/${userDomain}/home`;
         const popupFeatures = 'width=1100,height=600';
         popupRef.current = window.open(popupUrl, '_blank', popupFeatures);
@@ -34,17 +29,6 @@ const Hero = ({ me }) => {
 
   return (
     <div className='h-[50vh] px-10 sm:px-20 md:px-40 flex items-center'>
-      {/* <div
-        className='absolute inset-0 w-full h-full'
-        style={{
-          background: 'linear-gradient(to left bottom, #f5f5f5, #f5f5f5)',
-          clipPath: 'polygon(0% 100%, 0% 100%, 100% 85%, 100% 100%)',
-        }}
-      ></div> */}
-      {/* <div
-        className='w-full flex flex-col items-center justify-center pt-10 pb-10 md:pb-40'
-        style={{ height: !me ? '70vh' : '80vh', zIndex: 1 }}
-      > */}
       <div className='w-full h-full flex flex-col items-center justify-center '>
         <div className='w-full flex flex-col items-center '>
           <div className='w-full font-acme font-bold text-center text-3xl md:text-5xl sm:text-4xl md:mb-2 '>
@@ -72,7 +56,6 @@ const Hero = ({ me }) => {
           <>
             <div className='w-full flex items-center justify-center '>
               <img
-                // src={Minnime || MinniFemale}
                 src={
                   !me?.minime_img
                     ? me?.gender === 'male'

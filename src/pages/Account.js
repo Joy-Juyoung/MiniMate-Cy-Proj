@@ -83,12 +83,12 @@ const Account = ({ tokenFromStorage }) => {
 
   return (
     <div className='w-full h-full px-10 2xl:px-40 min-h-[80vh]'>
-      <div className='w-full h-full flex flex-col items-center rounded-[10%] py-12 '>
+      <div className='w-full h-full flex flex-col items-center rounded-[10%] pb-12 md:py-12 '>
         <form onSubmit={handleSubmit} className='rounded-lg p-8 shadow-xl'>
           <h1 className='text-3xl text-center font-semibold mb-6'>
             My Account
           </h1>
-          <div className='grid grid-cols-2 gap-8 items-center'>
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-8 items-center'>
             <div>
               <img
                 src={

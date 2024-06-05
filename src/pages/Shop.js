@@ -66,7 +66,8 @@ const Shop = () => {
     };
     dispatch(createCart({ cartData }));
     setTempCartItems([]);
-    navigate('/cart');
+    // navigate('/cart');
+    setCartSidebarOpen(false);
   };
 
   return (

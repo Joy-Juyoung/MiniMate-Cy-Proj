@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchAllCartsByUser, fetchCartItems } from '../redux/cartSlice';
+import {
+  fetchAllCartsByUser,
+  fetchCartItems,
+  createCart,
+  updateCart,
+} from '../redux/cartSlice';
 import { AiOutlineClose } from 'react-icons/ai';
 import Buttons from './Buttons';
 
@@ -18,6 +23,7 @@ const AddToCartBar = ({
   const [selectedCart, setSelectedCart] = useState('');
   const [selectedCartItems, setSelectedCartItems] = useState([]);
   const [localCartItems, setLocalCartItems] = useState(tempCartItems || []);
+  const [warning, setWarning] = useState('');
 
   useEffect(() => {
     if (me) {
@@ -29,18 +35,14 @@ const AddToCartBar = ({
     if (list.length > 0 && selectedCart) {
       const cart = list.find((cart) => cart._id === selectedCart);
       if (cart) {
-        setSelectedCartItems(cart.shop_items);
+        setSelectedCartItems(cart.shop_items || []);
       }
     }
   }, [selectedCart, list]);
 
-  // console.log('list', list);
-
   useEffect(() => {
     localStorage.setItem('tempCartItems', JSON.stringify(localCartItems));
   }, [localCartItems]);
-
-  // console.log('localCartItems', localCartItems);
 
   const handleSelectAll = () => {
     if (selectedCartItems?.length === localCartItems?.length) {
@@ -58,18 +60,58 @@ const AddToCartBar = ({
     }
   };
 
-  // console.log('selectedCartItems', selectedCartItems);
-
   const handleRemoveItem = (index) => {
-    const updatedCartItems = localCartItems?.filter(
-      (_, index) => !selectedCartItems.includes(index)
-    );
+    const updatedCartItems = localCartItems?.filter((_, i) => i !== index);
     setLocalCartItems(updatedCartItems);
     setSelectedCartItems([]);
   };
 
   const handleSelectCartChange = (e) => {
     setSelectedCart(e.target.value);
+    setWarning('');
+  };
+
+  const handleCreateOrUpdateCart = () => {
+    const existingItemIds = selectedCartItems.map((item) => item._id);
+    const newItems = localCartItems.filter(
+      (item) => !existingItemIds.includes(item._id)
+    );
+
+    if (newItems.length !== localCartItems.length) {
+      setWarning('Some items are already in the cart.');
+      return;
+    }
+
+    if (selectedCart === 'new') {
+      const cartData = {
+        user: me._id,
+        shop_items: localCartItems.map((item) => item._id),
+        total_price: localCartItems.reduce(
+          (total, item) => total + item.item_price,
+          0
+        ),
+        total_qty: localCartItems.length,
+      };
+      dispatch(createCart({ cartData }));
+    } else {
+      const updatedCart = {
+        shop_items: [...selectedCartItems, ...localCartItems].map(
+          (item) => item._id
+        ),
+        total_price:
+          selectedCartItems.reduce(
+            (total, item) => total + item.item_price,
+            0
+          ) +
+          localCartItems.reduce((total, item) => total + item.item_price, 0),
+        total_qty: selectedCartItems.length + localCartItems.length,
+      };
+      dispatch(updateCart({ cartId: selectedCart, cartData: updatedCart }));
+    }
+    localStorage.removeItem('tempCartItems');
+    setLocalCartItems([]);
+    setSelectedCartItems([]);
+    setCartSidebarOpen(false);
   };
 
   return (
@@ -133,6 +175,9 @@ const AddToCartBar = ({
               </>
             )}
           </div>
+          {warning && (
+            <div className='text-red-500 text-center mt-2'>{warning}</div>
+          )}
           <div className='mt-4'>
             <select
               className='w-full bg-[#ddd] p-2 rounded'
@@ -165,9 +210,13 @@ const AddToCartBar = ({
                   </div>
                 ))
               )}
+            </div>
+          )}
+          {selectedCart && (
+            <div className='mt-4'>
               <div className='mt-4'>
                 <button
-                  onClick={handleSaveCart}
+                  onClick={handleCreateOrUpdateCart}
                   className='w-full bg-black text-white py-2 rounded mb-2'
                 >
                   Add to Selected Cart

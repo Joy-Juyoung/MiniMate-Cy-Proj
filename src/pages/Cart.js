@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
+  createHistory,
   deleteCart,
   fetchAllCartsByUser,
   fetchCartItems,
@@ -8,6 +9,7 @@ import {
 } from '../redux/cartSlice';
 import { Buttons } from '../components';
 import { BiSolidDownArrow } from 'react-icons/bi';
+import { updateMe } from '../redux/userSlice';
 
 const Cart = ({ me, tokenFromStorage }) => {
   const dispatch = useDispatch();
@@ -96,6 +98,22 @@ const Cart = ({ me, tokenFromStorage }) => {
     }
 
     setSelectedItems([]);
+  };
+
+  const handleCheckout = () => {
+    if (totalPrice <= me.point) {
+      // const updatedUserInfo = {
+      //   ...me,
+      //   point: me.point - totalPrice,
+      // };
+      // dispatch(updateMe({ userData: updatedUserInfo }));
+      const selectedCartID = {
+        cartId: selectedCart,
+      };
+      dispatch(createHistory({ cartId: selectedCartID }));
+    } else {
+      alert('Insufficient points');
+    }
   };
 
   const formatPrice = (price) => {
@@ -239,6 +257,7 @@ const Cart = ({ me, tokenFromStorage }) => {
               <Buttons
                 containerStyles='text-[0.8rem] px-4 py-2 rounded bg-black text-white'
                 title='Checkout'
+                onClick={handleCheckout}
               />
             </div>
           </div>

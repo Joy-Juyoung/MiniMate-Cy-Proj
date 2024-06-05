@@ -62,6 +62,19 @@ export const fetchAllUsers = createAsyncThunk(
   }
 );
 
+export const fetchOneUser = createAsyncThunk(
+  'user/fetchOneUser',
+  async ({ userId, thunkAPI }) => {
+    try {
+      const response = await API.get(`/users/${userId}`);
+      return response.data.data;
+      // return userId;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
 //
 export const updateUserState = createAsyncThunk(
   'user/updateUserState',
@@ -83,6 +96,7 @@ const userSlice = createSlice({
     success: false,
     users: [],
     me: null,
+    user: null,
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -139,6 +153,18 @@ const userSlice = createSlice({
         state.users = action.payload; // action.payload.data 대신 action.payload 사용
       })
       .addCase(fetchAllUsers.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload.message;
+      })
+
+      .addCase(fetchOneUser.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(fetchOneUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload; // action.payload.data 대신 action.payload 사용
+      })
+      .addCase(fetchOneUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload.message;
       })

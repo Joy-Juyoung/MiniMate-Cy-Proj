@@ -11,6 +11,7 @@ import MiniDiary from './MiniDiary';
 import MiniVisitor from './MiniVisitor';
 import MiniSetting from './MiniSetting';
 import Admin from './Admin';
+import Mate from './Mate';
 
 export {
   Login,
@@ -26,4 +27,5 @@ export {
   MiniVisitor,
   MiniSetting,
   Admin,
+  Mate,
 };

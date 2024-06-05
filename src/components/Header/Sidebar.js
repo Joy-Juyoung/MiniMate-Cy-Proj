@@ -50,6 +50,14 @@ const Sidebar = ({ isSideOpen, toggle }) => {
           </Link>
 
           <Link
+            to='/mate'
+            onClick={toggle}
+            className='w-full flex items-center justify-center py-4 hover:bg-[#f5f5f5] border-b-2 border-[#f5f5f5]'
+          >
+            My Mate
+          </Link>
+
+          <Link
             to='/cart'
             onClick={toggle}
             className='w-full flex items-center justify-center py-4 hover:bg-[#f5f5f5] border-b-2 border-[#f5f5f5]'

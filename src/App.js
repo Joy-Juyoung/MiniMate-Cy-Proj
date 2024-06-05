@@ -23,6 +23,7 @@ import { Footer } from './components';
 import 'react-toastify/dist/ReactToastify.css';
 import { fetchMe } from './redux/userSlice';
 import ProtectedRoute from './ProtectedRoute';
+import Mate from './pages/Mate';
 
 const HeaderWrapper = React.memo(({ me }) => (
   <div>
@@ -64,7 +65,7 @@ function App() {
         <Route path='/' element={<HeaderWrapper me={me} />}>
           <Route path='/' element={<Home me={me} />} />
           <Route path='/shop' element={<Shop />} />
-          <Route
+          {/* <Route
             path='/cart'
             element={
               <ProtectedRoute
@@ -73,9 +74,12 @@ function App() {
                 tokenFromStorage={tokenFromStorage}
               />
             }
-          />
-          <Route path='/admin' element={<Admin me={me} />} />
+          /> */}
           <Route
+            path='/cart'
+            element={<Cart me={me} tokenFromStorage={tokenFromStorage} />}
+          />
+          {/* <Route
             path='/account'
             element={
               <ProtectedRoute
@@ -84,7 +88,16 @@ function App() {
                 tokenFromStorage={tokenFromStorage}
               />
             }
+          /> */}
+          <Route
+            path='/account'
+            element={<Account me={me} tokenFromStorage={tokenFromStorage} />}
           />
+          <Route
+            path='/mate'
+            element={<Mate me={me} tokenFromStorage={tokenFromStorage} />}
+          />
+          <Route path='/admin' element={<Admin me={me} />} />
         </Route>
         <Route path='/register' element={<Register />} />
         <Route

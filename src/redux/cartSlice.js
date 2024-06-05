@@ -60,6 +60,18 @@ export const updateCart = createAsyncThunk(
   }
 );
 
+export const createHistory = createAsyncThunk(
+  'cart/createHistory',
+  async ({ cartId }, thunkAPI) => {
+    try {
+      const response = await API.post('/histories', cartId);
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
 const cartSlice = createSlice({
   name: 'cart',
   initialState: {
@@ -68,6 +80,7 @@ const cartSlice = createSlice({
     success: false,
     item: {},
     list: [],
+    history: '',
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -126,6 +139,20 @@ const cartSlice = createSlice({
         state.success = true;
       })
       .addCase(updateCart.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload.message;
+        state.success = false;
+      })
+      .addCase(createHistory.pending, (state) => {
+        state.loading = true;
+        state.success = false;
+      })
+      .addCase(createHistory.fulfilled, (state, action) => {
+        state.loading = false;
+        state.history.push(action.payload);
+        state.success = true;
+      })
+      .addCase(createHistory.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload.message;
         state.success = false;
