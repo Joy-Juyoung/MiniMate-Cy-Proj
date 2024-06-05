@@ -23,9 +23,15 @@ import { Footer } from './components';
 import 'react-toastify/dist/ReactToastify.css';
 import { fetchMe } from './redux/userSlice';
 import ProtectedRoute from './ProtectedRoute';
+import Mate from './pages/Mate';
+import {
+  CategoryManagement,
+  ProductManagement,
+  UserManagement,
+} from './components/Admin';
 
 const HeaderWrapper = React.memo(({ me }) => (
-  <div className=''>
+  <div>
     <Header me={me} />
     <Outlet me={me} />
     <Footer />
@@ -52,19 +58,19 @@ function App() {
 
   return (
     <div
-      className='w-full h-full font-poppins bg-[#ffffff]'
-      style={{
-        backgroundImage: location.pathname === '/' ? `url('${BgImg}')` : '',
-        backgroundSize: '8%',
-        backgroundRepeat: 'repeat',
-        minHeight: '100vh',
-      }}
+      className='w-full h-[100vh] font-poppins bg-[#ffffff]'
+      // style={{
+      //   backgroundImage: location.pathname === '/' ? `url('${BgImg}')` : '',
+      //   backgroundSize: '8%',
+      //   backgroundRepeat: 'repeat',
+      //   minHeight: '100vh',
+      // }}
     >
       <Routes>
         <Route path='/' element={<HeaderWrapper me={me} />}>
           <Route path='/' element={<Home me={me} />} />
           <Route path='/shop' element={<Shop />} />
-          <Route
+          {/* <Route
             path='/cart'
             element={
               <ProtectedRoute
@@ -73,12 +79,12 @@ function App() {
                 tokenFromStorage={tokenFromStorage}
               />
             }
-          />
+          /> */}
           <Route
-            path='/admin'
-            element={<ProtectedRoute element={Admin} me={me} />}
+            path='/cart'
+            element={<Cart me={me} tokenFromStorage={tokenFromStorage} />}
           />
-          <Route
+          {/* <Route
             path='/account'
             element={
               <ProtectedRoute
@@ -87,6 +93,23 @@ function App() {
                 tokenFromStorage={tokenFromStorage}
               />
             }
+          /> */}
+          <Route
+            path='/account'
+            element={<Account me={me} tokenFromStorage={tokenFromStorage} />}
+          />
+          <Route
+            path='/mate'
+            element={<Mate me={me} tokenFromStorage={tokenFromStorage} />}
+          />
+          <Route path='/admin/user' element={<UserManagement me={me} />} />
+          <Route
+            path='/admin/category'
+            element={<CategoryManagement me={me} />}
+          />
+          <Route
+            path='/admin/product'
+            element={<ProductManagement me={me} />}
           />
         </Route>
         <Route path='/register' element={<Register />} />

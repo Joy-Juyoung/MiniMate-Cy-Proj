@@ -3,6 +3,9 @@ import Shop2 from '../assets/shop2.gif';
 import Shop3 from '../assets/shop5.gif';
 import Shop4 from '../assets/shop6.gif';
 import Minime from '../assets/minime(23).gif';
+import { CgGhostCharacter, CgHomeAlt } from 'react-icons/cg';
+import { TbBackground, TbMusic } from 'react-icons/tb';
+import { RiFontSize } from 'react-icons/ri';
 
 export const userData = {
   _id: '64df3c064180b81adfe41d4b',
@@ -29,11 +32,11 @@ export const shopItem = [
 ];
 
 export const shopCategory = [
-  { name: 'Minime' },
-  { name: 'Miniroom' },
-  { name: 'Skin' },
-  { name: 'Music' },
-  { name: 'Font' },
+  { image: CgGhostCharacter, name: 'Minime' },
+  { image: CgHomeAlt, name: 'Miniroom' },
+  { image: TbBackground, name: 'Skin' },
+  // { image: TbMusic, name: 'Music' },
+  { image: RiFontSize, name: 'Font' },
 ];
 
 export const myHome = {

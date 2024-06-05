@@ -35,7 +35,17 @@ const DropdownMenu = ({ isOpen, toggleDropdown, navigate, me }) => {
               navigate('/account');
             }}
           >
-            Account
+            My Account
+          </li>
+          <li className={listItemStyle}>
+            <button
+              onClick={() => {
+                toggleDropdown(false);
+                navigate('/mate');
+              }}
+            >
+              My Mate
+            </button>
           </li>
           <li className={listItemStyle}>
             <button onClick={openModal}>My Point</button>

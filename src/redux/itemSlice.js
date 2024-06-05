@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, createAction } from '@reduxjs/toolkit';
 import { API } from './api';
 
 export const fetchAllItemsByCategory = createAsyncThunk(
@@ -12,6 +12,9 @@ export const fetchAllItemsByCategory = createAsyncThunk(
     }
   }
 );
+
+// Define the selectItem action creator
+export const selectItem = createAction('item/selectItem');
 
 export const fetchAllItems = createAsyncThunk(
   'item/fetchAllItems',
@@ -65,7 +68,7 @@ export const updateItemImages = createAsyncThunk(
   'item/updateItemImag',
   async ({ itemId, images, thunkAPI }) => {
     try {
-      const response = await API.patch(`/shopItems/${itemId}`, { images });
+      const response = await API.patch(`/shopItems/${itemId}/image`, images);
       return response.data.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);

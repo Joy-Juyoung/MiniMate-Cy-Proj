@@ -5,7 +5,7 @@ import Buttons from '../Buttons';
 
 const AddedPoint = ({ closeModal, navigate, me }) => {
   const [changeUserBalance, setChangeUserBalance] = useState(
-    parseFloat(me?.point)
+    parseFloat(me?.point) || 0
   );
   const [balance, setBalance] = useState(0);
   const [isOverAmount, setIsOverAmount] = useState(false);
@@ -18,7 +18,7 @@ const AddedPoint = ({ closeModal, navigate, me }) => {
   useEffect(() => {
     const totlaPoint = parseFloat(me?.point) + parseFloat(balance);
     setUserInfo({ point: totlaPoint });
-    setChangeUserBalance(parseFloat(me?.point));
+    setChangeUserBalance(totlaPoint);
     // setBalance(0);
   }, [me, balance]);
 
@@ -55,7 +55,7 @@ const AddedPoint = ({ closeModal, navigate, me }) => {
         <div className='font-semibold'>Your Current Balances:</div>
         <span>
           $
-          {me?.point.toLocaleString('en-US', {
+          {me?.point?.toLocaleString('en-US', {
             style: 'decimal',
             minimumFractionDigits: 2,
           })}
