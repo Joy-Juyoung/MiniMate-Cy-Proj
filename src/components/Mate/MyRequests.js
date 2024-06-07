@@ -50,7 +50,7 @@ const MyRequests = ({ me, requests }) => {
               {requests.map((request, index) => (
                 <tr key={request._id} className='border-t border-[#bbb]'>
                   <td className='p-2'>{index + 1}</td>
-                  <td className='p-2'>{request.sender.username}</td>
+                  <td className='p-2'>{request.sender?.username}</td>
                   <td className='p-2'>{request.sender_nick_name}</td>
                   {/* <td className='p-2'>{request.receiver.username}</td> */}
                   <td className='p-2'>{request.receiver_nick_name}</td>
