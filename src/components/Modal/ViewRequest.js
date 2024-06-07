@@ -26,7 +26,7 @@ const ViewRequest = ({ closeModal, me, requestId }) => {
         <h3 className='text-xl font-bold mb-4'>Request</h3>
         <div className='text-black text-center'>
           <div className='border-b-2 border-dotted pb-2  text-[0.8rem]'>
-            <span className='text-[#304fd6]'>{friend.sender.username}</span>
+            <span className='text-[#304fd6]'>{friend.sender?.username}</span>
             <span className='mr-1'> requested a friend</span>
             <div>
               {friend.createdAt?.substring(0, friend.createdAt.indexOf('T'))}

@@ -13,18 +13,21 @@ import { updateMe } from '../redux/userSlice';
 
 const Cart = ({ me, tokenFromStorage }) => {
   const dispatch = useDispatch();
-  const { item, list, loading } = useSelector((state) => state.cart);
+  const { list, loading } = useSelector((state) => state.cart);
+
+  const { item } = useSelector((state) => state.item);
   const [selectedItems, setSelectedItems] = useState([]);
   const [cartItems, setCartItems] = useState([]);
   const [selectedCart, setSelectedCart] = useState('');
   const [selectedCartItems, setSelectedCartItems] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
 
-  // console.log('list', list);
+  // console.log('selectedItems', selectedItems);
 
   useEffect(() => {
     if (me) {
       dispatch(fetchAllCartsByUser({ userId: me?._id }));
+      // dispatch(fetchItemById({itemId:}))
     }
   }, [dispatch, me]);
 
@@ -67,11 +70,6 @@ const Cart = ({ me, tokenFromStorage }) => {
   };
 
   const handleDeleteSelected = async () => {
-    // const updatedCartItems = selectedCartItems.filter(
-    //   (_, index) => !selectedItems.includes(index)
-    // );
-    // setCartItems(updatedCartItems);
-    // setSelectedItems([]);
     const itemIdsToDelete = selectedItems.map(
       (index) => selectedCartItems[index]._id
     );
@@ -102,11 +100,6 @@ const Cart = ({ me, tokenFromStorage }) => {
 
   const handleCheckout = () => {
     if (totalPrice <= me.point) {
-      // const updatedUserInfo = {
-      //   ...me,
-      //   point: me.point - totalPrice,
-      // };
-      // dispatch(updateMe({ userData: updatedUserInfo }));
       const selectedCartID = {
         cartId: selectedCart,
       };
@@ -126,6 +119,8 @@ const Cart = ({ me, tokenFromStorage }) => {
   );
   const totalItems = selectedItems.length;
   const availablePoints = me?.point || 0;
+
+  console.log('list', list);
 
   return (
     <div className='w-full h-full flex flex-col py-16 px-10 sm:px-20 md:px-40'>
@@ -197,37 +192,42 @@ const Cart = ({ me, tokenFromStorage }) => {
                   No items in this cart
                 </div>
               ) : (
-                selectedCartItems.map((item, index) => (
-                  <div
-                    key={item._id}
-                    className='border-b border-[#aaa] py-3 flex items-center gap-8'
-                  >
-                    <input
-                      type='checkbox'
-                      checked={selectedItems.includes(index)}
-                      onChange={() => handleCheckboxChange(index)}
-                      className='mr-2'
-                    />
-                    <img
-                      src={item.item_img || 'placeholder-image-url'}
-                      alt={item.item_name}
-                      className='w-24 h-24 mb-2'
-                    />
-                    <div className='w-full h-full flex justify-between items-center'>
-                      <div>
-                        <p className='text-[0.7rem]'>
-                          {item.category?.name || 'No Category'}
-                        </p>
-                        <p className='text-lg font-semibold text-[1rem]'>
-                          {item.item_name}
+                selectedCartItems.map((cartItem, index) => {
+                  // dispatch(fetchItemById({ itemId: cartItem?._id }));
+                  // console.log('item', item);
+                  return (
+                    <div
+                      key={cartItem._id}
+                      className='border-b border-[#aaa] py-3 flex items-center gap-8'
+                    >
+                      <input
+                        type='checkbox'
+                        checked={selectedItems.includes(index)}
+                        onChange={() => handleCheckboxChange(index)}
+                        className='mr-2'
+                      />
+                      <img
+                        src={cartItem.item_img || 'placeholder-image-url'}
+                        // src={}
+                        alt={cartItem.item_name}
+                        className='w-24 h-24 mb-2'
+                      />
+                      <div className='w-full h-full flex justify-between items-center'>
+                        <div>
+                          <p className='text-[0.7rem]'>
+                            {cartItem.category?.name || 'No Category'}
+                          </p>
+                          <p className='text-lg font-semibold text-[1rem]'>
+                            {cartItem.item_name}
+                          </p>
+                        </div>
+                        <p className='text-[1rem] mt-2'>
+                          ${formatPrice(cartItem.item_price)}
                         </p>
                       </div>
-                      <p className='text-[1rem] mt-2'>
-                        ${formatPrice(item.item_price)}
-                      </p>
                     </div>
-                  </div>
-                ))
+                  );
+                })
               )}
             </div>
           </div>
