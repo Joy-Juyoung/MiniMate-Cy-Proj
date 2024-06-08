@@ -80,7 +80,7 @@ const cartSlice = createSlice({
     success: false,
     item: {},
     list: [],
-    history: '',
+    history: null,
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -149,7 +149,8 @@ const cartSlice = createSlice({
       })
       .addCase(createHistory.fulfilled, (state, action) => {
         state.loading = false;
-        state.history.push(action.payload);
+        // state.history.push(action.payload);
+        state.history = action.payload.data;
         state.success = true;
       })
       .addCase(createHistory.rejected, (state, action) => {

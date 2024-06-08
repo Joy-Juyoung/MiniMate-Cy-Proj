@@ -104,6 +104,7 @@ const Cart = ({ me, tokenFromStorage }) => {
         cartId: selectedCart,
       };
       dispatch(createHistory({ cartId: selectedCartID }));
+      window.location.reload();
     } else {
       alert('Insufficient points');
     }
