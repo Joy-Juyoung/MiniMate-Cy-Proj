@@ -91,7 +91,7 @@ const CategoryManagement = ({ me }) => {
       <div>
         <h2 className='text-xl font-semibold mb-2'>Category Management</h2>
         {/* Search by Kind */}
-        <div className='mb-4'>
+        <div className='mb-4 flex items-center justify-between'>
           <input
             type='text'
             placeholder='Search by Kind'
@@ -99,26 +99,41 @@ const CategoryManagement = ({ me }) => {
             onChange={(e) => setSearchKind(e.target.value)}
             className='border border-gray-300 px-2 py-1 rounded'
           />
+          {!showAddFields && (
+            <button
+              onClick={() => setShowAddFields(true)} // Show add fields when button is clicked
+              className='bg-black text-white px-4 py-2 rounded text-[0.7rem]'
+            >
+              Add Category
+            </button>
+          )}
         </div>
         {/* Add Category */}
         <div className='mb-4 flex w-full justify-between items-center'>
-          <h3 className='text-lg font-semibold mb-2'>Add Category</h3>
+          {/* <h3 className='text-lg font-semibold mb-2'>Add Category</h3> */}
           {showAddFields && (
             <div className='flex'>
-              <input
-                type='text'
-                placeholder='Enter new category kind'
-                value={newCategoryKind}
-                onChange={handleKindChange}
-                className='border border-gray-300 px-2 py-2 rounded mr-2 w-64'
-              />
-              <input
-                type='text'
-                placeholder='Enter new category name'
-                value={newCategoryName}
-                onChange={handleInputChange}
-                className='border border-gray-300 px-2 py-2 rounded mr-2 w-64'
-              />
+              <label>
+                Category Kind:
+                <input
+                  type='text'
+                  placeholder='Enter new category kind'
+                  value={newCategoryKind}
+                  onChange={handleKindChange}
+                  className='border border-gray-300 px-2 py-2 rounded mx-2 w-64'
+                />
+              </label>
+
+              <label>
+                Category Name:
+                <input
+                  type='text'
+                  placeholder='Enter new category name'
+                  value={newCategoryName}
+                  onChange={handleInputChange}
+                  className='border border-gray-300 px-2 py-2 rounded mx-2 w-64'
+                />
+              </label>
               <button
                 onClick={handleCreate}
                 className='bg-black text-white px-4 py-2 rounded text-[0.7rem]'
@@ -134,21 +149,14 @@ const CategoryManagement = ({ me }) => {
               </button>
             </div>
           )}
-          {!showAddFields && (
-            <button
-              onClick={() => setShowAddFields(true)} // Show add fields when button is clicked
-              className='bg-black text-white px-4 py-2 rounded text-[0.7rem]'
-            >
-              Add Category
-            </button>
-          )}
+
           {duplicateError && (
-            <p className='text-red-500 mt-2'>Category already exists!</p>
+            <p className='text-[#c82828] mt-2'>Category already exists!</p>
           )}
-          {error && <p className='text-red-500 mt-2'>{error}</p>}
+          {error && <p className='text-[#fefefe] mt-2'>{error}</p>}
         </div>
         {/* Category List */}
-        <div className='border border-gray-200 p-4 rounded shadow mb-4'>
+        <div className='h-[50vh] border border-[#bbb] p-4 rounded shadow mb-4 overflow-y-auto'>
           <h3 className='text-lg font-semibold mb-2'>Category List</h3>
           <ul>
             {filteredCategories &&
