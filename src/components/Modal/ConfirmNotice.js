@@ -10,13 +10,13 @@ const ConfirmNotice = ({ closeModal, navigate, title, text }) => {
       <div className='w-full flex items-center justify-end'>
         <Buttons
           onClick={closeModal}
-          containerStyles='flex items-center px-4 py-3 text-sm border border-2   
-            rounded-xl shadow-md border-[#ddd] '
+          containerStyles='min-w-[80px] flex items-center justify-center px-4 py-3 text-sm border border-2   
+            rounded-xl shadow-md border-[#f0f0f0] '
           title='No'
         />
         <Buttons
           onClick={() => window.location.reload()}
-          containerStyles='flex items-center px-4 py-3 ml-4 text-sm border border-2   
+          containerStyles='min-w-[80px] flex items-center justify-center px-4 py-3 ml-4 text-sm border border-2   
             rounded-xl bg-black border-black text-white shadow-md'
           title='Yes'
         />

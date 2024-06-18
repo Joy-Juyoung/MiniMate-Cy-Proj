@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchAllItems, fetchAllItemsByCategory } from '../redux/itemSlice';
-import { fetchCategories } from '../redux/categorySlice';
-import { createCart } from '../redux/cartSlice';
-import { GoPlus } from 'react-icons/go';
-import { useNavigate } from 'react-router-dom';
-import { Loading } from '../components';
-import AddToCartBar from '../components/AddToCartBar';
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAllItems, fetchAllItemsByCategory } from "../redux/itemSlice";
+import { fetchCategories } from "../redux/categorySlice";
+import { createCart } from "../redux/cartSlice";
+import { GoPlus } from "react-icons/go";
+import { useNavigate } from "react-router-dom";
+import { Loading } from "../components";
+import AddToCartBar from "../components/AddToCartBar";
 
 const Shop = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const {
     list: items,
     loading: itemsLoading,
@@ -24,12 +24,22 @@ const Shop = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [cartSidebarOpen, setCartSidebarOpen] = useState(false);
   const [tempCartItems, setTempCartItems] = useState([]);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   useEffect(() => {
     dispatch(fetchCategories());
     dispatch(fetchAllItems());
   }, [dispatch]);
+
+  // console.log("all", all);
+
+  useEffect(() => {
+    if (cartSidebarOpen) {
+      const storedTempCartItems =
+        JSON.parse(localStorage.getItem("tempCartItems")) || [];
+      setTempCartItems(storedTempCartItems);
+    }
+  }, [cartSidebarOpen]);
 
   const handleCategoryClick = (categoryId) => {
     setSelectedCategory(categoryId);
@@ -42,10 +52,15 @@ const Shop = () => {
 
   const handleAddToTempCart = (item) => {
     if (tempCartItems.some((cartItem) => cartItem._id === item._id)) {
-      setError('Item is already in the cart');
+      setError("Item is already in the cart");
     } else {
-      setTempCartItems([...tempCartItems, item]);
-      setError('');
+      const updatedTempCartItems = [...tempCartItems, item];
+      setTempCartItems(updatedTempCartItems);
+      localStorage.setItem(
+        "tempCartItems",
+        JSON.stringify(updatedTempCartItems)
+      );
+      setError("");
     }
     setCartSidebarOpen(true);
   };
@@ -66,15 +81,15 @@ const Shop = () => {
     };
     dispatch(createCart({ cartData }));
     setTempCartItems([]);
-    // navigate('/cart');
+    localStorage.removeItem("tempCartItems");
     setCartSidebarOpen(false);
   };
 
   return (
-    <div className='w-full h-full min-h-screen bg-[#fff9e7] flex pb-28 sm:pb-12 pt-12 px-10 sm:px-20 md:px-40'>
-      <div className='w-full h-full flex flex-col '>
-        <div className='font-bold text-3xl md:text-4xl mb-4 md:mb-8 '>SHOP</div>
-        <div className='w-full h-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 items-center'>
+    <div className="w-full h-full min-h-screen bg-[#fff9e7] flex pb-28 sm:pb-12 pt-12 px-10 sm:px-20 md:px-40">
+      <div className="flex flex-col w-full h-full ">
+        <div className="mb-4 text-3xl font-bold md:text-4xl md:mb-8 ">SHOP</div>
+        <div className="grid items-center w-full h-full grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-5">
           {categoriesLoading ? (
             <Loading />
           ) : (
@@ -82,8 +97,8 @@ const Shop = () => {
               <div
                 className={`cursor-pointer w-full h-full text-sm text-center px-5 py-2 rounded-lg border ${
                   selectedCategory === null
-                    ? ' bg-black text-white shadow-md border-white'
-                    : 'border-[#ddd] bg-white shadow-md hover:bg-[#00000052]'
+                    ? " bg-black text-white shadow-md border-white"
+                    : "border-[#ddd] bg-white shadow-md hover:bg-[#00000052]"
                 } flex items-center justify-center`}
                 onClick={() => handleCategoryClick(null)}
               >
@@ -91,15 +106,15 @@ const Shop = () => {
               </div>
               {categories
                 .filter((category) =>
-                  category.name.toLowerCase().includes('private')
+                  category.name.toLowerCase().includes("private")
                 )
                 .map((category) => (
                   <div
                     key={category._id}
                     className={`cursor-pointer w-full text-sm text-center px-5 py-2 rounded-lg border ${
                       selectedCategory === category._id
-                        ? ' bg-black text-white shadow-md border-white'
-                        : 'border-[#ddd] bg-white shadow-md hover:bg-[#00000052]'
+                        ? " bg-black text-white shadow-md border-white"
+                        : "border-[#ddd] bg-white shadow-md hover:bg-[#00000052]"
                     }`}
                     onClick={() => handleCategoryClick(category._id)}
                   >
@@ -109,35 +124,37 @@ const Shop = () => {
             </>
           )}
         </div>
-        <div className='w-full h-full my-12'>
-          <div className='w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 items-stretch gap-8 md:gap-4 lg:gap-8'>
+        <div className="w-full h-full my-12">
+          <div className="grid items-stretch w-full grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 md:gap-4 lg:gap-8">
             {itemsLoading ? (
-              <span className='dots-container'></span>
+              <span className="dots-container"></span>
             ) : (
-              (selectedCategory === null ? all : items).map((item, index) => (
-                <div
-                  key={index}
-                  className='cursor-pointer text-sm w-full flex flex-col items-center justify-between shadow-md bg-white border border-[#ccc] rounded-lg hover:scale-[1.05] ease-in-out duration-300'
-                >
-                  <img
-                    src={item.item_img}
-                    alt={item.item_name}
-                    className='w-full h-[10rem] object-contain rounded-lg mt-4'
-                  />
-                  <div className='w-full flex flex-col justify-between flex-grow px-4 py-3'>
-                    <div className='w-full flex item-center justify-between'>
-                      <div className='item-name'>{item.item_name}</div>
-                      <div className='item-price'>🧀 {item.item_price}</div>
+              (selectedCategory === null ? all : items)
+                .filter((item) => item.item_img !== null)
+                .map((item, index) => (
+                  <div
+                    key={index}
+                    className="cursor-pointer text-sm w-full flex flex-col items-center justify-between shadow-md bg-white border border-[#ccc] rounded-lg hover:scale-[1.05] ease-in-out duration-300"
+                  >
+                    <img
+                      src={item.item_img}
+                      alt={item.item_name}
+                      className="w-full h-[10rem] object-contain rounded-lg mt-4"
+                    />
+                    <div className="flex flex-col justify-between flex-grow w-full px-4 py-3">
+                      <div className="flex justify-between w-full item-center">
+                        <div className="item-name">{item.item_name}</div>
+                        <div className="item-price">🧀 {item.item_price}</div>
+                      </div>
+                      <button
+                        className="w-full text-[0.8rem] flex items-center justify-center bg-[#f5f5f5] rounded-lg py-2 mt-2 text-black hover:bg-hightColor hover:text-white"
+                        onClick={() => handleAddToTempCart(item)}
+                      >
+                        <GoPlus className="mr-1" size={15} /> Add to cart
+                      </button>
                     </div>
-                    <button
-                      className='w-full text-[0.8rem] flex items-center justify-center bg-[#f5f5f5] rounded-lg py-2 mt-2 text-black hover:bg-hightColor hover:text-white'
-                      onClick={() => handleAddToTempCart(item)}
-                    >
-                      <GoPlus className='mr-1' size={15} /> Add to cart
-                    </button>
                   </div>
-                </div>
-              ))
+                ))
             )}
           </div>
         </div>
@@ -145,6 +162,7 @@ const Shop = () => {
         {cartSidebarOpen && (
           <AddToCartBar
             me={me}
+            setTempCartItems={setTempCartItems}
             tempCartItems={tempCartItems}
             error={error}
             handleSaveCart={handleSaveCart}

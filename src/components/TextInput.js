@@ -25,9 +25,7 @@ const TextInput = React.forwardRef(
 
     return (
       <div className='w-full flex flex-col mt-4'>
-        {label && (
-          <p className={`text-ascent-2 text-sm mb-2 ${labelStyles}`}>{label}</p>
-        )}
+        {label && <p className={`text-sm mb-2 ${labelStyles}`}>{label}</p>}
 
         <div className='relative'>
           <input
@@ -37,7 +35,7 @@ const TextInput = React.forwardRef(
             ref={ref}
             value={value || ''}
             onChange={onChange}
-            className={`bg-[#f5f5f5] rounded border border-[#66666690] outline-none text-sm text-ascent-1 px-4 py-3 placeholder:text-[#666] ${styles}`}
+            className={`bg-[#f5f5f5] rounded border border-[#66666690] outline-none text-sm px-4 py-3 placeholder:text-[#666] ${styles}`}
           />
           {isPasswordType && (
             <div

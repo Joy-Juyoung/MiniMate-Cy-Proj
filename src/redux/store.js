@@ -1,10 +1,11 @@
-import { configureStore } from '@reduxjs/toolkit';
-import authReducer from './authSlice';
-import categorySlice from './categorySlice';
-import userSlice from './userSlice';
-import itemSlice from './itemSlice';
-import cartSlice from './cartSlice';
-import friendSlice from './friendSlice';
+import { configureStore } from "@reduxjs/toolkit";
+import authReducer from "./authSlice";
+import categorySlice from "./categorySlice";
+import userSlice from "./userSlice";
+import itemSlice from "./itemSlice";
+import cartSlice from "./cartSlice";
+import friendSlice from "./friendSlice";
+import historySlice from "./historySlice";
 
 export const store = configureStore({
   reducer: {
@@ -14,5 +15,6 @@ export const store = configureStore({
     item: itemSlice,
     cart: cartSlice,
     friend: friendSlice,
+    history: historySlice,
   },
 });
