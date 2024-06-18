@@ -1,20 +1,9 @@
-import React from 'react';
+import React from "react";
 
-const Buttons = ({
-  title,
-  containerStyles,
-  iconLeft,
-  iconRight,
-  type,
-  onClick,
-  iconStyles,
-}) => {
+const Buttons = ({ title, containerStyles, iconLeft, iconRight, type, onClick, iconStyles }) => {
   return (
-    <button
-      onClick={onClick}
-      type={type || 'button'}
-      className={`inline-flex items-center ${containerStyles} `}
-    >
+    <button onClick={onClick} type={type || "button"} className={`inline-flex items-center ${containerStyles} `}>
+      {/* ex) iconLeft={<IoMdSettings/>} */}
       {iconLeft && <div className={`${iconStyles}`}>{iconLeft}</div>}
 
       {title}

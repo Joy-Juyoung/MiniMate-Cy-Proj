@@ -13,7 +13,7 @@ const Register = () => {
     username: '',
     email: '',
     birth: '',
-    gender: '',
+    gender: 'male',
     phone_number: '',
     password: '',
     passwordConfirm: '',
@@ -110,7 +110,7 @@ const Register = () => {
             required
             styles='w-full'
           />
-          <TextInput
+          {/* <TextInput
             type='text'
             name='gender'
             placeholder='Gender'
@@ -119,7 +119,34 @@ const Register = () => {
             onChange={handleChange}
             required
             styles='w-full'
-          />
+          /> */}
+          <div className='w-full flex flex-col mt-4'>
+            <label className='text-sm'>Gender</label>
+            <div className='mt-2 flex items-center'>
+              <label className='inline-flex items-center mr-6'>
+                <input
+                  type='radio'
+                  name='gender'
+                  value='male'
+                  checked={formData.gender === 'male'}
+                  onChange={handleChange}
+                  className='form-radio'
+                />
+                <span className='ml-2'>Male</span>
+              </label>
+              <label className='inline-flex items-center'>
+                <input
+                  type='radio'
+                  name='gender'
+                  value='female'
+                  checked={formData.gender === 'female'}
+                  onChange={handleChange}
+                  className='form-radio'
+                />
+                <span className='ml-2'>Female</span>
+              </label>
+            </div>
+          </div>
           <TextInput
             type='tel'
             name='phone_number'

@@ -93,12 +93,15 @@ const Account = ({ tokenFromStorage }) => {
 
   return (
     <div className='w-full h-full px-10 2xl:px-40 min-h-[80vh]'>
-      <div className='w-full h-full flex flex-col items-center rounded-[10%] pb-12 md:py-12 '>
-        <form onSubmit={handleSubmit} className='rounded-lg p-8 shadow-xl'>
+      <div className='w-full h-full flex flex-col items-center pb-12 md:py-12 '>
+        <form
+          onSubmit={handleSubmit}
+          className='md:rounded-lg p-8 md:shadow-xl w-full px-10 md:w-[550px]'
+        >
           <h1 className='text-3xl text-center font-semibold mb-6'>
             My Account
           </h1>
-          <div className='grid grid-cols-1 md:grid-cols-2 gap-8 items-center'>
+          <div className='grid grid-cols-1 md:grid-cols-2 md:gap-8 items-center'>
             <div>
               <img
                 src={
@@ -146,8 +149,9 @@ const Account = ({ tokenFromStorage }) => {
                   name='gender'
                   value={userInfo.gender || me?.gender}
                   onChange={handleUserInfoChange}
-                  className='w-full text-[1rem] rounded-md mt-1 px-3 py-2 
-              border border-white focus:border-[#2185ff] focus:outline-none'
+                  className={`w-full text-[1rem] rounded-md mt-1 px-3 py-2 border  focus:border-[#2185ff] focus:outline-none ${
+                    isEditing ? 'border-[#bbb] outline-[#bbb]' : 'border-white'
+                  }`}
                   // style={{ borderColor: isEditing && '#ddd' }}
                   disabled={!isEditing}
                 />
@@ -160,7 +164,9 @@ const Account = ({ tokenFromStorage }) => {
                   name='phone_number'
                   value={userInfo.phone_number || me?.phone_number}
                   onChange={handleUserInfoChange}
-                  className='w-full text-[1rem] rounded-md mt-1 px-3 py-2 border border-white focus:border-[#2185ff] focus:outline-none'
+                  className={`w-full text-[1rem] rounded-md mt-1 px-3 py-2 border  focus:border-[#2185ff] focus:outline-none ${
+                    isEditing ? 'border-[#bbb] outline-[#bbb]' : 'border-white'
+                  }`}
                   // style={{ borderColor: isEditing && '#ddd' }}
                   disabled={!isEditing}
                 />
@@ -176,8 +182,9 @@ const Account = ({ tokenFromStorage }) => {
                     me?.birth?.substring(0, me?.birth.indexOf('T'))
                   }
                   onChange={handleUserInfoChange}
-                  className='w-full text-[1rem] rounded-md mt-1 px-3 py-2 border border-white focus:border-[#2185ff] focus:outline-none'
-                  // style={{ borderColor: isEditing && '#ddd' }}
+                  className={`w-full text-[1rem] rounded-md mt-1 px-3 py-2 border  focus:border-[#2185ff] focus:outline-none ${
+                    isEditing ? 'border-[#bbb] outline-[#bbb]' : 'border-white'
+                  }`}
                   disabled={!isEditing}
                 />
               </div>
@@ -190,7 +197,9 @@ const Account = ({ tokenFromStorage }) => {
                   value={userInfo.domain || me?.domain}
                   onChange={handleUserInfoChange}
                   // style={{ borderColor: isEditing && '#ddd' }}
-                  className='w-full text-[1rem] rounded-md mt-1 px-3 py-2 border border-white focus:border-[#2185ff] focus:outline-none'
+                  className={`w-full text-[1rem] rounded-md mt-1 px-3 py-2 border  focus:border-[#2185ff] focus:outline-none ${
+                    isEditing ? 'border-[#bbb] outline-[#bbb]' : 'border-white'
+                  }`}
                   disabled={!isEditing}
                 />
               </div>

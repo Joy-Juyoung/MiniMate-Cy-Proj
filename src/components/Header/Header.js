@@ -1,15 +1,15 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import Logo from '../../assets/logo2.png';
-import NoticeModal from '../Modal/NoticeModal';
-import LoginNotice from '../Modal/LoginNotice';
-import HeaderNav from './HeaderNav';
-import HeaderDropdown from './HeaderDropdown';
-import { FaRegBell } from 'react-icons/fa6';
-import { TbShoppingCart } from 'react-icons/tb';
-import { MdMenu } from 'react-icons/md';
-import Sidebar from './Sidebar';
+import React, { useState, useEffect, useRef } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import Logo from "../../assets/logo2.png";
+import NoticeModal from "../Modal/NoticeModal";
+import LoginNotice from "../Modal/LoginNotice";
+import HeaderNav from "./HeaderNav";
+import HeaderDropdown from "./HeaderDropdown";
+import { FaRegBell } from "react-icons/fa6";
+import { TbShoppingCart } from "react-icons/tb";
+import { MdMenu } from "react-icons/md";
+import Sidebar from "./Sidebar";
 
 const Header = ({ me }) => {
   const dispatch = useDispatch();
@@ -34,9 +34,9 @@ const Header = ({ me }) => {
   };
 
   useEffect(() => {
-    window.addEventListener('scroll', changeNav);
+    window.addEventListener("scroll", changeNav);
     return () => {
-      window.removeEventListener('scroll', changeNav);
+      window.removeEventListener("scroll", changeNav);
     };
   }, []);
 
@@ -48,15 +48,15 @@ const Header = ({ me }) => {
     };
 
     if (dropdownOpen) {
-      document.body.style.overflow = 'auto';
-      document.addEventListener('click', handleOutsideClick);
+      document.body.style.overflow = "auto";
+      document.addEventListener("click", handleOutsideClick);
     } else {
-      document.body.style.overflow = 'unset';
-      document.removeEventListener('click', handleOutsideClick);
+      document.body.style.overflow = "unset";
+      document.removeEventListener("click", handleOutsideClick);
     }
 
     return () => {
-      document.removeEventListener('click', handleOutsideClick);
+      document.removeEventListener("click", handleOutsideClick);
     };
   }, [dropdownOpen]);
 
@@ -68,13 +68,13 @@ const Header = ({ me }) => {
     setModalOpen(false);
   };
 
-  const handleIconClick = () => {
-    if (!me) {
-      openModal();
-    } else {
-      navigate('/shop');
-    }
-  };
+  // const handleIconClick = () => {
+  //   if (!me) {
+  //     openModal();
+  //   } else {
+  //     navigate('/shop');
+  //   }
+  // };
 
   return (
     <>
@@ -85,30 +85,22 @@ const Header = ({ me }) => {
       )}
 
       <div
-        className='header font-work w-full h-full flex items-center justify-between py-3 
-        md:py-6 px-10 sm:px-20 md:px-40'
+        className="flex items-center justify-between w-full h-full px-10 py-3 header font-work md:py-6 sm:px-20 md:px-40"
         style={{
-          backgroundColor: scrollNav
-            ? 'rgba(255, 255, 255, 0.9)'
-            : 'transparent',
+          backgroundColor: scrollNav ? "rgba(255, 255, 255, 0.9)" : "transparent",
         }}
       >
-        <div
-          onClick={() => navigate('/')}
-          className='flex gap-2 items-center cursor-pointer'
-        >
-          <div className='w-12 h-12 md:w-14 md:h-14 flex items-center'>
-            <img src={Logo} alt='logo' />
+        <div onClick={() => navigate("/")} className="flex items-center gap-2 cursor-pointer">
+          <div className="flex items-center w-12 h-12 md:w-14 md:h-14">
+            <img src={Logo} alt="logo" />
           </div>
-          <span className='text-xl md:text-2xl text-black font-semibold'>
-            MINIMATE
-          </span>
+          <span className="text-xl font-semibold text-black md:text-2xl">MINIMATE</span>
         </div>
 
-        <div className='hidden md:flex gap-4 items-center text-xl md:text-2xl'>
-          <HeaderNav location={location} navigate={navigate} />
+        <div className="items-center hidden gap-4 text-xl md:flex md:text-2xl">
+          <HeaderNav me={me} />
 
-          <div className='-ml-4'>|</div>
+          <div className="-ml-4">|</div>
 
           {/* <button
             onClick={() => {
@@ -120,9 +112,9 @@ const Header = ({ me }) => {
           </button> */}
           <button
             onClick={() => {
-              !me ? openModal() : navigate('/cart');
+              !me ? openModal() : navigate("/cart");
             }}
-            className='active:text-hightColor'
+            className="active:text-hightColor"
           >
             <TbShoppingCart />
           </button>
@@ -137,9 +129,9 @@ const Header = ({ me }) => {
           />
         </div>
 
-        <div className='flex md:hidden text-2xl'>
-          <button onClick={toggle} className=''>
-            <MdMenu className='' />
+        <div className="flex text-2xl md:hidden">
+          <button onClick={toggle} className="">
+            <MdMenu className="" />
           </button>
         </div>
       </div>
