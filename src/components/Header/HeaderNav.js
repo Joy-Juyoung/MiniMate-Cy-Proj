@@ -7,7 +7,7 @@ const HeaderNav = ({ me }) => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  console.log("me", me);
+  // console.log("me", me);
 
   return (
     <div className="items-center justify-center hidden md:flex">
@@ -16,7 +16,9 @@ const HeaderNav = ({ me }) => {
         title="HOME"
         containerStyles={`text-xl font-semibold px-2 py-1
           hover:text-hightColor ${
-            location.pathname === "/" ? "text-hightColor underline underline-offset-8" : "transparent"
+            location.pathname === "/"
+              ? "text-hightColor underline underline-offset-8"
+              : "transparent"
           }`}
       />
       <Buttons
@@ -24,7 +26,9 @@ const HeaderNav = ({ me }) => {
         title="SHOP"
         containerStyles={`text-xl font-semibold px-4 py-1
           hover:text-hightColor ${
-            location.pathname === "/shop" ? "text-hightColor underline underline-offset-8" : "transparent"
+            location.pathname === "/shop"
+              ? "text-hightColor underline underline-offset-8"
+              : "transparent"
           }`}
       />
       {me?.username.toLowerCase().includes("admin") && (
@@ -33,7 +37,9 @@ const HeaderNav = ({ me }) => {
           title="Admin"
           containerStyles={`text-xl font-semibold pr-4 pl-2 py-1
             hover:text-hightColor ${
-              location.pathname === "/admin/user" ? "text-hightColor underline underline-offset-8" : "transparent "
+              location.pathname === "/admin/user"
+                ? "text-hightColor underline underline-offset-8"
+                : "transparent "
             }`}
           iconLeft={<IoMdSettings />}
           iconStyles="mr-1"

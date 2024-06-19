@@ -1,8 +1,8 @@
-import { createSlice, createAsyncThunk, createAction } from '@reduxjs/toolkit';
-import { API } from './api';
+import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
+import { API } from "./api";
 
 export const fetchAllItemsByCategory = createAsyncThunk(
-  'item/fetchAllItemsByCategory',
+  "item/fetchAllItemsByCategory",
   async ({ categoryId, thunkAPI }) => {
     try {
       const response = await API.get(`/shopItems?category=${categoryId}`);
@@ -17,7 +17,7 @@ export const fetchAllItemsByCategory = createAsyncThunk(
 // export const selectItem = createAction('item/selectItem');
 
 export const fetchAllItems = createAsyncThunk(
-  'item/fetchAllItems',
+  "item/fetchAllItems",
   async (_, thunkAPI) => {
     try {
       const response = await API.get(`/shopItems`);
@@ -29,7 +29,7 @@ export const fetchAllItems = createAsyncThunk(
 );
 
 export const fetchItemById = createAsyncThunk(
-  'item/fetchItem',
+  "item/fetchItem",
   async ({ itemId, thunkAPI }) => {
     try {
       const response = await API.get(`/shopItems/${itemId}`);
@@ -41,7 +41,7 @@ export const fetchItemById = createAsyncThunk(
 );
 
 export const deleteItem = createAsyncThunk(
-  'item/deleteItem',
+  "item/deleteItem",
   async ({ itemId, thunkAPI }) => {
     try {
       await API.delete(`/shopItems/${itemId}`);
@@ -53,7 +53,7 @@ export const deleteItem = createAsyncThunk(
 );
 
 export const updateItem = createAsyncThunk(
-  'item/updateItem',
+  "item/updateItem",
   async ({ itemId, itemData, thunkAPI }) => {
     try {
       const response = await API.patch(`/shopItems/${itemId}`, itemData);
@@ -65,7 +65,7 @@ export const updateItem = createAsyncThunk(
 );
 
 export const updateItemImages = createAsyncThunk(
-  'item/updateItemImag',
+  "item/updateItemImag",
   async ({ itemId, images, thunkAPI }) => {
     try {
       const response = await API.patch(`/shopItems/${itemId}/image`, images);
@@ -77,10 +77,10 @@ export const updateItemImages = createAsyncThunk(
 );
 
 export const createItem = createAsyncThunk(
-  'item/createItem',
+  "item/createItem",
   async ({ itemData, thunkAPI }) => {
     try {
-      const response = await API.post('/shopItems', itemData);
+      const response = await API.post("/shopItems", itemData);
       return response.data.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -89,7 +89,7 @@ export const createItem = createAsyncThunk(
 );
 
 const itemSlice = createSlice({
-  name: 'item',
+  name: "item",
   initialState: {
     list: [],
     all: [],
@@ -142,9 +142,11 @@ const itemSlice = createSlice({
       })
       // Warnning. An error is likely to occur
       .addCase(updateItem.fulfilled, (state, action) => {
-        state.list = state.list.map((item) =>
-          item._id === action.payload._id ? { ...action.payload.data } : item
-        );
+        // state.list = state.list.map((item) =>
+        //   item._id === action.payload._id ? { ...action.payload.data } : item
+        // );
+        state.loading = false;
+        state.list = action.payload;
       })
       // Warnning. An error is likely to occur
       .addCase(updateItemImages.fulfilled, (state, action) => {
