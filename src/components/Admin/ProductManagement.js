@@ -86,10 +86,6 @@ const ProductManagement = ({ me }) => {
 
   const handleSelect = (categoryId) => {
     setSelectedCategory(categoryId);
-    // setFormData((prevState) => ({
-    //   ...prevState,
-    //   category: categoryId,
-    // })); // Pass the selected category _id to the parent component
     setIsOpen(false);
   };
 
