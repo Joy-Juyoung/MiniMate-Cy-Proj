@@ -6,6 +6,8 @@ import UploadImge from "../Modal/UploadImage";
 import AdminSidebar from "./AdminSidebar";
 import ProductUpload from "./ProductUpload";
 import { MdOutlineFileUpload } from "react-icons/md";
+import { FaRegEdit } from "react-icons/fa";
+import { fetchCategories } from "../../redux/categorySlice";
 
 const ProductManagement = ({ me }) => {
   const dispatch = useDispatch();
@@ -26,8 +28,9 @@ const ProductManagement = ({ me }) => {
 
   useEffect(() => {
     dispatch(fetchAllItems());
+    dispatch(fetchCategories());
   }, [dispatch, list, openImageModal]);
-  // console.log("all ", all);
+  // console.log("categories ", categories);
 
   const handleDeleteItems = () => {
     dispatch(deleteItem({ itemId: selectedProduct }));
@@ -83,10 +86,6 @@ const ProductManagement = ({ me }) => {
 
   const handleSelect = (categoryId) => {
     setSelectedCategory(categoryId);
-    // setFormData((prevState) => ({
-    //   ...prevState,
-    //   category: categoryId,
-    // })); // Pass the selected category _id to the parent component
     setIsOpen(false);
   };
 
@@ -180,27 +179,27 @@ const ProductManagement = ({ me }) => {
                         <div>
                           {/* <div
                             onClick={toggleDropdown}
-                            className="cursor-pointer border border-[#bbb] px-2 py-1 rounded w-full"
+                            className="cursor-pointer border border-[#bbb] px-2 py-2 rounded w-full"
                           >
                             {selectedCategory || "Select a category"}
                           </div> */}
-                          {isOpen && (
-                            <select
-                              name="items"
-                              className=" w-full bg-white border border-[#bbb] 
+                          {/* {isOpen && ( */}
+                          <select
+                            name="items"
+                            className=" w-full bg-white border border-[#bbb] 
                             rounded mt-1 max-h-60 overflow-auto "
-                            >
-                              {categories.map((category) => (
-                                <option
-                                  key={category._id}
-                                  onClick={() => handleSelect(category._id)}
-                                  className="px-2 py-1 cursor-pointer hover:bg-[#ddd]"
-                                >
-                                  {category.name}
-                                </option>
-                              ))}
-                            </select>
-                          )}
+                          >
+                            {categories.map((category) => (
+                              <option
+                                key={category._id}
+                                onClick={() => handleSelect(category._id)}
+                                className="px-2 py-2 cursor-pointer hover:bg-[#ddd]"
+                              >
+                                {category.name}
+                              </option>
+                            ))}
+                          </select>
+                          {/* )} */}
                         </div>
                       </td>
                       <td className="p-2">
@@ -214,7 +213,7 @@ const ProductManagement = ({ me }) => {
                       <td className="w-[150px] p-2 pr-8">
                         <button
                           className={`w-full bg-black text-white rounded-lg 
-                      py-1 px-2 text-[0.7rem] `}
+                      py-2 px-2 text-[0.7rem] `}
                           onClick={() =>
                             handleUpdate(
                               product._id,
@@ -229,7 +228,7 @@ const ProductManagement = ({ me }) => {
 
                         <button
                           onClick={handleEditClick}
-                          className="w-full mt-2 border border-[#bbb] rounded-lg py-1 px-1 text-[0.7rem]"
+                          className="w-full mt-2 border border-[#bbb] rounded-lg py-2 px-1 text-[0.7rem]"
                         >
                           Cancel
                         </button>
@@ -255,10 +254,10 @@ const ProductManagement = ({ me }) => {
                       <td className="p-2">{product.item_name}</td>
                       <td className="p-2">{product.category?.name}</td>
                       <td className="p-2">${product.item_price}</td>
-                      <td className="w-[150px] p-2 pr-8">
+                      <td className="w-[180px] p-2 pr-8 ">
                         <button
-                          className={`w-full bg-[#ddd] rounded-lg 
-                      py-1 px-2 text-[0.7rem] ${
+                          className={`flex items-center justify-between gap-2 w-full bg-[#ddd] rounded-lg 
+                      py-2 px-4 text-[0.7rem] ${
                         !product.item_img
                           ? "bg-black text-white"
                           : "cursor-not-allowed text-[#888]"
@@ -266,7 +265,8 @@ const ProductManagement = ({ me }) => {
                           onClick={() => openModalForImageUpload(product)}
                           disabled={!!product.item_img}
                         >
-                          Upload Image
+                          <MdOutlineFileUpload className=" text-[1rem]" />
+                          <span>Upload Image</span>
                         </button>
 
                         <button
@@ -278,9 +278,10 @@ const ProductManagement = ({ me }) => {
                               product.category?.name
                             )
                           }
-                          className="w-full mt-2 border border-[#bbb] rounded-lg py-1 px-1 text-[0.7rem]"
+                          className="flex items-center justify-between w-full mt-2 border border-[#bbb] rounded-lg py-2 px-4 text-[0.7rem]"
                         >
-                          Edit
+                          <FaRegEdit className=" text-[1rem]" />
+                          <span>Edit Item</span>
                         </button>
                       </td>
                     </tr>
