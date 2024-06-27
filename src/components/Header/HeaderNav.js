@@ -37,7 +37,7 @@ const HeaderNav = ({ me }) => {
           title="Admin"
           containerStyles={`text-xl font-semibold pr-4 pl-2 py-1
             hover:text-hightColor ${
-              location.pathname === "/admin/user"
+              location.pathname.startsWith("/admin")
                 ? "text-hightColor underline underline-offset-8"
                 : "transparent "
             }`}

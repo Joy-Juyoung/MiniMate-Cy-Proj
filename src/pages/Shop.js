@@ -31,7 +31,7 @@ const Shop = () => {
     dispatch(fetchAllItems());
   }, [dispatch]);
 
-  // console.log("all", all);
+  // console.log("categories", categories);
 
   useEffect(() => {
     if (cartSidebarOpen) {
@@ -105,8 +105,11 @@ const Shop = () => {
                 All
               </div>
               {categories
-                .filter((category) =>
-                  category.name.toLowerCase().includes("private")
+                .filter(
+                  (category) =>
+                    // category.name.toLowerCase().includes("private")
+                    category.kind.toLowerCase() === "shop"
+                  // category.length > 0
                 )
                 .map((category) => (
                   <div
@@ -128,9 +131,17 @@ const Shop = () => {
           <div className="grid items-stretch w-full grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 md:gap-4 lg:gap-8">
             {itemsLoading ? (
               <span className="dots-container"></span>
+            ) : (selectedCategory === null ? all : items).filter(
+                (item) => item.item_img !== null && item.category !== null
+              ).length === 0 ? (
+              <div className="w-full py-4 text-[#bbb]">
+                Sorry, this page is empty.
+              </div>
             ) : (
               (selectedCategory === null ? all : items)
-                .filter((item) => item.item_img !== null)
+                .filter(
+                  (item) => item.item_img !== null && item.category !== null
+                )
                 .map((item, index) => (
                   <div
                     key={index}

@@ -24,13 +24,18 @@ import "react-toastify/dist/ReactToastify.css";
 import { fetchMe } from "./redux/userSlice";
 import ProtectedRoute from "./ProtectedRoute";
 import Mate from "./pages/Mate";
-import { CategoryManagement, ProductManagement, UserManagement } from "./components/Admin";
+import {
+  CategoryManagement,
+  ProductManagement,
+  UserManagement,
+} from "./components/Admin";
+import History from "./pages/History";
 
 const HeaderWrapper = React.memo(({ me }) => (
   <div>
     <Header me={me} />
     <Outlet me={me} />
-    {/* <Footer /> */}
+    <Footer />
   </div>
 ));
 
@@ -66,23 +71,45 @@ function App() {
         <Route path="/" element={<HeaderWrapper me={me} />}>
           <Route path="/" element={<Home me={me} />} />
           <Route path="/shop" element={<Shop />} />
-          <Route path="/cart" element={<Cart me={me} tokenFromStorage={tokenFromStorage} />} />
-          <Route path="/account" element={<Account me={me} tokenFromStorage={tokenFromStorage} />} />
-          <Route path="/mate" element={<Mate me={me} tokenFromStorage={tokenFromStorage} />} />
+          <Route
+            path="/cart"
+            element={<Cart me={me} tokenFromStorage={tokenFromStorage} />}
+          />
+          <Route
+            path="user/account"
+            element={<Account me={me} tokenFromStorage={tokenFromStorage} />}
+          />
+          <Route
+            path="user/history"
+            element={<History me={me} tokenFromStorage={tokenFromStorage} />}
+          />
+          <Route
+            path="user/mate"
+            element={<Mate me={me} tokenFromStorage={tokenFromStorage} />}
+          />
           <Route path="/admin/user" element={<UserManagement me={me} />} />
-          <Route path="/admin/category" element={<CategoryManagement me={me} />} />
-          <Route path="/admin/product" element={<ProductManagement me={me} />} />
+          <Route
+            path="/admin/category"
+            element={<CategoryManagement me={me} />}
+          />
+          <Route
+            path="/admin/product"
+            element={<ProductManagement me={me} />}
+          />
         </Route>
         <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login tokenFromStorage={tokenFromStorage} />} />
+        <Route
+          path="/login"
+          element={<Login tokenFromStorage={tokenFromStorage} />}
+        />
         <Route path="/:domain/home" element={<MiniHome me={me} />} />
-        <Route path="/:domain/photo" element={<MiniPhoto />} />
-        <Route path="/:domain/video" element={<MiniVideo />} />
-        <Route path="/:domain/diary" element={<MiniDiary />} />
-        <Route path="/:domain/visitor" element={<MiniVisitor />} />
-        <Route path="/:domain/setting" element={<MiniSetting />} />
+        <Route path="/:domain/photo" element={<MiniPhoto me={me} />} />
+        <Route path="/:domain/video" element={<MiniVideo me={me} />} />
+        <Route path="/:domain/diary" element={<MiniDiary me={me} />} />
+        <Route path="/:domain/visitor" element={<MiniVisitor me={me} />} />
+        <Route path="/:domain/setting" element={<MiniSetting me={me} />} />
       </Routes>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }
