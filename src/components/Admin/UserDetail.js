@@ -5,7 +5,7 @@ import { IoMdClose } from "react-icons/io";
 
 const UserDetail = ({ user, setSelectedUser }) => {
   return (
-    <div className="h-full p-4 my-4 rounded shadow-lg">
+    <div className="h-[55vh] p-4 my-4 rounded shadow-lg">
       <div className="flex items-center justify-between w-full ">
         <h3 className="text-lg font-semibold">User Detail</h3>
         <button onClick={() => setSelectedUser("")}>
@@ -46,25 +46,9 @@ const UserDetail = ({ user, setSelectedUser }) => {
           <p className="mb-4">
             <strong className="text-[0.7rem]">ID</strong>
             <br />
-            {user._id}
+            <span className="break-words">{user._id}</span>
           </p>
         </div>
-        {/* <p>
-          <strong>Status:</strong> {user.status}
-        </p> */}
-        {/* <h4 className='mt-4 mb-2 text-lg font-semibold'>User History</h4>
-        <ul>
-          {user.history.map((item, index) => (
-            <li key={index}>
-              <p>
-                <strong>Action:</strong> {item.action}
-              </p>
-              <p>
-                <strong>Timestamp:</strong> {item.timestamp}
-              </p>
-            </li>
-          ))}
-        </ul> */}
       </div>
     </div>
   );

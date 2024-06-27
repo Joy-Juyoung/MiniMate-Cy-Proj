@@ -87,14 +87,21 @@ const Header = ({ me }) => {
       <div
         className="flex items-center justify-between w-full h-full px-10 py-3 header font-work md:py-6 sm:px-20 md:px-40"
         style={{
-          backgroundColor: scrollNav ? "rgba(255, 255, 255, 0.9)" : "transparent",
+          backgroundColor: scrollNav
+            ? "rgba(255, 255, 255, 0.9)"
+            : "transparent",
         }}
       >
-        <div onClick={() => navigate("/")} className="flex items-center gap-2 cursor-pointer">
+        <div
+          onClick={() => navigate("/")}
+          className="flex items-center gap-2 cursor-pointer"
+        >
           <div className="flex items-center w-12 h-12 md:w-14 md:h-14">
             <img src={Logo} alt="logo" />
           </div>
-          <span className="text-xl font-semibold text-black md:text-2xl">MINIMATE</span>
+          <span className="text-xl font-semibold text-black md:hidden md:text-2xl lg:flex">
+            MINIMATE
+          </span>
         </div>
 
         <div className="items-center hidden gap-4 text-xl md:flex md:text-2xl">
@@ -102,19 +109,15 @@ const Header = ({ me }) => {
 
           <div className="-ml-4">|</div>
 
-          {/* <button
-            onClick={() => {
-              !me ? openModal() : navigate('/shop');
-            }}
-            className='active:text-hightColor'
-          >
-            <FaRegBell />
-          </button> */}
           <button
             onClick={() => {
               !me ? openModal() : navigate("/cart");
             }}
-            className="active:text-hightColor"
+            className={`hover:text-hightColor ${
+              location.pathname === "/cart"
+                ? "text-hightColor underline underline-offset-8"
+                : "transparent"
+            }`}
           >
             <TbShoppingCart />
           </button>

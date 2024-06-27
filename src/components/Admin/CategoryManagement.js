@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   createCategory,
   deleteCategory,
   fetchCategories,
   updateCategory,
-} from '../../redux/categorySlice';
-import Buttons from '../Buttons';
-import AdminSidebar from './AdminSidebar';
+} from "../../redux/categorySlice";
+import Buttons from "../Buttons";
+import AdminSidebar from "./AdminSidebar";
 
 const CategoryManagement = ({ me }) => {
   const dispatch = useDispatch();
@@ -15,14 +15,14 @@ const CategoryManagement = ({ me }) => {
     (state) => state.categories
   );
 
-  const [newCategoryName, setNewCategoryName] = useState('');
-  const [newCategoryKind, setNewCategoryKind] = useState('');
-  const [newKind, setNewKind] = useState('');
-  const [newName, setNewName] = useState('');
+  const [newCategoryName, setNewCategoryName] = useState("");
+  const [newCategoryKind, setNewCategoryKind] = useState("");
+  const [newKind, setNewKind] = useState("");
+  const [newName, setNewName] = useState("");
   const [selectedCategoryId, setSelectedCategoryId] = useState(null);
   const [duplicateError, setDuplicateError] = useState(false);
-  const [showAddFields, setShowAddFields] = useState(false); // State to manage the visibility of add fields
-  const [searchKind, setSearchKind] = useState(''); // State for search by Kind
+  const [showAddFields, setShowAddFields] = useState(false);
+  const [searchKind, setSearchKind] = useState("");
 
   useEffect(() => {
     dispatch(fetchCategories());
@@ -33,7 +33,7 @@ const CategoryManagement = ({ me }) => {
   };
 
   const handleUpdate = (categoryId, newName, newKind) => {
-    if (!newName || newName.trim() === '' || !newKind || newKind.trim() === '')
+    if (!newName || newName.trim() === "" || !newKind || newKind.trim() === "")
       return;
     dispatch(
       updateCategory({
@@ -41,12 +41,12 @@ const CategoryManagement = ({ me }) => {
         categoryData: { name: newName, kind: newKind },
       })
     );
-    setNewName('');
+    setNewName("");
     setSelectedCategoryId(null);
   };
 
   const handleCreate = () => {
-    if (newCategoryName.trim() === '' || newCategoryKind.trim() === '') return;
+    if (newCategoryName.trim() === "" || newCategoryKind.trim() === "") return;
     if (isDuplicateCategory(newCategoryName)) {
       setDuplicateError(true);
       return;
@@ -56,10 +56,10 @@ const CategoryManagement = ({ me }) => {
         categoryData: { name: newCategoryName, kind: newCategoryKind },
       })
     );
-    setNewCategoryName('');
-    setNewCategoryKind('');
+    setNewCategoryName("");
+    setNewCategoryKind("");
     setDuplicateError(false);
-    setShowAddFields(false); // Hide add fields after successful creation
+    setShowAddFields(false);
   };
 
   const handleInputChange = (e) => {
@@ -80,134 +80,152 @@ const CategoryManagement = ({ me }) => {
     return categories.some((category) => category.name === name);
   };
 
-  // Filter categories by Kind
   const filteredCategories = categories.filter((category) =>
     category.kind.toLowerCase().includes(searchKind.toLowerCase())
   );
 
   return (
-    <div className='w-full h-full flex flex-col py-16 px-10 sm:px-20 md:px-40'>
+    <div className="flex flex-col w-full h-full px-10 pt-8 pb-16 sm:px-20 md:px-40">
       <AdminSidebar />
       <div>
-        <h2 className='text-xl font-semibold mb-2'>Category Management</h2>
-        {/* Search by Kind */}
-        <div className='mb-4 flex items-center justify-between'>
-          <input
-            type='text'
-            placeholder='Search by Kind'
-            value={searchKind}
-            onChange={(e) => setSearchKind(e.target.value)}
-            className='border border-gray-300 px-2 py-1 rounded'
-          />
-          {!showAddFields && (
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center">
+            <h2 className="mr-4 text-xl font-semibold w-fit">
+              Category Management
+            </h2>
+            {/* <input
+              type="text"
+              placeholder="Search by Kind"
+              value={searchKind}
+              onChange={(e) => setSearchKind(e.target.value)}
+              className="px-2 py-1 w-1/2 border border-[#bbb] rounded-lg"
+            /> */}
+          </div>
+          <button
+            onClick={() => setShowAddFields(!showAddFields)}
+            className={`px-4 py-2 rounded-lg text-[0.7rem]
+                ${
+                  showAddFields
+                    ? "bg-[#ddd] text-black"
+                    : "bg-black text-white "
+                }`}
+          >
+            {showAddFields ? "Close Add Form" : " Add Category"}
+          </button>
+        </div>
+
+        {showAddFields && (
+          <div className="px-6 py-4 mb-4 border border-[#bbb] rounded-lg-md">
+            <h2 className="text-[1rem] font-semibold mb-4">Add Category</h2>
+
+            <div className="text-[0.8rem] ">
+              <div className="mb-4 ">
+                <label className="block mb-1 font-semibold">
+                  <span>Category Kind:</span>
+                </label>
+                <input
+                  type="text"
+                  placeholder="Enter new category kind"
+                  value={newCategoryKind}
+                  onChange={handleKindChange}
+                  className="w-64 px-2 py-2 mt-1 border border-[#bbb] rounded-lg"
+                />
+              </div>{" "}
+              <div className="mb-4 ">
+                <label className="block mb-1 font-semibold">
+                  <span>Category Name:</span>
+                </label>
+                <input
+                  type="text"
+                  placeholder="Enter new category name"
+                  value={newCategoryName}
+                  onChange={handleInputChange}
+                  className="w-64 px-2 py-2 mt-1 border border-[#bbb] rounded-lg"
+                />
+              </div>
+            </div>
+            {/* <div className="flex justify-end w-full "> */}
             <button
-              onClick={() => setShowAddFields(true)} // Show add fields when button is clicked
-              className='bg-black text-white px-4 py-2 rounded text-[0.7rem]'
+              onClick={handleCreate}
+              className="px-4 py-2 text-white bg-black rounded-lg text-[0.7rem] "
             >
               Add Category
             </button>
-          )}
-        </div>
-        {/* Add Category */}
-        <div className='mb-4 flex w-full justify-between items-center'>
-          {/* <h3 className='text-lg font-semibold mb-2'>Add Category</h3> */}
-          {showAddFields && (
-            <div className='flex'>
-              <label>
-                Category Kind:
-                <input
-                  type='text'
-                  placeholder='Enter new category kind'
-                  value={newCategoryKind}
-                  onChange={handleKindChange}
-                  className='border border-gray-300 px-2 py-2 rounded mx-2 w-64'
-                />
-              </label>
+            {/* </div> */}
+            {/* <button
+              onClick={handleCreate}
+              className="bg-black text-white px-4 py-2 rounded-lg text-[0.7rem]"
+            >
+              Add
+            </button> */}
+          </div>
+        )}
+        {duplicateError && (
+          <p className="text-[#c82828] mt-2">Category already exists!</p>
+        )}
+        {error && <p className="text-[#fefefe] mt-2">{error}</p>}
 
-              <label>
-                Category Name:
-                <input
-                  type='text'
-                  placeholder='Enter new category name'
-                  value={newCategoryName}
-                  onChange={handleInputChange}
-                  className='border border-gray-300 px-2 py-2 rounded mx-2 w-64'
-                />
-              </label>
-              <button
-                onClick={handleCreate}
-                className='bg-black text-white px-4 py-2 rounded text-[0.7rem]'
-              >
-                Add
-              </button>
-
-              <button
-                onClick={() => setShowAddFields(false)}
-                className='bg-[#ddd] px-4 py-1 rounded text-[0.7rem] ml-2'
-              >
-                Exit
-              </button>
-            </div>
-          )}
-
-          {duplicateError && (
-            <p className='text-[#c82828] mt-2'>Category already exists!</p>
-          )}
-          {error && <p className='text-[#fefefe] mt-2'>{error}</p>}
-        </div>
-        {/* Category List */}
-        <div className='h-[50vh] border border-[#bbb] p-4 rounded shadow mb-4 overflow-y-auto'>
-          <h3 className='text-lg font-semibold mb-2'>Category List</h3>
-          <ul>
-            {filteredCategories &&
-              filteredCategories.map((category) => (
-                <li
-                  key={category?._id}
-                  className='flex items-center justify-between border-b last:border-none border-[#bbb] py-2'
+        <div
+          className={`overflow-y-auto bg-white shadow-md mt-4 ${
+            showAddFields ? "h-[45vh]  mb-16" : "h-[55vh]"
+          }`}
+        >
+          <table className="relative w-full text-left border-collapse text-[0.8rem] table-fixed">
+            <thead className="sticky top-0 h-[50px]">
+              <tr className="bg-[#eee] border-b border-[#bbb] rounded-lg text-[#343434]">
+                <th className="p-2 pl-4 md:pl-8 w-[25%]">ID</th>
+                <th className="p-2 w-[25%]">Kind</th>
+                <th className="p-2 w-[25%]">Name</th>
+                <th className="p-2 pr-8 w-[25%] flex justify-end "></th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredCategories.map((category) => (
+                <tr
+                  key={category._id}
+                  className={`border-t border-[#bbb] ${
+                    selectedCategoryId === category._id ? "bg-[#fff7dc]" : ""
+                  }`}
                 >
-                  {selectedCategoryId === category._id ? (
-                    <div className='w-full flex items-center justify-between'>
-                      <div className='flex flex-col'>
-                        <div className='flex items-center '>
-                          <p>Kind: </p>
-                          <input
-                            type='text'
-                            value={newKind}
-                            onChange={(e) => setNewKind(e.target.value)}
-                            className='border border-[#bbb] p-1 rounded-lg ml-2'
-                          />
-                        </div>
-                        <div className='flex items-center '>
-                          <p>Name: </p>
-                          <input
-                            type='text'
-                            value={newName}
-                            onChange={(e) => setNewName(e.target.value)}
-                            className='border border-[#bbb] p-1 rounded-lg mt-2 ml-2'
-                          />
-                        </div>
-                      </div>
-                      <Buttons
+                  <td className="p-2 pl-4 md:pl-8">{category._id}</td>
+                  {/* <td className="p-2 pl-4 md:pl-8">{category._id.slice(-5)}</td> */}
+                  <td className="p-2">
+                    {selectedCategoryId === category._id ? (
+                      <input
+                        type="text"
+                        value={newKind}
+                        onChange={(e) => setNewKind(e.target.value)}
+                        className="border border-[#bbb] p-1 rounded-lg w-full"
+                      />
+                    ) : (
+                      category.kind
+                    )}
+                  </td>
+                  <td className="p-2">
+                    {selectedCategoryId === category._id ? (
+                      <input
+                        type="text"
+                        value={newName}
+                        onChange={(e) => setNewName(e.target.value)}
+                        className="border border-[#bbb] p-1 rounded-lg w-full"
+                      />
+                    ) : (
+                      category.name
+                    )}
+                  </td>
+                  <td className="p-2 pr-8">
+                    {selectedCategoryId === category._id ? (
+                      <button
                         onClick={() =>
                           handleUpdate(category._id, newName, newKind)
                         }
-                        title='Confirm'
-                        containerStyles='text-[0.8rem] px-4 py-2 rounded bg-hightColor text-white'
-                      />
-                    </div>
-                  ) : (
-                    <div className='w-full flex justify-between items-center'>
-                      <div>
-                        <p>Kind: {category.kind}</p>
-                        <p>Name: {category.name}</p>
-                      </div>
-                      <div className='flex gap-4'>
-                        <Buttons
-                          onClick={() => handleDelete(category?._id)}
-                          title='Delete'
-                          containerStyles='text-[0.8rem] px-4 py-2 rounded hover:bg-[#bbb] bg-[#ddd]'
-                        />
-                        <Buttons
+                        className="w-full bg-black text-white rounded-lg py-2 px-2 text-[0.7rem]"
+                      >
+                        Confirm
+                      </button>
+                    ) : (
+                      <div className="flex justify-end gap-2 ">
+                        <button
                           onClick={() =>
                             handleEditClick(
                               category._id,
@@ -215,15 +233,23 @@ const CategoryManagement = ({ me }) => {
                               category.kind
                             )
                           }
-                          title='Edit'
-                          containerStyles='text-[0.8rem] px-4 py-2 rounded hover:bg-[#bbb] bg-[#ddd]'
-                        />
+                          className="border px-4 py-2 rounded-lg text-[0.7rem]"
+                        >
+                          Edit
+                        </button>
+                        <button
+                          onClick={() => handleDelete(category._id)}
+                          className="bg-[#ddd]  px-4 py-2 rounded-lg text-[0.7rem]"
+                        >
+                          Delete
+                        </button>
                       </div>
-                    </div>
-                  )}
-                </li>
+                    )}
+                  </td>
+                </tr>
               ))}
-          </ul>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

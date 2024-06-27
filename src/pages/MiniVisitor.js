@@ -1,13 +1,15 @@
-import React from 'react';
-import MiniHomeFrame from '../components/MiniHome/MiniHomeFrame';
+import React from "react";
+import MiniHomeFrame from "../components/MiniHome/MiniHomeFrame";
+import HomeLeft from "../components/MiniHome/HomeLeft";
+import VisitorContents from "../components/MiniHome/VisitorContents";
 
-const MiniVisitor = () => {
+const MiniVisitor = ({ me }) => {
   return (
     <>
       <MiniHomeFrame
-        nav='Visitor'
-        // LeftContent={<HomeLeft user={user} />}
-        // RightContent={<HomeRight user={user} />}
+        nav="Visitor"
+        LeftContent={<HomeLeft me={me} />}
+        RightContent={<VisitorContents me={me} />}
       />
     </>
   );

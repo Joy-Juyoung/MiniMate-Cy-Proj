@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { logoutUser } from '../../redux/authSlice';
-import AddedPoint from '../Modal/AddedPoint';
-import NoticeModal from '../Modal/NoticeModal';
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { logoutUser } from "../../redux/authSlice";
+import AddedPoint from "../Modal/AddedPoint";
+import NoticeModal from "../Modal/NoticeModal";
 
 const DropdownMenu = ({ isOpen, toggleDropdown, navigate, me }) => {
   const dispatch = useDispatch();
   const [modalOpen, setModalOpen] = useState(false);
 
-  const listItemStyle = 'hover:bg-[#f5f5f5]  py-2 px-6 cursor-pointer';
+  const listItemStyle = "hover:bg-[#f5f5f5]  py-2 px-6 cursor-pointer";
 
   const handleLogout = () => {
     dispatch(logoutUser());
+    navigate("/");
     window.location.reload();
-    navigate('/');
   };
 
   const openModal = () => {
@@ -26,32 +26,43 @@ const DropdownMenu = ({ isOpen, toggleDropdown, navigate, me }) => {
 
   return (
     isOpen && (
-      <div className='absolute top-8 right-0 bg-white shadow-md rounded-md text-sm py-2'>
-        <ul className='w-[150px]'>
+      <div className="absolute right-0 py-2 text-sm bg-white rounded-md shadow-md top-8">
+        <ul className="w-[150px]">
           <li
             className={listItemStyle}
             onClick={() => {
               toggleDropdown(false);
-              navigate('/account');
+              navigate("user/mate");
+            }}
+          >
+            My Mate
+          </li>
+          <hr className="border border-[#eee] my-2" />
+          <li
+            className={listItemStyle}
+            onClick={() => {
+              toggleDropdown(false);
+              navigate("user/account");
             }}
           >
             My Account
           </li>
-          <li className={listItemStyle}>
-            <button
-              onClick={() => {
-                toggleDropdown(false);
-                navigate('/mate');
-              }}
-            >
-              My Mate
-            </button>
+          <li
+            className={listItemStyle}
+            onClick={() => {
+              toggleDropdown(false);
+              navigate("user/history");
+            }}
+          >
+            My History
           </li>
-          <li className={listItemStyle}>
-            <button onClick={openModal}>My Point</button>
+
+          <li className={listItemStyle} onClick={openModal}>
+            My Point
           </li>
-          <li className={listItemStyle}>
-            <button onClick={handleLogout}>Log Out</button>
+          <hr className="border border-[#eee] my-2" />
+          <li className={listItemStyle} onClick={handleLogout}>
+            Log Out
           </li>
 
           {modalOpen && (
