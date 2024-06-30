@@ -58,9 +58,6 @@ const VisitorContents = ({ me }) => {
           </div>
         </div>
         <div className="w-full bg-[#ddd] p-2 flex items-center rounded-md">
-          {/* <div className="basis-1/6 text-[#38b6d8] text-[0.6rem] font-semibold text-center">
-            Comment
-          </div> */}
           <input
             type="text"
             placeholder="Enter comments to your mate!"
