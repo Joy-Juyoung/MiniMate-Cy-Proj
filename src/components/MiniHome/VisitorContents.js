@@ -31,7 +31,7 @@ const VisitorContents = ({ me }) => {
 
       {/* list */}
       <div className="my-6">
-        <div className="flex items-center justify-between bg-[#e6e6e6] p-1">
+        <div className="flex items-center justify-between bg-[#e6e6e6] px-2 py-1 rounded-md">
           <div>
             <span className="mr-2 text-[0.6rem]">NO.index</span>
             <span className="text-[0.8rem] text-[#38b6d8]">
@@ -50,7 +50,7 @@ const VisitorContents = ({ me }) => {
             className="w-full h-[120px] rounded-md p-2 text-[0.7rem] bg-white "
           />
         </div>
-        <div className="flex flex-col  bg-[#e6e6e6] p-1 text-[0.8rem]">
+        <div className="flex flex-col  bg-[#e6e6e6] px-2 py-1 text-[0.8rem] rounded-md">
           <div className="flex gap-2">
             <div className="text-[#38b6d8]">name:</div>
             <div>Comment 2312sfdsf</div>
