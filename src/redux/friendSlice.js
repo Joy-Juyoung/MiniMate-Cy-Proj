@@ -1,8 +1,8 @@
-import { createSlice, createAsyncThunk, createAction } from '@reduxjs/toolkit';
-import { API } from './api';
+import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
+import { API } from "./api";
 
 export const fetchRequestsByReceiver = createAsyncThunk(
-  'firend/fetchRequestsByReceiver',
+  "firend/fetchRequestsByReceiver",
   async ({ userId, thunkAPI }) => {
     try {
       const response = await API.get(`/friendRequests?receiver=${userId}`);
@@ -14,7 +14,7 @@ export const fetchRequestsByReceiver = createAsyncThunk(
 );
 
 export const fetchRequestsBySender = createAsyncThunk(
-  'firend/etchRequestsBySender',
+  "firend/etchRequestsBySender",
   async ({ userId, thunkAPI }) => {
     try {
       const response = await API.get(`/friendRequests?sender=${userId}`);
@@ -26,7 +26,7 @@ export const fetchRequestsBySender = createAsyncThunk(
 );
 
 export const fetchRequest = createAsyncThunk(
-  'firend/fetchRequest',
+  "firend/fetchRequest",
   async ({ requestId, thunkAPI }) => {
     try {
       const response = await API.get(`/friendRequests/${requestId}`);
@@ -38,10 +38,25 @@ export const fetchRequest = createAsyncThunk(
 );
 
 export const createRequest = createAsyncThunk(
-  'firend/createRequest',
+  "firend/createRequest",
   async ({ requestData, thunkAPI }) => {
     try {
-      const response = await API.post('/friendRequests', requestData);
+      const response = await API.post("/friendRequests", requestData);
+      return response.data.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const acceptRequest = createAsyncThunk(
+  "firend/acceptRequest",
+  async ({ accepterId, requestId }, thunkAPI) => {
+    try {
+      const response = await API.patch(
+        `/friendRequests/accept/${requestId}`,
+        accepterId
+      );
       return response.data.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -50,7 +65,7 @@ export const createRequest = createAsyncThunk(
 );
 
 const friendSlice = createSlice({
-  name: 'friend',
+  name: "friend",
   initialState: {
     friend: [],
     request: [],
@@ -102,6 +117,19 @@ const friendSlice = createSlice({
       })
       .addCase(createRequest.fulfilled, (state, action) => {
         state.request.push(action.payload);
+      })
+      .addCase(acceptRequest.pending, (state) => {
+        state.loading = true;
+        state.success = false;
+      })
+      .addCase(acceptRequest.fulfilled, (state, action) => {
+        state.loading = false;
+        state.request = action.payload;
+      })
+      .addCase(acceptRequest.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload.message;
+        state.success = false;
       });
   },
 });
