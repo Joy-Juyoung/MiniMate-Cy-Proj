@@ -19,23 +19,23 @@ const MateList = ({ me }) => {
         <table className="w-full text-left border-collapse text-[0.8rem] mt-2">
           <thead>
             <tr className="bg-[#eee] border-b border-[#bbb]">
-              <th className="p-2 font-normal">#</th>
+              <th className="p-2 font-normal text-center">#</th>
               <th className="p-2 font-normal">MATE</th>
               <th className="p-2 font-normal">NICKNAME</th>
               <th className="p-2 font-normal">MY NICKNAME</th>
-              <th className="p-2 font-normal"></th>
+              <th className="p-2 font-normal text-center"></th>
             </tr>
           </thead>
           {me.best_friends.map((mate, index) => (
             <tbody key={index}>
               {mate.friend && (
                 <tr className="border-t border-[#bbb]">
-                  <td className="p-2">{index + 1}</td>
+                  <td className="p-2 text-center">{index + 1}</td>
                   <td className="p-2">{mate.friend.username}</td>
                   <td className="p-2">{mate.friend_nick_name}</td>
                   <td className="p-2">{mate.my_nick_name}</td>
-                  <td className="p-2">
-                    <button className="bg-black text-white rounded-lg py-1 px-2 text-[0.7rem]">
+                  <td className="p-2 text-center">
+                    <button className="bg-black text-white rounded-lg p-2 text-[0.7rem]">
                       Update
                     </button>
                   </td>
