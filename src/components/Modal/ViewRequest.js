@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchRequest } from "../../redux/friendSlice";
+import { acceptRequest, fetchRequest } from "../../redux/friendSlice";
 import { fetchOneUser } from "../../redux/userSlice";
 import MinniFemale from "../../assets/minimi2.png";
 import MinniMale from "../../assets/minimi1.png";
@@ -8,7 +8,7 @@ import { MdClose } from "react-icons/md";
 
 const ViewRequest = ({ closeModal, me, requestId }) => {
   const dispatch = useDispatch();
-  const { friend } = useSelector((state) => state.friend);
+  const { friend, request } = useSelector((state) => state.friend);
   const { user } = useSelector((state) => state.user);
 
   useEffect(() => {
@@ -18,8 +18,16 @@ const ViewRequest = ({ closeModal, me, requestId }) => {
     }
   }, [dispatch]);
 
-  console.log("friend", friend);
-  console.log("user", user);
+  const handleAccept = () => {
+    dispatch(
+      acceptRequest({ accepterId: me._id, requestId: friend.receiver._id })
+    );
+  };
+
+  // friend._id -> requestId
+  //  accepterId -> me._id
+  // console.log("friend", friend);
+  // console.log("user", user);
 
   return (
     <div className="bg-[#e0eeff] p-8 rounded-lg w-[420px]">
@@ -95,7 +103,7 @@ const ViewRequest = ({ closeModal, me, requestId }) => {
           </button>
           <button
             className="w-fit py-2 px-4 rounded text-[0.7rem] bg-black text-white"
-            // onClick={closeModal}
+            onClick={handleAccept}
           >
             Accept
           </button>

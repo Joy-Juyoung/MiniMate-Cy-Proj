@@ -1,11 +1,11 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { API } from './api';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { API } from "./api";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-export const fetchMe = createAsyncThunk('user/fetchMe', async (_, thunkAPI) => {
+export const fetchMe = createAsyncThunk("user/fetchMe", async (_, thunkAPI) => {
   try {
-    const response = await API.get('/users/me');
+    const response = await API.get("/users/me");
     return response.data.data;
   } catch (error) {
     return thunkAPI.rejectWithValue(error.response.data);
@@ -13,11 +13,11 @@ export const fetchMe = createAsyncThunk('user/fetchMe', async (_, thunkAPI) => {
 });
 
 export const updateMe = createAsyncThunk(
-  'user/updateMe',
+  "user/updateMe",
   async ({ userData, thunkAPI }) => {
     try {
       const response = await API.patch(`/users/myProfile`, userData);
-      toast.success('Update successful!');
+      toast.success("Update successful!");
       return response.data.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -26,7 +26,7 @@ export const updateMe = createAsyncThunk(
 );
 
 export const updateMinime = createAsyncThunk(
-  'user/updateMinime',
+  "user/updateMinime",
   async ({ images, thunkAPI }) => {
     try {
       const response = await API.patch(`/users/me/picture`, images);
@@ -38,7 +38,7 @@ export const updateMinime = createAsyncThunk(
 );
 
 export const deleteUser = createAsyncThunk(
-  'user/deleteUser',
+  "user/deleteUser",
   async ({ userId, thunkAPI }) => {
     try {
       const response = await API.patch(`/users/${userId}`);
@@ -51,10 +51,10 @@ export const deleteUser = createAsyncThunk(
 );
 
 export const fetchAllUsers = createAsyncThunk(
-  'user/fetchAllUsers',
+  "user/fetchAllUsers",
   async (_, thunkAPI) => {
     try {
-      const response = await API.get('/users');
+      const response = await API.get("/users");
       return response.data.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -63,7 +63,7 @@ export const fetchAllUsers = createAsyncThunk(
 );
 
 export const fetchOneUser = createAsyncThunk(
-  'user/fetchOneUser',
+  "user/fetchOneUser",
   async ({ userId, thunkAPI }) => {
     try {
       const response = await API.get(`/users/${userId}`);
@@ -77,7 +77,7 @@ export const fetchOneUser = createAsyncThunk(
 
 //
 export const updateUserState = createAsyncThunk(
-  'user/updateUserState',
+  "user/updateUserState",
   async ({ userId, active, thunkAPI }) => {
     try {
       const response = await API.patch(`/users/state/${userId}`, { active });
@@ -89,7 +89,7 @@ export const updateUserState = createAsyncThunk(
 );
 
 const userSlice = createSlice({
-  name: 'user',
+  name: "user",
   initialState: {
     loading: false,
     error: null,
@@ -167,7 +167,7 @@ const userSlice = createSlice({
       })
       .addCase(fetchOneUser.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload.message;
+        state.error = action.payload?.message;
       })
       .addCase(updateUserState.pending, (state) => {
         state.loading = true;
