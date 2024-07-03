@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { fetchRequestsByReceiver } from '../../redux/friendSlice';
-import NoticeModal from '../Modal/NoticeModal';
-import ViewRequest from '../Modal/ViewRequest';
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { fetchRequestsByReceiver } from "../../redux/friendSlice";
+import NoticeModal from "../Modal/NoticeModal";
+import ViewRequest from "../Modal/ViewRequest";
 
 const MyRequests = ({ me, requests }) => {
   const dispatch = useDispatch();
   const [openRequestModal, setOpenRequestModal] = useState(false);
-  const [requestId, setRequestId] = useState('');
+  const [requestId, setRequestId] = useState("");
   // const { friend } = useSelector((state) => state.friend);
 
   useEffect(() => {
@@ -31,38 +31,38 @@ const MyRequests = ({ me, requests }) => {
   };
 
   return (
-    <div className='w-full flex flex-col'>
+    <div className="flex flex-col w-full">
       {requests && requests.length > 0 ? (
         <>
-          <table className='w-full text-left border-collapse text-[0.8rem] mt-2'>
+          <table className="w-full text-left border-collapse text-[0.8rem] mt-2">
             <thead>
-              <tr className='bg-[#eee] border-b border-[#bbb]'>
-                <th className='p-2 font-normal'>#</th>
-                <th className='p-2 font-normal'>SENDER</th>
-                <th className='p-2 font-normal'>SENDER NICKNAME</th>
+              <tr className="bg-[#eee] border-b border-[#bbb]">
+                <th className="p-2 font-normal text-center">#</th>
+                <th className="p-2 font-normal">SENDER</th>
+                <th className="p-2 font-normal">SENDER NICKNAME</th>
                 {/* <th className='p-2 font-normal'>Receiver</th> */}
-                <th className='p-2 font-normal'>YOUR NICKNAME</th>
-                <th className='p-2 font-normal'>DATE</th>
-                <th className='p-2 font-normal'></th>
+                <th className="p-2 font-normal">YOUR NICKNAME</th>
+                <th className="p-2 font-normal">DATE</th>
+                <th className="p-2 font-normal text-center"></th>
               </tr>
             </thead>
             <tbody>
               {requests.map((request, index) => (
-                <tr key={request._id} className='border-t border-[#bbb]'>
-                  <td className='p-2'>{index + 1}</td>
-                  <td className='p-2'>{request.sender?.username}</td>
-                  <td className='p-2'>{request.sender_nick_name}</td>
+                <tr key={request._id} className="border-t border-[#bbb]">
+                  <td className="p-2 text-center">{index + 1}</td>
+                  <td className="p-2">{request.sender?.username}</td>
+                  <td className="p-2">{request.sender_nick_name}</td>
                   {/* <td className='p-2'>{request.receiver.username}</td> */}
-                  <td className='p-2'>{request.receiver_nick_name}</td>
-                  <td className='p-2'>
+                  <td className="p-2">{request.receiver_nick_name}</td>
+                  <td className="p-2">
                     {request.createdAt.substring(
                       0,
-                      request.createdAt.indexOf('T')
+                      request.createdAt.indexOf("T")
                     )}
                   </td>
-                  <td className='p-2'>
+                  <td className="p-2 text-center">
                     <button
-                      className='bg-black text-white rounded-lg py-1 px-2 text-[0.7rem]'
+                      className="bg-black text-white rounded-lg p-2 text-[0.7rem]"
                       // onClick={() =>
                       //   dispatch(fetchOneUser({ userId: request.sender._id }))
                       // }
@@ -87,7 +87,7 @@ const MyRequests = ({ me, requests }) => {
           )}
         </>
       ) : (
-        <div className='text-center text-[#bbb] mt-5'>No requests found.</div>
+        <div className="text-center text-[#bbb] mt-5">No requests found.</div>
       )}
     </div>
   );

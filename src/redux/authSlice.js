@@ -1,11 +1,11 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { API } from './api';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { API } from "./api";
 
 export const signupUser = createAsyncThunk(
-  'user/register',
+  "user/register",
   async (userData, thunkAPI) => {
     try {
-      const response = await API.post('/users/signup', userData);
+      const response = await API.post("/users/signup", userData);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -14,13 +14,14 @@ export const signupUser = createAsyncThunk(
 );
 
 export const loginUser = createAsyncThunk(
-  'auth/loginUser',
+  "auth/loginUser",
   async (userData, thunkAPI) => {
     try {
-      const response = await API.post('/users/login', userData);
+      const response = await API.post("/users/login", userData);
       const { token } = response.data.data;
-      localStorage.setItem('token', token);
+      localStorage.setItem("token", token);
       return response.data;
+      // return response;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
@@ -28,18 +29,19 @@ export const loginUser = createAsyncThunk(
 );
 
 export const logoutUser = createAsyncThunk(
-  'auth/logoutUser',
+  "auth/logoutUser",
   async (_, thunkAPI) => {
-    localStorage.removeItem('token');
+    localStorage.removeItem("token");
     return null;
   }
 );
 
 const authSlice = createSlice({
-  name: 'auth',
+  name: "auth",
   initialState: {
     loading: false,
     error: null,
+    fail: null,
     success: false,
     user: null,
     token: null,
@@ -73,6 +75,7 @@ const authSlice = createSlice({
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload.message;
+        state.fail = action.payload.message;
       });
   },
 });

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUser, loginUser } from "../redux/authSlice";
 import { Link, useNavigate } from "react-router-dom"; // import BgImg from '../assets/pattern.png';
@@ -10,12 +10,15 @@ const LoginPage = ({ tokenFromStorage }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [errMsg, setErrMsg] = useState("");
+  const [clicked, setClicked] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
 
-  const { loading, success, error, user } = useSelector((state) => state.auth);
+  const { loading, success, error, user, fail } = useSelector(
+    (state) => state.auth
+  );
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -23,25 +26,31 @@ const LoginPage = ({ tokenFromStorage }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    setClicked(!clicked);
     // console.log('formData', formData);
-    dispatch(loginUser(formData))
-      .then(() => {
-        // console.log('error', error);
-        // const tokenFromStorage = localStorage.getItem('token');
-        if (!error) {
-          navigate("/");
-        } else {
-          setErrMsg({
-            status: "failed",
-            message: "Invalid email or password. Please try again!",
-          });
-        }
-      })
-      .catch((error) => {
-        console.error("Login Error:", error);
-      });
+    dispatch(loginUser(formData));
+    // .then(() => {
+    // console.log("fail", fail);
+    // console.log("error", error);
+    console.log("success", success);
+    if (fail) {
+      setErrMsg(fail);
+    }
+    // const tokenFromStorage = localStorage.getItem('token');
+    if (success === false) {
+      setErrMsg(fail);
+    } else {
+      navigate("/");
+    }
   };
+
+  useEffect(() => {
+    if (success === false) {
+      setErrMsg(fail);
+    } else {
+      navigate("/");
+    }
+  }, [dispatch, success, fail, clicked]);
 
   return (
     <div
@@ -62,20 +71,25 @@ const LoginPage = ({ tokenFromStorage }) => {
         aria-modal="true"
         aria-labelledby="modal-headline"
       >
-        <div onClick={() => navigate("/")} className="flex items-center w-full gap-2 mb-6 cursor-pointer">
+        <div
+          onClick={() => navigate("/")}
+          className="flex items-center w-full gap-2 mb-6 cursor-pointer"
+        >
           <div className="flex items-center w-16 h-16 text-white">
             <img src={Logo} alt="logo" />
           </div>
-          <span className="text-2xl font-semibold text-hightColor">MiniMate</span>
+          <span className="text-2xl font-semibold text-hightColor">
+            MiniMate
+          </span>
         </div>
 
-        <p className="text-base font-semibold text-ascent-1">Log in to your account</p>
+        <p className="text-base font-semibold text-ascent-1">
+          Log in to your account
+        </p>
 
         <form className=" py-4 flex flex-col gap-5=" onSubmit={handleSubmit}>
-          {errMsg?.message && (
-            <span className={`text-sm ${errMsg?.status == "failed" ? "text-[#f64949fe]" : "text-[#2ba150fe]"} mt-0.5`}>
-              {errMsg?.message}
-            </span>
+          {errMsg && (
+            <span className={`text-sm text-[#f64949fe] mt-0.5`}>{errMsg}</span>
           )}
           <TextInput
             type="email"
@@ -105,7 +119,10 @@ const LoginPage = ({ tokenFromStorage }) => {
         </form>
         <p className="text-sm text-center text-ascent-2">
           Don't have an account?
-          <Link to="/register" className="text-[#F37125] font-semibold ml-2 cursor-pointer">
+          <Link
+            to="/register"
+            className="text-[#F37125] font-semibold ml-2 cursor-pointer"
+          >
             Create Account
           </Link>
         </p>
