@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 import {
   CategoryManagement,
@@ -6,18 +6,18 @@ import {
   UserManagement,
   ProductUpload,
   AdminSidebar,
-} from '../components/Admin';
+} from "../components/Admin";
 
 const Admin = ({ me }) => {
-  const [selectedSection, setSelectedSection] = useState('user');
+  const [selectedSection, setSelectedSection] = useState("user");
 
   const renderSection = () => {
     switch (selectedSection) {
-      case 'user':
+      case "user":
         return <UserManagement />;
-      case 'category':
+      case "category":
         return <CategoryManagement me={me} />;
-      case 'product':
+      case "product":
         return <ProductManagement />;
       default:
         return null;
@@ -25,14 +25,14 @@ const Admin = ({ me }) => {
   };
 
   return (
-    <div className='w-full h-[100vh] flex flex-row py-16 px-10 2xl:px-40 '>
+    <div className="w-full h-[100vh] flex flex-row py-16 px-10 2xl:px-40 ">
       <AdminSidebar
-        selectedSection={selectedSection}
-        setSelectedSection={setSelectedSection}
+      // selectedSection={selectedSection}
+      // setSelectedSection={setSelectedSection}
       />
       {/* Main Content */}
-      <div className='flex-1 py-16 px-10 2xl:px-40'>
-        {selectedSection === 'user' && <UserManagement />}
+      <div className="flex-1 px-10 py-16 2xl:px-40">
+        {selectedSection === "user" && <UserManagement />}
         {renderSection()}
       </div>
     </div>

@@ -1,3 +1,3 @@
-import NoticeModal from './NoticeModal';
+import NoticeModal from "./NoticeModal";
 
 export { NoticeModal };

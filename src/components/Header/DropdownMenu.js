@@ -32,7 +32,7 @@ const DropdownMenu = ({ isOpen, toggleDropdown, navigate, me }) => {
             className={listItemStyle}
             onClick={() => {
               toggleDropdown(false);
-              navigate("user/mate");
+              navigate("/mate/find");
             }}
           >
             My Mate
@@ -42,7 +42,7 @@ const DropdownMenu = ({ isOpen, toggleDropdown, navigate, me }) => {
             className={listItemStyle}
             onClick={() => {
               toggleDropdown(false);
-              navigate("user/account");
+              navigate("/user/account");
             }}
           >
             My Account
@@ -51,7 +51,7 @@ const DropdownMenu = ({ isOpen, toggleDropdown, navigate, me }) => {
             className={listItemStyle}
             onClick={() => {
               toggleDropdown(false);
-              navigate("user/history");
+              navigate("/user/history");
             }}
           >
             My History
