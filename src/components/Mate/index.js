@@ -1,6 +1,6 @@
-import MateSideBar from './MateSideBar';
-import MateList from './MateList';
-import FindNewMate from './FindNewMate';
-import MyRequests from './MyRequests';
+import MateSidebar from "./MateSidebar";
+import MateList from "./MateList";
+import FindNewMate from "./FindNewMate";
+import MyRequests from "./MyRequests";
 
-export { MateSideBar, MateList, FindNewMate, MyRequests };
+export { MateList, FindNewMate, MyRequests, MateSidebar };

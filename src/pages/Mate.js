@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   FindNewMate,
   MateList,
   MateSideBar,
   MyRequests,
-} from '../components/Mate';
+} from "../components/Mate";
+import MateSidebar from "../components/Mate/MateSidebar";
 
 const TabButton = ({ isActive, onClick, children }) => (
   <button
@@ -13,8 +14,8 @@ const TabButton = ({ isActive, onClick, children }) => (
     rounded-lg transition-colors duration-300
               ${
                 isActive
-                  ? 'bg-black text-white'
-                  : 'hover:bg-gray-100 text-black'
+                  ? "bg-black text-white"
+                  : "hover:bg-gray-100 text-black"
               }`}
     onClick={onClick}
   >
@@ -24,21 +25,21 @@ const TabButton = ({ isActive, onClick, children }) => (
 
 const Mate = ({ me }) => {
   const dispatch = useDispatch();
-  const [activeTab, setActiveTab] = useState('findNewMate');
+  const [activeTab, setActiveTab] = useState("findNewMate");
   const requests = useSelector((state) => state.friend.request);
   const { user, users } = useSelector((state) => state.user);
 
   const renderTabContent = () => {
     switch (activeTab) {
-      case 'findNewMate':
+      case "findNewMate":
         return (
           <FindNewMate me={me} requests={requests} users={users} user={user} />
         );
-      case 'mateList':
+      case "mateList":
         return (
           <MateList me={me} requests={requests} users={users} user={user} />
         );
-      case 'myRequests':
+      case "myRequests":
         return <MyRequests me={me} requests={requests} />;
       default:
         return null;
@@ -46,8 +47,14 @@ const Mate = ({ me }) => {
   };
 
   return (
-    <div className='mateContainer pb-28 sm:pb-12 pt-12 px-10 sm:px-20 md:px-40'>
-      <h1 className='text-3xl text-center font-semibold mb-6'>My Mate</h1>
+    <div className="px-10 pt-12 mateContainer pb-28 sm:pb-12 sm:px-20 md:px-40">
+      <MateSidebar />
+      {/* Main Content */}
+      <div className="flex-1 px-10 py-16 2xl:px-40">
+        {activeTab === "findNewMate" && <FindNewMate />}
+        {renderTabContent()}
+      </div>
+      {/* <h1 className='mb-6 text-3xl font-semibold text-center'>My Mate</h1>
       <div className='w-full flex justify-between gap-2 text-[0.8rem]'>
         <TabButton
           isActive={activeTab === 'findNewMate'}
@@ -70,7 +77,7 @@ const Mate = ({ me }) => {
       </div>
       <div className='rounded-lg h-[60vh] py-4 px-2 shadow-lg overflow-y-auto'>
         {renderTabContent()}
-      </div>
+      </div> */}
     </div>
   );
 };

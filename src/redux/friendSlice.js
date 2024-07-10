@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
 import { API } from "./api";
 
 export const fetchRequestsByReceiver = createAsyncThunk(
-  "firend/fetchRequestsByReceiver",
+  "friend/fetchRequestsByReceiver",
   async ({ userId, thunkAPI }) => {
     try {
       const response = await API.get(`/friendRequests?receiver=${userId}`);
@@ -14,7 +14,7 @@ export const fetchRequestsByReceiver = createAsyncThunk(
 );
 
 export const fetchRequestsBySender = createAsyncThunk(
-  "firend/etchRequestsBySender",
+  "friend/etchRequestsBySender",
   async ({ userId, thunkAPI }) => {
     try {
       const response = await API.get(`/friendRequests?sender=${userId}`);
@@ -26,7 +26,7 @@ export const fetchRequestsBySender = createAsyncThunk(
 );
 
 export const fetchRequest = createAsyncThunk(
-  "firend/fetchRequest",
+  "friend/fetchRequest",
   async ({ requestId, thunkAPI }) => {
     try {
       const response = await API.get(`/friendRequests/${requestId}`);
@@ -38,7 +38,7 @@ export const fetchRequest = createAsyncThunk(
 );
 
 export const createRequest = createAsyncThunk(
-  "firend/createRequest",
+  "friend/createRequest",
   async ({ requestData, thunkAPI }) => {
     try {
       const response = await API.post("/friendRequests", requestData);
@@ -50,13 +50,24 @@ export const createRequest = createAsyncThunk(
 );
 
 export const acceptRequest = createAsyncThunk(
-  "firend/acceptRequest",
-  async ({ accepterId, requestId }, thunkAPI) => {
+  "friend/acceptRequest",
+  async ({ accepter, requestId }, thunkAPI) => {
     try {
-      const response = await API.patch(
-        `/friendRequests/accept/${requestId}`,
-        accepterId
-      );
+      const response = await API.patch(`/friendRequests/accept/${requestId}`, {
+        accepter,
+      });
+      return response.data.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const deleteRequest = createAsyncThunk(
+  "friend/deleteRequest",
+  async ({ requestId, thunkAPI }) => {
+    try {
+      const response = await API.delete(`/friendRequests/${requestId}`);
       return response.data.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -68,7 +79,8 @@ const friendSlice = createSlice({
   name: "friend",
   initialState: {
     friend: [],
-    request: [],
+    receive: [],
+    send: [],
     loading: false,
     error: null,
   },
@@ -85,7 +97,7 @@ const friendSlice = createSlice({
       })
       .addCase(fetchRequestsByReceiver.fulfilled, (state, action) => {
         state.loading = false;
-        state.request = action.payload;
+        state.receive = action.payload;
       })
       .addCase(fetchRequestsByReceiver.rejected, (state, action) => {
         state.loading = false;
@@ -97,7 +109,7 @@ const friendSlice = createSlice({
       })
       .addCase(fetchRequestsBySender.fulfilled, (state, action) => {
         state.loading = false;
-        state.request = action.payload;
+        state.send = action.payload;
       })
       .addCase(fetchRequestsBySender.rejected, (state, action) => {
         state.loading = false;
@@ -116,7 +128,8 @@ const friendSlice = createSlice({
         state.error = action.error.message;
       })
       .addCase(createRequest.fulfilled, (state, action) => {
-        state.request.push(action.payload);
+        state.request = action.payload;
+        state.loading = false;
       })
       .addCase(acceptRequest.pending, (state) => {
         state.loading = true;
@@ -124,12 +137,24 @@ const friendSlice = createSlice({
       })
       .addCase(acceptRequest.fulfilled, (state, action) => {
         state.loading = false;
-        state.request = action.payload;
+        state.friend = action.payload;
       })
       .addCase(acceptRequest.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload.message;
         state.success = false;
+      })
+      .addCase(deleteRequest.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(deleteRequest.fulfilled, (state, action) => {
+        state.loading = false;
+        state.friend = action.payload;
+      })
+      .addCase(deleteRequest.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
       });
   },
 });

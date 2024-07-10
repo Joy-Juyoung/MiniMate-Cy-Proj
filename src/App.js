@@ -30,6 +30,7 @@ import {
   UserManagement,
 } from "./components/Admin";
 import History from "./pages/History";
+import { FindNewMate, MateList, MyRequests } from "./components/Mate";
 
 const HeaderWrapper = React.memo(({ me }) => (
   <div>
@@ -76,16 +77,26 @@ function App() {
             element={<Cart me={me} tokenFromStorage={tokenFromStorage} />}
           />
           <Route
-            path="user/account"
+            path="/user/account"
             element={<Account me={me} tokenFromStorage={tokenFromStorage} />}
           />
           <Route
-            path="user/history"
+            path="/user/history"
             element={<History me={me} tokenFromStorage={tokenFromStorage} />}
           />
           <Route
-            path="user/mate"
-            element={<Mate me={me} tokenFromStorage={tokenFromStorage} />}
+            path="/mate/find"
+            element={
+              <FindNewMate me={me} tokenFromStorage={tokenFromStorage} />
+            }
+          />
+          <Route
+            path="/mate/list"
+            element={<MateList me={me} tokenFromStorage={tokenFromStorage} />}
+          />
+          <Route
+            path="/mate/request"
+            element={<MyRequests me={me} tokenFromStorage={tokenFromStorage} />}
           />
           <Route path="/admin/user" element={<UserManagement me={me} />} />
           <Route
