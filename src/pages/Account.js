@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Navigate, useLocation, useNavigate } from 'react-router-dom';
-import ConfirmNotice from '../components/Modal/ConfirmNotice';
-import NoticeModal from '../components/Modal/NoticeModal';
-import { updateMe, fetchMe } from '../redux/userSlice';
-import MinniFemale from '../assets/minimi2.png';
-import MinniMale from '../assets/minimi1.png';
-import UploadImage from '../components/Modal/UploadImage';
-import UploadProfileImage from '../components/Modal/UploadProfileImage';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import ConfirmNotice from "../components/Modal/ConfirmNotice";
+import NoticeModal from "../components/Modal/NoticeModal";
+import { updateMe, fetchMe } from "../redux/userSlice";
+import MinniFemale from "../assets/minimi2.png";
+import MinniMale from "../assets/minimi1.png";
+import UploadImage from "../components/Modal/UploadImage";
+import UploadProfileImage from "../components/Modal/UploadProfileImage";
 
 const Account = ({ tokenFromStorage }) => {
   const dispatch = useDispatch();
@@ -24,17 +24,19 @@ const Account = ({ tokenFromStorage }) => {
   const [userInfo, setUserInfo] = useState({
     name: me?.username,
     point: me?.point,
-    domain: me?.domain || me?.email?.substring(0, me?.email.indexOf('@')),
+    domain:
+      me?.domain ||
+      me?.email?.substring(0, me?.email.indexOf("@")) + me?._id.slice(-5),
     minime_img: me?.minime_img,
-    birth: me?.birth?.substring(0, me?.birth.indexOf('T')),
+    birth: me?.birth?.substring(0, me?.birth.indexOf("T")),
     gender: me?.gender,
     phone_number: me?.phone_number,
   });
 
   const [passwordData, setPasswordData] = useState({
-    currentPassword: '',
-    newPassword: '',
-    confirmPassword: '',
+    currentPassword: "",
+    newPassword: "",
+    confirmPassword: "",
   });
 
   const handleUserInfoChange = (e) => {
@@ -50,7 +52,7 @@ const Account = ({ tokenFromStorage }) => {
     dispatch(updateMe({ userData: userInfo })).then(() => {
       if (!error) {
         // window.location.reload('');
-        navigate('/account');
+        navigate("/account");
       }
     });
     setIsEditing(false);
@@ -92,123 +94,123 @@ const Account = ({ tokenFromStorage }) => {
   };
 
   return (
-    <div className='w-full h-full px-10 2xl:px-40 min-h-[80vh]'>
-      <div className='w-full h-full flex flex-col items-center pb-12 md:py-12 '>
+    <div className="w-full h-full px-10 2xl:px-40 min-h-[80vh]">
+      <div className="flex flex-col items-center w-full h-full pb-12 md:py-12 ">
         <form
           onSubmit={handleSubmit}
-          className='md:rounded-lg p-8 md:shadow-xl w-full px-10 md:w-[550px]'
+          className="md:rounded-lg p-8 md:shadow-xl w-full px-10 md:w-[550px]"
         >
-          <h1 className='text-3xl text-center font-semibold mb-6'>
+          <h1 className="mb-6 text-3xl font-semibold text-center">
             My Account
           </h1>
-          <div className='grid grid-cols-1 md:grid-cols-2 md:gap-8 items-center'>
+          <div className="grid items-center grid-cols-1 md:grid-cols-2 md:gap-8">
             <div>
               <img
                 src={
                   !me?.minime_img
-                    ? me?.gender === 'male'
+                    ? me?.gender === "male"
                       ? MinniMale
                       : MinniFemale
                     : me?.minime_img
                 }
-                alt='Minime'
-                className='w-[15rem] h-[15rem] object-contain cursor-pointer  flex justify-center items-center mx-auto my-4'
+                alt="Minime"
+                className="w-[15rem] h-[15rem] object-contain cursor-pointer  flex justify-center items-center mx-auto my-4"
                 onClick={() => handleProfileImage()}
               />
-              <div className='block text-[0.7rem] mb-4'>
+              <div className="block text-[0.7rem] mb-4">
                 <div>Username</div>
                 <input
-                  type='text'
-                  id='username'
-                  name='username'
+                  type="text"
+                  id="username"
+                  name="username"
                   value={me?.username}
-                  className='w-full mt-1 rounded-md px-3 py-2 text-[1rem]'
+                  className="w-full mt-1 rounded-md px-3 py-2 text-[1rem]"
                   readOnly
                   disabled
                 />
               </div>
-              <div className='block text-[0.7rem] mb-4'>
+              <div className="block text-[0.7rem] mb-4">
                 <div>Email</div>
                 <input
-                  type='email'
-                  id='email'
-                  name='email'
+                  type="email"
+                  id="email"
+                  name="email"
                   value={me?.email}
-                  className='w-full mt-1 rounded-md px-3 py-2 text-[1rem]'
+                  className="w-full mt-1 rounded-md px-3 py-2 text-[1rem]"
                   readOnly
                   disabled
                 />
               </div>
             </div>
             <div>
-              <div className='block text-[0.7rem] mb-4'>
+              <div className="block text-[0.7rem] mb-4">
                 <div>Gender</div>
                 <input
-                  type='gender'
-                  id='gender'
-                  name='gender'
+                  type="gender"
+                  id="gender"
+                  name="gender"
                   value={userInfo.gender || me?.gender}
                   onChange={handleUserInfoChange}
                   className={`w-full text-[1rem] rounded-md mt-1 px-3 py-2 border  focus:border-[#2185ff] focus:outline-none ${
-                    isEditing ? 'border-[#bbb] outline-[#bbb]' : 'border-white'
+                    isEditing ? "border-[#bbb] outline-[#bbb]" : "border-white"
                   }`}
                   // style={{ borderColor: isEditing && '#ddd' }}
                   disabled={!isEditing}
                 />
               </div>
-              <div className='block text-[0.7rem] mb-4'>
+              <div className="block text-[0.7rem] mb-4">
                 <div>Phone number</div>
                 <input
-                  type='text'
-                  id='phone_number'
-                  name='phone_number'
+                  type="text"
+                  id="phone_number"
+                  name="phone_number"
                   value={userInfo.phone_number || me?.phone_number}
                   onChange={handleUserInfoChange}
                   className={`w-full text-[1rem] rounded-md mt-1 px-3 py-2 border  focus:border-[#2185ff] focus:outline-none ${
-                    isEditing ? 'border-[#bbb] outline-[#bbb]' : 'border-white'
+                    isEditing ? "border-[#bbb] outline-[#bbb]" : "border-white"
                   }`}
                   // style={{ borderColor: isEditing && '#ddd' }}
                   disabled={!isEditing}
                 />
               </div>
-              <div className='block text-[0.7rem] mb-4'>
+              <div className="block text-[0.7rem] mb-4">
                 <div>Birth</div>
                 <input
-                  type='date'
-                  id='birth'
-                  name='birth'
+                  type="date"
+                  id="birth"
+                  name="birth"
                   value={
                     userInfo.birth ||
-                    me?.birth?.substring(0, me?.birth.indexOf('T'))
+                    me?.birth?.substring(0, me?.birth.indexOf("T"))
                   }
                   onChange={handleUserInfoChange}
                   className={`w-full text-[1rem] rounded-md mt-1 px-3 py-2 border  focus:border-[#2185ff] focus:outline-none ${
-                    isEditing ? 'border-[#bbb] outline-[#bbb]' : 'border-white'
+                    isEditing ? "border-[#bbb] outline-[#bbb]" : "border-white"
                   }`}
                   disabled={!isEditing}
                 />
               </div>
-              <div className='block text-[0.7rem] mb-4'>
+              <div className="block text-[0.7rem] mb-4">
                 <div>Minihome Domain</div>
                 <input
-                  type='domain'
-                  id='domain'
-                  name='domain'
+                  type="domain"
+                  id="domain"
+                  name="domain"
                   value={userInfo.domain || me?.domain}
                   onChange={handleUserInfoChange}
                   // style={{ borderColor: isEditing && '#ddd' }}
                   className={`w-full text-[1rem] rounded-md mt-1 px-3 py-2 border  focus:border-[#2185ff] focus:outline-none ${
-                    isEditing ? 'border-[#bbb] outline-[#bbb]' : 'border-white'
+                    isEditing ? "border-[#bbb] outline-[#bbb]" : "border-white"
                   }`}
                   disabled={!isEditing}
                 />
               </div>
 
-              <div className='flex flex-col'>
+              <div className="flex flex-col">
                 <button
-                  type='button'
+                  type="button"
                   className={`bg-black text-white text-sm py-2 px-4 rounded-md mb-4 ${
-                    isEditing && 'hidden'
+                    isEditing && "hidden"
                   }`}
                   onClick={() => setIsEditing(!isEditing)}
                 >
@@ -216,16 +218,16 @@ const Account = ({ tokenFromStorage }) => {
                 </button>
 
                 {isEditing && (
-                  <div className='w-full flex gap-6'>
+                  <div className="flex w-full gap-6">
                     <button
                       onClick={() => setIsEditing(!isEditing)}
-                      className='w-full bg-white text-sm py-2 px-4 rounded-md mb-4 border '
+                      className="w-full px-4 py-2 mb-4 text-sm bg-white border rounded-md "
                     >
                       Cancel
                     </button>
                     <button
-                      type='submit'
-                      className='w-full bg-black text-white text-sm py-2 px-4 rounded-md mb-4'
+                      type="submit"
+                      className="w-full px-4 py-2 mb-4 text-sm text-white bg-black rounded-md"
                     >
                       Save Changes
                     </button>
@@ -233,7 +235,7 @@ const Account = ({ tokenFromStorage }) => {
                 )}
 
                 <div
-                  className='bg-[#ddd] hover:bg-[#bbb] text-sm text-center py-2 px-4 rounded-md mb-4 cursor-pointer'
+                  className="bg-[#ddd] hover:bg-[#bbb] text-sm text-center py-2 px-4 rounded-md mb-4 cursor-pointer"
                   onClick={handleAccountDelete}
                 >
                   Delete Account
@@ -246,8 +248,8 @@ const Account = ({ tokenFromStorage }) => {
           <NoticeModal closeModal={closeModal}>
             <ConfirmNotice
               closeModal={closeModal}
-              title='Delete Account'
-              text='Are you sure you want to delete this account?'
+              title="Delete Account"
+              text="Are you sure you want to delete this account?"
             />
           </NoticeModal>
         )}
