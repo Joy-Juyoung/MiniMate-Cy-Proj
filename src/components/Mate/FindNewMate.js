@@ -90,7 +90,11 @@ const FindNewMate = ({ me }) => {
                       </td>
                       <td className="p-2">{user.username}</td>
                       <td className="p-2">{user.email}</td>
-                      <td className="p-2">{user.domain}</td>
+                      <td className="p-2">
+                        {user?.domain ||
+                          user?.email?.substring(0, user?.email.indexOf("@")) +
+                            me?._id.slice(-5)}
+                      </td>
                       <td className="p-2 text-center">
                         {user.best_friends?.some(
                           (bf) => bf.friend === me._id

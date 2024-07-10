@@ -1,0 +1,13 @@
+# 모든 텍스트 파일에 대해 자동으로 줄 끝 문자를 처리합니다.
+* text=auto
+
+# 특정 파일 형식에 대해 LF 줄 끝 문자를 강제 적용합니다.
+*.sh text eol=lf
+*.js text eol=lf
+*.html text eol=lf
+*.css text eol=lf
+*.md text eol=lf
+
+# 특정 파일 형식에 대해 CRLF 줄 끝 문자를 강제 적용합니다.
+*.bat text eol=crlf
+*.cmd text eol=crlf
