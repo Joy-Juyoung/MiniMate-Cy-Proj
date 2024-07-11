@@ -116,14 +116,14 @@ const FindNewMate = ({ me }) => {
                         ) : (
                           <>
                             {send.some(
-                              (s) =>
-                                s.receiver?._id === me?._id ||
-                                s.sender?._id === me?._id
+                              (s) => s.receiver?._id === user?._id
+                              // ||
+                              // s.sender?._id === me?._id
                             ) ||
                             receive.some(
                               (r) =>
-                                r.receiver?._id === me?._id ||
-                                r.sender?._id === me?._id
+                                //   (r) => r.receiver?._id === user?._id
+                                r.sender?._id === user?._id
                             ) ? (
                               <button
                                 className=" bg-[#ddd] rounded-lg p-2 text-[0.7rem]"

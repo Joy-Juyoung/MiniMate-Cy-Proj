@@ -12,10 +12,10 @@ const NoticeModal = ({ closeModal, children, requestId, friendId }) => {
       className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
       onClick={handleOutsideClick}
     >
-      {!friendId || !requestId ? (
+      {friendId || requestId ? (
         <div className="bg-white rounded-md shadow-md">{children}</div>
       ) : (
-        <div className="rounded-md shadow-md">{children}</div>
+        <div className="p-8 bg-white rounded-md shadow-md">{children}</div>
       )}
     </div>
   );

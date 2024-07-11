@@ -33,24 +33,30 @@ const LoginPage = ({ tokenFromStorage }) => {
     // console.log("fail", fail);
     // console.log("error", error);
     console.log("success", success);
-    if (fail) {
-      setErrMsg(fail);
-    }
-    // const tokenFromStorage = localStorage.getItem('token');
-    if (success === false) {
-      setErrMsg(fail);
-    } else {
-      navigate("/");
-    }
+    // if (fail) {
+    //   setErrMsg(fail);
+    // }
+    // // const tokenFromStorage = localStorage.getItem('token');
+    // if (success === false) {
+    //   setErrMsg(fail);
+    // } else if (success) {
+    //   // navigate("/");
+    //   setClicked(!clicked);
+    // }
+    // if (success) {
+    //   navigate("/");
+    // } else {
+    //   setErrMsg(fail);
+    // }
   };
 
   useEffect(() => {
-    if (success === false) {
-      setErrMsg(fail);
-    } else {
+    if (success) {
       navigate("/");
+    } else {
+      setErrMsg(fail);
     }
-  }, [dispatch, success, fail, clicked]);
+  }, [dispatch, clicked, success, fail, error]);
 
   return (
     <div
