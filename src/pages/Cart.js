@@ -8,7 +8,7 @@ import {
   updateCart,
 } from "../redux/cartSlice";
 import { Buttons } from "../components";
-import { BiSolidDownArrow } from "react-icons/bi";
+import { BiSolidDownArrow, BiSolidUpArrow } from "react-icons/bi";
 import { updateMe } from "../redux/userSlice";
 import { fetchHistory } from "../redux/historySlice";
 
@@ -21,6 +21,7 @@ const Cart = ({ me, tokenFromStorage }) => {
   const [selectedCart, setSelectedCart] = useState("");
   const [selectedCartItems, setSelectedCartItems] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [deleteOpen, setDeleteOpen] = useState(false);
 
   // console.log("selectedCart = cartId", selectedCart);
   console.log("history", history);
@@ -146,7 +147,7 @@ const Cart = ({ me, tokenFromStorage }) => {
                   }`
                 : "Select cart"}
             </span>
-            <BiSolidDownArrow />
+            {showDropdown ? <BiSolidUpArrow /> : <BiSolidDownArrow />}
           </button>
           {showDropdown && (
             <div className="absolute w-full bg-white border border-[#ddd] rounded mt-1">
@@ -186,6 +187,11 @@ const Cart = ({ me, tokenFromStorage }) => {
               />
               <label className="text-[0.8rem]">Select All</label>
             </div>
+            {/* <Buttons
+              onClick={() => setDeleteOpen(!deleteOpen)}
+              containerStyles="text-[0.8rem] px-4 py-2 rounded hover:bg-[#bbb] bg-[#ddd]"
+              title="Delete Item"
+            /> */}
             <Buttons
               onClick={handleDeleteSelected}
               containerStyles="text-[0.8rem] px-4 py-2 rounded hover:bg-[#bbb] bg-[#ddd]"

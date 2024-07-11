@@ -1,5 +1,17 @@
-import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { API } from "./api";
+
+// export const fetchRequestByUser = createAsyncThunk(
+//   "friend/fetchRequestByUser",
+//   async ({ userId, thunkAPI }) => {
+//     try {
+//       const response = await API.get(`/friendRequests?receiver=${userId}`);
+//       return response.data.data;
+//     } catch (error) {
+//       return thunkAPI.rejectWithValue(error.response.data);
+//     }
+//   }
+// );
 
 export const fetchRequestsByReceiver = createAsyncThunk(
   "friend/fetchRequestsByReceiver",
