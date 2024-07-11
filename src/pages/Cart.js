@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  createHistory,
   deleteCart,
   fetchAllCartsByUser,
   fetchCartItems,
@@ -10,21 +9,24 @@ import {
 import { Buttons } from "../components";
 import { BiSolidDownArrow, BiSolidUpArrow } from "react-icons/bi";
 import { updateMe } from "../redux/userSlice";
-import { fetchHistory } from "../redux/historySlice";
+import { createHistory, fetchHistory } from "../redux/historySlice";
 
 const Cart = ({ me, tokenFromStorage }) => {
   const dispatch = useDispatch();
   const { list, loading } = useSelector((state) => state.cart);
   const { history } = useSelector((state) => state.history);
-  const [selectedItems, setSelectedItems] = useState([]);
   const [cartItems, setCartItems] = useState([]);
   const [selectedCart, setSelectedCart] = useState("");
   const [selectedCartItems, setSelectedCartItems] = useState([]);
+  const [selectedItems, setSelectedItems] = useState([
+    // selectedCartItems?.length,
+  ]);
   const [showDropdown, setShowDropdown] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
+  const [pointAlert, setPointAlert] = useState(false);
 
   // console.log("selectedCart = cartId", selectedCart);
-  console.log("history", history);
+  // console.log("list", list);
 
   useEffect(() => {
     if (me) {
@@ -49,6 +51,7 @@ const Cart = ({ me, tokenFromStorage }) => {
   const handleSelectCartChange = (cartId) => {
     setSelectedCart(cartId);
     setShowDropdown(false);
+    setPointAlert(false);
   };
 
   useEffect(() => {
@@ -105,15 +108,17 @@ const Cart = ({ me, tokenFromStorage }) => {
   };
 
   const handleCheckout = () => {
-    if (totalPrice <= me.point) {
+    if (totalCartItemPrice <= me.point) {
+      setPointAlert(false);
       const selectedCartID = {
         cartId: selectedCart,
       };
       dispatch(createHistory({ cartId: selectedCartID }));
       // dispatch(createHistory({ cartId: selectedCart }));
-      window.location.reload();
+      // window.location.reload();
     } else {
-      alert("Insufficient points");
+      // alert("Insufficient points");
+      setPointAlert(true);
     }
   };
 
@@ -125,6 +130,11 @@ const Cart = ({ me, tokenFromStorage }) => {
     (acc, index) => acc + selectedCartItems[index]?.item_price,
     0
   );
+  const totalCartItemPrice = selectedCartItems.reduce(
+    (acc, item) => acc + item.item_price,
+    0
+  );
+
   const totalItems = selectedItems.length;
   const availablePoints = me?.point || 0;
 
@@ -181,7 +191,10 @@ const Cart = ({ me, tokenFromStorage }) => {
             <div className="flex items-center">
               <input
                 type="checkbox"
-                checked={selectedItems.length === selectedCartItems.length}
+                checked={
+                  // selectedCartItems.map((_, index) => index) ||
+                  selectedItems.length === selectedCartItems.length
+                }
                 onChange={handleSelectAll}
                 className="mr-2"
               />
@@ -251,11 +264,13 @@ const Cart = ({ me, tokenFromStorage }) => {
               </div>
               <div className="flex items-center justify-between w-full">
                 <p>Items Qty:</p>
-                <p>{totalItems}</p>
+                {/* <p>{totalItems}</p> */}
+                <p>{selectedCartItems?.length}</p>
               </div>
               <div className="flex items-center justify-between w-full">
                 <p>Total Price:</p>
-                <p>${formatPrice(totalPrice)}</p>
+                {/* <p>${formatPrice(totalPrice)}</p> */}
+                <p>${formatPrice(totalCartItemPrice)}</p>
               </div>
               <div className="flex items-center justify-between w-full">
                 <p>Available Points:</p>
@@ -263,14 +278,24 @@ const Cart = ({ me, tokenFromStorage }) => {
               </div>
               <div className="flex items-center justify-between w-full">
                 <p>Remaining Balance:</p>
-                <p>${formatPrice(availablePoints - totalPrice)}</p>
+                {/* <p>${formatPrice(availablePoints - totalPrice)}</p> */}
+                <p className={`${pointAlert && "text-[#f64949fe]"}`}>
+                  ${formatPrice(availablePoints - totalCartItemPrice)}
+                </p>
               </div>
+              {pointAlert && (
+                <p className="text-[#f64949fe] text-[0.7rem] mt-1">
+                  !! Your points are not enough. Please check out after
+                  charging.
+                </p>
+              )}
             </div>
             <div className="flex gap-4 my-4">
               <Buttons
                 containerStyles="text-[0.8rem] px-4 py-2 rounded bg-black text-white"
                 title="Checkout"
                 onClick={handleCheckout}
+                // disabled={availablePoints - totalCartItemPrice < 0}
               />
             </div>
           </div>

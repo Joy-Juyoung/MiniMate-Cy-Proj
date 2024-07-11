@@ -51,13 +51,15 @@ const History = ({ me }) => {
                     <td className="flex justify-end p-2">
                       <button
                         className={` rounded-lg py-2 px-2 text-[0.7rem] ${
-                          detailOpen
+                          detailOpen === order._id
                             ? "bg-[#ddd] text-black"
                             : "bg-black text-white"
                         }`}
                         onClick={() => handleDetails(order._id)}
                       >
-                        {detailOpen ? "Close Details" : " View Details"}
+                        {detailOpen === order._id
+                          ? "Close Details"
+                          : " View Details"}
                       </button>
                     </td>
                   </tr>

@@ -3,10 +3,16 @@ import { FaTimes } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import NoticeModal from "../Modal/NoticeModal";
 import AddedPoint from "../Modal/AddedPoint";
+import Buttons from "../Buttons";
+import { logoutUser } from "../../redux/authSlice";
+import { useDispatch } from "react-redux";
 
 const Sidebar = ({ isSideOpen, toggle, me }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  console.log("me", me);
 
   useEffect(() => {
     if (isSideOpen) {
@@ -16,10 +22,12 @@ const Sidebar = ({ isSideOpen, toggle, me }) => {
     }
   }, [isSideOpen]);
 
-  // const openModal = () => {
-  //   // toggle();
-  //   setModalOpen(true);
-  // };
+  const handleLogout = () => {
+    dispatch(logoutUser());
+    window.location.reload();
+    navigate("/");
+    toggle();
+  };
 
   const closeModal = () => {
     setModalOpen(false);
@@ -56,7 +64,7 @@ const Sidebar = ({ isSideOpen, toggle, me }) => {
           </Link>
 
           <Link
-            to="/account"
+            to="/user/account"
             onClick={toggle}
             className="w-full flex items-center justify-center py-4 hover:bg-[#f5f5f5] border-b-2 border-[#f5f5f5]"
           >
@@ -94,13 +102,22 @@ const Sidebar = ({ isSideOpen, toggle, me }) => {
             My Point
           </div>
 
-          <Link
-            to=""
-            onClick={toggle}
-            className="flex items-center justify-center p-4 m-auto mt-16 rounded-lg w-fit hover:font-semibold"
-          >
-            Log out
-          </Link>
+          {!me ? (
+            <Buttons
+              onClick={() => {
+                navigate("/login");
+                toggle();
+              }}
+              title="Log In"
+              containerStyles="w-fit m-auto mt-16 text-sm font-semibold px-4 py-2 border-2 rounded-xl hover:bg-black hover:text-white bg-white text-black"
+            />
+          ) : (
+            <Buttons
+              onClick={handleLogout}
+              title="Log Out"
+              containerStyles="w-fit m-auto mt-16 text-sm font-semibold px-4 py-2 border-2 rounded-xl hover:bg-black hover:text-white bg-white text-black"
+            />
+          )}
         </div>
       </div>
       {modalOpen && (
