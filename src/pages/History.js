@@ -15,6 +15,8 @@ const History = ({ me }) => {
     setDetailOpen(detailOpen === orderId ? null : orderId);
   };
 
+  console.log(history);
+
   return (
     <div className="flex flex-col w-full px-10 pt-12 pb-28 sm:pb-12 sm:px-20 md:px-40">
       <h1 className="mb-6 text-3xl font-semibold text-center">

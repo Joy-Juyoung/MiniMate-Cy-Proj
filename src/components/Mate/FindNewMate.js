@@ -5,7 +5,10 @@ import MinniFemale from "../../assets/minimi2.png";
 import MinniMale from "../../assets/minimi1.png";
 import NoticeModal from "../Modal/NoticeModal";
 import SendRequest from "../Modal/SendRequest";
-import { fetchRequestsByReceiver } from "../../redux/friendSlice";
+import {
+  fetchRequestsByReceiver,
+  fetchRequestsBySender,
+} from "../../redux/friendSlice";
 import MateSidebar from "./MateSidebar";
 
 const FindNewMate = ({ me }) => {
@@ -13,14 +16,19 @@ const FindNewMate = ({ me }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [newRequestModal, setNewRequestModal] = useState(false);
   const [friendId, setFriendId] = useState("");
-  const { friend } = useSelector((state) => state.friend);
+  const { friend, send, receive } = useSelector((state) => state.friend);
   const { user, users } = useSelector((state) => state.user);
 
   useEffect(() => {
     dispatch(fetchAllUsers());
     // dispatch(fetchRequestsByReceiver({ userId: me?._id }));
+    dispatch(fetchRequestsByReceiver({ userId: me?._id }));
+    dispatch(fetchRequestsBySender({ userId: me?._id }));
   }, [dispatch, friend]);
-
+  // console.log("send", send);
+  // console.log("receive", receive);
+  // send.receiver._id.include(me._id) || receive.receiver._id.include(me._id)
+  // send.sender._id.include(me._id) || receive.sender._id.include(me._id)
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
   };
@@ -101,17 +109,37 @@ const FindNewMate = ({ me }) => {
                         ) ? (
                           <button
                             disabled
-                            className=" bg-[#ddd] rounded-lg p-2 text-[0.7rem]"
+                            className=" border rounded-lg p-2 text-[0.7rem]"
                           >
                             Your Mate
                           </button>
                         ) : (
-                          <button
-                            className=" bg-black text-white rounded-lg p-2 text-[0.7rem]"
-                            onClick={() => handleSendRequest(user?._id)}
-                          >
-                            Request
-                          </button>
+                          <>
+                            {send.some(
+                              (s) =>
+                                s.receiver?._id === me?._id ||
+                                s.sender?._id === me?._id
+                            ) ||
+                            receive.some(
+                              (r) =>
+                                r.receiver?._id === me?._id ||
+                                r.sender?._id === me?._id
+                            ) ? (
+                              <button
+                                className=" bg-[#ddd] rounded-lg p-2 text-[0.7rem]"
+                                // onClick={() => handleSendRequest(user?._id)}
+                              >
+                                Pending
+                              </button>
+                            ) : (
+                              <button
+                                className=" bg-black text-white rounded-lg p-2 text-[0.7rem]"
+                                onClick={() => handleSendRequest(user?._id)}
+                              >
+                                Request
+                              </button>
+                            )}
+                          </>
                         )}
                       </td>
                     </tr>

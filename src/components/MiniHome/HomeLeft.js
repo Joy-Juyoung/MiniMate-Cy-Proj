@@ -42,12 +42,12 @@ const HomeLeft = () => {
             iconLeft={<IoMdArrowDropright size={15} />}
             iconStyles="text-hightColor -mr-1"
           />
-          <Buttons
+          {/* <Buttons
             title="History"
             containerStyles="h-fit -ml-1 text-[0.6rem] text-[#666]"
             iconLeft={<IoMdArrowDropright size={15} />}
             iconStyles="text-hightColor -mr-1"
-          />
+          /> */}
         </div>
       </div>
 
@@ -70,14 +70,22 @@ const HomeLeft = () => {
           <div className="flex flex-col items-center mt-2 text-sm ">
             <div className="flex w-full">
               <div
-                className="w-fit rounded-lg rounded-b-none text-[0.7rem] px-2 py-1
-            border border-1 border-[#bbb] bg-[#ddd] cursor-pointer"
+                className={`w-fit rounded-lg rounded-b-none text-[0.7rem] px-2 py-1
+            border border-1 border-[#bbb] bg-[#ddd] cursor-pointer
+            ${me.domain && "hidden"}
+            `}
               >
                 Owner
               </div>
               <div
-                className="w-fit rounded-lg rounded-b-none text-[0.7rem] px-2 py-1
-            text-[#bbb] border border-1 border-[#bbb] border-b-[#ddd] bg-[#fff] cursor-pointer"
+                className={`w-fit rounded-lg rounded-b-none text-[0.7rem] px-2 py-1
+             cursor-pointer
+            ${
+              !me.domain
+                ? "text-[#bbb] border border-1 border-[#bbb] border-b-[#ddd] bg-[#fff]"
+                : " border border-1 border-[#bbb] bg-[#ddd]"
+            }
+            `}
               >
                 Me
               </div>
@@ -96,12 +104,12 @@ const HomeLeft = () => {
                 />
                 {mateListOpen && (
                   <div className="absolute w-full h-20 overflow-y-auto bg-white rounded-md shadow-md top-8 -left-0">
-                    {mateList.map((mate, index) => {
+                    {me.best_friends.map((mate, index) => {
                       return (
                         <ul key={index} className="w-filt">
                           <li className="hover:bg-[#f5f5f5] p-2">
                             <Link to="">
-                              {mate.name} ({mate.nickname})
+                              {mate.friend.username} ({mate.friend_nick_name})
                             </Link>
                           </li>
                         </ul>
