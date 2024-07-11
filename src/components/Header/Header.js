@@ -68,14 +68,6 @@ const Header = ({ me }) => {
     setModalOpen(false);
   };
 
-  // const handleIconClick = () => {
-  //   if (!me) {
-  //     openModal();
-  //   } else {
-  //     navigate('/shop');
-  //   }
-  // };
-
   return (
     <>
       {modalOpen && (
@@ -139,7 +131,7 @@ const Header = ({ me }) => {
         </div>
       </div>
 
-      <Sidebar isSideOpen={isSideOpen} toggle={toggle} />
+      <Sidebar isSideOpen={isSideOpen} toggle={toggle} me={me} />
     </>
   );
 };
