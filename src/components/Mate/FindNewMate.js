@@ -45,7 +45,7 @@ const FindNewMate = ({ me }) => {
       <MateSidebar />
       <div className=" h-[50vh]">
         <div className="flex flex-col items-start w-full">
-          <h2 className="mb-4 mr-4 text-xl font-semibold">Find New Mate</h2>
+          <h2 className="mb-2 mr-4 text-xl font-semibold">Find New Mate</h2>
           <input
             type="text"
             placeholder="Search by username, email or domain"
@@ -60,7 +60,7 @@ const FindNewMate = ({ me }) => {
           </div>
         ) : (
           <div className={`overflow-y-auto h-full bg-white shadow-md mt-4 `}>
-            <table className="w-full text-left border-collapse  text-[0.8rem] mt-2 ">
+            <table className="w-full text-left border-collapse  text-[0.8rem] ">
               <thead className="">
                 <tr className="bg-[#eee] border-b border-[#bbb]">
                   <th className="p-2 font-normal text-center">#</th>

@@ -54,7 +54,7 @@ const DropdownMenu = ({ isOpen, toggleDropdown, navigate, me }) => {
               navigate("/user/history");
             }}
           >
-            My History
+            Order History
           </li>
 
           <li className={listItemStyle} onClick={openModal}>

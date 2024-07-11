@@ -41,12 +41,12 @@ const MyRequests = ({ me, requests }) => {
         {/* <div className="flex flex-col items-start w-full">
           <h2 className="mb-4 mr-4 text-xl font-semibold">My Request</h2>
         </div> */}
-        <div className="grid grid-cols-2 gap-4 h-[55vh]">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-4 h-[55vh]">
           <div>
             <h2 className="p-2 font-semibold">My Send List</h2>
             {send && send.length > 0 ? (
               <div className="h-full overflow-y-auto rounded-md shadow-md">
-                <table className="w-full text-left border-collapse text-[0.8rem] mt-2">
+                <table className="w-full text-left border-collapse text-[0.8rem] ">
                   <thead>
                     <tr className="bg-[#eee] border-b border-[#bbb]">
                       <th className="p-2 font-normal text-center">#</th>
@@ -106,7 +106,7 @@ const MyRequests = ({ me, requests }) => {
             <h2 className="p-2 font-semibold">My Request List</h2>
             {receive && receive.length > 0 ? (
               <div className="h-full overflow-y-auto rounded-md shadow-md">
-                <table className="w-full text-left border-collapse text-[0.8rem] mt-2">
+                <table className="w-full text-left border-collapse text-[0.8rem]">
                   <thead>
                     <tr className="bg-[#eee] border-b border-[#bbb]">
                       <th className="p-2 font-normal text-center">#</th>

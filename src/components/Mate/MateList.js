@@ -8,7 +8,7 @@ const MateList = ({ me }) => {
 
   useEffect(() => {
     dispatch(fetchMe());
-  }, [me]);
+  }, [dispatch]);
 
   const handleRequestDetails = (mateId) => {
     dispatch(fetchOneUser({ userId: mateId }));
@@ -23,7 +23,7 @@ const MateList = ({ me }) => {
         </div>
         <div className="overflow-y-auto h-[55vh] bg-white shadow-md ">
           {me?.best_friends?.length > 0 ? (
-            <table className="w-full text-left border-collapse text-[0.8rem] mt-2">
+            <table className="w-full text-left border-collapse text-[0.8rem] ">
               <thead>
                 <tr className="bg-[#eee] border-b border-[#bbb]">
                   <th className="p-2 font-normal text-center">#</th>
