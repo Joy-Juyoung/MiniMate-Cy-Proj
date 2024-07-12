@@ -14,8 +14,7 @@ const MyRequests = ({ me, requests }) => {
   const dispatch = useDispatch();
   const [openRequestModal, setOpenRequestModal] = useState(false);
   const [requestId, setRequestId] = useState("");
-  // const { send, receive } = useSelector((state) => state.friend);
-  const { user } = useSelector((state) => state.user);
+  // const { user } = useSelector((state) => state.user);
   const { send, receive } = useSelector((state) => state.friend);
 
   useEffect(() => {
