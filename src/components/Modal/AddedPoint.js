@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { updateMe } from '../../redux/userSlice';
-import Buttons from '../Buttons';
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { updateMe } from "../../redux/userSlice";
+import Buttons from "../Buttons";
+import { FaTimes } from "react-icons/fa";
 
 const AddedPoint = ({ closeModal, navigate, me }) => {
   const [changeUserBalance, setChangeUserBalance] = useState(
@@ -33,7 +34,7 @@ const AddedPoint = ({ closeModal, navigate, me }) => {
     if (parseFloat(balance) <= 5000 && parseFloat(balance) >= 0) {
       dispatch(updateMe({ userData: userInfo }));
       setIsOverAmount(false);
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
       setBalance(0);
     } else if (parseFloat(balance) > 5000) {
       setIsOverAmount(true);
@@ -46,49 +47,54 @@ const AddedPoint = ({ closeModal, navigate, me }) => {
 
   return (
     <>
-      <h2 className='text-2xl font-bold mb-4'>My Point</h2>
-      <p className='text-sm mb-4'>
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-2xl font-bold ">My Point</h2>
+        <button>
+          <FaTimes onClick={closeModal} />
+        </button>
+      </div>
+      <p className="mb-4 text-sm">
         Check your point. If not enough, charging your point.
       </p>
 
-      <div className='w-full flex items-center justify-between border border-[#ddd] rounded-md p-3'>
-        <div className='font-semibold'>Your Current Balances:</div>
+      <div className="w-full flex items-center justify-between border border-[#ddd] rounded-md p-3">
+        <div className="font-semibold">Your Current Balances:</div>
         <span>
           $
-          {me?.point?.toLocaleString('en-US', {
-            style: 'decimal',
+          {me?.point?.toLocaleString("en-US", {
+            style: "decimal",
             minimumFractionDigits: 2,
           })}
         </span>
       </div>
 
-      <div className='w-full flex flex-col'>
-        <div className=' border border-[#ddd] rounded-md p-3  my-4'>
-          <div className='font-semibold'>Charge Your Balances:</div>
-          <span className='w-full flex flex-col my-4'>
+      <div className="flex flex-col w-full">
+        <div className=" border border-[#ddd] rounded-md p-3  my-4">
+          <div className="font-semibold">Charge Your Balances:</div>
+          <span className="flex flex-col w-full my-4">
             <input
-              type='number'
-              placeholder='Enter the price you want to add'
+              type="number"
+              placeholder="Enter the price you want to add"
               onChange={ChangeBalance}
               value={balance}
-              min='0'
-              max='5000'
-              className='border boder-[#ddd] focus:border-[#2185ff] focus:outline-none rounded-md p-3'
+              min="0"
+              max="5000"
+              className="border boder-[#ddd] focus:border-[#2185ff] focus:outline-none rounded-md p-3"
             />
           </span>
-          <div className='text-[0.6rem] text-[#bbb] '>
-            <span className={isOverAmount ? 'text-[#f00]' : ''}>
+          <div className="text-[0.6rem] text-[#bbb] ">
+            <span className={isOverAmount ? "text-[#f00]" : ""}>
               * Up to $5,000 at a time
             </span>
             <br />
-            <span className={isMinus ? 'text-[#f00]' : ''}>
+            <span className={isMinus ? "text-[#f00]" : ""}>
               * Available only from 0 or higher
             </span>
           </div>
-          <div className='flex justify-between mt-4'>
-            <div className='font-semibold'>Expected Amount:</div>$
-            {changeUserBalance.toLocaleString('en-US', {
-              style: 'decimal',
+          <div className="flex justify-between mt-4">
+            <div className="font-semibold">Expected Amount:</div>$
+            {changeUserBalance.toLocaleString("en-US", {
+              style: "decimal",
               minimumFractionDigits: 2,
             })}
           </div>
@@ -96,9 +102,9 @@ const AddedPoint = ({ closeModal, navigate, me }) => {
 
         <Buttons
           onClick={handleAddBalance}
-          containerStyles='flex items-center justify-center px-4 py-3 text-sm border border-2   
-           rounded-xl bg-black border-black text-white shadow-md'
-          title='Add'
+          containerStyles="flex items-center justify-center px-4 py-3 text-sm border border-2   
+           rounded-xl bg-black border-black text-white shadow-md"
+          title="Add"
         />
       </div>
     </>
