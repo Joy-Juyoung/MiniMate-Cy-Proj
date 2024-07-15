@@ -81,7 +81,7 @@ const FindNewMate = ({ me }) => {
                         user.domain?.includes(searchTerm))
                   )
                   .map((user, index) => (
-                    <tr key={user._id} className="border-t border-[#bbb]">
+                    <tr key={user._id} className="border-b border-[#bbb]">
                       <td className="p-2 text-center">{index + 1}</td>
                       <td className="p-2">
                         <img
