@@ -36,7 +36,7 @@ const MateList = ({ me }) => {
               {me.best_friends.map((mate, index) => (
                 <tbody key={index}>
                   {mate.friend && (
-                    <tr className="border-t border-[#bbb]">
+                    <tr className="border-b border-[#bbb]">
                       <td className="p-2 text-center">{index + 1}</td>
                       <td className="p-2">{mate.friend.username}</td>
                       <td className="p-2">{mate.friend_nick_name}</td>

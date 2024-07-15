@@ -58,7 +58,7 @@ const MyRequests = ({ me, requests }) => {
                   </thead>
                   <tbody>
                     {send.map((request, index) => (
-                      <tr key={request._id} className="border-t border-[#bbb]">
+                      <tr key={request._id} className="border-b border-[#bbb]">
                         <td className="p-2 text-center">{index + 1}</td>
                         <td className="p-2">{request.receiver.username}</td>
                         <td className="p-2">{request.sender_nick_name}</td>
@@ -118,7 +118,7 @@ const MyRequests = ({ me, requests }) => {
                   </thead>
                   <tbody>
                     {receive.map((request, index) => (
-                      <tr key={request._id} className="border-t border-[#bbb]">
+                      <tr key={request._id} className="border-b border-[#bbb]">
                         <td className="p-2 text-center">{index + 1}</td>
                         <td className="p-2">{request.sender.username}</td>
                         <td className="p-2">{request.sender_nick_name}</td>
