@@ -9,7 +9,8 @@ import {
   fetchRequestsByReceiver,
   fetchRequestsBySender,
 } from "../../redux/friendSlice";
-import MateSidebar from "./MateSidebar";
+import MateHeader from "./MateHeader";
+// import MateSidebar from "./MateSidebar";
 
 const FindNewMate = ({ me }) => {
   const dispatch = useDispatch();
@@ -42,7 +43,8 @@ const FindNewMate = ({ me }) => {
 
   return (
     <div className="flex flex-col w-full h-full px-10 pt-8 pb-24 lg:pb-16 sm:px-20 md:px-40">
-      <MateSidebar />
+      {/* <MateSidebar /> */}
+      <MateHeader />
       <div className=" h-[50vh]">
         <div className="flex flex-col items-start w-full">
           <h2 className="mb-2 mr-4 text-xl font-semibold">Find New Mate</h2>

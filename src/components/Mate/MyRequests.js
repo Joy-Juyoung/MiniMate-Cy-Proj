@@ -8,7 +8,8 @@ import {
 import NoticeModal from "../Modal/NoticeModal";
 import ViewRequest from "../Modal/ViewRequest";
 import { fetchOneUser } from "../../redux/userSlice";
-import MateSidebar from "./MateSidebar";
+// import MateSidebar from "./MateSidebar";
+import MateHeader from "./MateHeader";
 
 const MyRequests = ({ me, requests }) => {
   const dispatch = useDispatch();
@@ -35,7 +36,8 @@ const MyRequests = ({ me, requests }) => {
 
   return (
     <div className="flex flex-col w-full h-full px-10 pt-8 pb-24 lg:pb-16 sm:px-20 md:px-40">
-      <MateSidebar />
+      {/* <MateSidebar /> */}
+      <MateHeader />
       <div>
         {/* <div className="flex flex-col items-start w-full">
           <h2 className="mb-4 mr-4 text-xl font-semibold">My Request</h2>
