@@ -3,11 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   FindNewMate,
   MateList,
-  // MateSideBar,
+  MateSidebar,
   MyRequests,
 } from "../components/Mate";
-import MateSidebar from "../components/Mate/MateSidebar";
-// import MateSidebar from "../components/Mate/MateSidebar";
 
 const TabButton = ({ isActive, onClick, children }) => (
   <button
