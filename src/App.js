@@ -24,14 +24,11 @@ import { Footer } from "./components";
 import "react-toastify/dist/ReactToastify.css";
 import { fetchMe } from "./redux/userSlice";
 import ProtectedRoute from "./ProtectedRoute";
-// import Mate from "./pages/Mate";
 import {
   CategoryManagement,
   ProductManagement,
   UserManagement,
 } from "./components/Admin";
-// import { FindNewMate } from "./components/Mate";
-// import History from "./pages/History";
 import { FindNewMate, MateList, MyRequests } from "./components/Mate";
 
 const HeaderWrapper = React.memo(({ me }) => (
