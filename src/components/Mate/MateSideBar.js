@@ -1,11 +1,9 @@
-import React, { useState } from "react";
-import { FaUsers, FaBox, FaListAlt } from "react-icons/fa";
+import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const MateSidebar = () => {
   const navigate = useNavigate();
   const location = useLocation();
-
   return (
     <div className="w-full pb-8">
       <h1 className="mb-4 text-3xl font-semibold">My Mate</h1>
