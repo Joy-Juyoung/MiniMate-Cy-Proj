@@ -21,7 +21,8 @@ const Hero = ({ me }) => {
         // const popupFeatures = 'width=1100,height=600';
         // popupRef.current = window.open(popupUrl, '_blank', popupFeatures);
         const userDomain = me?.domain;
-        const popupUrl = `http://localhost:3000/${userDomain}/home`;
+        // const popupUrl = `http://localhost:3000/${userDomain}/home`;
+        const popupUrl = `https://minimate-cy.netlify.app/${userDomain}/home`;
         const popupWidth = 1100;
         const popupHeight = 600;
 
