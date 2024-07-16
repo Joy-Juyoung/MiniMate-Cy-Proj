@@ -18,7 +18,6 @@ const MateSidebar = () => {
           }`}
           onClick={() => navigate("/mate/find")}
         >
-          {/* <FaUsers className="text-xl" /> */}
           <span>Find New Mate</span>
         </li>
         <li
@@ -29,7 +28,6 @@ const MateSidebar = () => {
           }`}
           onClick={() => navigate("/mate/list")}
         >
-          {/* <FaListAlt className="text-xl" /> */}
           <span>Mate List</span>
         </li>
         <li
@@ -40,7 +38,6 @@ const MateSidebar = () => {
           }`}
           onClick={() => navigate("/mate/request")}
         >
-          {/* <FaBox className="text-xl" /> */}
           <span>My Requests</span>
         </li>
       </ul>
