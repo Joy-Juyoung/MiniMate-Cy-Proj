@@ -6,20 +6,32 @@ import Buttons from "../Buttons";
 import { FaArrowRight } from "react-icons/fa6";
 import { miniInfo, myHome } from "../../redux/tempData";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchMinihomeByUsername,
+  fetchMinihome,
+} from "../../redux/miniHomeSlice";
 
 const Hero = ({ me }) => {
   const popupRef = useRef(null);
   const navigate = useNavigate();
-
-  // console.log('me', me);
+  const dispatch = useDispatch();
+  const { miniHome, userHome, loading, error } = useSelector(
+    (state) => state.miniHome
+  );
+  useEffect(() => {
+    dispatch(fetchMinihomeByUsername({ username: me.username }));
+    // dispatch(fetchMinihome({ miniHomeId: userHome._id }));
+  }, [dispatch]);
+  console.log("userHome", userHome);
 
   const openPopup = () => {
     if (!popupRef.current || popupRef.current.closed) {
       if (me) {
         const userDomain = me?.domain;
-        // const popupUrl = `http://localhost:3000/${userDomain}/home`;
+        const popupUrl = `http://localhost:3000/${me.username}/home`;
         // const popupUrl = `https://minimate-cy.netlify.app/${userDomain}/home`;
-        const popupUrl = `${userDomain}/home`;
+        // const popupUrl = `${userDomain}/home`;
         const popupWidth = 1100;
         const popupHeight = 600;
 

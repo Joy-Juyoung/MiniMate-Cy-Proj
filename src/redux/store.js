@@ -6,6 +6,7 @@ import itemSlice from "./itemSlice";
 import cartSlice from "./cartSlice";
 import friendSlice from "./friendSlice";
 import historySlice from "./historySlice";
+import miniHomeSlice from "./miniHomeSlice";
 
 export const store = configureStore({
   reducer: {
@@ -16,5 +17,6 @@ export const store = configureStore({
     cart: cartSlice,
     friend: friendSlice,
     history: historySlice,
+    miniHome: miniHomeSlice,
   },
 });

@@ -44,7 +44,7 @@ const comments = [
 
 // console.log(user.minime);
 
-const HomeRight = ({ me }) => {
+const HomeRight = ({ me, userHome, categories }) => {
   return (
     <div>
       <div className="grid items-center grid-cols-2 gap-4">

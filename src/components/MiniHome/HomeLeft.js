@@ -7,17 +7,20 @@ import Buttons from "../Buttons";
 import { IoMdArrowDropright } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchMe } from "../../redux/userSlice";
+import NoticeModal from "../Modal/NoticeModal";
+import ManageBanner from "../Modal/ManageBanner";
 
-const HomeLeft = () => {
+const HomeLeft = ({ me, userHome, categories }) => {
   const dispatch = useDispatch();
   const [mateListOpen, toggleMateList] = useState(false);
-  const { me } = useSelector((state) => state.user);
+  const [bannerOpen, toggleBannerOpen] = useState(false);
+  // const { me } = useSelector((state) => state.user);
 
-  useEffect(() => {
-    dispatch(fetchMe());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchMe());
+  // }, [dispatch]);
 
-  console.log("me", me);
+  // console.log("me", me);
 
   if (!me) {
     return <div>Loading...</div>; // 혹은 적절한 로딩 표시
@@ -41,6 +44,9 @@ const HomeLeft = () => {
             containerStyles="h-fit flex justify-start -ml-1 mr-2 text-[0.6rem] text-[#666]"
             iconLeft={<IoMdArrowDropright size={15} />}
             iconStyles="text-hightColor -mr-1"
+            onClick={() => {
+              toggleBannerOpen(true);
+            }}
           />
           {/* <Buttons
             title="History"
@@ -50,6 +56,21 @@ const HomeLeft = () => {
           /> */}
         </div>
       </div>
+
+      {bannerOpen && (
+        <NoticeModal
+          userHome={userHome}
+          closeModal={() => {
+            toggleBannerOpen(false);
+          }}
+        >
+          <ManageBanner
+            closeModal={() => toggleBannerOpen(false)}
+            me={me}
+            userHome={userHome}
+          />
+        </NoticeModal>
+      )}
 
       <hr className="w-full h-[2%] border-[#ccc] -mx-2" />
 

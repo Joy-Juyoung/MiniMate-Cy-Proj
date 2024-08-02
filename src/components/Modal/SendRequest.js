@@ -20,19 +20,9 @@ const SendRequest = ({ closeModal, me, friendId }) => {
 
   useEffect(() => {
     if (friendId) {
-      //    dispatch(fetchRequest({ requestId }));
-      //   if (user) {
       dispatch(fetchOneUser({ userId: friendId }));
-      //   }
     }
   }, [dispatch, friendId]);
-
-  // friend._id -> requestId
-  //  accepterId -> me._id
-  // console.log("friend", friend);
-  // console.log("request", request);
-  // console.log("user", user._id);
-  // console.log("requestData", requestData);
 
   const handleChange = (e) => {
     setRequestData({ ...requestData, [e.target.name]: e.target.value });
@@ -41,14 +31,10 @@ const SendRequest = ({ closeModal, me, friendId }) => {
   const handleRequestSubmit = (e) => {
     e.preventDefault();
     dispatch(createRequest({ requestData }));
-    //    dispatch(signupUser(formData))
-    //      .then(() => {
+
     if (!error) {
       closeModal();
     }
-    //      .catch((error) => {
-    //        console.error("Register Error:", error);
-    //      });
   };
 
   return (

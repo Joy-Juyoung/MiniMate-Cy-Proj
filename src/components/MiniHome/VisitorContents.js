@@ -44,11 +44,13 @@ const VisitorContents = ({ me }) => {
           <div className="bg-white mr-2 p-2 h-[120px] w-[120px] rounded-md flex items-center justify-center">
             <img src={me.minime_img} alt="" className="w-[6rem]" />
           </div>
-          <textarea
-            value={text}
-            placeholder="Hi Hello"
-            className="w-full h-[120px] rounded-md p-2 text-[0.7rem] bg-white "
-          />
+          <div
+            // value={text}
+            // placeholder="Hi Hello"
+            className="w-full h-[120px] rounded-md p-2 text-[0.7rem] bg-white overflow-y-auto"
+          >
+            Hi Hello
+          </div>
         </div>
         <div className="flex flex-col  bg-[#e6e6e6] px-2 py-1 text-[0.8rem] rounded-md">
           <div className="flex gap-2">
