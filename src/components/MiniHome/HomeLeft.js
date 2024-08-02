@@ -1,26 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { mateList } from "../../redux/tempData";
+import React, { useState } from "react";
 import Banner from "../../assets/main(5).jpg";
-import { Link } from "react-router-dom";
-import { RiArrowDownSFill } from "react-icons/ri";
-import Buttons from "../Buttons";
 import { IoMdArrowDropright } from "react-icons/io";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchMe } from "../../redux/userSlice";
+import { RiArrowDownSFill } from "react-icons/ri";
+import { Link } from "react-router-dom";
+import Buttons from "../Buttons";
 import NoticeModal from "../Modal/NoticeModal";
 import ManageBanner from "../Modal/ManageBanner";
 
-const HomeLeft = ({ me, userHome, categories }) => {
-  const dispatch = useDispatch();
+const HomeLeft = ({ me, userHome, categories, updateUserHome }) => {
   const [mateListOpen, toggleMateList] = useState(false);
   const [bannerOpen, toggleBannerOpen] = useState(false);
-  // const { me } = useSelector((state) => state.user);
-
-  // useEffect(() => {
-  //   dispatch(fetchMe());
-  // }, [dispatch]);
-
-  // console.log("me", me);
 
   if (!me) {
     return <div>Loading...</div>; // 혹은 적절한 로딩 표시
@@ -38,7 +27,7 @@ const HomeLeft = ({ me, userHome, categories }) => {
       </div>
       <div className="w-full h-[33%] flex flex-col justify-between">
         <div className="h-full text-[0.8rem] pt-2">
-          {userHome?.banner_text_history[0].text}
+          {userHome?.banner_text_history[0]?.text}
         </div>
         <div className="flex items-center">
           <Buttons
@@ -50,12 +39,6 @@ const HomeLeft = ({ me, userHome, categories }) => {
               toggleBannerOpen(true);
             }}
           />
-          {/* <Buttons
-            title="History"
-            containerStyles="h-fit -ml-1 text-[0.6rem] text-[#666]"
-            iconLeft={<IoMdArrowDropright size={15} />}
-            iconStyles="text-hightColor -mr-1"
-          /> */}
         </div>
       </div>
 
@@ -70,6 +53,7 @@ const HomeLeft = ({ me, userHome, categories }) => {
             closeModal={() => toggleBannerOpen(false)}
             me={me}
             userHome={userHome}
+            updateUserHome={updateUserHome}
           />
         </NoticeModal>
       )}

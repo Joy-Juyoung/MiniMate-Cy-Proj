@@ -5,14 +5,12 @@ import { useDispatch } from "react-redux";
 import { createBannerText, deleteBannerText } from "../../redux/miniHomeSlice";
 import Buttons from "../Buttons";
 import { RiDeleteBin2Fill } from "react-icons/ri";
-import ConfirmNotice from "./ConfirmNotice";
 
-const ManageBanner = ({ closeModal, me, userHome }) => {
+const ManageBanner = ({ closeModal, me, userHome, updateUserHome }) => {
   const dispatch = useDispatch();
   const [isHistoryUpload, setIsHistoryUpload] = useState(false);
   const [text, setText] = useState("");
   const [file, setFile] = useState();
-  // const [textError, setTextError] = useState(false);
   const textareaRef = useRef(null);
   const [isDeleted, setIsDeleted] = useState(false);
 
@@ -23,10 +21,13 @@ const ManageBanner = ({ closeModal, me, userHome }) => {
   const handleUpload = () => {
     if (isHistoryUpload) {
       if (!text) {
-        // setTextError(true);
         textareaRef.current?.focus();
       } else {
-        dispatch(createBannerText({ miniHomeId: userHome?._id, text }));
+        dispatch(createBannerText({ miniHomeId: userHome?._id, text })).then(
+          () => {
+            updateUserHome();
+          }
+        );
         closeModal();
       }
     } else {
@@ -40,18 +41,19 @@ const ManageBanner = ({ closeModal, me, userHome }) => {
     setFile("");
     setText("");
     setIsDeleted(false);
-    // setTextError(false);
   };
 
   const handleDeleteHistory = (id) => {
     dispatch(
       deleteBannerText({ miniHomeId: userHome?._id, textHistoryId: id })
-    );
+    ).then(() => {
+      updateUserHome();
+    });
     setIsDeleted(false);
   };
 
   return (
-    <div className="px-6 py-4 m-3 border border-dashed rounded-md border-[#268db2]">
+    <div className="w-[250px] p-4 m-3 border border-dashed rounded-md border-[#268db2]">
       <div className="flex items-center justify-between">
         <div className="flex items-center">
           <h2 className="font-bold mr-1 text-md text-[#268db2]">
@@ -131,8 +133,8 @@ const ManageBanner = ({ closeModal, me, userHome }) => {
           })}
         </div>
       ) : (
-        <div className="h-[350px] overflow-y-auto overflow-x-hidden my-3">
-          <div className="h-full border-t border-[#bbb] w-[180px] py-3">
+        <div className="h-[350px] w-full overflow-y-auto overflow-x-hidden my-3">
+          <div className="h-full  w-full border-t border-[#bbb] py-3">
             <div className="flex flex-col items-center w-full h-[200px] py-1 text-sm">
               <input type="file" onChange={handleFile} className="w-full" />
               {file && (
@@ -148,7 +150,6 @@ const ManageBanner = ({ closeModal, me, userHome }) => {
               value={text || ""}
               onChange={(e) => {
                 setText(e.target.value);
-                // setTextError(false);
               }}
               placeholder="Write the message..."
               className="w-full h-[120px] rounded-md p-2 text-[0.7rem] border"

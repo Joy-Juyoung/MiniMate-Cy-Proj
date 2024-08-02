@@ -9,7 +9,6 @@ import { fetchCategories } from "../redux/categorySlice";
 
 const MiniHome = () => {
   const dispatch = useDispatch();
-  //  const [isDeleted, setIsDeleted] = useState(false);
   const { me } = useSelector((state) => state.user);
   const { miniHome, userHome, loading, error } = useSelector(
     (state) => state.miniHome
@@ -17,7 +16,6 @@ const MiniHome = () => {
   const { categories, loading: categoriesLoading } = useSelector(
     (state) => state.categories
   );
-  const bannerText = userHome.banner_text_history;
 
   useEffect(() => {
     dispatch(fetchMe());
@@ -27,26 +25,36 @@ const MiniHome = () => {
     dispatch(fetchMinihomeByUsername({ username: me?.username }));
   }, [dispatch]);
 
-  // console.log("userHome", userHome);
-
   useEffect(() => {
     dispatch(fetchCategories());
     dispatch(fetchUserItems({ userId: me._id }));
   }, [dispatch, me]);
 
-  // console.log('me', me);
+  const updateUserHome = () => {
+    dispatch(fetchMinihomeByUsername({ username: me?.username }));
+  };
+
   return (
     <>
       <MiniHomeFrame
-        // nav="Home"
         me={me}
         userHome={userHome}
         categories={categories}
         LeftContent={
-          <HomeLeft me={me} userHome={userHome} categories={categories} />
+          <HomeLeft
+            me={me}
+            userHome={userHome}
+            categories={categories}
+            updateUserHome={updateUserHome}
+          />
         }
         RightContent={
-          <HomeRight me={me} userHome={userHome} categories={categories} />
+          <HomeRight
+            me={me}
+            userHome={userHome}
+            categories={categories}
+            updateUserHome={updateUserHome}
+          />
         }
       />
     </>
