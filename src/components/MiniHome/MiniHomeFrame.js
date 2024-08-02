@@ -48,7 +48,7 @@ const MiniHomeFrame = ({
               .map((nav) => {
                 return (
                   <div
-                    key={nav._id}
+                    key={nav?._id}
                     onClick={() =>
                       navigate(`/${domain}/${nav.name.toLowerCase()}`)
                     }

@@ -31,17 +31,19 @@ const HomeLeft = ({ me, userHome, categories }) => {
       {/* banner */}
       <div className="w-full h-[40%] flex flex-col justify-between">
         <img
-          src={Banner}
+          src={Banner || userHome?.banner_photo}
           alt=""
           className="flex items-center justify-center object-cover object-top h-full"
         />
       </div>
       <div className="w-full h-[33%] flex flex-col justify-between">
-        <div className="h-full text-[0.8rem] pt-1">History is Nothing.</div>
+        <div className="h-full text-[0.8rem] pt-2">
+          {userHome?.banner_text_history[0].text}
+        </div>
         <div className="flex items-center">
           <Buttons
-            title="Edit"
-            containerStyles="h-fit flex justify-start -ml-1 mr-2 text-[0.6rem] text-[#666]"
+            title="History & Manage"
+            containerStyles="h-fit flex justify-start -ml-1 mr-2 mb-1 text-[0.6rem] text-[#666]"
             iconLeft={<IoMdArrowDropright size={15} />}
             iconStyles="text-hightColor -mr-1"
             onClick={() => {

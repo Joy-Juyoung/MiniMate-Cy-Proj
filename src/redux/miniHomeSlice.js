@@ -51,6 +51,20 @@ export const createBannerText = createAsyncThunk(
   }
 );
 
+export const deleteBannerText = createAsyncThunk(
+  "miniHome/deleteBannerText",
+  async ({ miniHomeId, textHistoryId, thunkAPI }) => {
+    try {
+      const response = await API.delete(
+        `/miniHome/${miniHomeId}/textHistory/${textHistoryId}`
+      );
+      return response.data.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
 const miniHomeSlice = createSlice({
   name: "miniHome",
   initialState: {
@@ -109,6 +123,18 @@ const miniHomeSlice = createSlice({
         state.text = action.payload;
       })
       .addCase(createBannerText.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+      .addCase(deleteBannerText.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(deleteBannerText.fulfilled, (state, action) => {
+        state.loading = false;
+        state.text = action.payload;
+      })
+      .addCase(deleteBannerText.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       });

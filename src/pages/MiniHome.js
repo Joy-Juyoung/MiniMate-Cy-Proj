@@ -9,6 +9,7 @@ import { fetchCategories } from "../redux/categorySlice";
 
 const MiniHome = () => {
   const dispatch = useDispatch();
+  //  const [isDeleted, setIsDeleted] = useState(false);
   const { me } = useSelector((state) => state.user);
   const { miniHome, userHome, loading, error } = useSelector(
     (state) => state.miniHome
@@ -16,6 +17,7 @@ const MiniHome = () => {
   const { categories, loading: categoriesLoading } = useSelector(
     (state) => state.categories
   );
+  const bannerText = userHome.banner_text_history;
 
   useEffect(() => {
     dispatch(fetchMe());
