@@ -12,6 +12,18 @@ export const fetchMe = createAsyncThunk("user/fetchMe", async (_, thunkAPI) => {
   }
 });
 
+export const fetchUserItems = createAsyncThunk(
+  "user/fetchUserItems",
+  async ({ userId, thunkAPI }) => {
+    try {
+      const response = await API.get(`/users/${userId}/items`);
+      return response.data.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
 export const updateMe = createAsyncThunk(
   "user/updateMe",
   async ({ userData, thunkAPI }) => {
@@ -97,6 +109,7 @@ const userSlice = createSlice({
     users: [],
     me: null,
     user: null,
+    userItems: [],
     image: null,
   },
   reducers: {},
@@ -110,6 +123,17 @@ const userSlice = createSlice({
         state.me = action.payload; // action.payload.data 대신 action.payload 사용
       })
       .addCase(fetchMe.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload.message;
+      })
+      .addCase(fetchUserItems.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(fetchUserItems.fulfilled, (state, action) => {
+        state.loading = false;
+        state.userItems = action.payload; // action.payload.data 대신 action.payload 사용
+      })
+      .addCase(fetchUserItems.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload.message;
       })
