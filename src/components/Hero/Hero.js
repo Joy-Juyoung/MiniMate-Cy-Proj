@@ -16,13 +16,10 @@ const Hero = ({ me }) => {
   const openPopup = () => {
     if (!popupRef.current || popupRef.current.closed) {
       if (me) {
-        // const userDomain = me?.domain;
-        // const popupUrl = `http://localhost:3000/${userDomain}/home`;
-        // const popupFeatures = 'width=1100,height=600';
-        // popupRef.current = window.open(popupUrl, '_blank', popupFeatures);
         const userDomain = me?.domain;
         // const popupUrl = `http://localhost:3000/${userDomain}/home`;
-        const popupUrl = `https://minimate-cy.netlify.app/${userDomain}/home`;
+        // const popupUrl = `https://minimate-cy.netlify.app/${userDomain}/home`;
+        const popupUrl = `${userDomain}/home`;
         const popupWidth = 1100;
         const popupHeight = 600;
 
@@ -39,11 +36,6 @@ const Hero = ({ me }) => {
           : document.documentElement.clientWidth
           ? document.documentElement.clientWidth
           : window.screen.width;
-        // const screenHeight = window.innerHeight
-        //   ? window.innerHeight
-        //   : document.documentElement.clientHeight
-        //   ? document.documentElement.clientHeight
-        //   : window.screen.height;
 
         // 팝업 창을 화면의 가로 중앙과 세로 상단에 위치시키기 위한 좌표 계산
         const left = screenLeft + screenWidth / 2 - popupWidth / 2;
@@ -53,7 +45,6 @@ const Hero = ({ me }) => {
         popupRef.current = window.open(popupUrl, "_blank", popupFeatures);
       }
     } else {
-      // If the popup is already open, focus on it
       popupRef.current.focus();
     }
   };

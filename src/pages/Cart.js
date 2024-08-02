@@ -8,25 +8,21 @@ import {
 } from "../redux/cartSlice";
 import { Buttons } from "../components";
 import { BiSolidDownArrow, BiSolidUpArrow } from "react-icons/bi";
-import { updateMe } from "../redux/userSlice";
 import { createHistory, fetchHistory } from "../redux/historySlice";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Cart = ({ me, tokenFromStorage }) => {
   const dispatch = useDispatch();
   const { list, loading } = useSelector((state) => state.cart);
-  const { history } = useSelector((state) => state.history);
+  // const { history } = useSelector((state) => state.history);
   const [cartItems, setCartItems] = useState([]);
   const [selectedCart, setSelectedCart] = useState("");
   const [selectedCartItems, setSelectedCartItems] = useState([]);
-  const [selectedItems, setSelectedItems] = useState([
-    // selectedCartItems?.length,
-  ]);
+  const [selectedItems, setSelectedItems] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
-  const [deleteOpen, setDeleteOpen] = useState(false);
+  const [deleteMode, setDeleteMode] = useState(false);
   const [pointAlert, setPointAlert] = useState(false);
-
-  // console.log("selectedCart = cartId", selectedCart);
-  // console.log("list", list);
 
   useEffect(() => {
     if (me) {
@@ -34,10 +30,6 @@ const Cart = ({ me, tokenFromStorage }) => {
       dispatch(fetchHistory());
     }
   }, [dispatch, me]);
-
-  // useEffect(() => {
-
-  // })
 
   useEffect(() => {
     if (list.length > 0 && selectedCart) {
@@ -105,19 +97,30 @@ const Cart = ({ me, tokenFromStorage }) => {
     }
 
     setSelectedItems([]);
+    setDeleteMode(false);
   };
 
-  const handleCheckout = () => {
+  const handleCheckout = async () => {
     if (totalCartItemPrice <= me.point) {
       setPointAlert(false);
       const selectedCartID = {
         cartId: selectedCart,
       };
-      dispatch(createHistory({ cartId: selectedCartID }));
-      // dispatch(createHistory({ cartId: selectedCart }));
-      // window.location.reload();
+      const resultAction = await dispatch(
+        createHistory({ cartId: selectedCartID })
+      );
+      if (createHistory.fulfilled.match(resultAction)) {
+        toast.success("Checkout successful!");
+        // Update cart state after successful checkout
+        dispatch(fetchAllCartsByUser({ userId: me?._id }));
+        dispatch(fetchHistory());
+        setSelectedCart("");
+        setSelectedCartItems([]);
+        setSelectedItems([]);
+      } else {
+        toast.error("Checkout failed. Please try again.");
+      }
     } else {
-      // alert("Insufficient points");
       setPointAlert(true);
     }
   };
@@ -126,19 +129,23 @@ const Cart = ({ me, tokenFromStorage }) => {
     return price.toLocaleString("en-US");
   };
 
-  const totalPrice = selectedItems.reduce(
-    (acc, index) => acc + selectedCartItems[index]?.item_price,
-    0
-  );
+  // const totalPrice = selectedItems.reduce(
+  //   (acc, index) => acc + selectedCartItems[index]?.item_price,
+  //   0
+  // );
   const totalCartItemPrice = selectedCartItems.reduce(
     (acc, item) => acc + item.item_price,
     0
   );
 
-  const totalItems = selectedItems.length;
+  // const totalItems = selectedItems.length;
   const availablePoints = me?.point || 0;
 
-  // console.log("list", list);
+  useEffect(() => {
+    if (availablePoints >= 0) {
+      setPointAlert(false);
+    }
+  }, [availablePoints]);
 
   return (
     <div className="flex flex-col w-full h-full px-10 py-16 sm:px-20 md:px-40">
@@ -189,27 +196,38 @@ const Cart = ({ me, tokenFromStorage }) => {
         <div>
           <div className="flex items-center justify-between my-4">
             <div className="flex items-center">
-              <input
-                type="checkbox"
-                checked={
-                  // selectedCartItems.map((_, index) => index) ||
-                  selectedItems.length === selectedCartItems.length
-                }
-                onChange={handleSelectAll}
-                className="mr-2"
-              />
-              <label className="text-[0.8rem]">Select All</label>
+              {deleteMode && (
+                <>
+                  <input
+                    type="checkbox"
+                    checked={selectedItems.length === selectedCartItems.length}
+                    onChange={handleSelectAll}
+                    className="mr-2"
+                  />
+                  <label className="text-[0.8rem]">Select All</label>
+                </>
+              )}
             </div>
-            {/* <Buttons
-              onClick={() => setDeleteOpen(!deleteOpen)}
-              containerStyles="text-[0.8rem] px-4 py-2 rounded hover:bg-[#bbb] bg-[#ddd]"
-              title="Delete Item"
-            /> */}
-            <Buttons
-              onClick={handleDeleteSelected}
-              containerStyles="text-[0.8rem] px-4 py-2 rounded hover:bg-[#bbb] bg-[#ddd]"
-              title="Delete Selected"
-            />
+            {!deleteMode ? (
+              <Buttons
+                onClick={() => setDeleteMode(true)}
+                containerStyles="text-[0.8rem] px-4 py-2 rounded hover:bg-[#bbb] bg-[#ddd]"
+                title="Delete"
+              />
+            ) : (
+              <div className="flex gap-2">
+                <Buttons
+                  onClick={() => setDeleteMode(false)}
+                  containerStyles="text-[0.8rem] px-4 py-2 rounded hover:bg-[#bbb] bg-[#ddd]"
+                  title="Cancel"
+                />
+                <Buttons
+                  onClick={handleDeleteSelected}
+                  containerStyles="text-[0.8rem] px-4 py-2 rounded hover:bg-[#bbb] bg-[#ddd]"
+                  title="Delete Selected"
+                />
+              </div>
+            )}
           </div>
           <div className="flex flex-col">
             <div>
@@ -218,42 +236,41 @@ const Cart = ({ me, tokenFromStorage }) => {
                   No items in this cart
                 </div>
               ) : (
-                selectedCartItems.map((cartItem, index) => {
-                  // dispatch(fetchItemById({ itemId: cartItem?._id }));
-                  // console.log('item', item);
-                  return (
-                    <div
-                      key={cartItem._id}
-                      className="border-b border-[#aaa] py-3 flex items-center gap-8"
-                    >
+                selectedCartItems.map((cartItem, index) => (
+                  <div
+                    key={cartItem._id}
+                    className="border-b border-[#aaa] py-3 flex items-center gap-8"
+                  >
+                    {deleteMode ? (
                       <input
                         type="checkbox"
                         checked={selectedItems.includes(index)}
                         onChange={() => handleCheckboxChange(index)}
                         className="mr-2"
                       />
-                      <img
-                        src={cartItem.item_img || "placeholder-image-url"}
-                        // src={}
-                        alt={cartItem.item_name}
-                        className="w-24 h-24 mb-2"
-                      />
-                      <div className="flex items-center justify-between w-full h-full">
-                        <div>
-                          <p className="text-[0.7rem]">
-                            {cartItem.category?.name || "No Category"}
-                          </p>
-                          <p className="text-lg font-semibold text-[1rem]">
-                            {cartItem.item_name}
-                          </p>
-                        </div>
-                        <p className="text-[1rem] mt-2">
-                          ${formatPrice(cartItem.item_price)}
+                    ) : (
+                      <span className="mr-2">{index + 1}</span>
+                    )}
+                    <img
+                      src={cartItem.item_img || "placeholder-image-url"}
+                      alt={cartItem.item_name}
+                      className="w-24 h-24 mb-2"
+                    />
+                    <div className="flex items-center justify-between w-full h-full">
+                      <div>
+                        <p className="text-[0.7rem]">
+                          {cartItem.category?.name || "No Category"}
+                        </p>
+                        <p className="text-lg font-semibold text-[1rem]">
+                          {cartItem.item_name}
                         </p>
                       </div>
+                      <p className="text-[1rem] mt-2">
+                        ${formatPrice(cartItem.item_price)}
+                      </p>
                     </div>
-                  );
-                })
+                  </div>
+                ))
               )}
             </div>
           </div>
@@ -264,29 +281,24 @@ const Cart = ({ me, tokenFromStorage }) => {
               </div>
               <div className="flex items-center justify-between w-full">
                 <p>Items Qty:</p>
-                {/* <p>{totalItems}</p> */}
                 <p>{selectedCartItems?.length}</p>
               </div>
               <div className="flex items-center justify-between w-full">
                 <p>Total Price:</p>
-                {/* <p>${formatPrice(totalPrice)}</p> */}
                 <p>${formatPrice(totalCartItemPrice)}</p>
               </div>
               <div className="flex items-center justify-between w-full">
                 <p>Available Points:</p>
                 <p>${formatPrice(availablePoints)}</p>
               </div>
-              <div className="flex items-center justify-between w-full">
-                <p>Remaining Balance:</p>
-                {/* <p>${formatPrice(availablePoints - totalPrice)}</p> */}
-                <p className={`${pointAlert && "text-[#f64949fe]"}`}>
-                  ${formatPrice(availablePoints - totalCartItemPrice)}
-                </p>
-              </div>
               {pointAlert && (
                 <p className="text-[#f64949fe] text-[0.7rem] mt-1">
-                  !! Your points are not enough. Please check out after
-                  charging.
+                  Your points are insufficient by
+                  <strong>
+                    {" "}
+                    ${formatPrice(-1 * (availablePoints - totalCartItemPrice))}
+                  </strong>
+                  . Please recharge and try again.
                 </p>
               )}
             </div>
@@ -295,7 +307,6 @@ const Cart = ({ me, tokenFromStorage }) => {
                 containerStyles="text-[0.8rem] px-4 py-2 rounded bg-black text-white"
                 title="Checkout"
                 onClick={handleCheckout}
-                // disabled={availablePoints - totalCartItemPrice < 0}
               />
             </div>
           </div>
