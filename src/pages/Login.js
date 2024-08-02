@@ -1,22 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUser, loginUser } from "../redux/authSlice";
-import { Link, useNavigate } from "react-router-dom"; // import BgImg from '../assets/pattern.png';
-import { Buttons, Loading, TextInput } from "../components";
+import { loginUser } from "../redux/authSlice";
+import { Link, useNavigate } from "react-router-dom";
+import { Buttons, TextInput } from "../components";
 import BgImg from "../assets/pattern.png";
 import Logo from "../assets/logo-dark.png";
 
-const LoginPage = ({ tokenFromStorage }) => {
+const LoginPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [errMsg, setErrMsg] = useState("");
-  const [clicked, setClicked] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
 
-  const { loading, success, error, user, fail } = useSelector(
+  const { loading, loginSuccess, error, fail } = useSelector(
     (state) => state.auth
   );
 
@@ -26,48 +25,27 @@ const LoginPage = ({ tokenFromStorage }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setClicked(!clicked);
-    // console.log('formData', formData);
     dispatch(loginUser(formData));
-    // .then(() => {
-    // console.log("fail", fail);
-    // console.log("error", error);
-    console.log("success", success);
-    // if (fail) {
-    //   setErrMsg(fail);
-    // }
-    // // const tokenFromStorage = localStorage.getItem('token');
-    // if (success === false) {
-    //   setErrMsg(fail);
-    // } else if (success) {
-    //   // navigate("/");
-    //   setClicked(!clicked);
-    // }
-    // if (success) {
-    //   navigate("/");
-    // } else {
-    //   setErrMsg(fail);
-    // }
   };
 
   useEffect(() => {
-    if (success) {
+    if (loginSuccess) {
       navigate("/");
-    } else {
+    } else if (fail) {
       setErrMsg(fail);
     }
-  }, [dispatch, clicked, success, fail, error]);
+  }, [loginSuccess, fail, navigate]);
 
   return (
     <div
-      className="w-full h-[100vh] flex items-center justify-center sm:p-6 p-0 "
+      className="w-full h-[100vh] flex items-center justify-center sm:p-6 p-0"
       style={{
         backgroundImage: `url('${BgImg}')`,
         backgroundSize: "15%",
       }}
     >
       <div className="fixed inset-0 transition-opacity">
-        <div className="absolute inset-0 bg-white opacity-60 "></div>
+        <div className="absolute inset-0 bg-white opacity-60"></div>
       </div>
       <span className="hidden sm:inline-block sm:align-middle sm:h-screen"></span>
       &#8203;
@@ -93,9 +71,9 @@ const LoginPage = ({ tokenFromStorage }) => {
           Log in to your account
         </p>
 
-        <form className=" py-4 flex flex-col gap-5=" onSubmit={handleSubmit}>
+        <form className="flex flex-col gap-5 py-4" onSubmit={handleSubmit}>
           {errMsg && (
-            <span className={`text-sm text-[#f64949fe] mt-0.5`}>{errMsg}</span>
+            <span className="text-sm text-[#f64949fe] mt-0.5">{errMsg}</span>
           )}
           <TextInput
             type="email"
@@ -119,7 +97,7 @@ const LoginPage = ({ tokenFromStorage }) => {
           />
           <Buttons
             type="submit"
-            containerStyles={`inline-flex justify-center rounded-md bg-[#F37125] mt-6 px-8 py-3 text-base font-medium text-white outline-none`}
+            containerStyles="inline-flex justify-center rounded-md bg-[#F37125] mt-6 px-8 py-3 text-base font-medium text-white outline-none"
             title="Login"
           />
         </form>

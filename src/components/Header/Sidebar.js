@@ -64,22 +64,6 @@ const Sidebar = ({ isSideOpen, toggle, me }) => {
           </Link>
 
           <Link
-            to="/user/account"
-            onClick={toggle}
-            className="w-full flex items-center justify-center py-4 hover:bg-[#f5f5f5] border-b-2 border-[#f5f5f5]"
-          >
-            My Account
-          </Link>
-
-          <Link
-            to="/mate/find"
-            onClick={toggle}
-            className="w-full flex items-center justify-center py-4 hover:bg-[#f5f5f5] border-b-2 border-[#f5f5f5]"
-          >
-            My Mate
-          </Link>
-
-          <Link
             to="/cart"
             onClick={toggle}
             className="w-full flex items-center justify-center py-4 hover:bg-[#f5f5f5] border-b-2 border-[#f5f5f5]"
@@ -93,6 +77,22 @@ const Sidebar = ({ isSideOpen, toggle, me }) => {
             className="w-full flex items-center justify-center py-4 hover:bg-[#f5f5f5] border-b-2 border-[#f5f5f5]"
           >
             Order History
+          </Link>
+
+          <Link
+            to="/user/account"
+            onClick={toggle}
+            className="w-full flex items-center justify-center py-4 hover:bg-[#f5f5f5] border-b-2 border-[#f5f5f5]"
+          >
+            My Account
+          </Link>
+
+          <Link
+            to="/mate/find"
+            onClick={toggle}
+            className="w-full flex items-center justify-center py-4 hover:bg-[#f5f5f5] border-b-2 border-[#f5f5f5]"
+          >
+            My Mate
           </Link>
 
           <div

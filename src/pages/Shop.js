@@ -2,15 +2,17 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllItems, fetchAllItemsByCategory } from "../redux/itemSlice";
 import { fetchCategories } from "../redux/categorySlice";
+import { fetchUserItems } from "../redux/userSlice";
 import { createCart } from "../redux/cartSlice";
 import { GoPlus } from "react-icons/go";
-import { useNavigate } from "react-router-dom";
+import { FaShoppingCart } from "react-icons/fa";
 import { Loading } from "../components";
 import AddToCartBar from "../components/AddToCartBar";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Shop = () => {
   const dispatch = useDispatch();
-  // const navigate = useNavigate();
   const {
     list: items,
     loading: itemsLoading,
@@ -19,8 +21,8 @@ const Shop = () => {
   const { categories, loading: categoriesLoading } = useSelector(
     (state) => state.categories
   );
+  const { me, userItems } = useSelector((state) => state.user);
 
-  const { me } = useSelector((state) => state.user);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [cartSidebarOpen, setCartSidebarOpen] = useState(false);
   const [tempCartItems, setTempCartItems] = useState([]);
@@ -29,9 +31,10 @@ const Shop = () => {
   useEffect(() => {
     dispatch(fetchCategories());
     dispatch(fetchAllItems());
-  }, [dispatch]);
-
-  // console.log("categories", categories);
+    if (me) {
+      dispatch(fetchUserItems({ userId: me._id }));
+    }
+  }, [dispatch, me]);
 
   useEffect(() => {
     if (cartSidebarOpen) {
@@ -51,8 +54,12 @@ const Shop = () => {
   };
 
   const handleAddToTempCart = (item) => {
-    if (tempCartItems.some((cartItem) => cartItem._id === item._id)) {
-      setError("Item is already in the cart");
+    if (userItems.some((userItem) => userItem.item_img === item.item_img)) {
+      toast.error("You already own this item.");
+      setCartSidebarOpen(false);
+    } else if (tempCartItems.some((cartItem) => cartItem._id === item._id)) {
+      toast.warning("Item is already in the cart");
+      setCartSidebarOpen(false);
     } else {
       const updatedTempCartItems = [...tempCartItems, item];
       setTempCartItems(updatedTempCartItems);
@@ -61,8 +68,8 @@ const Shop = () => {
         JSON.stringify(updatedTempCartItems)
       );
       setError("");
+      setCartSidebarOpen(true);
     }
-    setCartSidebarOpen(true);
   };
 
   const handleSaveCart = () => {
@@ -105,12 +112,7 @@ const Shop = () => {
                 All
               </div>
               {categories
-                .filter(
-                  (category) =>
-                    // category.name.toLowerCase().includes("private")
-                    category.kind.toLowerCase() === "shop"
-                  // category.length > 0
-                )
+                .filter((category) => category.kind.toLowerCase() === "shop")
                 .map((category) => (
                   <div
                     key={category._id}
@@ -181,6 +183,26 @@ const Shop = () => {
             setCartSidebarOpen={setCartSidebarOpen}
           />
         )}
+
+        <button
+          className={`${cartSidebarOpen && "hidden"}
+            fixed p-4 hover:text-hightColor transform -translate-y-1/2 bg-secondary rounded-full shadow-lg right-0 top-1/2 `}
+          style={{ zIndex: 1000 }}
+          onClick={() => setCartSidebarOpen(true)}
+        >
+          <FaShoppingCart size={24} />
+        </button>
+        <ToastContainer
+          position="bottom-center" // 하단 중앙에 위치하도록 설정
+          autoClose={5000} // 자동으로 닫히는 시간 설정 (밀리초)
+          // hideProgressBar // 진행 바 숨김
+          newestOnTop // 최신 토스트가 위에 오도록 설정
+          closeOnClick // 클릭 시 닫히도록 설정
+          rtl={false} // 오른쪽에서 왼쪽으로 읽는 방향 설정 (여기서는 false)
+          pauseOnFocusLoss // 포커스가 사라질 때 일시 정지 설정
+          draggable // 드래그 가능하도록 설정
+          pauseOnHover // 호버 시 일시 정지 설정
+        />
       </div>
     </div>
   );
