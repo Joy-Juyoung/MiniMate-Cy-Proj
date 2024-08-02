@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import LogoDark from "../assets/logo-dark.png";
-import { Buttons, Loading, TextInput } from "../components";
+import { Buttons, TextInput } from "../components";
 import { Link, useNavigate } from "react-router-dom";
 import BgImg from "../assets/pattern.png";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,7 +10,6 @@ const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [errMsgSignup, setErrMsgSignup] = useState("");
-  const [trySignup, setTrySingup] = useState(false);
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -21,54 +20,29 @@ const Register = () => {
     passwordConfirm: "",
   });
 
-  const { loading, success, error, user, fail } = useSelector(
-    (state) => state.auth
-  );
+  const { loading, signupSuccess, error } = useSelector((state) => state.auth);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(signupUser(formData));
-    setTrySingup(!trySignup);
-    // .then(() => {
-    //   // console.log(error);
-    //   if (!error) {
-    //     navigate('/login');
-    //   }
-    // })
-    // .catch((error) => {
-    //   console.error('Register Error:', error);
-    // });
-    // if (fail) {
-    //   setErrMsg(fail);
-    // }
-    // if (success === false) {
-    //   setErrMsg(fail);
-    // } else {
-    //   navigate("/login");
-    // }
-    if (success) {
-      navigate("/login");
-    } else {
-      setErrMsgSignup(error);
-    }
+    await dispatch(signupUser(formData));
   };
 
-  // useEffect(() => {
-  //   if (success) {
-  //     navigate("/login");
-  //   } else {
-  //     setErrMsgSignup(fail);
-  //   }
-  // }, [trySignup]);
-  // console.log(' success', success);
+  useEffect(() => {
+    if (signupSuccess) {
+      console.log("Registration successful, navigating to /login");
+      navigate("/login");
+    } else if (error) {
+      setErrMsgSignup(error);
+    }
+  }, [signupSuccess, error, navigate]);
 
   return (
     <div
-      className="w-full h-[100vh] flex items-center justify-center sm:p-6 p-0 "
+      className="w-full h-[100vh] flex items-center justify-center sm:p-6 p-0"
       style={{
         backgroundImage: `url('${BgImg}')`,
         backgroundSize: "15%",
@@ -76,7 +50,7 @@ const Register = () => {
       }}
     >
       <div className="fixed inset-0 transition-opacity">
-        <div className="absolute inset-0 bg-[#fff] opacity-60 "></div>
+        <div className="absolute inset-0 bg-[#fff] opacity-60"></div>
       </div>
       <span className="hidden sm:inline-block sm:align-middle sm:h-screen"></span>
       &#8203;
@@ -103,7 +77,7 @@ const Register = () => {
         </div>
         <form className="flex flex-col py-4" onSubmit={handleSubmit}>
           {errMsgSignup && (
-            <span className={`text-sm text-[#f64949fe] mt-0.5`}>
+            <span className="text-sm text-[#f64949fe] mt-0.5">
               {errMsgSignup}
             </span>
           )}
@@ -137,16 +111,6 @@ const Register = () => {
             required
             styles="w-full"
           />
-          {/* <TextInput
-            type='text'
-            name='gender'
-            placeholder='Gender'
-            label='Gender'
-            value={formData.gender}
-            onChange={handleChange}
-            required
-            styles='w-full'
-          /> */}
           <div className="flex flex-col w-full mt-4">
             <label className="text-sm">Gender</label>
             <div className="flex items-center mt-2">
@@ -206,7 +170,7 @@ const Register = () => {
           />
           <Buttons
             type="submit"
-            containerStyles={`inline-flex justify-center rounded-md bg-[#F37125] mt-6 px-8 py-3 text-base font-medium text-white outline-none`}
+            containerStyles="inline-flex justify-center rounded-md bg-[#F37125] mt-6 px-8 py-3 text-base font-medium text-white outline-none"
             title="Sign up"
           />
         </form>
