@@ -23,12 +23,13 @@ const ManageBanner = ({ closeModal, me, userHome, updateUserHome }) => {
       if (!text) {
         textareaRef.current?.focus();
       } else {
-        dispatch(createBannerText({ miniHomeId: userHome?._id, text })).then(
-          () => {
-            updateUserHome();
-          }
-        );
-        closeModal();
+        dispatch(createBannerText({ miniHomeId: userHome?._id, text }))
+          .then
+          // () => {
+          //   updateUserHome();
+          // }
+          ();
+        setIsHistoryUpload(false);
       }
     } else {
       setIsHistoryUpload(true);
@@ -47,7 +48,7 @@ const ManageBanner = ({ closeModal, me, userHome, updateUserHome }) => {
     dispatch(
       deleteBannerText({ miniHomeId: userHome?._id, textHistoryId: id })
     ).then(() => {
-      updateUserHome();
+      // updateUserHome();
     });
     setIsDeleted(false);
   };

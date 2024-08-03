@@ -16,9 +16,9 @@ const MateList = ({ me }) => {
   //    // dispatch(fetchMinihome({ miniHomeId: userHome._id }));
   //  }, [dispatch]);
 
-  useEffect(() => {
-    dispatch(fetchMe());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchMe());
+  // }, [dispatch]);
 
   const handleRequestDetails = (mateId) => {
     dispatch(fetchOneUser({ userId: mateId }));
@@ -32,7 +32,7 @@ const MateList = ({ me }) => {
     if (!mateRef.current || mateRef.current.closed) {
       if (me) {
         //  const userDomain = me?.domain;
-        dispatch(fetchMinihomeByUsername({ username: name }));
+        // dispatch(fetchMinihomeByUsername({ username: name }));
         const popupUrl = `http://localhost:3000/${name}/home`;
         // const popupUrl = `https://minimate-cy.netlify.app/${userDomain}/home`;
         // const popupUrl = `${userDomain}/home`;

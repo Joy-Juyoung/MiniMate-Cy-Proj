@@ -10,7 +10,7 @@ import { FaArrowUpRightFromSquare } from "react-icons/fa6";
 import { useDispatch } from "react-redux";
 import { fetchMinihomeByUsername } from "../../redux/miniHomeSlice";
 
-const HomeLeft = ({ me, userHome, categories, updateUserHome, user }) => {
+const HomeLeft = ({ me, userHome, updateUserHome, user }) => {
   const linkRef = useRef(null);
   const userRef = useRef(null);
   const dispatch = useDispatch();
@@ -30,13 +30,13 @@ const HomeLeft = ({ me, userHome, categories, updateUserHome, user }) => {
   };
 
   const handleClickList = (name) => {
-    console.log("name", name);
+    // console.log("name", name);
     if (!userRef.current || userRef.current.closed) {
       if (me) {
         //  const userDomain = me?.domain;
-        dispatch(fetchMinihomeByUsername({ username: name }));
-        // const popupUrl = `http://localhost:3000/${name}/home`;
-        const popupUrl = `https://minimate-cy.netlify.app/${name}/home`;
+        // dispatch(fetchMinihomeByUsername({ username: name }));
+        const popupUrl = `http://localhost:3000/${name}/home`;
+        // const popupUrl = `https://minimate-cy.netlify.app/${name}/home`;
         // const popupUrl = `https://minimate-cy.netlify.app/${userDomain}/home`;
         // const popupUrl = `${userDomain}/home`;
         const popupWidth = 1100;
