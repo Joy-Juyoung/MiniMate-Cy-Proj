@@ -1,43 +1,51 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import HomeLeft from "../components/MiniHome/HomeLeft";
 import HomeRight from "../components/MiniHome/HomeRight";
 import MiniHomeFrame from "../components/MiniHome/MiniHomeFrame";
-import { fetchMe, fetchUserItems } from "../redux/userSlice";
+import { fetchMe, fetchOneUser, fetchUserItems } from "../redux/userSlice";
 import { fetchMinihomeByUsername } from "../redux/miniHomeSlice";
 import { fetchCategories } from "../redux/categorySlice";
 
 const MiniHome = () => {
   const dispatch = useDispatch();
-  const { me } = useSelector((state) => state.user);
-  const { miniHome, userHome, loading, error } = useSelector(
-    (state) => state.miniHome
-  );
+  const { me, user } = useSelector((state) => state.user);
+  const { miniHome, userHome } = useSelector((state) => state.miniHome);
   const { categories, loading: categoriesLoading } = useSelector(
     (state) => state.categories
   );
 
   useEffect(() => {
     dispatch(fetchMe());
+    dispatch(fetchOneUser({ userId: userHome?.owner }));
   }, [dispatch]);
 
-  useEffect(() => {
-    dispatch(fetchMinihomeByUsername({ username: me?.username }));
-  }, [dispatch]);
+  console.log("user", user);
 
   useEffect(() => {
-    dispatch(fetchCategories());
-    dispatch(fetchUserItems({ userId: me._id }));
-  }, [dispatch, me]);
+    if (me?.username) {
+      dispatch(fetchMinihomeByUsername({ username: me.username }));
+    }
+  }, [dispatch, me?.username]);
+
+  useEffect(() => {
+    if (me?._id) {
+      dispatch(fetchCategories());
+      dispatch(fetchUserItems({ userId: me?._id }));
+    }
+  }, [dispatch, me?._id]);
 
   const updateUserHome = () => {
-    dispatch(fetchMinihomeByUsername({ username: me?.username }));
+    if (me?.username) {
+      dispatch(fetchMinihomeByUsername({ username: me.username }));
+    }
   };
 
   return (
     <>
       <MiniHomeFrame
         me={me}
+        user={user}
         userHome={userHome}
         categories={categories}
         LeftContent={
@@ -46,6 +54,7 @@ const MiniHome = () => {
             userHome={userHome}
             categories={categories}
             updateUserHome={updateUserHome}
+            user={user}
           />
         }
         RightContent={
@@ -54,6 +63,7 @@ const MiniHome = () => {
             userHome={userHome}
             categories={categories}
             updateUserHome={updateUserHome}
+            user={user}
           />
         }
       />

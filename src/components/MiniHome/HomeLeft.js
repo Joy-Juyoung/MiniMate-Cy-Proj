@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Banner from "../../assets/main(5).jpg";
 import { IoMdArrowDropright } from "react-icons/io";
 import { RiArrowDownSFill } from "react-icons/ri";
@@ -6,12 +6,24 @@ import { Link } from "react-router-dom";
 import Buttons from "../Buttons";
 import NoticeModal from "../Modal/NoticeModal";
 import ManageBanner from "../Modal/ManageBanner";
+import { FaArrowUpRightFromSquare } from "react-icons/fa6";
 
-const HomeLeft = ({ me, userHome, categories, updateUserHome }) => {
+const HomeLeft = ({ me, userHome, categories, updateUserHome, user }) => {
+  const linkRef = useRef(null);
   const [mateListOpen, toggleMateList] = useState(false);
   const [bannerOpen, toggleBannerOpen] = useState(false);
 
-  if (!me) {
+  const linkToFind = () => {
+    if (!linkRef.current || linkRef.current.closed) {
+      if (user) {
+        linkRef.current = window.open("/mate/find", "_blank");
+      }
+    } else {
+      linkRef.current.focus();
+    }
+  };
+
+  if (!user) {
     return <div>Loading...</div>; // 혹은 적절한 로딩 표시
   }
 
@@ -52,6 +64,7 @@ const HomeLeft = ({ me, userHome, categories, updateUserHome }) => {
           <ManageBanner
             closeModal={() => toggleBannerOpen(false)}
             me={me}
+            user={user}
             userHome={userHome}
             updateUserHome={updateUserHome}
           />
@@ -67,11 +80,11 @@ const HomeLeft = ({ me, userHome, categories, updateUserHome }) => {
             <div className="font-semibold text-[0.7rem]">{me.username}</div>
             <div className="mx-1">·</div>
             <div className="text-[0.6rem]">
-              {me.gender === "male" ? "M" : "F"}
+              {user.gender === "male" ? "M" : "F"}
             </div>
             <div className="mx-1">·</div>
             <div className="text-[0.6rem]">
-              {me.birth.substring(0, me.birth.indexOf("T"))}
+              {user.birth.substring(0, me.birth.indexOf("T"))}
             </div>
           </div>
           <div className="flex flex-col items-center mt-2 text-sm ">
@@ -79,7 +92,7 @@ const HomeLeft = ({ me, userHome, categories, updateUserHome }) => {
               <div
                 className={`w-fit rounded-lg rounded-b-none text-[0.7rem] px-2 py-1
             border border-1 border-[#bbb] bg-[#ddd] cursor-pointer
-            ${me.domain && "hidden"}
+            ${user.domain && "hidden"}
             `}
               >
                 Owner
@@ -88,7 +101,7 @@ const HomeLeft = ({ me, userHome, categories, updateUserHome }) => {
                 className={`w-fit rounded-lg rounded-b-none text-[0.7rem] px-2 py-1
              cursor-pointer
             ${
-              !me.domain
+              !user.domain
                 ? "text-[#bbb] border border-1 border-[#bbb] border-b-[#ddd] bg-[#fff]"
                 : " border border-1 border-[#bbb] bg-[#ddd]"
             }
@@ -110,18 +123,33 @@ const HomeLeft = ({ me, userHome, categories, updateUserHome }) => {
                   className="border  bg-[#bbb] rounded-sm"
                 />
                 {mateListOpen && (
-                  <div className="absolute w-full h-20 overflow-y-auto bg-white rounded-md shadow-md top-8 -left-0">
-                    {me.best_friends.map((mate, index) => {
-                      return (
-                        <ul key={index} className="w-filt">
-                          <li className="hover:bg-[#f5f5f5] p-2">
-                            <Link to="">
-                              {mate.friend.username} ({mate.friend_nick_name})
-                            </Link>
-                          </li>
-                        </ul>
-                      );
-                    })}
+                  <div className="absolute w-full overflow-y-auto bg-white rounded-md shadow-md top-8 -left-0">
+                    {user.best_friends.length === 0 ? (
+                      <>
+                        <div className="p-4 ">
+                          <p>You have 0 mate</p>
+                          <p
+                            onClick={linkToFind}
+                            className="flex items-center gap-1 underline text-[#2253cf] cursor-pointer"
+                          >
+                            <span>Go to find mate</span>
+                            <FaArrowUpRightFromSquare size={10} />
+                          </p>
+                        </div>
+                      </>
+                    ) : (
+                      user.best_friends.map((mate, index) => {
+                        return (
+                          <ul key={index} className="h-20 w-fit">
+                            <li className="hover:bg-[#f5f5f5] p-2">
+                              <Link to="">
+                                {mate.friend.username} ({mate.friend_nick_name})
+                              </Link>
+                            </li>
+                          </ul>
+                        );
+                      })
+                    )}
                   </div>
                 )}
               </div>

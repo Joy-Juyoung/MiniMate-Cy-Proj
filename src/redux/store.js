@@ -7,6 +7,8 @@ import cartSlice from "./cartSlice";
 import friendSlice from "./friendSlice";
 import historySlice from "./historySlice";
 import miniHomeSlice from "./miniHomeSlice";
+import miniItemSlice from "./miniItemSlice";
+import miniCommentSlice from "./miniCommentSlice";
 
 export const store = configureStore({
   reducer: {
@@ -18,5 +20,7 @@ export const store = configureStore({
     friend: friendSlice,
     history: historySlice,
     miniHome: miniHomeSlice,
+    miniItem: miniItemSlice,
+    miniComment: miniCommentSlice,
   },
 });
