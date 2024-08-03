@@ -29,8 +29,8 @@ const Hero = ({ me }) => {
     if (!popupRef.current || popupRef.current.closed) {
       if (me) {
         const userDomain = me?.domain;
-        const popupUrl = `http://localhost:3000/${me?.username}/home`;
-        // const popupUrl = `https://minimate-cy.netlify.app/${userDomain}/home`;
+        // const popupUrl = `http://localhost:3000/${me?.username}/home`;
+        const popupUrl = `https://minimate-cy.netlify.app/${me?.username}/home`;
         // const popupUrl = `${userDomain}/home`;
         const popupWidth = 1100;
         const popupHeight = 600;

@@ -35,7 +35,8 @@ const HomeLeft = ({ me, userHome, categories, updateUserHome, user }) => {
       if (me) {
         //  const userDomain = me?.domain;
         dispatch(fetchMinihomeByUsername({ username: name }));
-        const popupUrl = `http://localhost:3000/${name}/home`;
+        // const popupUrl = `http://localhost:3000/${name}/home`;
+        const popupUrl = `https://minimate-cy.netlify.app/${name}/home`;
         // const popupUrl = `https://minimate-cy.netlify.app/${userDomain}/home`;
         // const popupUrl = `${userDomain}/home`;
         const popupWidth = 1100;
