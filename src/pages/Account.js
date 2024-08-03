@@ -33,11 +33,11 @@ const Account = ({ tokenFromStorage }) => {
     phone_number: me?.phone_number,
   });
 
-  const [passwordData, setPasswordData] = useState({
-    currentPassword: "",
-    newPassword: "",
-    confirmPassword: "",
-  });
+  // const [passwordData, setPasswordData] = useState({
+  //   currentPassword: "",
+  //   newPassword: "",
+  //   confirmPassword: "",
+  // });
 
   const handleUserInfoChange = (e) => {
     const { name, value } = e.target;
@@ -52,7 +52,7 @@ const Account = ({ tokenFromStorage }) => {
     dispatch(updateMe({ userData: userInfo })).then(() => {
       if (!error) {
         // window.location.reload('');
-        navigate("/account");
+        navigate("/user/account");
       }
     });
     setIsEditing(false);
@@ -64,21 +64,21 @@ const Account = ({ tokenFromStorage }) => {
     }
   }, [success, location.pathname, dispatch, me]);
 
-  const handlePasswordChange = (e) => {
-    const { name, value } = e.target;
-    setPasswordData({
-      ...passwordData,
-      [name]: value,
-    });
-  };
+  // const handlePasswordChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setPasswordData({
+  //     ...passwordData,
+  //     [name]: value,
+  //   });
+  // };
 
   const handleAccountDelete = () => {
     setModalOpen(!modalOpen);
   };
 
-  const handleSubmitPasswordChange = (e) => {
-    e.preventDefault();
-  };
+  // const handleSubmitPasswordChange = (e) => {
+  //   e.preventDefault();
+  // };
 
   const openModal = () => {
     setModalOpen(true);

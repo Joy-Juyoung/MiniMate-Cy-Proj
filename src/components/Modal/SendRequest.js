@@ -20,35 +20,22 @@ const SendRequest = ({ closeModal, me, friendId }) => {
 
   useEffect(() => {
     if (friendId) {
-      //    dispatch(fetchRequest({ requestId }));
-      //   if (user) {
       dispatch(fetchOneUser({ userId: friendId }));
-      //   }
     }
   }, [dispatch, friendId]);
-
-  // friend._id -> requestId
-  //  accepterId -> me._id
-  // console.log("friend", friend);
-  // console.log("request", request);
-  // console.log("user", user._id);
-  // console.log("requestData", requestData);
 
   const handleChange = (e) => {
     setRequestData({ ...requestData, [e.target.name]: e.target.value });
   };
+  console.log("requestData", requestData);
 
   const handleRequestSubmit = (e) => {
     e.preventDefault();
     dispatch(createRequest({ requestData }));
-    //    dispatch(signupUser(formData))
-    //      .then(() => {
+
     if (!error) {
       closeModal();
     }
-    //      .catch((error) => {
-    //        console.error("Register Error:", error);
-    //      });
   };
 
   return (
@@ -89,7 +76,7 @@ const SendRequest = ({ closeModal, me, friendId }) => {
                   <input
                     type="text"
                     name="sender_nick_name"
-                    value={requestData.sender_nick_name}
+                    value={requestData?.sender_nick_name}
                     onChange={handleChange}
                     required
                     className="w-full mx-1 border border-[#ddd] rounded px-1"
@@ -101,7 +88,7 @@ const SendRequest = ({ closeModal, me, friendId }) => {
                   <input
                     type="text"
                     name="receiver_nick_name"
-                    value={requestData.receiver_nick_name}
+                    value={requestData?.receiver_nick_name}
                     onChange={handleChange}
                     required
                     className="w-full mx-1 border border-[#ddd] rounded px-1"

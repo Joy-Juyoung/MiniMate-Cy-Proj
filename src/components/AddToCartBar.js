@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllCartsByUser, fetchCartItems, createCart, updateCart } from "../redux/cartSlice";
+import {
+  fetchAllCartsByUser,
+  fetchCartItems,
+  createCart,
+  updateCart,
+} from "../redux/cartSlice";
 import { MdDelete } from "react-icons/md";
 import Buttons from "./Buttons";
 
@@ -52,41 +57,11 @@ const AddToCartBar = ({
     setWarning("");
   };
 
-  // const handleCreateOrUpdateCart = () => {
-  //   const existingItemIds = selectedCartItems.map((item) => item._id);
-  //   const newItems = tempCartItems.filter((item) => !existingItemIds.includes(item._id));
-
-  //   if (newItems.length !== tempCartItems.length) {
-  //     setWarning("Some items are already in your cart");
-  //     return;
-  //   }
-
-  //   if (selectedCart === "new") {
-  //     const cartData = {
-  //       user: me._id,
-  //       shop_items: tempCartItems.map((item) => item._id),
-  //       total_price: tempCartItems.reduce((total, item) => total + item.item_price, 0),
-  //       total_qty: tempCartItems.length,
-  //     };
-  //     dispatch(createCart({ cartData }));
-  //   } else {
-  //     const updatedCart = {
-  //       shop_items: [...selectedCartItems, ...tempCartItems].map((item) => item._id),
-  //       total_price:
-  //         selectedCartItems.reduce((total, item) => total + item.item_price, 0) +
-  //         tempCartItems.reduce((total, item) => total + item.item_price, 0),
-  //       total_qty: selectedCartItems.length + tempCartItems.length,
-  //     };
-  //     dispatch(updateCart({ cartId: selectedCart, cartData: updatedCart }));
-  //   }
-  //   localStorage.removeItem("tempCartItems");
-  //   setTempCartItems([]);
-  //   setSelectedCartItems([]);
-  //   setCartSidebarOpen(false);
-  // };
   const handleCreateOrUpdateCart = () => {
     const existingItemIds = selectedCartItems.map((item) => item._id);
-    const newItems = tempCartItems.filter((item) => !existingItemIds.includes(item._id));
+    const newItems = tempCartItems.filter(
+      (item) => !existingItemIds.includes(item._id)
+    );
 
     if (selectedCart !== "new" && newItems.length !== tempCartItems.length) {
       setWarning("Some items are already in your cart");
@@ -97,16 +72,23 @@ const AddToCartBar = ({
       const cartData = {
         user: me._id,
         shop_items: tempCartItems.map((item) => item._id),
-        total_price: tempCartItems.reduce((total, item) => total + item.item_price, 0),
+        total_price: tempCartItems.reduce(
+          (total, item) => total + item.item_price,
+          0
+        ),
         total_qty: tempCartItems.length,
       };
       dispatch(createCart({ cartData }));
     } else {
       const updatedCart = {
-        shop_items: [...selectedCartItems, ...tempCartItems].map((item) => item._id),
+        shop_items: [...selectedCartItems, ...tempCartItems].map(
+          (item) => item._id
+        ),
         total_price:
-          selectedCartItems.reduce((total, item) => total + item.item_price, 0) +
-          tempCartItems.reduce((total, item) => total + item.item_price, 0),
+          selectedCartItems.reduce(
+            (total, item) => total + item.item_price,
+            0
+          ) + tempCartItems.reduce((total, item) => total + item.item_price, 0),
         total_qty: selectedCartItems.length + tempCartItems.length,
       };
       dispatch(updateCart({ cartId: selectedCart, cartData: updatedCart }));
@@ -123,7 +105,10 @@ const AddToCartBar = ({
         <div className="flex flex-col h-fit max-h-[1/2] p-4">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-xl font-bold">Cart</h2>
-            <button onClick={() => setCartSidebarOpen(false)} className="text-xl">
+            <button
+              onClick={() => setCartSidebarOpen(false)}
+              className="text-xl"
+            >
               &times;
             </button>
           </div>
@@ -133,14 +118,20 @@ const AddToCartBar = ({
             ) : (
               <>
                 {tempCartItems.map((item, index) => (
-                  <div key={index} className="flex items-center justify-between my-4 h-fit">
+                  <div
+                    key={index}
+                    className="flex items-center justify-between my-4 h-fit"
+                  >
                     <div className="flex items-center">
                       <div className="mr-2">{index + 1}.</div>
                       <div>{item.item_name}</div>
                     </div>
                     <div className="flex items-center">
                       <div className="mr-4">🧀 {item.item_price}</div>
-                      <button onClick={() => handleRemoveItem(index)} className="text-lg hover:text-[#e35252]">
+                      <button
+                        onClick={() => handleRemoveItem(index)}
+                        className="text-lg hover:text-[#e35252]"
+                      >
                         <MdDelete />
                       </button>
                     </div>
@@ -149,9 +140,15 @@ const AddToCartBar = ({
               </>
             )}
           </div>
-          {warning && <div className="mt-2 text-center text-[#e35252]">{warning}</div>}
+          {warning && (
+            <div className="mt-2 text-center text-[#e35252]">{warning}</div>
+          )}
           <div className="mt-4">
-            <select className="w-full bg-[#ddd] p-2 rounded" value={selectedCart} onChange={handleSelectCartChange}>
+            <select
+              className="w-full bg-[#ddd] p-2 rounded"
+              value={selectedCart}
+              onChange={handleSelectCartChange}
+            >
               <option value="">Select cart</option>
               <option value="new">New Cart</option>
               {list.map((cart, index) => (
@@ -164,10 +161,15 @@ const AddToCartBar = ({
           {selectedCart && selectedCart !== "new" && (
             <div className="mt-4">
               {selectedCartItems.length === 0 ? (
-                <div className="text-center text-[#bbb]">No items in this cart</div>
+                <div className="text-center text-[#bbb]">
+                  No items in this cart
+                </div>
               ) : (
                 selectedCartItems.map((item, index) => (
-                  <div key={index} className="flex items-center justify-between mb-4">
+                  <div
+                    key={index}
+                    className="flex items-center justify-between mb-4"
+                  >
                     <div>{item.item_name}</div>
                     <div>🧀 {item.item_price}</div>
                   </div>
@@ -178,10 +180,16 @@ const AddToCartBar = ({
           {selectedCart && (
             <div className="mt-4">
               <div className="mt-4">
-                <button onClick={handleCreateOrUpdateCart} className="w-full py-2 mb-2 text-white bg-black rounded">
+                <button
+                  onClick={handleCreateOrUpdateCart}
+                  className="w-full py-2 mb-2 text-white bg-black rounded"
+                >
                   Add to Selected Cart
                 </button>
-                <button onClick={() => setCartSidebarOpen(false)} className="w-full py-2 bg-gray-300 rounded">
+                <button
+                  onClick={() => setCartSidebarOpen(false)}
+                  className="w-full py-2 bg-gray-300 rounded"
+                >
                   Cancel
                 </button>
               </div>
@@ -189,7 +197,10 @@ const AddToCartBar = ({
           )}
         </div>
       </div>
-      <div className="fixed inset-0 z-40 bg-black opacity-50" onClick={() => setCartSidebarOpen(false)}></div>
+      <div
+        className="fixed inset-0 z-40 bg-black opacity-50"
+        onClick={() => setCartSidebarOpen(false)}
+      ></div>
     </>
   );
 };
