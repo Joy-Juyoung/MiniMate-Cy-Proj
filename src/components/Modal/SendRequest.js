@@ -27,6 +27,7 @@ const SendRequest = ({ closeModal, me, friendId }) => {
   const handleChange = (e) => {
     setRequestData({ ...requestData, [e.target.name]: e.target.value });
   };
+  console.log("requestData", requestData);
 
   const handleRequestSubmit = (e) => {
     e.preventDefault();
@@ -75,7 +76,7 @@ const SendRequest = ({ closeModal, me, friendId }) => {
                   <input
                     type="text"
                     name="sender_nick_name"
-                    value={requestData.sender_nick_name}
+                    value={requestData?.sender_nick_name}
                     onChange={handleChange}
                     required
                     className="w-full mx-1 border border-[#ddd] rounded px-1"
@@ -87,7 +88,7 @@ const SendRequest = ({ closeModal, me, friendId }) => {
                   <input
                     type="text"
                     name="receiver_nick_name"
-                    value={requestData.receiver_nick_name}
+                    value={requestData?.receiver_nick_name}
                     onChange={handleChange}
                     required
                     className="w-full mx-1 border border-[#ddd] rounded px-1"

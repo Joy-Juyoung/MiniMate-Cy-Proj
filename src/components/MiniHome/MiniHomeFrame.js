@@ -99,7 +99,8 @@ const MiniHomeFrame = ({
                   />
                 </div>
 
-                <div className="text-[0.6rem]">{userHome?.url}</div>
+                {/* <div className="text-[0.6rem]">{userHome?.url}</div> */}
+                <div className="text-[0.6rem]">{domain}</div>
               </div>
               <div className="relative overflow-y-auto w-full h-[440px] border border-1 border-[#ccc] rounded-md flex flex-col px-4 py-2">
                 <div className="absolute top-0 left-0 w-full px-4 py-2">

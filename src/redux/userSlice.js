@@ -124,7 +124,7 @@ const userSlice = createSlice({
       })
       .addCase(fetchMe.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload.message;
+        state.error = action.payload?.message;
       })
       .addCase(fetchUserItems.pending, (state) => {
         state.loading = true;
@@ -135,7 +135,7 @@ const userSlice = createSlice({
       })
       .addCase(fetchUserItems.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload.message;
+        state.error = action.payload?.message;
       })
       .addCase(updateMe.pending, (state) => {
         state.loading = true;
@@ -146,7 +146,7 @@ const userSlice = createSlice({
       })
       .addCase(updateMe.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload.message;
+        state.error = action.payload?.message;
       })
       .addCase(updateMinime.pending, (state) => {
         state.loading = true;
@@ -157,7 +157,7 @@ const userSlice = createSlice({
       })
       .addCase(updateMinime.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload.message;
+        state.error = action.payload?.message;
       })
       .addCase(deleteUser.pending, (state) => {
         state.loading = true;
@@ -168,7 +168,7 @@ const userSlice = createSlice({
       })
       .addCase(deleteUser.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload.message;
+        state.error = action.payload?.message;
       })
       .addCase(fetchAllUsers.pending, (state) => {
         state.loading = true;
@@ -179,7 +179,7 @@ const userSlice = createSlice({
       })
       .addCase(fetchAllUsers.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload.message;
+        state.error = action.payload?.message;
       })
 
       .addCase(fetchOneUser.pending, (state) => {
@@ -202,7 +202,7 @@ const userSlice = createSlice({
       })
       .addCase(updateUserState.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload.message;
+        state.error = action.payload?.message;
       });
   },
 });

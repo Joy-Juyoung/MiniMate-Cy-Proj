@@ -20,7 +20,7 @@ const Hero = ({ me }) => {
     (state) => state.miniHome
   );
   useEffect(() => {
-    dispatch(fetchMinihomeByUsername({ username: me.username }));
+    dispatch(fetchMinihomeByUsername({ username: me?.username }));
     // dispatch(fetchMinihome({ miniHomeId: userHome._id }));
   }, [dispatch]);
   console.log("userHome", userHome);
@@ -29,7 +29,7 @@ const Hero = ({ me }) => {
     if (!popupRef.current || popupRef.current.closed) {
       if (me) {
         const userDomain = me?.domain;
-        const popupUrl = `http://localhost:3000/${me.username}/home`;
+        const popupUrl = `http://localhost:3000/${me?.username}/home`;
         // const popupUrl = `https://minimate-cy.netlify.app/${userDomain}/home`;
         // const popupUrl = `${userDomain}/home`;
         const popupWidth = 1100;

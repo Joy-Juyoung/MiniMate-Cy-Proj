@@ -6,9 +6,11 @@ import MiniHomeFrame from "../components/MiniHome/MiniHomeFrame";
 import { fetchMe, fetchOneUser, fetchUserItems } from "../redux/userSlice";
 import { fetchMinihomeByUsername } from "../redux/miniHomeSlice";
 import { fetchCategories } from "../redux/categorySlice";
+import { useParams } from "react-router-dom";
 
 const MiniHome = () => {
   const dispatch = useDispatch();
+  const { domain } = useParams();
   const { me, user } = useSelector((state) => state.user);
   const { miniHome, userHome } = useSelector((state) => state.miniHome);
   const { categories, loading: categoriesLoading } = useSelector(
@@ -17,28 +19,31 @@ const MiniHome = () => {
 
   useEffect(() => {
     dispatch(fetchMe());
-    dispatch(fetchOneUser({ userId: userHome?.owner }));
+    // dispatch(fetchOneUser({ userId: userHome?.owner }));
   }, [dispatch]);
 
-  console.log("user", user);
+  // console.log("domain ", domain);
 
   useEffect(() => {
-    if (me?.username) {
-      dispatch(fetchMinihomeByUsername({ username: me.username }));
-    }
-  }, [dispatch, me?.username]);
+    // if (me?.username) {
+    dispatch(fetchOneUser({ userId: userHome?.owner }));
+    dispatch(fetchMinihomeByUsername({ username: domain }));
+    // }
+  }, [dispatch, me?.username, domain]);
+
+  // console.log("userHome", userHome);
 
   useEffect(() => {
-    if (me?._id) {
-      dispatch(fetchCategories());
-      dispatch(fetchUserItems({ userId: me?._id }));
-    }
+    dispatch(fetchCategories());
+    // if (me?._id) {
+    dispatch(fetchUserItems({ userId: me?._id }));
+    // }
   }, [dispatch, me?._id]);
 
   const updateUserHome = () => {
-    if (me?.username) {
-      dispatch(fetchMinihomeByUsername({ username: me.username }));
-    }
+    // if (me?.username) {
+    dispatch(fetchMinihomeByUsername({ username: userHome }));
+    // }
   };
 
   return (

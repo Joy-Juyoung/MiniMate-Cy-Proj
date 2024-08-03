@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Banner from "../../assets/main(5).jpg";
 import { IoMdArrowDropright } from "react-icons/io";
 import { RiArrowDownSFill } from "react-icons/ri";
@@ -7,11 +7,17 @@ import Buttons from "../Buttons";
 import NoticeModal from "../Modal/NoticeModal";
 import ManageBanner from "../Modal/ManageBanner";
 import { FaArrowUpRightFromSquare } from "react-icons/fa6";
+import { useDispatch } from "react-redux";
+import { fetchMinihomeByUsername } from "../../redux/miniHomeSlice";
 
 const HomeLeft = ({ me, userHome, categories, updateUserHome, user }) => {
   const linkRef = useRef(null);
+  const userRef = useRef(null);
+  const dispatch = useDispatch();
   const [mateListOpen, toggleMateList] = useState(false);
   const [bannerOpen, toggleBannerOpen] = useState(false);
+  const [clickMe, setClickMe] = useState(false);
+  const [tempOwner, setTempOwner] = useState();
 
   const linkToFind = () => {
     if (!linkRef.current || linkRef.current.closed) {
@@ -22,6 +28,51 @@ const HomeLeft = ({ me, userHome, categories, updateUserHome, user }) => {
       linkRef.current.focus();
     }
   };
+
+  const handleClickList = (name) => {
+    console.log("name", name);
+    if (!userRef.current || userRef.current.closed) {
+      if (me) {
+        //  const userDomain = me?.domain;
+        dispatch(fetchMinihomeByUsername({ username: name }));
+        const popupUrl = `http://localhost:3000/${name}/home`;
+        // const popupUrl = `https://minimate-cy.netlify.app/${userDomain}/home`;
+        // const popupUrl = `${userDomain}/home`;
+        const popupWidth = 1100;
+        const popupHeight = 600;
+
+        // 브라우저 창의 위치와 크기 가져오기
+        const screenLeft =
+          window.screenLeft !== undefined
+            ? window.screenLeft
+            : window.screen.left;
+        const screenTop =
+          window.screenTop !== undefined ? window.screenTop : window.screen.top;
+
+        const screenWidth = window.innerWidth
+          ? window.innerWidth
+          : document.documentElement.clientWidth
+          ? document.documentElement.clientWidth
+          : window.screen.width;
+
+        // 팝업 창을 화면의 가로 중앙과 세로 상단에 위치시키기 위한 좌표 계산
+        const left = screenLeft + screenWidth / 2 - popupWidth / 2;
+        const top = screenTop + 0; // 세로 상단에 위치
+
+        const popupFeatures = `width=${popupWidth},height=${popupHeight},left=${left},top=${top}`;
+        userRef.current = window.open(popupUrl, "_blank", popupFeatures);
+      }
+    } else {
+      userRef.current.focus();
+    }
+  };
+
+  // useEffect(() => {
+  //   if (user.domain === me.domain) {
+  //     setTempOwner(me)
+  //   }
+  //   else(setTempOwner(user))
+  // },[])
 
   if (!user) {
     return <div>Loading...</div>; // 혹은 적절한 로딩 표시
@@ -41,17 +92,19 @@ const HomeLeft = ({ me, userHome, categories, updateUserHome, user }) => {
         <div className="h-full text-[0.8rem] pt-2">
           {userHome?.banner_text_history[0]?.text}
         </div>
-        <div className="flex items-center">
-          <Buttons
-            title="History & Manage"
-            containerStyles="h-fit flex justify-start -ml-1 mr-2 mb-1 text-[0.6rem] text-[#666]"
-            iconLeft={<IoMdArrowDropright size={15} />}
-            iconStyles="text-hightColor -mr-1"
-            onClick={() => {
-              toggleBannerOpen(true);
-            }}
-          />
-        </div>
+        {user.domain === me.domain && (
+          <div className="flex items-center">
+            <Buttons
+              title="History & Manage"
+              containerStyles="h-fit flex justify-start -ml-1 mr-2 mb-1 text-[0.6rem] text-[#666]"
+              iconLeft={<IoMdArrowDropright size={15} />}
+              iconStyles="text-hightColor -mr-1"
+              onClick={() => {
+                toggleBannerOpen(true);
+              }}
+            />
+          </div>
+        )}
       </div>
 
       {bannerOpen && (
@@ -77,7 +130,7 @@ const HomeLeft = ({ me, userHome, categories, updateUserHome, user }) => {
       <div className="h-[25%] ">
         <div className="w-full h-[100%] flex flex-col text-sm justify-end py-2">
           <div className="flex items-center w-full">
-            <div className="font-semibold text-[0.7rem]">{me.username}</div>
+            <div className="font-semibold text-[0.7rem]">{user.username}</div>
             <div className="mx-1">·</div>
             <div className="text-[0.6rem]">
               {user.gender === "male" ? "M" : "F"}
@@ -89,23 +142,41 @@ const HomeLeft = ({ me, userHome, categories, updateUserHome, user }) => {
           </div>
           <div className="flex flex-col items-center mt-2 text-sm ">
             <div className="flex w-full">
+              {/* ${user.domain && "hidden"} */}
               <div
                 className={`w-fit rounded-lg rounded-b-none text-[0.7rem] px-2 py-1
-            border border-1 border-[#bbb] bg-[#ddd] cursor-pointer
-            ${user.domain && "hidden"}
+            border border-1 border-[#bbb] bg-[#ddd] cursor-pointer 
+            ${user.domain === me.domain && "hidden"}      
+             ${
+               user.domain !== me.domain &&
+               clickMe &&
+               "text-[#bbb] border border-1 border-[#bbb] border-b-[#ddd] bg-[#fff]"
+             }      
             `}
+                onClick={() => {
+                  setClickMe(false);
+                }}
               >
                 Owner
               </div>
               <div
                 className={`w-fit rounded-lg rounded-b-none text-[0.7rem] px-2 py-1
-             cursor-pointer
+            border border-1 border-[#bbb] bg-[#ddd] cursor-pointer 
             ${
-              !user.domain
-                ? "text-[#bbb] border border-1 border-[#bbb] border-b-[#ddd] bg-[#fff]"
-                : " border border-1 border-[#bbb] bg-[#ddd]"
+              user.domain !== me.domain &&
+              !clickMe &&
+              "text-[#bbb] border border-1 border-[#bbb] border-b-[#ddd] bg-[#fff]"
             }
+            ${
+              (user.domain !== me.domain && clickMe) ||
+              (user.domain === me.domain &&
+                " border border-1 border-[#bbb] bg-[#ddd]")
+            }
+         
             `}
+                onClick={() => {
+                  setClickMe(true);
+                }}
               >
                 Me
               </div>
@@ -117,38 +188,81 @@ const HomeLeft = ({ me, userHome, categories, updateUserHome, user }) => {
               onClick={() => toggleMateList(!mateListOpen)}
             >
               <div className="w-full pl-1 bg-[#bde2ff] flex items-center justify-between cursor-pointer">
-                <div className="">My Mates -------</div>
+                <div className="">Mate List -------</div>
                 <RiArrowDownSFill
                   size={20}
-                  className="border  bg-[#bbb] rounded-sm"
+                  className="border bg-[#bbb] rounded-sm"
                 />
                 {mateListOpen && (
                   <div className="absolute w-full overflow-y-auto bg-white rounded-md shadow-md top-8 -left-0">
-                    {user.best_friends.length === 0 ? (
+                    {clickMe ? (
                       <>
-                        <div className="p-4 ">
-                          <p>You have 0 mate</p>
-                          <p
-                            onClick={linkToFind}
-                            className="flex items-center gap-1 underline text-[#2253cf] cursor-pointer"
-                          >
-                            <span>Go to find mate</span>
-                            <FaArrowUpRightFromSquare size={10} />
-                          </p>
-                        </div>
+                        {me?.best_friends.length === 0 ? (
+                          <>
+                            <div className="p-4 ">
+                              <p>You have 0 mate</p>
+                              <p
+                                onClick={linkToFind}
+                                className="flex items-center gap-1 underline text-[#2253cf] cursor-pointer"
+                              >
+                                <span>Go to find mate</span>
+                                <FaArrowUpRightFromSquare size={10} />
+                              </p>
+                            </div>
+                          </>
+                        ) : (
+                          me?.best_friends.map((mate, index) => {
+                            return (
+                              <ul key={index} className="">
+                                <li
+                                  className="hover:bg-[#f5f5f5] p-2"
+                                  onClick={() =>
+                                    handleClickList(mate.friend.username)
+                                  }
+                                >
+                                  {/* <Link to={`/${mate.friend.username}/home`}> */}
+                                  {mate.friend.username} (
+                                  {mate.friend_nick_name}){/* </Link> */}
+                                </li>
+                              </ul>
+                            );
+                          })
+                        )}
                       </>
                     ) : (
-                      user.best_friends.map((mate, index) => {
-                        return (
-                          <ul key={index} className="h-20 w-fit">
-                            <li className="hover:bg-[#f5f5f5] p-2">
-                              <Link to="">
-                                {mate.friend.username} ({mate.friend_nick_name})
-                              </Link>
-                            </li>
-                          </ul>
-                        );
-                      })
+                      <>
+                        {user?.best_friends.length === 0 ? (
+                          <>
+                            <div className="p-4 ">
+                              <p>You have 0 mate</p>
+                              <p
+                                onClick={linkToFind}
+                                className="flex items-center gap-1 underline text-[#2253cf] cursor-pointer"
+                              >
+                                <span>Go to find mate</span>
+                                <FaArrowUpRightFromSquare size={10} />
+                              </p>
+                            </div>
+                          </>
+                        ) : (
+                          user?.best_friends.map((mate, index) => {
+                            return (
+                              <ul key={index} className="">
+                                <li
+                                  className="hover:bg-[#f5f5f5] p-2"
+                                  onClick={() =>
+                                    handleClickList(mate.friend.username)
+                                  }
+                                >
+                                  {/* <Link to={`/${mate.friend.username}/home`}> */}
+                                  {mate.friend.username} (
+                                  {mate.friend_nick_name}){/* </Link> */}
+                                </li>
+                              </ul>
+                            );
+                          })
+                        )}
+                      </>
                     )}
                   </div>
                 )}
