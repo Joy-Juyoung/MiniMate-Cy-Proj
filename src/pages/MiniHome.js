@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import HomeLeft from "../components/MiniHome/HomeLeft";
 import HomeRight from "../components/MiniHome/HomeRight";
 import MiniHomeFrame from "../components/MiniHome/MiniHomeFrame";
-import { fetchMe, fetchOneUser, fetchUserItems } from "../redux/userSlice";
+import { fetchOneUser } from "../redux/userSlice";
 import { fetchMinihomeByUsername } from "../redux/miniHomeSlice";
 import { fetchCategories } from "../redux/categorySlice";
 import { useParams } from "react-router-dom";

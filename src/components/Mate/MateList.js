@@ -4,65 +4,20 @@ import { fetchMe, fetchOneUser } from "../../redux/userSlice";
 // import MateSidebar from "./MateSidebar";
 import MateHeader from "./MateHeader";
 import { fetchMinihomeByUsername } from "../../redux/miniHomeSlice";
+import { openPopup } from "../utils";
 
 const MateList = ({ me }) => {
   const mateRef = useRef(null);
   const dispatch = useDispatch();
-  const { miniHome, userHome, loading, error } = useSelector(
-    (state) => state.miniHome
-  );
-  //  useEffect(() => {
-  //    dispatch(fetchMinihomeByUsername({ username: me?.username }));
-  //    // dispatch(fetchMinihome({ miniHomeId: userHome._id }));
-  //  }, [dispatch]);
-
-  // useEffect(() => {
-  //   dispatch(fetchMe());
-  // }, [dispatch]);
 
   const handleRequestDetails = (mateId) => {
     dispatch(fetchOneUser({ userId: mateId }));
   };
 
-  // console.log("me.best_friends", me.best_friends);
-
   const handleClickFriend = (name) => {
-    // https://minimate-cy.netlify.app/joytest01
-    // console.log(name);
-    if (!mateRef.current || mateRef.current.closed) {
-      if (me) {
-        //  const userDomain = me?.domain;
-        // dispatch(fetchMinihomeByUsername({ username: name }));
-        const popupUrl = `http://localhost:3000/${name}/home`;
-        // const popupUrl = `https://minimate-cy.netlify.app/${userDomain}/home`;
-        // const popupUrl = `${userDomain}/home`;
-        const popupWidth = 1100;
-        const popupHeight = 600;
-
-        // 브라우저 창의 위치와 크기 가져오기
-        const screenLeft =
-          window.screenLeft !== undefined
-            ? window.screenLeft
-            : window.screen.left;
-        const screenTop =
-          window.screenTop !== undefined ? window.screenTop : window.screen.top;
-
-        const screenWidth = window.innerWidth
-          ? window.innerWidth
-          : document.documentElement.clientWidth
-          ? document.documentElement.clientWidth
-          : window.screen.width;
-
-        // 팝업 창을 화면의 가로 중앙과 세로 상단에 위치시키기 위한 좌표 계산
-        const left = screenLeft + screenWidth / 2 - popupWidth / 2;
-        const top = screenTop + 0; // 세로 상단에 위치
-
-        const popupFeatures = `width=${popupWidth},height=${popupHeight},left=${left},top=${top}`;
-        mateRef.current = window.open(popupUrl, "_blank", popupFeatures);
-      }
-    } else {
-      mateRef.current.focus();
-    }
+    const popupUrl = `http://localhost:3000/${name}/home`;
+    // const popupUrl = `https://minimate-cy.netlify.app/${userDomain}/home`;
+    openPopup(popupUrl, mateRef);
   };
 
   return (

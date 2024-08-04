@@ -1,4 +1,5 @@
-import React, { useEffect, useRef } from "react";
+// Hero.js
+import React, { useRef } from "react";
 import { AiOutlineHome } from "react-icons/ai";
 import MinniFemale from "../../assets/minimi2.png";
 import MinniMale from "../../assets/minimi1.png";
@@ -6,7 +7,6 @@ import Buttons from "../Buttons";
 import { FaArrowRight } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { fetchMinihomeByUsername } from "../../redux/miniHomeSlice";
 import { openPopup } from "../utils";
 
 const Hero = ({ me }) => {
@@ -14,14 +14,9 @@ const Hero = ({ me }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(fetchMinihomeByUsername({ username: me?.username }));
-  // }, [dispatch]);
-
   const openUserPopup = () => {
     const popupUrl = `http://localhost:3000/${me?.username}/home`;
-    // const popupUrl = `https://minimate-cy.netlify.app/${me?.username}/home`;
-    openPopup(popupUrl, popupRef); // Use the utility function
+    openPopup(popupUrl, popupRef);
   };
 
   return (

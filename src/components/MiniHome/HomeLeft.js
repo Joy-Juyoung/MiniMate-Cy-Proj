@@ -1,79 +1,30 @@
-import React, { useEffect, useRef, useState } from "react";
+// HomeLeft.js
+import React, { useRef, useState } from "react";
 import Banner from "../../assets/main(5).jpg";
 import { IoMdArrowDropright } from "react-icons/io";
 import { RiArrowDownSFill } from "react-icons/ri";
-import { Link } from "react-router-dom";
 import Buttons from "../Buttons";
 import NoticeModal from "../Modal/NoticeModal";
 import ManageBanner from "../Modal/ManageBanner";
 import { FaArrowUpRightFromSquare } from "react-icons/fa6";
-import { useDispatch } from "react-redux";
-import { fetchMinihomeByUsername } from "../../redux/miniHomeSlice";
+import { openPopup } from "../utils";
 
 const HomeLeft = ({ me, userHome, updateUserHome, user }) => {
   const linkRef = useRef(null);
   const userRef = useRef(null);
-  const dispatch = useDispatch();
   const [mateListOpen, toggleMateList] = useState(false);
   const [bannerOpen, toggleBannerOpen] = useState(false);
   const [clickMe, setClickMe] = useState(false);
-  const [tempOwner, setTempOwner] = useState();
 
   const linkToFind = () => {
-    if (!linkRef.current || linkRef.current.closed) {
-      if (user) {
-        linkRef.current = window.open("/mate/find", "_blank");
-      }
-    } else {
-      linkRef.current.focus();
-    }
+    openPopup("/mate/find", linkRef);
   };
 
   const handleClickList = (name) => {
-    // console.log("name", name);
-    if (!userRef.current || userRef.current.closed) {
-      if (me) {
-        //  const userDomain = me?.domain;
-        // dispatch(fetchMinihomeByUsername({ username: name }));
-        const popupUrl = `http://localhost:3000/${name}/home`;
-        // const popupUrl = `https://minimate-cy.netlify.app/${name}/home`;
-        // const popupUrl = `https://minimate-cy.netlify.app/${userDomain}/home`;
-        // const popupUrl = `${userDomain}/home`;
-        const popupWidth = 1100;
-        const popupHeight = 600;
-
-        // 브라우저 창의 위치와 크기 가져오기
-        const screenLeft =
-          window.screenLeft !== undefined
-            ? window.screenLeft
-            : window.screen.left;
-        const screenTop =
-          window.screenTop !== undefined ? window.screenTop : window.screen.top;
-
-        const screenWidth = window.innerWidth
-          ? window.innerWidth
-          : document.documentElement.clientWidth
-          ? document.documentElement.clientWidth
-          : window.screen.width;
-
-        // 팝업 창을 화면의 가로 중앙과 세로 상단에 위치시키기 위한 좌표 계산
-        const left = screenLeft + screenWidth / 2 - popupWidth / 2;
-        const top = screenTop + 0; // 세로 상단에 위치
-
-        const popupFeatures = `width=${popupWidth},height=${popupHeight},left=${left},top=${top}`;
-        userRef.current = window.open(popupUrl, "_blank", popupFeatures);
-      }
-    } else {
-      userRef.current.focus();
-    }
+    const popupUrl = `http://localhost:3000/${name}/home`;
+    // const popupUrl = `https://minimate-cy.netlify.app/${name}/home`;
+    openPopup(popupUrl, userRef);
   };
-
-  // useEffect(() => {
-  //   if (user.domain === me.domain) {
-  //     setTempOwner(me)
-  //   }
-  //   else(setTempOwner(user))
-  // },[])
 
   if (!user) {
     return <div>Loading...</div>; // 혹은 적절한 로딩 표시
@@ -143,7 +94,6 @@ const HomeLeft = ({ me, userHome, updateUserHome, user }) => {
           </div>
           <div className="flex flex-col items-center mt-2 text-sm ">
             <div className="flex w-full">
-              {/* ${user.domain && "hidden"} */}
               <div
                 className={`w-fit rounded-lg rounded-b-none text-[0.7rem] px-2 py-1
             border border-1 border-[#bbb] bg-[#ddd] cursor-pointer 
@@ -221,9 +171,8 @@ const HomeLeft = ({ me, userHome, updateUserHome, user }) => {
                                     handleClickList(mate.friend.username)
                                   }
                                 >
-                                  {/* <Link to={`/${mate.friend.username}/home`}> */}
                                   {mate.friend.username} (
-                                  {mate.friend_nick_name}){/* </Link> */}
+                                  {mate.friend_nick_name})
                                 </li>
                               </ul>
                             );
@@ -255,9 +204,8 @@ const HomeLeft = ({ me, userHome, updateUserHome, user }) => {
                                     handleClickList(mate.friend.username)
                                   }
                                 >
-                                  {/* <Link to={`/${mate.friend.username}/home`}> */}
                                   {mate.friend.username} (
-                                  {mate.friend_nick_name}){/* </Link> */}
+                                  {mate.friend_nick_name})
                                 </li>
                               </ul>
                             );

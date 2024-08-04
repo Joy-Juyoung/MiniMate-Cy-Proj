@@ -1,4 +1,5 @@
-export const openPopup = (url, popupRef, userRef, mateRef) => {
+// utils.js
+export const openPopup = (url, ref) => {
   const popupWidth = 1100;
   const popupHeight = 600;
 
@@ -18,21 +19,9 @@ export const openPopup = (url, popupRef, userRef, mateRef) => {
 
   const popupFeatures = `width=${popupWidth},height=${popupHeight},left=${left},top=${top}`;
 
-  if (!popupRef.current || popupRef.current.closed) {
-    popupRef.current = window.open(url, "_blank", popupFeatures);
+  if (!ref.current || ref.current.closed) {
+    ref.current = window.open(url, "_blank", popupFeatures);
   } else {
-    popupRef.current.focus();
-  }
-
-  if (!userRef.current || userRef.current.closed) {
-    userRef.current = window.open(url, "_blank", popupFeatures);
-  } else {
-    userRef.current.focus();
-  }
-
-  if (!mateRef.current || mateRef.current.closed) {
-    mateRef.current = window.open(url, "_blank", popupFeatures);
-  } else {
-    mateRef.current.focus();
+    ref.current.focus();
   }
 };
