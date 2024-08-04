@@ -1,18 +1,9 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import BgImg from "../../assets/pattern.png";
 import OuterBox from "../../assets/outerbox.png";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { myHome, navItems } from "../../redux/tempData";
 import Buttons from "../Buttons";
 import { IoMdArrowDropright } from "react-icons/io";
-import { useEffect } from "react";
-import {
-  fetchMinihome,
-  fetchMinihomeByUsername,
-} from "../../redux/miniHomeSlice";
-import { fetchCategories } from "../../redux/categorySlice";
-import { fetchUserItems } from "../../redux/userSlice";
 
 const MiniHomeFrame = ({
   LeftContent,

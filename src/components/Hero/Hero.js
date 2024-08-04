@@ -1,64 +1,23 @@
-import React, { useEffect, useRef } from "react";
+// Hero.js
+import React, { useRef } from "react";
 import { AiOutlineHome } from "react-icons/ai";
 import MinniFemale from "../../assets/minimi2.png";
 import MinniMale from "../../assets/minimi1.png";
 import Buttons from "../Buttons";
 import { FaArrowRight } from "react-icons/fa6";
-import { miniInfo, myHome } from "../../redux/tempData";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchMinihomeByUsername,
-  fetchMinihome,
-} from "../../redux/miniHomeSlice";
+import { useDispatch } from "react-redux";
+import { openPopup } from "../utils";
 
 const Hero = ({ me }) => {
   const popupRef = useRef(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { miniHome, userHome, loading, error } = useSelector(
-    (state) => state.miniHome
-  );
-  useEffect(() => {
-    dispatch(fetchMinihomeByUsername({ username: me?.username }));
-    // dispatch(fetchMinihome({ miniHomeId: userHome._id }));
-  }, [dispatch]);
-  console.log("userHome", userHome);
 
-  const openPopup = () => {
-    if (!popupRef.current || popupRef.current.closed) {
-      if (me) {
-        const userDomain = me?.domain;
-        // const popupUrl = `http://localhost:3000/${me?.username}/home`;
-        const popupUrl = `https://minimate-cy.netlify.app/${me?.username}/home`;
-        // const popupUrl = `${userDomain}/home`;
-        const popupWidth = 1100;
-        const popupHeight = 600;
-
-        // 브라우저 창의 위치와 크기 가져오기
-        const screenLeft =
-          window.screenLeft !== undefined
-            ? window.screenLeft
-            : window.screen.left;
-        const screenTop =
-          window.screenTop !== undefined ? window.screenTop : window.screen.top;
-
-        const screenWidth = window.innerWidth
-          ? window.innerWidth
-          : document.documentElement.clientWidth
-          ? document.documentElement.clientWidth
-          : window.screen.width;
-
-        // 팝업 창을 화면의 가로 중앙과 세로 상단에 위치시키기 위한 좌표 계산
-        const left = screenLeft + screenWidth / 2 - popupWidth / 2;
-        const top = screenTop + 0; // 세로 상단에 위치
-
-        const popupFeatures = `width=${popupWidth},height=${popupHeight},left=${left},top=${top}`;
-        popupRef.current = window.open(popupUrl, "_blank", popupFeatures);
-      }
-    } else {
-      popupRef.current.focus();
-    }
+  const openUserPopup = () => {
+    // const popupUrl = `http://localhost:3000/${me?.username}/home`;
+    const popupUrl = `https://minimate-cy.netlify.app/${me?.username}/home`;
+    openPopup(popupUrl, popupRef);
   };
 
   return (
@@ -103,7 +62,7 @@ const Hero = ({ me }) => {
             </div>
             <div className="flex items-center justify-center w-full my-3 sm:my-4">
               <Buttons
-                onClick={openPopup}
+                onClick={openUserPopup}
                 title="Go to MINI HOME"
                 iconLeft={<AiOutlineHome />}
                 iconStyles="text-xl font-semibold "
