@@ -15,8 +15,8 @@ const MateList = ({ me }) => {
   };
 
   const handleClickFriend = (name) => {
-    const popupUrl = `http://localhost:3000/${name}/home`;
-    // const popupUrl = `https://minimate-cy.netlify.app/${userDomain}/home`;
+    // const popupUrl = `http://localhost:3000/${name}/home`;
+    const popupUrl = `https://minimate-cy.netlify.app/${name}/home`;
     openPopup(popupUrl, mateRef);
   };
 

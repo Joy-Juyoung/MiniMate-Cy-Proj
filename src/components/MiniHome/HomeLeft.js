@@ -21,8 +21,8 @@ const HomeLeft = ({ me, userHome, updateUserHome, user }) => {
   };
 
   const handleClickList = (name) => {
-    const popupUrl = `http://localhost:3000/${name}/home`;
-    // const popupUrl = `https://minimate-cy.netlify.app/${name}/home`;
+    // const popupUrl = `http://localhost:3000/${name}/home`;
+    const popupUrl = `https://minimate-cy.netlify.app/${name}/home`;
     openPopup(popupUrl, userRef);
   };
 
