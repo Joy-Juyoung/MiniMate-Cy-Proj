@@ -3,11 +3,22 @@ import { API } from "./api";
 
 export const createMiniItems = createAsyncThunk(
   "miniItem/createMiniItems",
-  async ({ miniHomeId, miniItemData, thunkAPI }) => {
+  async ({
+    miniHomeId,
+    miniItemData,
+    // img_url,
+    // category,
+    // item_name,
+    // x_location,
+    // y_location,
+    // enable,
+    thunkAPI,
+  }) => {
     try {
-      const response = await API.post(`/miniHome/${miniHomeId}/item`, {
-        miniItemData,
-      });
+      const response = await API.post(
+        `/miniHome/${miniHomeId}/item`,
+        miniItemData
+      ); // 덩어리로 받을때는 {}제외하고  miniItemData만, 그 외 각각은 {img_url, category ...}
       return response.data.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
