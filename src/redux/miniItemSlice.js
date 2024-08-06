@@ -18,7 +18,7 @@ export const createMiniItems = createAsyncThunk(
       const response = await API.post(
         `/miniHome/${miniHomeId}/item`,
         miniItemData
-      );
+      ); // 덩어리로 받을때는 {}제외하고  miniItemData만, 그 외 각각은 {img_url, category ...}
       return response.data.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
