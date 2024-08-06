@@ -3,17 +3,7 @@ import { API } from "./api";
 
 export const createMiniItems = createAsyncThunk(
   "miniItem/createMiniItems",
-  async ({
-    miniHomeId,
-    miniItemData,
-    // img_url,
-    // category,
-    // item_name,
-    // x_location,
-    // y_location,
-    // enable,
-    thunkAPI,
-  }) => {
+  async ({ miniHomeId, miniItemData, thunkAPI }) => {
     try {
       const response = await API.post(`/miniHome/${miniHomeId}/item`, {
         miniItemData,

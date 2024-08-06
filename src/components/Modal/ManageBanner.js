@@ -6,7 +6,7 @@ import { createBannerText, deleteBannerText } from "../../redux/miniHomeSlice";
 import Buttons from "../Buttons";
 import { RiDeleteBin2Fill } from "react-icons/ri";
 
-const ManageBanner = ({ closeModal, me, userHome, updateUserHome }) => {
+const ManageBanner = ({ closeModal, me, userHome }) => {
   const dispatch = useDispatch();
   const [isHistoryUpload, setIsHistoryUpload] = useState(false);
   const [text, setText] = useState("");
@@ -23,12 +23,8 @@ const ManageBanner = ({ closeModal, me, userHome, updateUserHome }) => {
       if (!text) {
         textareaRef.current?.focus();
       } else {
-        dispatch(createBannerText({ miniHomeId: userHome?._id, text }))
-          .then
-          // () => {
-          //   updateUserHome();
-          // }
-          ();
+        dispatch(createBannerText({ miniHomeId: userHome?._id, text }));
+
         setIsHistoryUpload(false);
       }
     } else {

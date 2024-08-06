@@ -15,8 +15,8 @@ const Hero = ({ me }) => {
   const dispatch = useDispatch();
 
   const openUserPopup = () => {
-    // const popupUrl = `http://localhost:3000/${me?.username}/home`;
-    const popupUrl = `https://minimate-cy.netlify.app/${me?.username}/home`;
+    const popupUrl = `http://localhost:3000/${me?.username}/home`;
+    // const popupUrl = `https://minimate-cy.netlify.app/${me?.username}/home`;
     openPopup(popupUrl, popupRef);
   };
 

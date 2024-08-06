@@ -65,6 +65,20 @@ export const deleteBannerText = createAsyncThunk(
   }
 );
 
+// export const updateBannerPicture = createAsyncThunk(
+//   "miniHome/updateBannerPictur",
+//   async ({ miniHomeId, picture, thunkAPI }) => {
+//     try {
+//       const response = await API.patch(`/miniHome/${miniHomeId}/bannnerPhoto`, {
+//         picture,
+//       });
+//       return response.data.data;
+//     } catch (error) {
+//       return thunkAPI.rejectWithValue(error.response.data);
+//     }
+//   }
+// );
+
 const miniHomeSlice = createSlice({
   name: "miniHome",
   initialState: {
