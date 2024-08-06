@@ -1,19 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import BgImg from "../../assets/pattern.png";
 import OuterBox from "../../assets/outerbox.png";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Buttons from "../Buttons";
 import { IoMdArrowDropright } from "react-icons/io";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCategories } from "../../redux/categorySlice";
 
 const MiniHomeFrame = ({
   LeftContent,
   RightContent,
   me,
   userHome,
-  categories,
+  // categories,
 }) => {
+  const dispatch = useDispatch();
   const { domain } = useParams();
+  const location = useLocation();
+  const lastPart = location.pathname.split("/").pop();
   const navigate = useNavigate();
+  const { categories } = useSelector((state) => state.categories);
+
+  useEffect(() => {
+    dispatch(fetchCategories());
+  }, [dispatch]);
+
+  // console.log("lastPart", lastPart);
+  // console.log("location", location.pathname);
 
   return (
     <div
@@ -37,6 +50,10 @@ const MiniHomeFrame = ({
             {categories
               ?.filter((category) => category.kind === "Minihome Nav")
               .map((nav) => {
+                if (nav.name === "Setting" && userHome?.owner !== me?._id) {
+                  return null;
+                }
+                // console.log("nav.name", nav.name);
                 return (
                   <div
                     key={nav?._id}
@@ -44,7 +61,7 @@ const MiniHomeFrame = ({
                       navigate(`/${domain}/${nav.name.toLowerCase()}`)
                     }
                     className={`flex flex-col items-center justify-center cursor-pointer w-[4.3rem] mb-1 py-2 text-[0.8rem] rounded-md rounded-l-none border border-[#000] border-l-[0] ${
-                      nav === nav.name
+                      lastPart.toLowerCase() === nav.name.toLowerCase()
                         ? "bg-[#eeeeee] text-[#000]"
                         : "bg-[#38b6d8] text-[#fff]"
                     }`}

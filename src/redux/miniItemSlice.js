@@ -3,11 +3,22 @@ import { API } from "./api";
 
 export const createMiniItems = createAsyncThunk(
   "miniItem/createMiniItems",
-  async ({ miniHomeId, miniItemData, thunkAPI }) => {
+  async ({
+    miniHomeId,
+    miniItemData,
+    // img_url,
+    // category,
+    // item_name,
+    // x_location,
+    // y_location,
+    // enable,
+    thunkAPI,
+  }) => {
     try {
-      const response = await API.post(`/miniHome/${miniHomeId}/item`, {
-        miniItemData,
-      });
+      const response = await API.post(
+        `/miniHome/${miniHomeId}/item`,
+        miniItemData
+      );
       return response.data.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);

@@ -12,17 +12,15 @@ const MiniHome = ({ me }) => {
   const dispatch = useDispatch();
   const { domain } = useParams();
   const { user } = useSelector((state) => state.user);
-  // const { userHome } = useSelector((state) => state.miniHome);
-  const { userHome: initialUserHome } = useSelector((state) => state.miniHome);
-  const { categories, loading: categoriesLoading } = useSelector(
-    (state) => state.categories
-  );
+  const { userHome } = useSelector((state) => state.miniHome);
+  // const { categories } = useSelector((state) => state.categories);
   const [homeOwnerId, setHomeOwnerId] = useState();
-  const [userHome, setUserHome] = useState(initialUserHome);
+  const [myMiniroom, setMyMinieroom] = useState();
+  const [myMinime, setMyMinime] = useState();
 
-  useEffect(() => {
-    dispatch(fetchCategories());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchCategories());
+  // }, [dispatch]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,7 +30,6 @@ const MiniHome = ({ me }) => {
       if (fetchMinihomeByUsername.fulfilled.match(result)) {
         const ownerId = result.payload?.owner;
         setHomeOwnerId(ownerId);
-        setUserHome(result.payload); // 초기 userHome 설정
       }
     };
     fetchData();
@@ -50,13 +47,13 @@ const MiniHome = ({ me }) => {
         me={me}
         user={user}
         userHome={userHome}
-        categories={categories}
+        // categories={categories}
         LeftContent={<HomeLeft me={me} userHome={userHome} user={user} />}
         RightContent={
           <HomeRight
             me={me}
             userHome={userHome}
-            categories={categories}
+            // categories={categories}
             user={user}
           />
         }

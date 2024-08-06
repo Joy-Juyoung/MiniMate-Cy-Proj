@@ -16,27 +16,23 @@ const update = [
   "New Post1",
 ];
 
-const HomeRight = ({ me, userHome, categories }) => {
+const HomeRight = ({ me, userHome, categories, isUpdate, setIsUpdate }) => {
   const dispatch = useDispatch();
   const [newWelcomeComment, setNewWelcomeComment] = useState("");
-  const [localUserHome, setLocalUserHome] = useState(userHome);
-
-  useEffect(() => {
-    setLocalUserHome(userHome);
-  }, [dispatch, userHome]);
+  const { success: commentSuccess } = useSelector((state) => state.miniComment);
 
   const handleCommentChange = (e) => {
-    // console.log("handleCommentChange called");
     setNewWelcomeComment(e.target.value);
   };
 
+  console.log("userHome", userHome.sub_img[0]);
+
   const handleCommentClick = () => {
-    // console.log("handleCommentClick called", newWelcomeComment);
     if (newWelcomeComment.trim() === "") return;
     if (userHome?.owner !== me?._id) {
       dispatch(
         createBFComment({
-          miniHomeId: localUserHome?._id,
+          miniHomeId: userHome?._id,
           // friendId: userHome?.owner,
           friendId: me?._id, //남기는 사람 기준. 즉, 내가 글쓴이임
           text: newWelcomeComment,
@@ -45,12 +41,6 @@ const HomeRight = ({ me, userHome, categories }) => {
       setNewWelcomeComment("");
     }
   };
-
-  // console.log("userHome", userHome);
-  // console.log("me", me);
-  // console.log("userHome?.owner", userHome?.owner);
-  // console.log("me?._id", me?._id);
-  // console.log("userHome?.owner !== me?._id", userHome?.owner !== me?._id);
 
   return (
     <div>
@@ -91,9 +81,13 @@ const HomeRight = ({ me, userHome, categories }) => {
       </div>
       <hr className="border-[#ccc]" />
       <div className="relative">
-        <img src={Miniroom} alt="" className="object-cover w-full my-2 " />
         <img
-          src={me?.minime_img || Minnime}
+          src={userHome?.sub_img[1].img_url}
+          alt=""
+          className="object-cover w-full my-2 "
+        />
+        <img
+          src={userHome?.sub_img[0].img_url}
           alt="Minime"
           className="object-cover my-2 absolute top-1/2 left-1/2 w-[70px]"
         />
@@ -103,7 +97,7 @@ const HomeRight = ({ me, userHome, categories }) => {
       </div>
       <hr className="border-[#ccc]  mb-1" />
 
-      {localUserHome?.owner !== me?._id && (
+      {userHome?.owner !== me?._id && (
         <div className="w-full bg-[#ddd] p-2 flex items-center rounded-md">
           <div className="basis-1/6 text-[#38b6d8] text-[0.6rem] font-semibold text-center">
             Mates say
@@ -124,13 +118,13 @@ const HomeRight = ({ me, userHome, categories }) => {
         </div>
       )}
 
-      {localUserHome?.best_friend_comment.length === 0 && (
+      {userHome?.best_friend_comment.length === 0 && (
         <div className="flex items-center justify-center text-[#bbb] my-4 text-[0.8rem] mx-2 ">
           <div>No comments yet</div>
         </div>
       )}
 
-      {localUserHome?.best_friend_comment.map((comment, index) => {
+      {userHome?.best_friend_comment.map((comment, index) => {
         return (
           <div key={index} className="text-[0.8rem] mx-2 ">
             <div className="flex items-center my-1">
