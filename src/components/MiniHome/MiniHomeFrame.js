@@ -35,7 +35,7 @@ const MiniHomeFrame = ({
         >
           <div className="absolute right-0 top-20">
             {categories
-              .filter((category) => category.kind === "Minihome Nav")
+              ?.filter((category) => category.kind === "Minihome Nav")
               .map((nav) => {
                 return (
                   <div

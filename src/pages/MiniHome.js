@@ -12,11 +12,13 @@ const MiniHome = ({ me }) => {
   const dispatch = useDispatch();
   const { domain } = useParams();
   const { user } = useSelector((state) => state.user);
-  const { userHome } = useSelector((state) => state.miniHome);
+  // const { userHome } = useSelector((state) => state.miniHome);
+  const { userHome: initialUserHome } = useSelector((state) => state.miniHome);
   const { categories, loading: categoriesLoading } = useSelector(
     (state) => state.categories
   );
   const [homeOwnerId, setHomeOwnerId] = useState();
+  const [userHome, setUserHome] = useState(initialUserHome);
 
   useEffect(() => {
     dispatch(fetchCategories());
@@ -30,6 +32,7 @@ const MiniHome = ({ me }) => {
       if (fetchMinihomeByUsername.fulfilled.match(result)) {
         const ownerId = result.payload?.owner;
         setHomeOwnerId(ownerId);
+        setUserHome(result.payload); // 초기 userHome 설정
       }
     };
     fetchData();

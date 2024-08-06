@@ -21,8 +21,8 @@ const HomeLeft = ({ me, userHome, updateUserHome, user }) => {
   };
 
   const handleClickList = (name) => {
-    // const popupUrl = `http://localhost:3000/${name}/home`;
-    const popupUrl = `https://minimate-cy.netlify.app/${name}/home`;
+    const popupUrl = `http://localhost:3000/${name}/home`;
+    // const popupUrl = `https://minimate-cy.netlify.app/${name}/home`;
     openPopup(popupUrl, userRef);
   };
 
@@ -44,7 +44,7 @@ const HomeLeft = ({ me, userHome, updateUserHome, user }) => {
         <div className="h-full text-[0.8rem] pt-2">
           {userHome?.banner_text_history[0]?.text}
         </div>
-        {user.domain === me.domain && (
+        {user?.domain === me?.domain && (
           <div className="flex items-center">
             <Buttons
               title="History & Manage"
