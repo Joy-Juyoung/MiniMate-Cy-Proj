@@ -25,7 +25,7 @@ const HomeRight = ({ me, userHome, categories, isUpdate, setIsUpdate }) => {
     setNewWelcomeComment(e.target.value);
   };
 
-  console.log("userHome", userHome.sub_img[0]);
+  console.log("userHome", userHome?.sub_img[0]);
 
   const handleCommentClick = () => {
     if (newWelcomeComment.trim() === "") return;
