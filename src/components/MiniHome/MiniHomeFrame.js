@@ -24,7 +24,6 @@ const MiniHomeFrame = ({
   useEffect(() => {
     dispatch(fetchCategories());
   }, [dispatch]);
-
   // console.log("lastPart", lastPart);
   // console.log("location", location.pathname);
 

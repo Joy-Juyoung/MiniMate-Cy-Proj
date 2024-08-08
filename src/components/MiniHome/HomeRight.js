@@ -25,7 +25,13 @@ const HomeRight = ({ me, userHome, categories, isUpdate, setIsUpdate }) => {
     setNewWelcomeComment(e.target.value);
   };
 
-  // console.log("userHome", userHome?.sub_img[0]);
+  console.log("userHome ", userHome);
+  console.log(
+    "find",
+    userHome?.sub_img?.find(
+      (img) => img.img_url !== null && img.category === "Minime"
+    )
+  );
 
   const handleCommentClick = () => {
     if (newWelcomeComment.trim() === "") return;
@@ -60,6 +66,25 @@ const HomeRight = ({ me, userHome, categories, isUpdate, setIsUpdate }) => {
             })}
           </div>
         </div>
+        {/* <div className="flex flex-col w-full gap-1 mt-4">
+          {categories
+            ?.filter(
+              (category) =>
+                category.kind === "Minihome Nav" &&
+                category.name !== "Home" &&
+                category.name !== "Setting"
+            )
+            .map((nav) => {
+              return (
+                <div
+                  key={nav?._id}
+                  className="text-[0.7rem] bg-[#e0e0e0] h-full flex justify-between items-center px-2 py-1 rounded-sm"
+                >
+                  <div>{nav?.name}</div>
+                </div>
+              );
+            })}
+        </div> */}
         <div className="grid grid-cols-2 gap-[0.1rem] mt-4 items-center">
           {managePosts.map((post, index) => {
             return (
@@ -82,20 +107,29 @@ const HomeRight = ({ me, userHome, categories, isUpdate, setIsUpdate }) => {
       <hr className="border-[#ccc]" />
       <div className="relative">
         <img
-          src={userHome?.sub_img[1]?.img_url || Miniroom}
+          src={
+            userHome?.sub_img?.find(
+              (img) => img.img_url !== null && img.category === "Miniroom"
+            ).img_url || Miniroom
+          }
           alt=""
           className="object-cover w-full my-2 "
         />
         <img
           src={
-            userHome?.sub_img[0]?.img_url || !me?.minime_img
-              ? me?.gender === "male"
-                ? MinniMale
-                : MinniFemale
-              : me?.minime_img
+            // userHome?.sub_img?.find(
+            //   (img) => img.img_url !== null && img.category === "Minime"
+            // ).img_url || !me?.minime_img
+            //   ? me?.gender === "male"
+            //     ? MinniMale
+            //     : MinniFemale
+            //   : me?.minime_img
+            userHome?.sub_img?.find(
+              (img) => img.img_url !== null && img.category === "Minime"
+            ).img_url || (me?.gender === "male" ? MinniMale : MinniFemale)
           }
           alt="Minime"
-          className="absolute object-cover w-10 my-2 top-1/2 left-1/2"
+          className="absolute object-contain w-20 h-24 my-2 top-1/2 left-1/2"
         />
       </div>
       <div className="text-[#38b6d8] text-[0.7rem] font-semibold ">

@@ -17,6 +17,7 @@ const MiniHome = ({ me }) => {
   const [homeOwnerId, setHomeOwnerId] = useState();
   const [myMiniroom, setMyMinieroom] = useState();
   const [myMinime, setMyMinime] = useState();
+  // const { categories } = useSelector((state) => state.categories);
 
   // useEffect(() => {
   //   dispatch(fetchCategories());
