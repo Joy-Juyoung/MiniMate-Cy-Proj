@@ -35,7 +35,7 @@ const HomeLeft = ({ me, userHome, updateUserHome, user }) => {
       {/* banner */}
       <div className="w-full h-[40%] flex flex-col justify-between">
         <img
-          src={userHome.banner_photo || BannerDefault}
+          src={userHome?.banner_photo || BannerDefault}
           alt="Banner"
           className="flex items-center justify-center object-cover object-top h-full"
         />
@@ -82,14 +82,14 @@ const HomeLeft = ({ me, userHome, updateUserHome, user }) => {
       <div className="h-[25%] ">
         <div className="w-full h-[100%] flex flex-col text-sm justify-end py-2">
           <div className="flex items-center w-full">
-            <div className="font-semibold text-[0.7rem]">{user.username}</div>
+            <div className="font-semibold text-[0.7rem]">{user?.username}</div>
             <div className="mx-1">·</div>
             <div className="text-[0.6rem]">
-              {user.gender === "male" ? "M" : "F"}
+              {user?.gender === "male" ? "M" : "F"}
             </div>
             <div className="mx-1">·</div>
             <div className="text-[0.6rem]">
-              {user.birth.substring(0, me.birth.indexOf("T"))}
+              {user?.birth.substring(0, me?.birth.indexOf("T"))}
             </div>
           </div>
           <div className="flex flex-col items-center mt-2 text-sm ">
@@ -97,9 +97,9 @@ const HomeLeft = ({ me, userHome, updateUserHome, user }) => {
               <div
                 className={`w-fit rounded-lg rounded-b-none text-[0.7rem] px-2 py-1
             border border-1 border-[#bbb] bg-[#ddd] cursor-pointer 
-            ${user.domain === me.domain && "hidden"}      
+            ${user?.domain === me?.domain && "hidden"}      
              ${
-               user.domain !== me.domain &&
+               user?.domain !== me?.domain &&
                clickMe &&
                "text-[#bbb] border border-1 border-[#bbb] border-b-[#ddd] bg-[#fff]"
              }      
@@ -114,13 +114,13 @@ const HomeLeft = ({ me, userHome, updateUserHome, user }) => {
                 className={`w-fit rounded-lg rounded-b-none text-[0.7rem] px-2 py-1
             border border-1 border-[#bbb] bg-[#ddd] cursor-pointer 
             ${
-              user.domain !== me.domain &&
+              user?.domain !== me?.domain &&
               !clickMe &&
               "text-[#bbb] border border-1 border-[#bbb] border-b-[#ddd] bg-[#fff]"
             }
             ${
-              (user.domain !== me.domain && clickMe) ||
-              (user.domain === me.domain &&
+              (user?.domain !== me?.domain && clickMe) ||
+              (user?.domain === me?.domain &&
                 " border border-1 border-[#bbb] bg-[#ddd]")
             }
          
@@ -171,8 +171,8 @@ const HomeLeft = ({ me, userHome, updateUserHome, user }) => {
                                     handleClickList(mate.friend.username)
                                   }
                                 >
-                                  {mate.friend.username} (
-                                  {mate.friend_nick_name})
+                                  {mate?.friend.username} (
+                                  {mate?.friend_nick_name})
                                 </li>
                               </ul>
                             );
@@ -201,11 +201,11 @@ const HomeLeft = ({ me, userHome, updateUserHome, user }) => {
                                 <li
                                   className="hover:bg-[#f5f5f5] p-2"
                                   onClick={() =>
-                                    handleClickList(mate.friend.username)
+                                    handleClickList(mate?.friend.username)
                                   }
                                 >
-                                  {mate.friend.username} (
-                                  {mate.friend_nick_name})
+                                  {mate?.friend.username} (
+                                  {mate?.friend_nick_name})
                                 </li>
                               </ul>
                             );

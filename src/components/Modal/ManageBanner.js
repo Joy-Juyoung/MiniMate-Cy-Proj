@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import BannerDefault from "../../assets/defaultUI.png";
 import { FaTimes } from "react-icons/fa";
 import { useDispatch } from "react-redux";
@@ -14,15 +14,15 @@ const ManageBanner = ({ closeModal, me, userHome }) => {
   const dispatch = useDispatch();
   const [isHistoryUpload, setIsHistoryUpload] = useState(false);
   const [text, setText] = useState("");
-  const [file, setFile] = useState();
+  const [images, setImages] = useState(null);
   const textareaRef = useRef(null);
   const [isDeleted, setIsDeleted] = useState(false);
 
   const handleFile = (e) => {
-    setFile(e.target.files[0]);
+    setImages(e.target.files[0]);
+    // console.log("image", URL.createObjectURL(e.target.files[0]));
   };
-  console.log(userHome);
-
+  // console.log("img", images);
   const handleUpload = (e) => {
     e.preventDefault();
     if (isHistoryUpload) {
@@ -30,16 +30,16 @@ const ManageBanner = ({ closeModal, me, userHome }) => {
         textareaRef.current?.focus();
       } else {
         dispatch(createBannerText({ miniHomeId: userHome?._id, text }));
-        if (file) {
+        if (images) {
           dispatch(
             updateBannerPicture({
               miniHomeId: userHome?._id,
-              images: URL.createObjectURL(file),
+              images: URL.createObjectURL(images),
             })
           );
         }
         setIsHistoryUpload(false);
-        setFile(null);
+        setImages(null);
         setText("");
       }
     } else {
@@ -50,7 +50,7 @@ const ManageBanner = ({ closeModal, me, userHome }) => {
 
   const handleBack = () => {
     setIsHistoryUpload(false);
-    setFile(null);
+    setImages(null);
     setText("");
     setIsDeleted(false);
   };
@@ -58,9 +58,7 @@ const ManageBanner = ({ closeModal, me, userHome }) => {
   const handleDeleteHistory = (id) => {
     dispatch(
       deleteBannerText({ miniHomeId: userHome?._id, textHistoryId: id })
-    ).then(() => {
-      // updateUserHome();
-    });
+    );
     setIsDeleted(false);
   };
 
@@ -75,7 +73,6 @@ const ManageBanner = ({ closeModal, me, userHome }) => {
             Total {userHome?.banner_text_history.length}
           </div>
         </div>
-
         <button
           onClick={() => {
             setIsHistoryUpload(false);
@@ -91,67 +88,63 @@ const ManageBanner = ({ closeModal, me, userHome }) => {
         <div
           className={`h-[350px] overflow-y-auto overflow-x-hidden pr-2 my-3 border-t border-[#bbb]`}
         >
-          {userHome?.banner_text_history?.map((history) => {
-            return (
-              <div
-                key={history?._id}
-                className="h-full border-b border-[#bbb] w-[180px] py-3"
-              >
-                <p className=" text-[0.6rem]">{history?.createdAt}</p>
-                <div className="h-[200px] py-1">
-                  <img
-                    src={userHome.banner_photo || BannerDefault}
-                    alt="Banner"
-                    className="flex items-center justify-center object-cover object-top h-full"
+          {userHome?.banner_text_history?.map((history) => (
+            <div
+              key={history?._id}
+              className="h-full border-b border-[#bbb] w-[180px] py-3"
+            >
+              <p className="text-[0.6rem]">{history?.createdAt}</p>
+              <div className="h-[200px] py-1">
+                <img
+                  src={userHome.banner_photo || BannerDefault}
+                  alt="Banner"
+                  className="flex items-center justify-center object-cover object-top h-full"
+                />
+              </div>
+              <div className="flex flex-col justify-between h-[37%]">
+                <p className="text-[0.8rem]">{history?.text}</p>
+                <div className="text-[0.6rem] flex flex-col justify-center mb-1">
+                  <Buttons
+                    title="Delete History"
+                    containerStyles={`${
+                      isDeleted && "text-hightColor"
+                    } h-fit flex justify-start items-center text-[#666]`}
+                    iconLeft={<RiDeleteBin2Fill size={15} />}
+                    iconStyles="text-hightColor mr-1"
+                    onClick={() => setIsDeleted(true)}
                   />
-                </div>
-                <div className="flex flex-col justify-between h-[37%]">
-                  <p className="text-[0.8rem]">{history?.text}</p>
-                  <div className="text-[0.6rem] flex flex-col justify-center mb-1">
-                    <Buttons
-                      title="Delete History"
-                      containerStyles={`${
-                        isDeleted && "text-hightColor"
-                      } h-fit flex justify-start items-center text-[#666]`}
-                      iconLeft={<RiDeleteBin2Fill size={15} />}
-                      iconStyles="text-hightColor mr-1 "
-                      onClick={() => {
-                        setIsDeleted(true);
-                      }}
-                    />
-                    {isDeleted && (
-                      <div className="flex items-center justify-between">
-                        <p>Are you sure? </p>
-                        <div className="flex gap-2">
-                          <span
-                            onClick={() => handleDeleteHistory(history?._id)}
-                            className="px-2 py-1 text-white bg-black border rounded-md cursor-pointer"
-                          >
-                            Yes
-                          </span>
-                          <span
-                            onClick={() => setIsDeleted(false)}
-                            className="px-2 py-1 border rounded-md cursor-pointer"
-                          >
-                            No
-                          </span>
-                        </div>
+                  {isDeleted && (
+                    <div className="flex items-center justify-between">
+                      <p>Are you sure? </p>
+                      <div className="flex gap-2">
+                        <span
+                          onClick={() => handleDeleteHistory(history?._id)}
+                          className="px-2 py-1 text-white bg-black border rounded-md cursor-pointer"
+                        >
+                          Yes
+                        </span>
+                        <span
+                          onClick={() => setIsDeleted(false)}
+                          className="px-2 py-1 border rounded-md cursor-pointer"
+                        >
+                          No
+                        </span>
                       </div>
-                    )}
-                  </div>
+                    </div>
+                  )}
                 </div>
               </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
       ) : (
         <div className="h-[350px] w-full overflow-y-auto overflow-x-hidden my-3">
-          <div className="h-full  w-full border-t border-[#bbb] py-3">
+          <div className="h-full w-full border-t border-[#bbb] py-3">
             <div className="flex flex-col items-center w-full h-[200px] py-1 text-sm">
               <input type="file" onChange={handleFile} className="w-full" />
-              {file && (
+              {images && (
                 <img
-                  src={URL.createObjectURL(file)}
+                  src={URL.createObjectURL(images)}
                   alt=""
                   className="object-cover object-top w-full h-full my-2"
                   required
@@ -161,9 +154,7 @@ const ManageBanner = ({ closeModal, me, userHome }) => {
             <textarea
               ref={textareaRef}
               value={text || ""}
-              onChange={(e) => {
-                setText(e.target.value);
-              }}
+              onChange={(e) => setText(e.target.value)}
               placeholder="Write the message..."
               className="w-full h-[120px] rounded-md p-2 text-[0.7rem] border"
               required
