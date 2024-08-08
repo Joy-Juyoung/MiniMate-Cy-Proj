@@ -65,19 +65,19 @@ export const deleteBannerText = createAsyncThunk(
   }
 );
 
-// export const updateBannerPicture = createAsyncThunk(
-//   "miniHome/updateBannerPictur",
-//   async ({ miniHomeId, picture, thunkAPI }) => {
-//     try {
-//       const response = await API.patch(`/miniHome/${miniHomeId}/bannnerPhoto`, {
-//         picture,
-//       });
-//       return response.data.data;
-//     } catch (error) {
-//       return thunkAPI.rejectWithValue(error.response.data);
-//     }
-//   }
-// );
+export const updateBannerPicture = createAsyncThunk(
+  "miniHome/updateBannerPictur",
+  async ({ miniHomeId, images, thunkAPI }) => {
+    try {
+      const response = await API.patch(`/miniHome/${miniHomeId}/bannnerPhoto`, {
+        images,
+      });
+      return response.data.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
 
 const miniHomeSlice = createSlice({
   name: "miniHome",
@@ -86,7 +86,7 @@ const miniHomeSlice = createSlice({
     userHome: null,
     loading: false,
     error: null,
-    images: null,
+    image: null,
     text: null,
   },
   reducers: {},
@@ -149,6 +149,18 @@ const miniHomeSlice = createSlice({
         state.text = action.payload;
       })
       .addCase(deleteBannerText.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+      .addCase(updateBannerPicture.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(updateBannerPicture.fulfilled, (state, action) => {
+        state.loading = false;
+        state.image = action.payload;
+      })
+      .addCase(updateBannerPicture.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       });
