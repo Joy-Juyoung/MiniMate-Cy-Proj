@@ -115,7 +115,7 @@ const Account = ({ tokenFromStorage }) => {
                 }
                 alt="Minime"
                 className="w-[15rem] h-[15rem] object-contain cursor-pointer  flex justify-center items-center mx-auto my-4"
-                onClick={() => handleProfileImage()}
+                // onClick={() => handleProfileImage()}
               />
               <div className="block text-[0.7rem] mb-4">
                 <div>Username</div>
