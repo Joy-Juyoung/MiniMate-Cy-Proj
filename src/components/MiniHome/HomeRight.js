@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 // import Miniroom from '../../assets/shop3.gif';
-import Miniroom from "../../assets/miniroom(2).gif";
-import Minime from "../../assets/shop1.gif";
-import Minnime from "../../assets/minime(23).gif";
+import Miniroom from "../../assets/room.jpg";
+import MinniFemale from "../../assets/minimi2.png";
+import MinniMale from "../../assets/minimi1.png";
 import { managePosts } from "../../redux/tempData";
 import { useDispatch, useSelector } from "react-redux";
 import { createBFComment } from "../../redux/miniCommentSlice";
@@ -82,14 +82,20 @@ const HomeRight = ({ me, userHome, categories, isUpdate, setIsUpdate }) => {
       <hr className="border-[#ccc]" />
       <div className="relative">
         <img
-          src={userHome?.sub_img[1].img_url}
+          src={userHome?.sub_img[1]?.img_url || Miniroom}
           alt=""
           className="object-cover w-full my-2 "
         />
         <img
-          src={userHome?.sub_img[0].img_url}
+          src={
+            userHome?.sub_img[0]?.img_url || !me?.minime_img
+              ? me?.gender === "male"
+                ? MinniMale
+                : MinniFemale
+              : me?.minime_img
+          }
           alt="Minime"
-          className="object-cover my-2 absolute top-1/2 left-1/2 w-[70px]"
+          className="absolute object-cover w-10 my-2 top-1/2 left-1/2"
         />
       </div>
       <div className="text-[#38b6d8] text-[0.7rem] font-semibold ">
