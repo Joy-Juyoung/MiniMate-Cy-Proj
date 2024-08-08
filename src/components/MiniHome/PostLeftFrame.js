@@ -6,6 +6,7 @@ import { FaRegWindowClose } from "react-icons/fa";
 import { GoPlus } from "react-icons/go";
 import {
   createPhotoFolder,
+  deletePhotoFolder,
   updatePhotoFolder,
 } from "../../redux/miniPhotoSlice";
 
@@ -14,6 +15,7 @@ const PostLeftFrame = ({ title, listStyles, userHome, me }) => {
   const addRef = useRef();
   const [isAddFolder, setIsAddFolder] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
   const [editingFolderId, setEditingFolderId] = useState(null);
   const [folderName, setFolderName] = useState("");
   const [folderScope, setFolderScope] = useState("public");
@@ -52,6 +54,16 @@ const PostLeftFrame = ({ title, listStyles, userHome, me }) => {
       );
       resetForm();
     }
+  };
+
+  const handleDeletefolder = () => {
+    dispatch(
+      deletePhotoFolder({
+        miniHomeId: userHome?._id,
+        folderId: editingFolderId,
+      })
+    );
+    resetForm();
   };
 
   const resetForm = () => {
@@ -100,6 +112,18 @@ const PostLeftFrame = ({ title, listStyles, userHome, me }) => {
         <div>
           {(isAddFolder || isEditing) && (
             <>
+              {isEditing ? (
+                <div className="flex text-[0.6rem]">
+                  <div>Selected folder:</div>{" "}
+                  <div className="mx-1">
+                    <strong>{folderName}</strong>
+                  </div>
+                </div>
+              ) : (
+                <div className="flex text-[0.6rem]">
+                  <div>Add new folder</div>{" "}
+                </div>
+              )}
               <div className="flex w-full items-center text-[0.8rem] my-1">
                 <FaFolder className={`${listStyles} mr-2 text-[#ead33c]`} />
                 <input
@@ -137,6 +161,35 @@ const PostLeftFrame = ({ title, listStyles, userHome, me }) => {
                   <p className="mx-1">Private</p>
                 </label>
               </div>
+              {isEditing && (
+                <button
+                  onClick={() => setIsDeleting(!isDeleting)}
+                  className="text-[0.6rem] bg-[#bbb] hover:bg-[#999] py-1 px-2 rounded-md my-2 hover:text-white"
+                >
+                  Delete folder
+                </button>
+              )}
+
+              {isDeleting && (
+                <div className="text-[0.6rem] ">
+                  {/* <p className="text-[#f64949fe]"> */}
+                  <p>Are you sure you want to delete it?</p>
+                  <div className="flex gap-2 my-1">
+                    <button
+                      onClick={handleDeletefolder}
+                      className="px-2 py-1 text-white bg-black border rounded-md cursor-pointer"
+                    >
+                      Yes
+                    </button>
+                    <button
+                      onClick={() => setIsDeleting(!isDeleting)}
+                      className="px-2 py-1 border rounded-md cursor-pointer"
+                    >
+                      No
+                    </button>
+                  </div>
+                </div>
+              )}
             </>
           )}
         </div>
@@ -152,22 +205,25 @@ const PostLeftFrame = ({ title, listStyles, userHome, me }) => {
               </div>
             </>
           ) : (
-            <div className="flex ">
+            <div className="flex gap-4">
               <div
                 className="flex items-center cursor-pointer hover:underline underline-offset-2"
                 onClick={() => {
                   setIsEditing(false);
                   setIsAddFolder(false);
+                  resetForm();
                 }}
               >
                 <IoMdClose className="mr-1 font-bold text-[0.8rem]" /> Cancel
               </div>
-              <div className="mx-2">|</div>
+              {/* <div className="mx-2">|</div> */}
               <div
-                className="flex items-center cursor-pointer hover:underline underline-offset-2"
+                className={`flex items-center cursor-pointer hover:underline underline-offset-2 ${
+                  isEditing || (isAddFolder && "text-hightColor")
+                }`}
                 onClick={isEditing ? handleSaveEdit : handleAddFolder}
               >
-                <IoMdSave className="mr-1 font-bold text-[0.8rem]" /> Save
+                <IoMdSave className={`mr-1 font-bold text-[0.8rem]`} /> Save
               </div>
             </div>
           )}
