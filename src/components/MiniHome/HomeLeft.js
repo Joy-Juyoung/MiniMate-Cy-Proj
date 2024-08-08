@@ -1,6 +1,6 @@
 // HomeLeft.js
 import React, { useRef, useState } from "react";
-import Banner from "../../assets/main(5).jpg";
+import BannerDefault from "../../assets/defaultUI.png";
 import { IoMdArrowDropright } from "react-icons/io";
 import { RiArrowDownSFill } from "react-icons/ri";
 import Buttons from "../Buttons";
@@ -21,8 +21,8 @@ const HomeLeft = ({ me, userHome, updateUserHome, user }) => {
   };
 
   const handleClickList = (name) => {
-    const popupUrl = `http://localhost:3000/${name}/home`;
-    // const popupUrl = `https://minimate-cy.netlify.app/${name}/home`;
+    // const popupUrl = `http://localhost:3000/${name}/home`;
+    const popupUrl = `https://minimate-cy.netlify.app/${name}/home`;
     openPopup(popupUrl, userRef);
   };
 
@@ -35,8 +35,8 @@ const HomeLeft = ({ me, userHome, updateUserHome, user }) => {
       {/* banner */}
       <div className="w-full h-[40%] flex flex-col justify-between">
         <img
-          src={Banner || userHome?.banner_photo}
-          alt=""
+          src={userHome.banner_photo || BannerDefault}
+          alt="Banner"
           className="flex items-center justify-center object-cover object-top h-full"
         />
       </div>

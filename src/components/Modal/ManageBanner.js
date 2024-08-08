@@ -1,8 +1,12 @@
 import React, { useEffect, useState, useRef } from "react";
-import Banner from "../../assets/main(5).jpg";
+import BannerDefault from "../../assets/defaultUI.png";
 import { FaTimes } from "react-icons/fa";
 import { useDispatch } from "react-redux";
-import { createBannerText, deleteBannerText } from "../../redux/miniHomeSlice";
+import {
+  createBannerText,
+  deleteBannerText,
+  updateBannerPicture,
+} from "../../redux/miniHomeSlice";
 import Buttons from "../Buttons";
 import { RiDeleteBin2Fill } from "react-icons/ri";
 
@@ -15,17 +19,28 @@ const ManageBanner = ({ closeModal, me, userHome }) => {
   const [isDeleted, setIsDeleted] = useState(false);
 
   const handleFile = (e) => {
-    setFile(URL.createObjectURL(e.target.files[0]));
+    setFile(e.target.files[0]);
   };
+  console.log(userHome);
 
-  const handleUpload = () => {
+  const handleUpload = (e) => {
+    e.preventDefault();
     if (isHistoryUpload) {
       if (!text) {
         textareaRef.current?.focus();
       } else {
         dispatch(createBannerText({ miniHomeId: userHome?._id, text }));
-
+        if (file) {
+          dispatch(
+            updateBannerPicture({
+              miniHomeId: userHome?._id,
+              images: URL.createObjectURL(file),
+            })
+          );
+        }
         setIsHistoryUpload(false);
+        setFile(null);
+        setText("");
       }
     } else {
       setIsHistoryUpload(true);
@@ -35,7 +50,7 @@ const ManageBanner = ({ closeModal, me, userHome }) => {
 
   const handleBack = () => {
     setIsHistoryUpload(false);
-    setFile("");
+    setFile(null);
     setText("");
     setIsDeleted(false);
   };
@@ -85,14 +100,14 @@ const ManageBanner = ({ closeModal, me, userHome }) => {
                 <p className=" text-[0.6rem]">{history?.createdAt}</p>
                 <div className="h-[200px] py-1">
                   <img
-                    src={Banner}
-                    alt="banner"
+                    src={userHome.banner_photo || BannerDefault}
+                    alt="Banner"
                     className="flex items-center justify-center object-cover object-top h-full"
                   />
                 </div>
                 <div className="flex flex-col justify-between h-[37%]">
                   <p className="text-[0.8rem]">{history?.text}</p>
-                  <div className="text-[0.6rem] flex items-center mb-1">
+                  <div className="text-[0.6rem] flex flex-col justify-center mb-1">
                     <Buttons
                       title="Delete History"
                       containerStyles={`${
@@ -136,9 +151,10 @@ const ManageBanner = ({ closeModal, me, userHome }) => {
               <input type="file" onChange={handleFile} className="w-full" />
               {file && (
                 <img
-                  src={file}
+                  src={URL.createObjectURL(file)}
                   alt=""
                   className="object-cover object-top w-full h-full my-2"
+                  required
                 />
               )}
             </div>
@@ -150,6 +166,7 @@ const ManageBanner = ({ closeModal, me, userHome }) => {
               }}
               placeholder="Write the message..."
               className="w-full h-[120px] rounded-md p-2 text-[0.7rem] border"
+              required
             />
           </div>
         </div>
