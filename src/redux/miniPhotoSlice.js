@@ -1,31 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { API } from "./api";
 
-export const createPhotoFolder = createAsyncThunk(
-  "miniPhoto/createPhotoFolder",
-  async ({ miniHomeId, folder_name, privacy_scope, thunkAPI }) => {
+export const fetchMiniPhotos = createAsyncThunk(
+  "miniPhoto/fetchMiniPhotos",
+  async ({ folderId, thunkAPI }) => {
     try {
-      const response = await API.post(`/miniHome/${miniHomeId}/photoFolder`, {
-        folder_name,
-        privacy_scope,
-      });
-      return response.data.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data);
-    }
-  }
-);
-
-export const updatePhotoFolder = createAsyncThunk(
-  "miniPhoto/updatePhotoFolder",
-  async ({ miniHomeId, folder_name, privacy_scope, folderId, thunkAPI }) => {
-    try {
-      const response = await API.patch(
-        `/miniHome/${miniHomeId}/photoFolder/${folderId}`,
-        {
-          folder_name,
-          privacy_scope,
-        }
+      const response = await API.get(
+        `miniHomePhoto?photo_folder_id=${folderId}`
       );
       return response.data.data;
     } catch (error) {
@@ -34,13 +15,35 @@ export const updatePhotoFolder = createAsyncThunk(
   }
 );
 
-export const deletePhotoFolder = createAsyncThunk(
+export const createMiniPhotos = createAsyncThunk(
+  "miniPhoto/createMiniPhotos",
+  async ({ folderId, photoData, thunkAPI }) => {
+    try {
+      const response = await API.post(`/miniHomePhoto/${folderId}`, photoData);
+      return response.data.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const updateMiniPhotos = createAsyncThunk(
+  "miniPhoto/updateMiniPhotos",
+  async ({ folderId, photoData, thunkAPI }) => {
+    try {
+      const response = await API.patch(`/miniHomePhoto/${folderId}`, photoData);
+      return response.data.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const deleteMiniPhotos = createAsyncThunk(
   "miniPhoto/deletePhotoFolder",
-  async ({ miniHomeId, folderId, thunkAPI }) => {
+  async ({ folderId, thunkAPI }) => {
     try {
-      const response = await API.delete(
-        `/miniHome/${miniHomeId}/photoFolder/${folderId}`
-      );
+      const response = await API.delete(`/miniHomePhoto/${folderId}`);
       return response.data.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -51,49 +54,59 @@ export const deletePhotoFolder = createAsyncThunk(
 const miniPhotoSlice = createSlice({
   name: "miniPhoto",
   initialState: {
-    photoFolder: null,
+    photos: null,
     userHome: null,
     loading: false,
     error: null,
-    image: null,
-    text: null,
   },
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(createPhotoFolder.pending, (state) => {
+      .addCase(fetchMiniPhotos.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(createPhotoFolder.fulfilled, (state, action) => {
+      .addCase(fetchMiniPhotos.fulfilled, (state, action) => {
         state.loading = false;
         state.photoFolder = action.payload;
       })
-      .addCase(createPhotoFolder.rejected, (state, action) => {
+      .addCase(fetchMiniPhotos.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       })
-      .addCase(updatePhotoFolder.pending, (state) => {
+      .addCase(createMiniPhotos.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(updatePhotoFolder.fulfilled, (state, action) => {
+      .addCase(createMiniPhotos.fulfilled, (state, action) => {
         state.loading = false;
         state.photoFolder = action.payload;
       })
-      .addCase(updatePhotoFolder.rejected, (state, action) => {
+      .addCase(createMiniPhotos.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       })
-      .addCase(deletePhotoFolder.pending, (state) => {
+      .addCase(updateMiniPhotos.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(deletePhotoFolder.fulfilled, (state, action) => {
+      .addCase(updateMiniPhotos.fulfilled, (state, action) => {
         state.loading = false;
         state.photoFolder = action.payload;
       })
-      .addCase(deletePhotoFolder.rejected, (state, action) => {
+      .addCase(updateMiniPhotos.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+      .addCase(deleteMiniPhotos.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(deleteMiniPhotos.fulfilled, (state, action) => {
+        state.loading = false;
+        state.photoFolder = action.payload;
+      })
+      .addCase(deleteMiniPhotos.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       });

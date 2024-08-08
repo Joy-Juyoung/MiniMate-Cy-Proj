@@ -8,7 +8,7 @@ import {
   createPhotoFolder,
   deletePhotoFolder,
   updatePhotoFolder,
-} from "../../redux/miniPhotoSlice";
+} from "../../redux/miniFolderSlice";
 
 const PostLeftFrame = ({ title, listStyles, userHome, me }) => {
   const dispatch = useDispatch();

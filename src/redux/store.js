@@ -10,6 +10,7 @@ import miniHomeSlice from "./miniHomeSlice";
 import miniItemSlice from "./miniItemSlice";
 import miniCommentSlice from "./miniCommentSlice";
 import miniPhotoSlice from "./miniPhotoSlice";
+import miniFolderSlice from "./miniFolderSlice";
 
 export const store = configureStore({
   reducer: {
@@ -23,6 +24,7 @@ export const store = configureStore({
     miniHome: miniHomeSlice,
     miniItem: miniItemSlice,
     miniComment: miniCommentSlice,
+    miniFolder: miniFolderSlice,
     miniPhoto: miniPhotoSlice,
   },
 });
