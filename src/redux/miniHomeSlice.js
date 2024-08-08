@@ -65,13 +65,36 @@ export const deleteBannerText = createAsyncThunk(
   }
 );
 
+// export const updateBannerPicture = createAsyncThunk(
+//   "miniHome/updateBannerPictur",
+//   async ({ miniHomeId, images, thunkAPI }) => {
+//     try {
+//       const response = await API.patch(`/miniHome/${miniHomeId}/bannnerPhoto`, {
+//         images,
+//       });
+//       return response.data.data;
+//     } catch (error) {
+//       return thunkAPI.rejectWithValue(error.response.data);
+//     }
+//   }
+// );
 export const updateBannerPicture = createAsyncThunk(
-  "miniHome/updateBannerPictur",
-  async ({ miniHomeId, images, thunkAPI }) => {
+  "miniHome/updateBannerPicture",
+  async ({ miniHomeId, images }, thunkAPI) => {
     try {
-      const response = await API.patch(`/miniHome/${miniHomeId}/bannnerPhoto`, {
-        images,
-      });
+      const formData = new FormData();
+      formData.append("images", images);
+
+      const response = await API.patch(
+        `/miniHome/${miniHomeId}/bannerPhoto`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
       return response.data.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
