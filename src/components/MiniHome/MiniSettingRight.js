@@ -54,7 +54,7 @@ const MiniSettingRight = ({ userHome, me }) => {
     setSelectedItem(null);
   };
 
-  if (!userItems) {
+  if (!userItems || !minimeItems || !skinItems) {
     return <div>Loading...</div>; // 혹은 적절한 로딩 표시
   }
 
