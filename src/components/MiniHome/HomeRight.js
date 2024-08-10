@@ -29,7 +29,7 @@ const HomeRight = ({ me, userHome, categories, isUpdate, setIsUpdate }) => {
   console.log(
     "find",
     userHome?.sub_img?.find(
-      (img) => img.img_url !== null && img.category === "Minime"
+      (img) => img?.img_url !== null && img?.category === "Minime"
     )
   );
 
@@ -109,8 +109,8 @@ const HomeRight = ({ me, userHome, categories, isUpdate, setIsUpdate }) => {
         <img
           src={
             userHome?.sub_img?.find(
-              (img) => img.img_url !== null && img.category === "Miniroom"
-            ).img_url || Miniroom
+              (img) => img?.img_url !== null && img?.category === "Miniroom"
+            )?.img_url || Miniroom
           }
           alt=""
           className="object-cover w-full my-2 "
@@ -118,15 +118,15 @@ const HomeRight = ({ me, userHome, categories, isUpdate, setIsUpdate }) => {
         <img
           src={
             // userHome?.sub_img?.find(
-            //   (img) => img.img_url !== null && img.category === "Minime"
-            // ).img_url || !me?.minime_img
+            //   (img) => img?.img_url !== null && img?.category === "Minime"
+            // )?.img_url || !me?.minime_img
             //   ? me?.gender === "male"
             //     ? MinniMale
             //     : MinniFemale
             //   : me?.minime_img
             userHome?.sub_img?.find(
-              (img) => img.img_url !== null && img.category === "Minime"
-            ).img_url || (me?.gender === "male" ? MinniMale : MinniFemale)
+              (img) => img?.img_url !== null && img?.category === "Minime"
+            )?.img_url || (me?.gender === "male" ? MinniMale : MinniFemale)
           }
           alt="Minime"
           className="absolute object-contain w-20 h-24 my-2 top-1/2 left-1/2"
