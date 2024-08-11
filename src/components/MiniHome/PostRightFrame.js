@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { GoPlus } from "react-icons/go";
 import { IoMdSave } from "react-icons/io";
-import Photo from "../../assets/pic1.jpg";
+import TempPhoto from "../../assets/pic1.jpg";
 import EditPost from "./EditPost";
 
 const PostRightFrame = () => {
@@ -80,8 +80,8 @@ const PostRightFrame = () => {
               </div>
               <div className="flex items-center justify-center w-full h-full p-2">
                 <img
-                  src={Photo}
-                  alt="Photo"
+                  src={TempPhoto}
+                  alt="TempPhoto"
                   className="flex items-center justify-center"
                 />
               </div>

@@ -5,11 +5,13 @@ const VisitorContents = ({ me }) => {
 
   return (
     <div className="flex flex-col">
-      <div className="flex justify-end">
+      <div className="flex items-center justify-between">
+        <h2 className="font-semibold">Guest Book</h2>
         <button className="flex items-center border border-[#bbb] rounded-md bg-[#ddd] text-[0.7rem] py-1 px-2 my-2 ">
           Setting
         </button>
       </div>
+      <hr className="text-[#bbb] mb-4" />
       {/* Text */}
       <div className="w-full px-4 pt-4 bg-[#e6e6e6] shadow-md rounded-md flex flex-col items-center justify-center">
         <div className="flex items-center w-full">

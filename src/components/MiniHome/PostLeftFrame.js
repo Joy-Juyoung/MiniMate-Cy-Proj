@@ -92,6 +92,7 @@ const PostLeftFrame = ({ title, listStyles, userHome, me }) => {
               <div
                 key={folder._id}
                 className="flex items-center cursor-pointer my-1/2"
+                // onClick={handleFolderPhotos}
               >
                 <FaFolder
                   className={`${listStyles} mr-2 ${

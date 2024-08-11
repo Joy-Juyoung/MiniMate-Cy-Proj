@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserItems } from "../../redux/userSlice";
 import { createMiniItems } from "../../redux/miniItemSlice";
+import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 
 const MiniSettingRight = ({ userHome, me }) => {
   const dispatch = useDispatch();
@@ -60,12 +61,17 @@ const MiniSettingRight = ({ userHome, me }) => {
 
   return (
     <div className="flex flex-col w-full h-full">
-      <div className="flex items-center justify-between px-2 py-1 my-2">
-        <h2 className="font-semibold">Custom</h2>
+      <div className="flex items-center py-1 my-1">
+        <h2 className="font-semibold">Customizing</h2>
       </div>
 
-      <hr className="text-[#bbb] mb-4" />
+      <hr className="text-[#bbb] mb-2" />
 
+      <div className="bg-[#ddd] px-2 py-1 mb-2 font-semibold text-[0.8rem] flex items-center">
+        <IoMdArrowDropdown size={22} />
+        <IoMdArrowDropup size={22} />
+        <span>Minime</span>
+      </div>
       {selectedItem && (
         <div className="flex flex-col items-center justify-center">
           <div className="flex flex-col items-center justify-center">
