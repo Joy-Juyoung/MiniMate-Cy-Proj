@@ -22,16 +22,6 @@ const PostLeftFrame = ({
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-
-  // Extract folder from the URL query parameter
-  // const queryParams = new URLSearchParams(location.search);
-  // const folderFromUrl = queryParams.get("folder");
-
-  // // Set initial state based on URL or default to "public"
-  // const [selectedFolder, setSelectedFolder] = useState(
-  //   folderFromUrl || "public"
-  // );
-
   const addRef = useRef();
   const [isAddFolder, setIsAddFolder] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -40,16 +30,6 @@ const PostLeftFrame = ({
   const [folderName, setFolderName] = useState("");
   const [folderScope, setFolderScope] = useState("public");
 
-  // useEffect(() => {
-  //   if (folderFromUrl) {
-  //     setSelectedFolder(folderFromUrl);
-  //   }
-  // }, [folderFromUrl]);
-
-  // const handleFolderClick = (folderName) => {
-  //   setSelectedFolder(folderName);
-  //   navigate(`${location.pathname}?folder=${folderName}`);
-  // };
   const handleFolderClick = (folderName) => {
     setSelectedFolder(folderName);
     navigate(`${location.pathname}?folder=${folderName}`);
