@@ -4,12 +4,17 @@ import { GoPlus } from "react-icons/go";
 import { IoMdSave } from "react-icons/io";
 import TempPhoto from "../../assets/pic1.jpg";
 import EditPost from "./EditPost";
+import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 
-const PostRightFrame = () => {
+const PostRightFrame = ({ selectedFolder, me, userHome }) => {
   const [isUpload, setIsUpload] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const [text, setText] = useState("");
+
+  // {me?._id === userHome?.owner}
+  // console.log(me?._id);
+  //   console.log(userHome?.owner);
 
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
@@ -30,23 +35,33 @@ const PostRightFrame = () => {
   return (
     <div className="flex flex-col w-full h-full">
       <div className="flex items-center justify-between">
-        <h2 className="font-semibold">PHOTO</h2>
-        {isUpload ? (
-          <button
-            onClick={handleUpload}
-            className="flex items-center border border-[#bbb] rounded-md bg-[#ddd] text-[0.7rem] py-1 px-2 my-2 "
-          >
-            <IoMdSave className="mr-1" />
-            Save
-          </button>
-        ) : (
-          <button
-            onClick={() => setIsUpload(!isUpload)}
-            className="flex items-center border border-[#bbb] rounded-md bg-[#ddd] text-[0.7rem] py-1 px-2 my-2 "
-          >
-            <GoPlus className="mr-1" />
-            Upload
-          </button>
+        <div className="flex items-center font-semibold text-[#38b6d8] ">
+          <span className="text-[0.7rem] flex items-center">
+            PHOTO
+            <MdKeyboardDoubleArrowRight size={16} />
+          </span>
+          <span className="mx-1">{selectedFolder || "Public"}</span>
+        </div>
+        {me?._id === userHome?.owner && (
+          <>
+            {isUpload ? (
+              <button
+                onClick={handleUpload}
+                className="flex items-center border border-[#bbb] rounded-md bg-[#ddd] text-[0.7rem] py-1 px-2 my-2 "
+              >
+                <IoMdSave className="mr-1" />
+                Save
+              </button>
+            ) : (
+              <button
+                onClick={() => setIsUpload(!isUpload)}
+                className="flex items-center border border-[#bbb] rounded-md bg-[#ddd] text-[0.7rem] py-1 px-2 my-2 "
+              >
+                <GoPlus className="mr-1" />
+                Upload
+              </button>
+            )}
+          </>
         )}
       </div>
 
@@ -85,13 +100,7 @@ const PostRightFrame = () => {
                   className="flex items-center justify-center"
                 />
               </div>
-              <div className="">
-                난...ㄱㅏ끔... 눈물을 흘린ㄷㅏ.... ㄱㅏ끔은 눈물을 참을 수 없는
-                ㄴㅐ가 별루ㄷㅏ... 맘이 ㅇㅏㅍㅏ서.... 소ㄹㅣ치며...울 수
-                있ㄷㅏ는건.... 좋은 ㄱㅓㅇㅑ...... ㅁㅓ...꼭 슬ㅍㅓㅇㅑ만 우는
-                건 ㅇㅏ니잖ㅇㅏ...^^ 난...눈물ㅇㅣ....좋다..... ㅇㅏ니...
-                ㅁㅓ리가 ㅇㅏ닌..... 맘으로.....우는 ㄴㅐㄱㅏ 좋ㄷㅏ.....
-              </div>
+              <div className="">Contents Text</div>
               <div className="mt-2 ">
                 <div className="flex justify-end px-2 py-1 bg-[#e9e9e9] text-[0.7rem]">
                   <button
