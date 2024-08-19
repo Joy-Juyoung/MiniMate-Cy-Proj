@@ -12,12 +12,25 @@ export const fetchMe = createAsyncThunk("user/fetchMe", async (_, thunkAPI) => {
   }
 });
 
-export const fetchUserItems = createAsyncThunk(
-  "user/fetchUserItems",
+export const fetchAllUsers = createAsyncThunk(
+  "user/fetchAllUsers",
+  async (_, thunkAPI) => {
+    try {
+      const response = await API.get("/users");
+      return response.data.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const fetchOneUser = createAsyncThunk(
+  "user/fetchOneUser",
   async ({ userId, thunkAPI }) => {
     try {
-      const response = await API.get(`/users/${userId}/items`);
+      const response = await API.get(`/users/${userId}`);
       return response.data.data;
+      // return userId;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
@@ -62,25 +75,12 @@ export const deleteUser = createAsyncThunk(
   }
 );
 
-export const fetchAllUsers = createAsyncThunk(
-  "user/fetchAllUsers",
-  async (_, thunkAPI) => {
-    try {
-      const response = await API.get("/users");
-      return response.data.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data);
-    }
-  }
-);
-
-export const fetchOneUser = createAsyncThunk(
-  "user/fetchOneUser",
+export const fetchUserItems = createAsyncThunk(
+  "user/fetchUserItems",
   async ({ userId, thunkAPI }) => {
     try {
-      const response = await API.get(`/users/${userId}`);
+      const response = await API.get(`/users/${userId}/items`);
       return response.data.data;
-      // return userId;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }

@@ -103,7 +103,7 @@ const PostLeftFrame = ({
             onClick={() => handleFolderClick("public")}
           >
             <FaFolder className="text-[#ead33c] mr-2" />
-            <div className="w-full ">public</div>
+            <div className="w-full ">Public</div>
           </div>
           <hr className="text-[#bbb] border-dashed font-semibold my-2" />
           {userHome?.photo_folder
@@ -124,7 +124,9 @@ const PostLeftFrame = ({
                       : "text-[#bbb]"
                   }`}
                 />
-                <div className="w-full ">{folder?.folder_name}</div>
+                <div className="w-full ">
+                  {folder?.folder_name?.toUpperCase()}
+                </div>
                 {me?._id === userHome?.owner && (
                   <IoMdSettings
                     className="ml-2 text-[0.8rem] cursor-pointer text-[#999]"

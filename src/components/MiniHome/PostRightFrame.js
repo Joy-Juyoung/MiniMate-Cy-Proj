@@ -35,12 +35,14 @@ const PostRightFrame = ({ selectedFolder, me, userHome }) => {
   return (
     <div className="flex flex-col w-full h-full">
       <div className="flex items-center justify-between">
-        <div className="flex items-center font-semibold text-[#38b6d8] ">
+        <div className="flex items-center font-semibold text-[#38b6d8] py-1 my-1">
           <span className="text-[0.7rem] flex items-center">
             PHOTO
             <MdKeyboardDoubleArrowRight size={16} />
           </span>
-          <span className="mx-1">{selectedFolder || "Public"}</span>
+          <span className="mx-1">
+            {selectedFolder?.toUpperCase() || "Public"}
+          </span>
         </div>
         {me?._id === userHome?.owner && (
           <>
@@ -86,7 +88,7 @@ const PostRightFrame = ({ selectedFolder, me, userHome }) => {
             <EditPost setIsEdit={setIsEdit} />
           ) : (
             <div className="w-full h-full text-[0.8rem]">
-              <div className="bg-[#ddd] px-2 py-1 font-semibold">
+              <div className="bg-[#ddd] px-2 py-1 my-2 font-semibold">
                 Photo Title
               </div>
               <div className="flex justify-between px-2 py-1 bg-[#e9e9e9]">

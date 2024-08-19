@@ -7,6 +7,7 @@ import Miniroom from "../../assets/room.jpg";
 import MinniFemale from "../../assets/minimi2.png";
 import MinniMale from "../../assets/minimi1.png";
 import { MdDoubleArrow } from "react-icons/md";
+import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 
 const MiniSettingRight = ({ userHome, me, selectedFolder }) => {
   const dispatch = useDispatch();
@@ -70,8 +71,17 @@ const MiniSettingRight = ({ userHome, me, selectedFolder }) => {
 
   return (
     <div className="flex flex-col w-full h-full">
-      <div className="flex items-center py-1 my-1">
+      {/* <div className="flex items-center py-1 my-1">
         <h2 className="font-semibold">{selectedFolder} Setting</h2>
+      </div> */}
+      <div className="flex items-center font-semibold text-[#38b6d8] py-1 my-1">
+        <span className="text-[0.7rem] flex items-center">
+          Setting
+          <MdKeyboardDoubleArrowRight size={16} />
+        </span>
+        <span className="mx-1">
+          {selectedFolder?.toUpperCase() || "Miniroom"}
+        </span>
       </div>
 
       <hr className="text-[#bbb] mb-2" />

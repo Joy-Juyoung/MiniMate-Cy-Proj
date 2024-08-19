@@ -45,6 +45,9 @@ const MiniPhoto = ({ me }) => {
     <>
       <MiniHomeFrame
         nav="Photo"
+        user={user}
+        me={me}
+        userHome={userHome}
         LeftContent={
           <PostLeftFrame
             userHome={userHome}
