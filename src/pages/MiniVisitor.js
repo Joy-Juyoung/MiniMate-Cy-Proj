@@ -37,9 +37,12 @@ const MiniVisitor = ({ me }) => {
       <MiniHomeFrame
         nav="Visitor"
         user={user}
+        me={me}
         userHome={userHome}
         LeftContent={<HomeLeft me={me} userHome={userHome} user={user} />}
-        RightContent={<VisitorContents me={me} />}
+        RightContent={
+          <VisitorContents me={me} userHome={userHome} user={user} />
+        }
       />
     </>
   );

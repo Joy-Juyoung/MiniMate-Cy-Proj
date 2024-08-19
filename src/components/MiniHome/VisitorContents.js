@@ -18,10 +18,15 @@ const VisitorContents = ({ me }) => {
           <div className="mr-2 p-2 h-[120px] w-[120px] bg-white border-dashed border-2 border-[#aaa] rounded-md flex items-center justify-center">
             <img src={me.minime_img} alt="" className="w-[6rem]" />
           </div>
-          <textarea
+          {/* <textarea
             value={text}
             placeholder="Write something..."
+            // onChange={}
             className="w-full h-[120px] rounded-md p-2 text-[0.7rem]  border-dashed border-2 border-[#aaa] "
+          /> */}
+          <input
+            type="text"
+            className="w-full h-[120px] rounded-md p-2 text-[0.7rem] bg-white border-dashed border-2 border-[#aaa] "
           />
         </div>
         <div className="flex justify-end cursor-pointer">

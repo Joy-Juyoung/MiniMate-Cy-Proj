@@ -21,7 +21,7 @@ const MiniSettingRight = ({ userHome, me, selectedFolder }) => {
     enable: false,
   });
 
-  console.log("userHome", userHome);
+  // console.log("userHome", userHome);
 
   useEffect(() => {
     dispatch(fetchUserItems({ userId: me?._id }));
@@ -89,7 +89,7 @@ const MiniSettingRight = ({ userHome, me, selectedFolder }) => {
               )?.img_url ||
               (selectedFolder === "Minime" &&
                 (me?.gender === "male" ? MinniMale : MinniFemale)) ||
-              (selectedFolder === "Miniroom" && Miniroom)
+              (selectedFolder === "Miniroom" ? Miniroom : undefined)
             }
             alt={userHome?.sub_img?.item_name}
             // className="object-cover w-full my-2 h-[140px]"
@@ -97,7 +97,7 @@ const MiniSettingRight = ({ userHome, me, selectedFolder }) => {
               selectedFolder === "Miniroom" && "object-cover"
             } ${selectedFolder === "Minime" && "object-contain"}`}
           />
-          <p className="text-[0.8rem] mb-2">
+          <p className="text-[0.8rem] mb-2 text-center">
             {userHome?.sub_img?.find(
               (img) => img?.img_url !== null && img?.category === selectedFolder
             )?.item_name || "Loading..."}
@@ -113,11 +113,13 @@ const MiniSettingRight = ({ userHome, me, selectedFolder }) => {
               src={selectedItem?.item_img}
               alt={selectedItem?.item_name}
               // className="object-cover w-full my-2 h-[140px]"
-              className={` w-full h-[140px] my-2  ${
+              className={` w-full h-[140px] my-2 ${
                 selectedFolder === "Miniroom" && "object-cover"
               } ${selectedFolder === "Minime" && "object-contain"}`}
             />
-            <p className="text-[0.8rem] mb-2">{selectedItem?.item_name}</p>
+            <p className="text-[0.8rem] mb-2 text-center">
+              {selectedItem?.item_name}
+            </p>
           </div>
         ) : (
           <div className="flex flex-col w-full">
@@ -125,7 +127,7 @@ const MiniSettingRight = ({ userHome, me, selectedFolder }) => {
               <span>Selected {selectedFolder}</span>
             </div>
             <div className="object-cover w-full my-2 h-[140px] border border-[#bbb]"></div>
-            <p className="text-[0.8rem] mb-2 text-[#bbb]">
+            <p className="text-[0.8rem] mb-2 text-[#bbb] text-center">
               Please selected below
             </p>
           </div>

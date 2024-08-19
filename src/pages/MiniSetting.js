@@ -48,6 +48,7 @@ const MiniSetting = ({ me }) => {
       <MiniHomeFrame
         nav="Setting"
         user={user}
+        me={me}
         userHome={userHome}
         LeftContent={
           <MiniSettingLeft
@@ -60,6 +61,7 @@ const MiniSetting = ({ me }) => {
         RightContent={
           <MiniSettingRight
             userHome={userHome}
+            user={user}
             me={me}
             selectedFolder={selectedFolder}
           />
