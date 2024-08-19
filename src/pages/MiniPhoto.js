@@ -22,6 +22,7 @@ const MiniPhoto = ({ me }) => {
   const [selectedFolder, setSelectedFolder] = useState(
     folderFromUrl || "public"
   );
+  const [selectedFolderId, setSelectedFolderId] = useState();
 
   useEffect(() => {
     if (folderFromUrl) {
@@ -54,6 +55,8 @@ const MiniPhoto = ({ me }) => {
             me={me}
             selectedFolder={selectedFolder}
             setSelectedFolder={setSelectedFolder}
+            // selectedFolderId={selectedFolderId}
+            setSelectedFolderId={setSelectedFolderId}
           />
         }
         RightContent={
@@ -62,6 +65,7 @@ const MiniPhoto = ({ me }) => {
             me={me}
             userHome={userHome}
             user={user}
+            selectedFolderId={selectedFolderId}
           />
         }
       />

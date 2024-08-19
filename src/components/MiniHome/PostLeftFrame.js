@@ -18,6 +18,7 @@ const PostLeftFrame = ({
   me,
   selectedFolder,
   setSelectedFolder,
+  setSelectedFolderId,
 }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -30,9 +31,10 @@ const PostLeftFrame = ({
   const [folderName, setFolderName] = useState("");
   const [folderScope, setFolderScope] = useState("public");
 
-  const handleFolderClick = (folderName) => {
+  const handleFolderClick = (folderName, folderId) => {
     setSelectedFolder(folderName);
-    navigate(`${location.pathname}?folder=${folderName}`);
+    setSelectedFolderId(folderId);
+    navigate(`${location.pathname}?folder=${folderName}&folderId=${folderId}`);
   };
 
   const handleAddFolder = () => {
@@ -115,7 +117,9 @@ const PostLeftFrame = ({
                 className={`flex items-center cursor-pointer my-1 ${
                   selectedFolder === folder.folder_name ? "font-semibold" : ""
                 }`}
-                onClick={() => handleFolderClick(folder.folder_name)}
+                onClick={() =>
+                  handleFolderClick(folder.folder_name, folder._id)
+                }
               >
                 <FaFolder
                   className={`${listStyles} mr-2 ${

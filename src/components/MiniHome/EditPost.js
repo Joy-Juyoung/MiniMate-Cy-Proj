@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const EditPost = ({ setIsEdit }) => {
+const EditPost = ({ setIsEdit, isEdit }) => {
   const [text, setText] = useState("");
   const [isUpload, setIsUpload] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
@@ -47,6 +47,12 @@ const EditPost = ({ setIsEdit }) => {
       />
 
       <div className="flex justify-end w-full">
+        <button
+          className="flex items-center border border-[#bbb] rounded-md bg-[#ddd] text-[0.7rem] py-1 px-2 my-2 "
+          onClick={() => setIsEdit(!isEdit)}
+        >
+          Cancel
+        </button>
         <button
           className="flex items-center border border-[#bbb] rounded-md bg-[#ddd] text-[0.7rem] py-1 px-2 my-2 "
           onClick={handleEdit}

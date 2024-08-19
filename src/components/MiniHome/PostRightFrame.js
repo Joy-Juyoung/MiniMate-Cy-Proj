@@ -1,12 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { GoPlus } from "react-icons/go";
 import { IoMdSave } from "react-icons/io";
 import TempPhoto from "../../assets/pic1.jpg";
 import EditPost from "./EditPost";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
+import PhotoContents from "./PhotoContents";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchMiniPhotosByFolder } from "../../redux/miniPhotoSlice";
 
-const PostRightFrame = ({ selectedFolder, me, userHome }) => {
+const PostRightFrame = ({ selectedFolder, me, userHome, selectedFolderId }) => {
+  const dispatch = useDispatch();
+  const { photos } = useSelector((state) => state.miniPhoto);
   const [isUpload, setIsUpload] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
@@ -14,7 +19,11 @@ const PostRightFrame = ({ selectedFolder, me, userHome }) => {
 
   // {me?._id === userHome?.owner}
   // console.log(me?._id);
-  //   console.log(userHome?.owner);
+
+  useEffect(() => {
+    dispatch(fetchMiniPhotosByFolder({ folderId: selectedFolderId }));
+  }, [dispatch, selectedFolderId]);
+  // console.log("photos", photos);
 
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
@@ -85,77 +94,17 @@ const PostRightFrame = ({ selectedFolder, me, userHome }) => {
       ) : (
         <>
           {isEdit ? (
-            <EditPost setIsEdit={setIsEdit} />
+            <EditPost setIsEdit={setIsEdit} isEdit={isEdit} />
           ) : (
-            <div className="w-full h-full text-[0.8rem]">
-              <div className="bg-[#ddd] px-2 py-1 my-2 font-semibold">
-                Photo Title
-              </div>
-              <div className="flex justify-between px-2 py-1 bg-[#e9e9e9]">
-                <div className="">Photo Writer</div>
-                <div className="">Scrap Qty 7</div>
-              </div>
-              <div className="flex items-center justify-center w-full h-full p-2">
-                <img
-                  src={TempPhoto}
-                  alt="TempPhoto"
-                  className="flex items-center justify-center"
-                />
-              </div>
-              <div className="">Contents Text</div>
-              <div className="mt-2 ">
-                <div className="flex justify-end px-2 py-1 bg-[#e9e9e9] text-[0.7rem]">
-                  <button
-                    className="hover:underline underline-offset-2"
-                    onClick={() => setIsEdit(!isEdit)}
-                  >
-                    Edit
-                  </button>
-
-                  <div className="mx-1">|</div>
-                  <button className="hover:underline underline-offset-2">
-                    Move
-                  </button>
-                  <div className="mx-1">|</div>
-                  <button className="hover:underline underline-offset-2">
-                    Delete
-                  </button>
+            <>
+              {photos.length === 0 ? (
+                <div className="h-[300px] flex items-center justify-center text-[#bbb]">
+                  No Photos yet
                 </div>
-                <div className="bg-[#ddd] p-2 flex flex-col">
-                  <div className="flex items-center">
-                    <div className="text-[#2c509a]">Name</div>
-                    <div className="mx-2 ">Hahahah</div>
-                    <div className="text-[0.6rem] text-[#959595]">
-                      (2024.02.24 02:14)
-                    </div>
-                  </div>
-                  <hr className="text-[#bbb] my-2" />
-                  <div className="flex items-center w-full">
-                    <div className="flex text-[0.7rem] text-[#959595]">
-                      Comment
-                    </div>
-                    <input
-                      className="flex w-full ml-2 rounded-sm"
-                      type="text"
-                    />
-                  </div>
-                  <div className="flex justify-end mt-2 text-[0.7rem]">
-                    <button className="mx-1 text-[#959595] hover:bg-[#eee] px-2 py-1 rounded-2xl">
-                      Cancel
-                    </button>
-                    <button className="mx-1 bg-[#bbb] hover:bg-[#eee] px-2 py-1 rounded-2xl">
-                      Comment
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <hr className="text-[#bbb]  my-2" />
-              <div>
-                <div className="flex justify-center items-center text-[#e83e3e] text-[0.8rem] font-semibold">
-                  1
-                </div>
-              </div>
-            </div>
+              ) : (
+                <PhotoContents setIsEdit={setIsEdit} isEdit={isEdit} />
+              )}
+            </>
           )}
         </>
       )}

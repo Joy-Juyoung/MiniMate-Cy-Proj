@@ -71,9 +71,6 @@ const MiniSettingRight = ({ userHome, me, selectedFolder }) => {
 
   return (
     <div className="flex flex-col w-full h-full">
-      {/* <div className="flex items-center py-1 my-1">
-        <h2 className="font-semibold">{selectedFolder} Setting</h2>
-      </div> */}
       <div className="flex items-center font-semibold text-[#38b6d8] py-1 my-1">
         <span className="text-[0.7rem] flex items-center">
           Setting

@@ -110,6 +110,7 @@ const miniPhotoSlice = createSlice({
   name: "miniPhoto",
   initialState: {
     photos: null,
+    photo: null,
     photoComment: null,
     loading: false,
     error: null,
@@ -123,7 +124,7 @@ const miniPhotoSlice = createSlice({
       })
       .addCase(fetchMiniPhotosByFolder.fulfilled, (state, action) => {
         state.loading = false;
-        state.photoFolder = action.payload;
+        state.photos = action.payload;
       })
       .addCase(fetchMiniPhotosByFolder.rejected, (state, action) => {
         state.loading = false;
@@ -135,7 +136,7 @@ const miniPhotoSlice = createSlice({
       })
       .addCase(createMiniPhotos.fulfilled, (state, action) => {
         state.loading = false;
-        state.photoFolder = action.payload;
+        state.photo = action.payload;
       })
       .addCase(createMiniPhotos.rejected, (state, action) => {
         state.loading = false;
@@ -147,7 +148,7 @@ const miniPhotoSlice = createSlice({
       })
       .addCase(updateMiniPhotos.fulfilled, (state, action) => {
         state.loading = false;
-        state.photoFolder = action.payload;
+        state.photo = action.payload;
       })
       .addCase(updateMiniPhotos.rejected, (state, action) => {
         state.loading = false;
@@ -159,7 +160,7 @@ const miniPhotoSlice = createSlice({
       })
       .addCase(deleteMiniPhotos.fulfilled, (state, action) => {
         state.loading = false;
-        state.photoFolder = action.payload;
+        state.photo = action.payload;
       })
       .addCase(deleteMiniPhotos.rejected, (state, action) => {
         state.loading = false;
