@@ -18,20 +18,11 @@ const PostLeftFrame = ({
   me,
   selectedFolder,
   setSelectedFolder,
+  setSelectedFolderId,
 }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-
-  // Extract folder from the URL query parameter
-  // const queryParams = new URLSearchParams(location.search);
-  // const folderFromUrl = queryParams.get("folder");
-
-  // // Set initial state based on URL or default to "public"
-  // const [selectedFolder, setSelectedFolder] = useState(
-  //   folderFromUrl || "public"
-  // );
-
   const addRef = useRef();
   const [isAddFolder, setIsAddFolder] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -40,19 +31,10 @@ const PostLeftFrame = ({
   const [folderName, setFolderName] = useState("");
   const [folderScope, setFolderScope] = useState("public");
 
-  // useEffect(() => {
-  //   if (folderFromUrl) {
-  //     setSelectedFolder(folderFromUrl);
-  //   }
-  // }, [folderFromUrl]);
-
-  // const handleFolderClick = (folderName) => {
-  //   setSelectedFolder(folderName);
-  //   navigate(`${location.pathname}?folder=${folderName}`);
-  // };
-  const handleFolderClick = (folderName) => {
+  const handleFolderClick = (folderName, folderId) => {
     setSelectedFolder(folderName);
-    navigate(`${location.pathname}?folder=${folderName}`);
+    setSelectedFolderId(folderId);
+    navigate(`${location.pathname}?folder=${folderName}&folderId=${folderId}`);
   };
 
   const handleAddFolder = () => {
@@ -123,7 +105,7 @@ const PostLeftFrame = ({
             onClick={() => handleFolderClick("public")}
           >
             <FaFolder className="text-[#ead33c] mr-2" />
-            <div className="w-full ">public</div>
+            <div className="w-full ">Public</div>
           </div>
           <hr className="text-[#bbb] border-dashed font-semibold my-2" />
           {userHome?.photo_folder
@@ -135,7 +117,9 @@ const PostLeftFrame = ({
                 className={`flex items-center cursor-pointer my-1 ${
                   selectedFolder === folder.folder_name ? "font-semibold" : ""
                 }`}
-                onClick={() => handleFolderClick(folder.folder_name)}
+                onClick={() =>
+                  handleFolderClick(folder.folder_name, folder._id)
+                }
               >
                 <FaFolder
                   className={`${listStyles} mr-2 ${
@@ -144,7 +128,9 @@ const PostLeftFrame = ({
                       : "text-[#bbb]"
                   }`}
                 />
-                <div className="w-full ">{folder?.folder_name}</div>
+                <div className="w-full ">
+                  {folder?.folder_name?.toUpperCase()}
+                </div>
                 {me?._id === userHome?.owner && (
                   <IoMdSettings
                     className="ml-2 text-[0.8rem] cursor-pointer text-[#999]"

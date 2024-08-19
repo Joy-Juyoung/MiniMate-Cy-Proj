@@ -17,12 +17,12 @@ const MiniPhoto = ({ me }) => {
   // Extract folder from the URL query parameter
   const queryParams = new URLSearchParams(location.search);
   const folderFromUrl = queryParams.get("folder");
-  console.log(userHome?.owner);
 
   // Set initial state based on URL or default to "public"
   const [selectedFolder, setSelectedFolder] = useState(
     folderFromUrl || "public"
   );
+  const [selectedFolderId, setSelectedFolderId] = useState();
 
   useEffect(() => {
     if (folderFromUrl) {
@@ -46,12 +46,17 @@ const MiniPhoto = ({ me }) => {
     <>
       <MiniHomeFrame
         nav="Photo"
+        user={user}
+        me={me}
+        userHome={userHome}
         LeftContent={
           <PostLeftFrame
             userHome={userHome}
             me={me}
             selectedFolder={selectedFolder}
             setSelectedFolder={setSelectedFolder}
+            // selectedFolderId={selectedFolderId}
+            setSelectedFolderId={setSelectedFolderId}
           />
         }
         RightContent={
@@ -60,6 +65,7 @@ const MiniPhoto = ({ me }) => {
             me={me}
             userHome={userHome}
             user={user}
+            selectedFolderId={selectedFolderId}
           />
         }
       />

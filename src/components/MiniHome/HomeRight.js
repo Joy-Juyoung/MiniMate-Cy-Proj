@@ -66,25 +66,6 @@ const HomeRight = ({ me, userHome, categories, isUpdate, setIsUpdate }) => {
             })}
           </div>
         </div>
-        {/* <div className="flex flex-col w-full gap-1 mt-4">
-          {categories
-            ?.filter(
-              (category) =>
-                category.kind === "Minihome Nav" &&
-                category.name !== "Home" &&
-                category.name !== "Setting"
-            )
-            .map((nav) => {
-              return (
-                <div
-                  key={nav?._id}
-                  className="text-[0.7rem] bg-[#e0e0e0] h-full flex justify-between items-center px-2 py-1 rounded-sm"
-                >
-                  <div>{nav?.name}</div>
-                </div>
-              );
-            })}
-        </div> */}
         <div className="grid grid-cols-2 gap-[0.1rem] mt-4 items-center">
           {managePosts.map((post, index) => {
             return (
@@ -117,13 +98,6 @@ const HomeRight = ({ me, userHome, categories, isUpdate, setIsUpdate }) => {
         />
         <img
           src={
-            // userHome?.sub_img?.find(
-            //   (img) => img?.img_url !== null && img?.category === "Minime"
-            // )?.img_url || !me?.minime_img
-            //   ? me?.gender === "male"
-            //     ? MinniMale
-            //     : MinniFemale
-            //   : me?.minime_img
             userHome?.sub_img?.find(
               (img) => img?.img_url !== null && img?.category === "Minime"
             )?.img_url || (me?.gender === "male" ? MinniMale : MinniFemale)
